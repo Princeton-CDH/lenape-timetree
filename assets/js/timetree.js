@@ -21,7 +21,7 @@ function drawTree(data) {
       let length_ratio = 0.9;
       let angle_adjust = 1.9;
 
-      let first_height = height/5;
+      let first_height = height/3;
       // draw the trunk
       let end = drawBranch(svg, midx, height, first_height);
 
@@ -29,12 +29,9 @@ function drawTree(data) {
 
       // gather lowest set of branches / leaves
       let sortedLeaves = data.leaves.sort((a, b) => a.sort_date > b.sort_date)
-      console.log(sortedLeaves);
-      console.log(sortedLeaves.filter(leaf => leaf.sort_date.toString().startsWith('16')));
+      // sort by sort date and then limit by century
       let sixteens = sortedLeaves.filter(leaf => leaf.sort_date.toString().startsWith('16'));
-
       let sixteen_ends = [];
-
 
       // figure out angles based on necessary number
         // let angle_start = angle - angle_adjust;
@@ -69,7 +66,38 @@ function drawTree(data) {
           current_angle_adjustment += subangle_adjust;
         }
 
+    let seventeens = sortedLeaves.filter(leaf => leaf.sort_date.toString().startsWith('17'));
+    console.log(sixteens.length + ' sixteens; ' + seventeens.length + ' seventeens');
+    subangle_adjust = (angle_adjust * 2) / (seventeens.length - 1);
 
+    // happens to match equally in this set
+    for (let i = 0; i < sixteens.length; i++) {
+        let startingpoint = sixteen_ends[i];
+        current_angle_adjustment = startingpoint.angle;
+
+        // offset angle slightly so it doesn't just continue from main branch
+        let angleOffset = (Math.random() * 0.8) - 0.4;
+
+        let leaf_coords = drawBranch(svg, startingpoint.coords[0], startingpoint.coords[1], (first_height * length_ratio) * 0.5, current_angle_adjustment + angleOffset, 2);
+      // sixteen_ends.push({'coords': leaf_coords, 'angle': current_angle_adjustment});
+
+        // add an annotation at the end of the branch
+          annotations.push({
+            note: {
+                label: seventeens[i].display_date,
+                title: seventeens[i].title,
+              },
+              // attach annotation to end of branch, for now
+              x: leaf_coords[0],
+              y: leaf_coords[1]
+          });
+
+     // adjust the angle for the next branch
+      current_angle_adjustment += subangle_adjust;
+    }
+
+
+    // draw all our annotations
     const makeAnnotations = d3.annotation()
       .editMode(true)  // make draggable
       //also can set and override in the note.padding property
@@ -82,9 +110,6 @@ function drawTree(data) {
       .append("g")
       .attr("class", "annotation-group")
       .call(makeAnnotations)
-
-
-    let seventeens = sortedLeaves.filter(leaf => leaf.sort_date.toString().startsWith('17'));
 
 
 }

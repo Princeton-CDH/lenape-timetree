@@ -1,7 +1,7 @@
 {{/* output data as JSON for use in viz */}}
 {{ $data := newScratch }}
 {{ $data.Set "output" dict }}
-{{ range  .Site.Sections }}
+{{ range .Site.Sections }}
 	{{/* create new dict for this section */}}
 	{{ $data.Set "sectionOutput" slice }}
 	{{ range .Pages }}
