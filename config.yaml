@@ -4,3 +4,9 @@ title: Lenape Princeton Timetree
 # use theme for now
 theme: ananke
 paginate: 20
+
+
+outputs:
+  home:
+  - HTML
+  - JSON
