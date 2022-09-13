@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 
-# pip install pyyaml
+# see requirements.txt for python dependencies
 
 import sys
 import os.path
 
 import yaml
+from slugify import slugify
 
 
 def parse_file(filepath):
@@ -77,8 +78,8 @@ def generate_leaf_pages(datapoints, offset=0):
         # NOTE: need short names to use for file names & page titles,
         # not all records have them yet
         title = data.get("title", "")
-        # TODO: slugify method? or use a library?
-        slug = title.lower().replace(" ", "-").replace(".", "").replace(",", "")
+        # slugify title to use as basis for filename
+        slug = slugify(title)
         if not slug:
             # use index + offset as fallback filename for now
             slug = "%s-leaf" % (i + offset)
