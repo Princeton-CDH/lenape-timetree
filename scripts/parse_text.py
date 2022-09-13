@@ -3,12 +3,17 @@
 # pip install pyyaml
 
 import sys
+import os.path
 
 import yaml
 
 
 def parse_file(filepath):
     datapoints = []
+
+    # branch can be inferred from filename
+    base_filename = os.path.splitext(os.path.basename(filepath))[0]
+    branch = base_filename.split("-")[1].strip()
 
     with open(filepath) as inputfile:
         data = {}
@@ -19,19 +24,22 @@ def parse_file(filepath):
             # blank line indicates section break; save any parsed data
             if line == "":
                 if data:
+                    # add the branch label before saving
+                    data["branch"] = branch
                     datapoints.append(data)
                     data = {}
 
             elif ":" in line:
                 label, value = line.split(":")
                 # convert readable label to data variable
+
                 label = label.strip().lower().replace(" ", "_")
                 value = value.strip()
 
                 # records may include a colon in the text; if the label
                 # is not one we know about, assume the line is text
                 if label not in [
-                    "branch",
+                    # "branch",
                     "display_date",
                     "sort_date",
                     "tags",
@@ -66,8 +74,10 @@ def parse_file(filepath):
 def generate_leaf_pages(datapoints, offset=0):
     # expects a list of dictionaries
     for i, data in enumerate(datapoints):
-        # TODO: need short names to use for file names & page titles
+        # NOTE: need short names to use for file names & page titles,
+        # not all records have them yet
         title = data.get("title", "")
+        # TODO: slugify method? or use a library?
         slug = title.lower().replace(" ", "-").replace(".", "").replace(",", "")
         if not slug:
             # use index + offset as fallback filename for now
