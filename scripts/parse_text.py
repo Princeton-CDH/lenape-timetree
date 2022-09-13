@@ -12,10 +12,6 @@ from slugify import slugify
 def parse_file(filepath):
     datapoints = []
 
-    # branch can be inferred from filename
-    base_filename = os.path.splitext(os.path.basename(filepath))[0]
-    branch = base_filename.split("-")[1].strip()
-
     with open(filepath) as inputfile:
         data = {}
         for line in inputfile:
@@ -25,8 +21,6 @@ def parse_file(filepath):
             # blank line indicates section break; save any parsed data
             if line == "":
                 if data:
-                    # add the branch label before saving
-                    data["branch"] = branch
                     datapoints.append(data)
                     data = {}
 
@@ -40,7 +34,7 @@ def parse_file(filepath):
                 # records may include a colon in the text; if the label
                 # is not one we know about, assume the line is text
                 if label not in [
-                    # "branch",
+                    "branch",
                     "display_date",
                     "sort_date",
                     "tags",
