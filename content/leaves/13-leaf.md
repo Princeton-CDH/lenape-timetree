@@ -1,10 +1,4 @@
----
-branch: Lands and Waters
-display_date: 1683-1696
-sort_date: 1683
-tags:
-- Princeton lands
-- routes
+--- {}
 ---
 
-In 1683, the Henry Greenland Tavern is established along the Assunpink Trail, equidistant from the settlements of Philadelphia and New York. 1683 is the settlement date declared on the “Welcome to Princeton” signs along roads today. Though the University declares that the settlement date is 1696, by then “Princeton” lands have been lived on for millennia by the Lenape.
+1798 Brotherton Indians release statement of refusal to leave NJ, after Oneidas in Stockbridge NY invite Brotherton’s remaining members to join them;disbanded in 1801 after remaining Brotherton Indians migrate out of state.

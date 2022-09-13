@@ -1,12 +1,6 @@
 ---
-branch: Lands and Waters
-display_date: ''
-sort_date: ''
-tags:
-- Dutch settlers
-- English settlers
-- routes
-- disease
+early_1700s: "area known as \u201CCheswold\u201D in Kent County, Delaware (92 miles\
+  \ from Princeton) becomes a village of coalescing Lenape and Nanticoke families"
 ---
 
-Dutch explorers build settlements on both sides of Lenapewihittuck (the Delaware) and Lenape homelands are increasingly populated with Dutch, Swedish, Finnish, and English settlers. They use Lenape trails to explore the land and transport resources. They also transport diseases – like smallpox, measles, and influenza – which devastate many indigenous nations.
+Early 1700s: area known as “Cheswold” in Kent County, Delaware (92 miles from Princeton) becomes a village of coalescing Lenape and Nanticoke families
