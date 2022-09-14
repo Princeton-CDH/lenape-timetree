@@ -28,7 +28,13 @@ function drawTree(data) {
       const annotations = [];
 
       // gather lowest set of branches / leaves
-      let sortedLeaves = data.leaves.sort((a, b) => a.sort_date > b.sort_date)
+      let unsortableLeaves = data.leaves.filter(leaf => leaf.sort_date === null);
+
+      console.log(unsortableLeaves.length + (unsortableLeaves.length == 1 ? " leaf" : " leaves") + " with sort date not set");
+      console.log(unsortableLeaves);
+
+      // ignore any records with sort date unset
+      let sortedLeaves = data.leaves.filter(leaf => leaf.sort_date != null).sort((a, b) => a.sort_date > b.sort_date)
       // sort by sort date and then limit by century
       let sixteens = sortedLeaves.filter(leaf => leaf.sort_date.toString().startsWith('16'));
       let sixteen_ends = [];
