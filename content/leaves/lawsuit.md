@@ -4,7 +4,7 @@ display_date: 2006
 sort_date: 2006
 tags:
 - Redress
-- Lenape resistance
+- resistance
 - deception
 - US government
 title: Lawsuit
