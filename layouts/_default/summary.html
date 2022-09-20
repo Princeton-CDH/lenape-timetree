@@ -11,8 +11,10 @@
       {{ .Summary }}
     </div>
 
-    <div class="f5 pb3">{{ .Params.display_date }}</div>
-    <div class="f5 pb3">{{ .Params.branch }}</div>
-      {{- partial "tags.html" . -}}
+    <div class="f4 lh-title pb3 pt3 dark-green">{{ .Params.branch }}</div>
+    {{ with .Params.display_date }}
+      <div class="f5 pb3">{{ . }}</div>
+    {{ end}}
+    {{- partial "tags.html" . -}}
     </div>
 </div>
