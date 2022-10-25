@@ -12,3 +12,10 @@ Setup for running python script:
 ```sh
 pip install -r requirements/dev.txt
 ```
+
+- Run the script to parse input text files and generate Hugo content files.
+Provide a list of all text files to be imported.
+
+```sh
+./scripts/parse_text.py Leaf\ Data\ -\ *.txt
+```
