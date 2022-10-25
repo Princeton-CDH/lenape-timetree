@@ -80,7 +80,11 @@ def generate_leaf_pages(datapoints, offset=0):
 
         with open("content/leaves/%s.md" % slug, "w") as outfile:
             # remove text from the dictionary
-            text = data.pop("text")
+            try:
+                text = data.pop("text")
+            except KeyError:
+                print("no text")
+                print(data)
             # output remaining info as yaml
             yaml.dump(data, explicit_start=True, stream=outfile)
             # then finish the content file with text
