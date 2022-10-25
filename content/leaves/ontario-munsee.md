@@ -7,7 +7,9 @@ tags:
 - Ontario
 - Midwest
 - Munsee
-title: Munsee-Delaware Nation near St. Thomas, Ontario
+- migration
+- wars
+title: Ontario Munsee
 ---
 
 Known previously as the Munsee of the Thames. [See Ian McCallum language teaching, Chief Mark Peters’ history series]

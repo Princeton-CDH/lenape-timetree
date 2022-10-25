@@ -8,7 +8,9 @@ tags:
 - reservations
 - renaming
 - Midwest
+- Unami
+- Munsee
 title: Delaware Nation in Oklahoma
 ---
 
-Stockbridge-Munsee Community in Wisconsin
+Group of both Unami and Munsee speakers migrate further west to settlement near what is today Cape Girardeau, Missouri, at invitation of Spanish (Cape Girardeau Delaware later settle in Texas and eventually end up on reservation with Caddo and Wichita in today western Oklahoma – recognized today as Delaware Nation)
