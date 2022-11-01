@@ -31,32 +31,71 @@ fetch('index.json')
         }
       });
 
-      // our nodes will be all leaves plus one for each branch
+      // our nodes will be all leaves plus nodes as needed for branches
       let nodes = new Array(... sortedLeaves);
 
+      // create an object with all unique branch names from the leaves
+      // and unique centuries represented within those branches
+      let branches = new Object();
+      sortedLeaves.forEach(leaf => {
+        if (branches[leaf.branch] == undefined) {
+          branches[leaf.branch] = new Set();
+        }
+        // cast all to numeric to avoid duplication
+        branches[leaf.branch].add(Number(leaf.century));
+      });
 
-      // get a list of unique branch names from all the leaves
-      let branchNames = [... new Set(sortedLeaves.map(leaf => leaf.branch))];
-      // create nodes for the branches;
-      // create one for each century; use text as id and label
+      // create a node for the trunk
+      nodes.push({
+        id: 'trunk',
+        title: 'trunk',
+        type: 'trunk'
+      });
+      const trunkNodeIndex = nodes.length - 1;  // last node is the trunk
+
+      // array of links between our nodes
+      let links = new Array();
+
+      // create nodes for the branches
+      // - create one for each century represented in the data
+      // - use text as id and label
+      // NOTE: may want multiple century branch nodes when a single
+      // branch has a large number of leaves in one century
       let branchIndex = new Object();
-      branchNames.forEach(b => {
-        centuries.forEach(c => {
-          let branchId = b + c;
+
+      for (branch in branches) {
+        // sort the centuries to make sure they are sequential
+        let branchCenturies = Array.from(branches[branch]).sort();
+        branchCenturies.forEach((c, index) => {
+          let branchId = branch + c;
           nodes.push({
             id: branchId,
-            title: b + " c" +c,
+            title: branch + " c" +c,
             type: "branch",
             century: c,
           });
-          // keep track of branch indexes for generating links
+          // keep track of branch indexes for generating links from leaves
           branchIndex[branchId] = nodes.length - 1;
+
+          // add link to previous branch or trunk
+          if (index == 0) {
+            // earliest century in any branch should connect to trunk
+            target = trunkNodeIndex;
+          } else {
+            // otherwise, connect to preceding century in this branch
+            target = nodes.length - 2;
+          }
+          links.push({
+            source: branchIndex[branchId],
+            target: target,
+            value: 10
+          });
+
         });
-      });
+      }
 
       // generate links so we can draw as a network graph
-      // each leaf is connected to its branch
-      let links = new Array();
+      // each leaf is connected to its branch+century node
       sortedLeaves.forEach((leaf, index) => {
         let branchId = leaf.branch + leaf.century;
         if (branchId in branchIndex) {
@@ -66,31 +105,6 @@ fetch('index.json')
             value: 1
           })
         }
-      });
-
-      // add a node for the trunk
-      nodes.push({
-        id: 'trunk',
-        title: 'trunk',
-        type: 'trunk'
-      });
-      const trunkNodeIndex = nodes.length - 1;  // last node is the trunk
-      branchNames.forEach(b => {
-        centuries.forEach(c => {
-          // each century should be connected to the one before or the trunk
-          let sourceBranchId = b + c;
-          if (c == 15) {
-            target = trunkNodeIndex;
-          } else {
-            let targetBranchId = b + (c - 1);
-            target = branchIndex[targetBranchId];
-          }
-          links.push({
-            source: branchIndex[sourceBranchId],
-            target: target,
-            value: 10
-          });
-        });
       });
 
       TreeGraph({nodes: nodes, links: links, centuries: centuries});
@@ -107,7 +121,6 @@ function TreeGraph({nodes, links, centuries}) {
 
   let svg =  d3.select("main")
       .append("svg")
-      // .attr("viewBox", [0, 0, width, height]);
       .attr("viewBox", [min_x, min_y, width, height]);
 
   // create a section for the background
@@ -151,28 +164,54 @@ function TreeGraph({nodes, links, centuries}) {
     };
   });
 
+  // draw a couple of lines to help gesture at tree-ness
+  let trunkWidth = 65;
+  // right side
+  background.append("path")
+    .attr("d", d3.line().curve(d3.curveNatural)([
+      [trunkWidth + 25, height],
+      [trunkWidth, height - 22],
+      [trunkWidth - 10, height - 90],
+      [trunkWidth + 7, min_y + leafConstraints['15'].bottom - 10]
+    ]))
+    .attr("stroke", "black")
+    .attr("stroke-width", 3)
+     .attr("fill", "none")
+  // left side
+  background.append("path")
+    .attr("d", d3.line().curve(d3.curveNatural)([
+      [- trunkWidth - 32 , height],
+      [- trunkWidth - 20, height - 50],
+      [- trunkWidth, height - 105],
+      [- trunkWidth - 27, min_y + leafConstraints['15'].bottom - 10]
+    ]))
+    .attr("stroke", "black")
+    .attr("stroke-width", 3)
+     .attr("fill", "none")
+
+
   let g = svg.append("g");
 
+  // NOTE: will probably want to tweak and finetune these forces
   let simulation = d3.forceSimulation(nodes)
     .force("charge", d3.forceManyBody().strength(-1))
-   //  .force("collide", d3.forceCollide().radius(20))
-   //  .force("manyBody", d3.forceManyBody().strength(30))
+    .force("manyBody", d3.forceManyBody().strength(-7))
     .force("center", d3.forceCenter().strength(0.1))
-   //  .alpha(0.1)
-   //  .alphaDecay(0)
-    .force("collide", d3.forceCollide().radius(15))
-    .force("link", d3.forceLink(links))  // TODO: adjust to make variable
-    .force("y", d3.forceY().y(node => centuryY(node)).strength(0.6))
-    // .force("link", d3.forceLink(links).distance(40).strength(0.5))
-    // .force("center", d3.forceCenter())
+    // .alpha(0.1)
+    // .alphaDecay(0.2)
+    .force("collide", d3.forceCollide().radius(18))
+    // NOTE: may want to adjust to make variable by node type
+    .force("link", d3.forceLink(links))
+    // .force("link", d3.forceLink(links).distance(30).strength(link => {
+      // return 1;
+    // }))
+    .force("y", d3.forceY().y(node => centuryY(node)).strength(0.8))
     .on("tick", ticked);
 
 
 const link = svg.append("g")
       .attr("stroke", "lightgray")
-      // .attr("stroke-opacity", linkStrokeOpacity)
       .attr("stroke-width", 1)
-      // .attr("stroke-linecap", linkStrokeLinecap)
     .selectAll("line")
     .data(links)
     .join("line");
@@ -180,92 +219,41 @@ const link = svg.append("g")
   var greenColor = d3.scaleSequential(d3.schemeGreens[5]);
 
   const node = svg.append("g")
-      // .attr("stroke", nodeStroke)
       .attr("fill-opacity", 0.6)
-      // .attr("stroke-width", nodeStrokeWidth)
     .selectAll("circle")
     .data(nodes)
     .join("circle")
-      .attr("r", 3)
+      // make leaf nodes larger
+      .attr("r", d => { return d.type == "leaf" ? 8 : 3 })
+      // color leaves by century for now to visually check layout
       .attr("fill", d => {return d.type == "leaf" ? greenColor(d.century - 14) : "lightgray" })
       // .attr("fill", d => {return d.type == "leaf" ? "green" : "lightgray" })
       .attr("id", d => d.id)
       .attr("data-sort-date", d => d.sort_date)
-      // .call(drag(simulation));
 
   function ticked() {
-    // node.each(function(d) {
-    //   // set y and previous y based on our constraints
-    //   d.y = d.py = constrainedY(d);
-    // });
-
       node
         .attr("cx", d => d.x)
-        .attr("cy", d => d.y); //constrainedY(d));
+        .attr("cy", d => d.y);
 
       link
         .attr("x1", d => d.source.x)
-        .attr("y1", d => d.source.y) //constrainedY(d.source))
+        .attr("y1", d => d.source.y)
         .attr("x2", d => d.target.x)
-        .attr("y2", d => d.target.y) // constrainedY(d.target));
+        .attr("y2", d => d.target.y)
 
     }
 
-
-  // scale to map node placement in the svg to century container
-  var leafScale = d3.scaleRadial()
-    .domain([min_y, min_y + height]) // svg starts negative
-    .range([0, leafContainerHeight ])
-    .clamp(true);
-
-
   function centuryY(node) {
+    // y-axis force to align nodes by century
     if (node.type == 'trunk') {
-      return height - 150;
+      return height; // - 50;
     } else {
       // draw nodes vertically to the middle of appropriate century container
       return min_y + (leafContainerHeight / 2) + leafConstraints[node.century].top;
     }
     return 0;
   }
-
-  function constrainedY(node) {
-    if (node.type == 'branch') {
-      // put branch nodes vertically in the middle of appropriate century container
-      return min_y + (leafContainerHeight / 2) + leafConstraints[node.century].top;
-    } else if (node.type == 'trunk') {
-      return height - 150;
-    } else {
-      // otherwise, use century to position vertically
-      // set offset within container to a random number
-      let offset = getRandomInt(leafContainerHeight);
-
-      // let offset = leafScale(node.y);
-      if (node.century in leafConstraints) {
-        let centuryTop = min_y + leafConstraints[node.century].top;
-        // if the node is already inside the container, don't move it
-        if (node.y > centuryTop && node.y < centuryTop + leafContainerHeight) {
-          return node.y;
-        }
-        offset += leafConstraints[node.century].top;
-      }
-      if (offset != undefined) {
-        let next_y = min_y + offset;
-        return min_y + offset;
-      }
-      // don't allow to go beyond the bounds of our svg
-      return Math.min(Math.max(node.y, min_y), height);
-    }
-  }
-
-   //  .force("collide", d3.forceCollide().radius(20))
-   //  .force("manyBody", d3.forceManyBody().strength(30))
-   //  .force("center", d3.forceCenter().strength(smooth ? 0.01 : 1))
-   //  .alpha(0.1)
-   //  .alphaDecay(0)
-
-   // simulation.nodes(nodes);
-   // simulation.links(links);
 }
 
 function getRandomInt(max) {
