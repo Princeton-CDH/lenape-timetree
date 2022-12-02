@@ -7,6 +7,7 @@ on:
 
 env:
   NODE_VERSION: 18
+  HUGO_VERSION: 0.99.0  # duplicated from hugo workflow
 
 jobs:
   visual-review:
