@@ -1,5 +1,6 @@
 # Princeton Lenape Timetree
 
+[![visual testing](https://percy.io/static/images/percy-badge.svg)](https://percy.io/3201ecb4/lenape-timetree)
 
 
 ## scripts
