@@ -1,0 +1,48 @@
+name: visual review
+
+on:
+  pull_request:
+    branches:
+      - main
+
+env:
+  NODE_VERSION: 18
+
+jobs:
+  visual-review:
+    name: Visual regression tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Hugo CLI
+        run: |
+          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.deb \
+          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            npm-${{ hashFiles('package-lock.json') }}
+            npm-
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Start Hugo server
+        run: hugo server &
+
+      - name: Take DOM snapshots and upload to Percy
+        run: npx percy snapshot snapshots.yml
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
