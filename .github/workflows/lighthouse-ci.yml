@@ -2,9 +2,7 @@ name: lighthouse ci
 
 on: [push]
 
-# versions should be kept in sync with gh-pages workflow
 env:
-    NODE_VERSION: 16  # if you update this, change the README badge and gh-pages.yml too!
     LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
 jobs:
@@ -64,7 +62,7 @@ jobs:
       # root, see that file for more details. output from runs is uploaded to
       # free google cloud storage and accessible via the github action run
       - name: audit site using lighthouse ci
-        uses: treosh/lighthouse-ci-action@v3
+        uses: treosh/lighthouse-ci-action@v9
         with:
           configPath: './lighthouserc.js'
           uploadArtifacts: true

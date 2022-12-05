@@ -10,7 +10,7 @@ module.exports = {
       // if new page types are added to the site, they must be added here also
       url: [
         "/",
-        "/about/",
+        // "/about/",
         // "/404.html"
     ]
     },
