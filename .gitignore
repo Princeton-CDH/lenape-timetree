@@ -1,0 +1,21 @@
+### Hugo ###
+# Generated files by hugo
+/public/
+/resources/_gen/
+.hugo_build.lock
+
+## OS Files
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# OSX
+.DS_Store
+
+# JS dependencies
+node_modules/
+
+# Lighthouse CI run output
+.lighthouseci
