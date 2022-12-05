@@ -1,0 +1,7 @@
+<div class="tags">
+  {{ range .Params.tags }}
+     <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" role="button" class="secondary">
+       {{- . -}}
+     </a>
+  {{ end }}
+</div>
