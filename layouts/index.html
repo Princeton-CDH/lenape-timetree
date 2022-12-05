@@ -1,11 +1,5 @@
 {{ define "main" }}
 
-{{ range .Site.Sections }}
-  <a href="{{ .RelPermalink }}" class="link db f6 pa2 br3 bg-mid-gray white dim w4 tc">{{ i18n "allTitle" . }}</a>
-
-{{ end }}
-
-
 {{ $js := resources.Get "js/timetree.js" | js.Build "timetree.js"  | fingerprint }}
 {{/* $js := resources.Get "js/timetree.js" | js.Build "timetree.js" | minify | fingerprint */}}
 <script src="{{ $js.RelPermalink }}"></script>
