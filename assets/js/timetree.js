@@ -185,7 +185,7 @@ function TreeGraph({nodes, links, centuries}) {
       [trunkWidth - 10, height - 90],
       [trunkWidth + 7, min_y + leafConstraints['15'].bottom - 10]
     ]))
-    .attr("stroke", "black")
+    .attr("stroke", "#D9D8D8")
     .attr("stroke-width", 3)
      .attr("fill", "none")
   // left side
@@ -196,7 +196,7 @@ function TreeGraph({nodes, links, centuries}) {
       [- trunkWidth, height - 105],
       [- trunkWidth - 27, min_y + leafConstraints['15'].bottom - 10]
     ]))
-    .attr("stroke", "black")
+    .attr("stroke", "#D9D8D8")
     .attr("stroke-width", 3)
      .attr("fill", "none")
 
@@ -247,6 +247,7 @@ const link = svg.append("g")
       // .attr("fill", d => {return d.type == "leaf" ? "green" : "lightgray" })
       .attr("id", d => d.id)
       .attr("data-sort-date", d => d.sort_date)
+      .on("click", selectLeaf);
 
   function ticked() {
       node
@@ -270,6 +271,23 @@ const link = svg.append("g")
       return min_y + (leafContainerHeight / 2) + leafConstraints[node.century].top;
     }
     return 0;
+  }
+  const panel = document.querySelector("#panel");
+
+ d3.select('#panel .close').on("click", function() { panel.classList.remove("active") });
+
+  function selectLeaf(node) {
+    fetch(node.target.id)
+      .then((response) => response.text())
+      .then((html) => {
+        let parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        // Get the article content and insert into panel
+        const article = doc.querySelector('article');
+        panel.querySelector("article").replaceWith(article);
+        // make sure panel is active
+        panel.classList.add("active");
+      });
   }
 }
 
