@@ -2,7 +2,7 @@ baseURL: 'http://example.org/'
 languageCode: en-us
 title: Lenape Princeton Timetree
 # use theme for now
-theme: ananke
+theme: timetree
 paginate: 20
 
 

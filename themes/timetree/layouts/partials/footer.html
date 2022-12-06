@@ -1,0 +1,12 @@
+<footer>
+    <nav id="footer-nav">
+        <a href="/">Home</a>
+        {{/* temporary, until we build out pages and footer */}}
+        {{ range .Site.Sections }}
+          <a href="{{ .RelPermalink }}">All {{ .Title }}</a>
+        {{ end }}
+        <span>Tags</span>
+        <span>About</span>
+        <span>Resources</span>
+    </nav>
+</footer>
