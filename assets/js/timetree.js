@@ -1,3 +1,5 @@
+import * as d3 from "d3";
+
 fetch('index.json')
   .then((response) => response.json())
   .then((data) => {
