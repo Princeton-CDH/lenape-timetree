@@ -210,6 +210,9 @@ function TreeGraph({nodes, links, centuries}) {
     .force("y", d3.forceY().y(node => centuryY(node)).strength(0.8))
     .on("tick", ticked);
 
+  // run simulation for 300 ticks without animation
+  simulation.tick(300);
+
 
 const link = svg.append("g")
       .attr("stroke", "lightgray")
