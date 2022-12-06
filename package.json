@@ -1,0 +1,23 @@
+{
+  "name": "lenape-timetree",
+  "version": "1.0.0",
+  "author": "The Center for Digital Humanities at Princeton <cdhdevteam@princeton.edu>",
+  "description": "",
+  "license": "Apache-2.0",
+  "private": true,
+  "devDependencies": {
+    "@percy/cli": "^1.16.0"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Princeton-CDH/lenape-timetree.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Princeton-CDH/lenape-timetree/issues"
+  },
+  "volta": {
+    "node": "18.12.1",
+    "npm": "9.1.3"
+  }
+}
