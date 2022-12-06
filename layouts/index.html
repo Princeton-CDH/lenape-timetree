@@ -1,6 +1,3 @@
-{{ define "extrahead" }}
-{{ end }} {{/* end extrahead */}}
-
 {{ define "main" }}
 
 {{ $js := resources.Get "js/timetree.js" | js.Build "timetree.js" | minify | fingerprint }}

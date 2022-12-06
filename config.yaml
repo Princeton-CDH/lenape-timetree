@@ -6,7 +6,8 @@ paginate: 20
 
 params:
   description: >-
-    An alternate view of the history of Princeton incorporating Lenape and indigenous events and perspectives
+    An alternate view of the history of Princeton incorporating
+    Lenape and indigenous events and perspectives
 
 outputs:
   home:
