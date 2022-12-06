@@ -245,7 +245,7 @@ const link = svg.append("g")
       // color leaves by century for now to visually check layout
       .attr("fill", d => {return d.type == "leaf" ? greenColor(d.century - 14) : "lightgray" })
       // .attr("fill", d => {return d.type == "leaf" ? "green" : "lightgray" })
-      .attr("id", d => d.id)
+      .attr("data-url", d => d.id)
       .attr("data-sort-date", d => d.sort_date)
       .on("click", selectLeaf);
 
@@ -277,7 +277,7 @@ const link = svg.append("g")
  d3.select('#panel .close').on("click", function() { panel.classList.remove("active") });
 
   function selectLeaf(node) {
-    fetch(node.target.id)
+    fetch(node.target.getAttribute("data-url"))
       .then((response) => response.text())
       .then((html) => {
         let parser = new DOMParser();
