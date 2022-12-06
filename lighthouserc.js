@@ -22,6 +22,8 @@ module.exports = {
         A list of SOME tests:
         https://github.com/GoogleChrome/lighthouse-ci/blob/72107f3bf462ab60596f576967ff1a5e0aad622b/packages/utils/src/presets/all.js
         IDs are also available in GH Actions output. */
+
+        "csp-xss": "warn",
       }
     },
     upload: {
