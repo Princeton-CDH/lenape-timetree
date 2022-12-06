@@ -1,7 +1,8 @@
 - name: Homepage
   url: http://localhost:1313/
+  waitForTimeout: 1000
 
 - name: Leaf selected
   url: http://localhost:1313/
-  waitForSelector: "#/leaves/lenapehoking/"
+  waitForTimeout: 1000
   execute: "document.querySelector('#/leaves/lenapehoking/').click()"
