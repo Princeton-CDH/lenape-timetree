@@ -5,4 +5,4 @@
 - name: Leaf selected
   url: http://localhost:1313/
   waitForTimeout: 1000
-  execute: "document.querySelector('[data-url='/leaves/lenapehoking/']).click()"
+  execute: "document.querySelector(\"[data-url='/leaves/lenapehoking/']\").dispatchEvent(new Event('click'));"
