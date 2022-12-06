@@ -1,0 +1,4 @@
+- name: Homepage
+  url: http://localhost:1313/
+  # wait for a timeout and/or selector before snapshotting
+  waitForTimeout: 1000
