@@ -5,25 +5,27 @@ on:
     branches:
       - main
 
-env:
-  NODE_VERSION: 18
-  HUGO_VERSION: 0.99.0  # duplicated from hugo workflow
-
 jobs:
   visual-review:
     name: Visual regression tests
     runs-on: ubuntu-latest
     steps:
-      - name: Install Hugo CLI
-        run: |
-          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.deb \
-          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          submodules: recursive
 
-      - name: Setup node
+      - name: Get Hugo version
+        run: echo "HUGO_VERSION=$(cat .hugo_version)" >> $GITHUB_ENV
+
+      - name: Setup hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: ${{ env.HUGO_VERSION }}
+          extended: true
+
+      - name: Get node version from package.json
+        run: echo "NODE_VERSION=$(cat package.json | jq -r '.volta.node')" >> $GITHUB_ENV
+
+      - name: Setup node.js
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
