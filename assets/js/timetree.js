@@ -1,3 +1,14 @@
+import {select} from "d3-selection";
+import {forceSimulation, forceManyBody, forceCenter, forceCollide, forceLink, forceY} from "d3-force";
+import {line, curveNatural} from "d3-shape";
+import {scaleSequential} from "d3-scale";
+import {schemeGreens} from "d3-scale-chromatic"
+
+// combine into d3 object for convenience
+const d3 = {select, forceSimulation, forceManyBody, forceCenter, forceCollide,
+    forceLink, forceY, line, curveNatural, scaleSequential, schemeGreens};
+
+
 fetch('index.json')
   .then((response) => response.json())
   .then((data) => {
@@ -205,8 +216,14 @@ function TreeGraph({nodes, links, centuries}) {
     // .force("link", d3.forceLink(links).distance(30).strength(link => {
       // return 1;
     // }))
-    .force("y", d3.forceY().y(node => centuryY(node)).strength(0.8))
-    .on("tick", ticked);
+    .force("y", d3.forceY().y(node => centuryY(node)).strength(0.8));
+    // .on("tick", ticked);
+
+  // run simulation for 300 ticks without animation
+  simulation.tick(300);
+  // only position once after simulation has run
+  simulation.on("tick", ticked);
+  simulation.tick();
 
 
 const link = svg.append("g")

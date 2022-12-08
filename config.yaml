@@ -1,10 +1,13 @@
 baseURL: 'http://example.org/'
 languageCode: en-us
 title: Lenape Princeton Timetree
-# use theme for now
 theme: timetree
 paginate: 20
 
+params:
+  description: >-
+    An alternate view of the history of Princeton incorporating
+    Lenape and indigenous events and perspectives
 
 outputs:
   home:
