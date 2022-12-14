@@ -84,6 +84,7 @@ body.home  {
 				position: absolute;
 				top: 0;
 				left: 0;
+				max-width: 100%;
 			}
 
 			&.show-panel #panel {
@@ -105,6 +106,12 @@ body.home  {
 }
 
 
+// styles for leaf details
 #panel article  {
 	margin: 0;
+	header aside {
+		display: none;
+	}
+
+
 }
