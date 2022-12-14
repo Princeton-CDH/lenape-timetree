@@ -18,20 +18,16 @@ $margin: 22px;
     }
 }
 
-@mixin for-tablet-portrait-down {
+// mobile threshold for this project is 768px and below
+@mixin for-mobile {
     @media (max-width: $breakpoint-s) {
         @content;
     }
 }
 
-@mixin for-tablet-landscape-down {
-    @media (max-width: $breakpoint-m) {
-        @content;
-    }
-}
-
+// tablet in portrait mode will get desktop view
 @mixin for-desktop-up {
-    @media (min-width: $breakpoint-m + 1px) {
+    @media (min-width: $breakpoint-s + 1px) {
         @content;
     }
 }
