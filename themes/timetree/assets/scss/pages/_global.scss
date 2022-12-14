@@ -17,6 +17,13 @@ body {
 body > header, body > footer {
 	padding: 0 22px;
 	background-color: $nav-bg-color;
+
+	a, a:link, a:visited {
+		// set color since lighthouse is complaining about contrast
+		color: $body-fg-color;
+		font-weight: bold;
+		text-decoration: underline;
+	}
 }
 
 body > header {
