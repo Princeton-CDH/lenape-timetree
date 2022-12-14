@@ -16,8 +16,8 @@ body.home  {
 		@include for-desktop-up {
 			// desktop is two columns (tree | panel)
 			display: grid;
-		    grid-template-columns: auto 28%;
-		    column-gap: 45px;
+		    grid-template-columns: 60% 28%;
+		    column-gap: 12%; // 100 - 60 - 28
 		    padding: 0 22px 0 0;
 
 		    max-height: calc(100vh - $desktop_header_height - $desktop_footer_height);
@@ -25,13 +25,8 @@ body.home  {
 		     > aside {
 	    		position: relative;
 		    	padding: $margin;
-
-
 		    }
 		}
-
-
-	   
 
 	    #timetree {
 	    	height: inherit;
