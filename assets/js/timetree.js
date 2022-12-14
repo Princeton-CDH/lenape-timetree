@@ -148,7 +148,7 @@ function TreeGraph({nodes, links, centuries}) {
         .attr("width", width)
         .attr("x", min_x)
         .attr("y", (d, i) => (min_y + i * leafContainerHeight))
-        .attr('fill', "lightgray")
+        // .attr('fill', "lightgray")
         .attr('fill-opacity', 0.1)
         .attr('stroke', 'gray')
         .attr('stroke-opacity', 0.5)
@@ -178,11 +178,12 @@ function TreeGraph({nodes, links, centuries}) {
   // draw a couple of lines to help gesture at tree-ness
   let trunkWidth = 65;
   // right side
+  let max_y = height/2;
   background.append("path")
     .attr("d", d3.line().curve(d3.curveNatural)([
-      [trunkWidth + 25, height],
-      [trunkWidth, height - 22],
-      [trunkWidth - 10, height - 90],
+      [trunkWidth + 25, max_y],
+      [trunkWidth, max_y - 50],
+      [trunkWidth - 10, max_y - 190],
       [trunkWidth + 7, min_y + leafConstraints['15'].bottom - 10]
     ]))
     .attr("stroke", "#D9D8D8")
@@ -191,9 +192,9 @@ function TreeGraph({nodes, links, centuries}) {
   // left side
   background.append("path")
     .attr("d", d3.line().curve(d3.curveNatural)([
-      [- trunkWidth - 32 , height],
-      [- trunkWidth - 20, height - 50],
-      [- trunkWidth, height - 105],
+      [- trunkWidth - 32 , max_y],
+      [- trunkWidth - 20, max_y - 50],
+      [- trunkWidth, max_y - 105],
       [- trunkWidth - 27, min_y + leafConstraints['15'].bottom - 10]
     ]))
     .attr("stroke", "#D9D8D8")
