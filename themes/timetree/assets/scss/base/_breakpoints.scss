@@ -1,0 +1,37 @@
+
+// breakpoints
+$breakpoint-xs: 320px;  // ~ phone
+$breakpoint-s:  768px;   // ~ tablet, portrait
+$breakpoint-m:  1024px;  // ~ tablet landscape
+$breakpoint-l:  1280px;  // ~ small desktop
+$breakpoint-xl: 1440px;  // ~ target desktop size
+
+// layout TBD
+$gutter: 10px;
+$grid-gap: 10px;
+
+$margin: 22px;
+
+@mixin for-phone-only {
+    @media (max-width: $breakpoint-xs) {
+        @content;
+    }
+}
+
+@mixin for-tablet-portrait-down {
+    @media (max-width: $breakpoint-s) {
+        @content;
+    }
+}
+
+@mixin for-tablet-landscape-down {
+    @media (max-width: $breakpoint-m) {
+        @content;
+    }
+}
+
+@mixin for-desktop-up {
+    @media (min-width: $breakpoint-m + 1px) {
+        @content;
+    }
+}

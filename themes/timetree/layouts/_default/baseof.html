@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html data-theme="dark" lang="en">
+<html lang="en">
     {{- partial "head.html" . -}}
-    <body>
+    <body {{ if .IsHome }}class="home"{{ end }}>
         {{- partial "header.html" . -}}
         <main>
         {{- block "main" . }}{{- end }}

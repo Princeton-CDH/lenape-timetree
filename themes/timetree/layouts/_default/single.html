@@ -5,10 +5,9 @@
       <aside>
         {{ with .CurrentSection.Title }}{{. | upper }}{{ end }}
       </aside>
-      <h1>
-        {{- .Title -}}
-      </h1>
+      <h1>{{- .Title -}}</h1>
       {{ with .Params.author | default .Site.Params.author }}
+    </header>
       <p class="tracked">
         {{ $.Render "by" }} <strong>
         {{- if reflect.IsSlice . -}}

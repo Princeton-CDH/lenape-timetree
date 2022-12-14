@@ -124,13 +124,13 @@ fetch('index.json')
 
 
 function TreeGraph({nodes, links, centuries}) {
-  let width = 1000;
-  let height = 300;
+  let width = 1200;
+  let height = 800;
 
   let min_x = -width / 2;
   let min_y = -height / 2;
 
-  let svg =  d3.select("main")
+  let svg =  d3.select("#timetree")
       .append("svg")
       .attr("viewBox", [min_x, min_y, width, height]);
 
@@ -139,7 +139,7 @@ function TreeGraph({nodes, links, centuries}) {
     .attr("id", "background");
 
   // create containers for the leaves by century
-  const leafContainerHeight = 45;
+  const leafContainerHeight = 75;
   const leafContainers = background.selectAll("rect")
       .data(centuries)
       .join("rect")
@@ -206,8 +206,8 @@ function TreeGraph({nodes, links, centuries}) {
   // NOTE: will probably want to tweak and finetune these forces
   let simulation = d3.forceSimulation(nodes)
     .force("charge", d3.forceManyBody().strength(-1))
-    .force("manyBody", d3.forceManyBody().strength(-7))
-    .force("center", d3.forceCenter().strength(0.1))
+    .force("manyBody", d3.forceManyBody().strength(-8))
+    .force("center", d3.forceCenter().strength(0.01))
     // .alpha(0.1)
     // .alphaDecay(0.2)
     .force("collide", d3.forceCollide().radius(18))
@@ -216,7 +216,7 @@ function TreeGraph({nodes, links, centuries}) {
     // .force("link", d3.forceLink(links).distance(30).strength(link => {
       // return 1;
     // }))
-    .force("y", d3.forceY().y(node => centuryY(node)).strength(0.8));
+    .force("y", d3.forceY().y(node => centuryY(node)).strength(1.7));
     // .on("tick", ticked);
 
   // run simulation for 300 ticks without animation
@@ -265,7 +265,8 @@ const link = svg.append("g")
   function centuryY(node) {
     // y-axis force to align nodes by century
     if (node.type == 'trunk') {
-      return height; // - 50;
+      return 0;
+      // return height - 150;
     } else {
       // draw nodes vertically to the middle of appropriate century container
       return min_y + (leafContainerHeight / 2) + leafConstraints[node.century].top;

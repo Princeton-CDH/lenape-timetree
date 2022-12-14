@@ -1,0 +1,48 @@
+$mobile_header_height: 48px;
+$desktop_header_height: 75px;
+
+$mobile_footer_height: 250px;
+$desktop_footer_height: 170px;
+
+
+body {
+	/* use grid layout to keep the footer on the bottom */
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    background-color: $body-bg-color;
+    color: $body-fg-color;
+}
+
+body > header, body > footer {
+	padding: 0 22px;
+	background-color: $nav-bg-color;
+}
+
+body > header {
+	height: $mobile_header_height;
+
+	h1 {
+		margin: 0;
+		padding: 0;
+	}
+
+	overflow: hidden;  // don't allow spillover on mobile for now (mobile header TBD)
+
+	@include for-desktop-up {
+        height: $desktop_header_height;
+    }
+}
+
+body > footer {
+	border-top: 1px dashed $line-color;
+	height: $mobile_footer_height;
+
+	@include for-desktop-up {
+		height: $desktop_footer_height;
+	}
+}
+
+a, a:link, a:hover, a:visited {
+	color: $body-bg-color;
+}

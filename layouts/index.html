@@ -1,9 +1,22 @@
 {{ define "main" }}
 
 {{ $js := resources.Get "js/timetree.js" | js.Build "timetree.js" | minify | fingerprint }}
-<aside id="panel">
-  <a class="close" href="#">X</a>
-  <article/>
+<div id="timetree">
+</div>
+
+<aside>
+  {{/* introduction content */}}
+  <article>
+    <header>
+      <h1>{{ .Params.Title }}</h1>
+    </header>
+    <div>{{- .Content -}}</div>
+  </article>
+
+  <div id="panel">
+    <a class="close" href="#">X</a>
+    <article/>
+  </div>
 </aside>
 
 <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
