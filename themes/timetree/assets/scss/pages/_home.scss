@@ -49,50 +49,62 @@ body.home  {
 			padding: $margin;
 			border-top: 1px dashed $line-color;
 
+			// allow closing the intro on mobile
+			&.closed {
+				visibility: hidden;
+			}
+			&.show-panel {
+				visibility: visible;
+			}
+
 			@include for-desktop-up {
 				border: 1px dashed $line-color;
+
+				&.closed {
+					visibility: visible;
+				}
 			}
-		}
 
+			> .close {
+				position: absolute;
+				right: $margin;
+				top: $margin;
+				z-index: 3;
+				text-decoration: none;
+				color: $body-fg-color;
+			}
 
-	}
+			// selected panel
+			#panel {
+				// hide by default
+				visibility: hidden;
+				// set background to hide intro content
+				background-color: $body-bg-color;
+				padding: $margin;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
 
-
-	// selected panel
-	#panel {
-		// hide by default
-		visibility: hidden;
-		// set background to hide intro content
-		background-color: $body-bg-color;
-		padding: $margin;
-		position: absolute;
-		top: 0;
-		left: 0;
-
-		> .close {
-			float: right;
-			padding: $margin;
-			text-decoration: none;
-		}
-
-		&.active {
+			&.show-panel #panel {
 			visibility: visible;
 			bottom: 0;
 			width: 100vw;
 			max-height: 40vh;
 			overflow: scroll;
 
-			@include for-desktop-up {
-				bottom: auto;
-				top: 0;
-				max-height: 545px;
+				@include for-desktop-up {
+					bottom: auto;
+					top: 0;
+					max-height: 545px;
+				}
 			}
-
-		}
-
-		article  {
-			margin: 0;
 		}
 
 	}
+}
+
+
+#panel article  {
+	margin: 0;
 }

@@ -273,9 +273,13 @@ const link = svg.append("g")
     }
     return 0;
   }
+
   const panel = document.querySelector("#panel");
 
- d3.select('#panel .close').on("click", function() { panel.classList.remove("active") });
+  d3.select('aside .close').on("click", function() {
+    panel.parentElement.classList.remove("show-panel");
+    panel.parentElement.classList.add("closed");
+  });
 
   function selectLeaf(node) {
     fetch(node.target.getAttribute("data-url"))
@@ -287,7 +291,7 @@ const link = svg.append("g")
         const article = doc.querySelector('article');
         panel.querySelector("article").replaceWith(article);
         // make sure panel is active
-        panel.classList.add("active");
+        panel.parentElement.classList.add("show-panel");
       });
   }
 }
