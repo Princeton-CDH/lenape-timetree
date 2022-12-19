@@ -1,4 +1,14 @@
 - name: Homepage
   url: http://localhost:1313/
-  # wait for a timeout and/or selector before snapshotting
   waitForTimeout: 1000
+
+- name: Leaf selected
+  url: http://localhost:1313/
+  waitForTimeout: 1000
+  execute: "document.querySelector(\"[data-url='/leaves/lenapehoking/']\").dispatchEvent(new Event('click'));"
+  widths:
+    - 320
+    - 768
+    - 1024
+    - 1440
+

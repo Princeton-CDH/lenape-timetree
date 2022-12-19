@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html data-theme="dark" lang="en">
+<html lang="en">
     {{- partial "head.html" . -}}
-    <body>
+    <body {{ if .IsHome }}class="home"{{ end }}>
         {{- partial "header.html" . -}}
-        <main class="container-fluid">
+        <main>
         {{- block "main" . }}{{- end }}
         </main>
         {{- partial "footer.html" . -}}
