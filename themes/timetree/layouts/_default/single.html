@@ -5,9 +5,8 @@
       <aside>
         {{ with .CurrentSection.Title }}{{. | upper }}{{ end }}
       </aside>
-      <h1>
-        {{- .Title -}}
-      </h1>
+      <h1>{{- .Title -}}</h1>
+
       {{ with .Params.author | default .Site.Params.author }}
       <p class="tracked">
         {{ $.Render "by" }} <strong>
@@ -19,6 +18,8 @@
         </strong>
       </p>
       {{ end }}
+
+    </header>
 
       {{ if not .Date.IsZero }}
       <time class="f6 mv4 dib tracked" {{ printf `datetime="%s"` (.Date.Format "2006-01-02T15:04:05Z07:00") | safeHTMLAttr }}>

@@ -4,7 +4,7 @@
     <title>{{ block "title" . }}{{ with .Params.Title }}{{ . }} | {{ end }}{{ .Site.Title }}{{ end }}</title>
     <meta name="description" content="{{ .Params.Description | default .Summary | default .Site.Params.description }}">
     {{ $sass := resources.Get "scss/main.scss" }}
-    {{ $styleOptions := (dict "targetPath" "main.css" "outputStyle" "compressed" "enableSourceMap" (not hugo.IsProduction)) }}
+    {{ $styleOptions := (dict "targetPath" "main.css" "outputStyle" "compressed" "enableSourceMap" (not hugo.IsProduction) "includePaths" (slice "node_modules"))  }}
     {{ $style := $sass | resources.ToCSS $styleOptions }}
     <link rel="stylesheet" href="{{ $style.RelPermalink }}" >
 </head>

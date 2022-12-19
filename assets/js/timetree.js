@@ -124,13 +124,13 @@ fetch('index.json')
 
 
 function TreeGraph({nodes, links, centuries}) {
-  let width = 1000;
-  let height = 300;
+  let width = 1200;
+  let height = 800;
 
   let min_x = -width / 2;
   let min_y = -height / 2;
 
-  let svg =  d3.select("main")
+  let svg =  d3.select("#timetree")
       .append("svg")
       .attr("viewBox", [min_x, min_y, width, height]);
 
@@ -139,7 +139,7 @@ function TreeGraph({nodes, links, centuries}) {
     .attr("id", "background");
 
   // create containers for the leaves by century
-  const leafContainerHeight = 45;
+  const leafContainerHeight = 75;
   const leafContainers = background.selectAll("rect")
       .data(centuries)
       .join("rect")
@@ -148,7 +148,7 @@ function TreeGraph({nodes, links, centuries}) {
         .attr("width", width)
         .attr("x", min_x)
         .attr("y", (d, i) => (min_y + i * leafContainerHeight))
-        .attr('fill', "lightgray")
+        // .attr('fill', "lightgray")
         .attr('fill-opacity', 0.1)
         .attr('stroke', 'gray')
         .attr('stroke-opacity', 0.5)
@@ -178,25 +178,26 @@ function TreeGraph({nodes, links, centuries}) {
   // draw a couple of lines to help gesture at tree-ness
   let trunkWidth = 65;
   // right side
+  let max_y = height/2;
   background.append("path")
     .attr("d", d3.line().curve(d3.curveNatural)([
-      [trunkWidth + 25, height],
-      [trunkWidth, height - 22],
-      [trunkWidth - 10, height - 90],
+      [trunkWidth + 25, max_y],
+      [trunkWidth, max_y - 50],
+      [trunkWidth - 10, max_y - 190],
       [trunkWidth + 7, min_y + leafConstraints['15'].bottom - 10]
     ]))
-    .attr("stroke", "black")
+    .attr("stroke", "#D9D8D8")
     .attr("stroke-width", 3)
      .attr("fill", "none")
   // left side
   background.append("path")
     .attr("d", d3.line().curve(d3.curveNatural)([
-      [- trunkWidth - 32 , height],
-      [- trunkWidth - 20, height - 50],
-      [- trunkWidth, height - 105],
+      [- trunkWidth - 32 , max_y],
+      [- trunkWidth - 20, max_y - 50],
+      [- trunkWidth, max_y - 105],
       [- trunkWidth - 27, min_y + leafConstraints['15'].bottom - 10]
     ]))
-    .attr("stroke", "black")
+    .attr("stroke", "#D9D8D8")
     .attr("stroke-width", 3)
      .attr("fill", "none")
 
@@ -206,8 +207,8 @@ function TreeGraph({nodes, links, centuries}) {
   // NOTE: will probably want to tweak and finetune these forces
   let simulation = d3.forceSimulation(nodes)
     .force("charge", d3.forceManyBody().strength(-1))
-    .force("manyBody", d3.forceManyBody().strength(-7))
-    .force("center", d3.forceCenter().strength(0.1))
+    .force("manyBody", d3.forceManyBody().strength(-8))
+    .force("center", d3.forceCenter().strength(0.01))
     // .alpha(0.1)
     // .alphaDecay(0.2)
     .force("collide", d3.forceCollide().radius(18))
@@ -216,7 +217,7 @@ function TreeGraph({nodes, links, centuries}) {
     // .force("link", d3.forceLink(links).distance(30).strength(link => {
       // return 1;
     // }))
-    .force("y", d3.forceY().y(node => centuryY(node)).strength(0.8));
+    .force("y", d3.forceY().y(node => centuryY(node)).strength(1.7));
     // .on("tick", ticked);
 
   // run simulation for 300 ticks without animation
@@ -245,8 +246,9 @@ const link = svg.append("g")
       // color leaves by century for now to visually check layout
       .attr("fill", d => {return d.type == "leaf" ? greenColor(d.century - 14) : "lightgray" })
       // .attr("fill", d => {return d.type == "leaf" ? "green" : "lightgray" })
-      .attr("id", d => d.id)
+      .attr("data-url", d => d.id)
       .attr("data-sort-date", d => d.sort_date)
+      .on("click", selectLeaf);
 
   function ticked() {
       node
@@ -264,12 +266,34 @@ const link = svg.append("g")
   function centuryY(node) {
     // y-axis force to align nodes by century
     if (node.type == 'trunk') {
-      return height; // - 50;
+      return 0;
+      // return height - 150;
     } else {
       // draw nodes vertically to the middle of appropriate century container
       return min_y + (leafContainerHeight / 2) + leafConstraints[node.century].top;
     }
     return 0;
+  }
+
+  const panel = document.querySelector("#panel");
+
+  d3.select('aside .close').on("click", function() {
+    panel.parentElement.classList.remove("show-panel");
+    panel.parentElement.classList.add("closed");
+  });
+
+  function selectLeaf(node) {
+    fetch(node.target.getAttribute("data-url"))
+      .then((response) => response.text())
+      .then((html) => {
+        let parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        // Get the article content and insert into panel
+        const article = doc.querySelector('article');
+        panel.querySelector("article").replaceWith(article);
+        // make sure panel is active
+        panel.parentElement.classList.add("show-panel");
+      });
   }
 }
 
