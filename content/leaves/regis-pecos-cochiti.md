@@ -7,4 +7,4 @@ tags:
 title: Regis Pecos (Cochiti)
 ---
 
-1970 Regis Pecos (Cochiti Pueblo) graduates from Princeton, later becoming first Native American to serve as a Princeton trustee
+1970 Regis Pecos (Cochiti Pueblo) graduates from Princeton, later becoming first Native American to serve as a Princeton trustee in 1997.
