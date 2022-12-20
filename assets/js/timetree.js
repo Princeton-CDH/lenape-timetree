@@ -12,10 +12,11 @@ const d3 = {select, forceSimulation, forceManyBody, forceCenter, forceCollide,
 const leafData = document.querySelector('.leaf-data');
 const data = JSON.parse(leafData.value);
 
-
-// generate list of expected centuries
-// adapted from https://stackoverflow.com/a/10050831/9706217
-let centuries = [...Array(6).keys()].map(i => i + 15).reverse();
+// generate list of centuries referenced in the data; sort most recent first
+let centuries = Array.from(new Set(
+  data.leaves.filter(leaf => leaf.century != undefined)
+      .map(leaf => leaf.century))
+  ).sort().reverse();
 
 // check and report on total leaves, unsortable leaves
 console.log(`${data.leaves.length} total leaves`);
@@ -30,17 +31,16 @@ let sortedLeaves = data.leaves.filter(leaf => leaf.sort_date != null)
 sortedLeaves.forEach(leaf => {
   leaf.id = leaf.url;
   leaf.type = "leaf";
-  // set century based on sort date
-  // - handle special cases first
-  if (leaf.sort_date == 0 || leaf.sort_date == "") {
-    // put zeros in the 1500s
-    leaf.century = 15;
-  } else if (leaf.sort_date == "TBA" || leaf.sort_date == "?") {
-    // put TBs / ? in the 2000s
-    leaf.century = 20;
-  } else {
-    // otherwise get it from sort date
-    leaf.century = leaf.sort_date.toString().substring(0, 2);
+  // set place-holder centuries for special cases
+  // (century set in json based on sort date if numeric)
+  if (leaf.century == undefined) {
+    if (leaf.sort_date == 0 || leaf.sort_date == "") {
+      // put zeros in the 1500s
+      leaf.century = 15;
+    } else if (leaf.sort_date == "TBA" || leaf.sort_date == "?") {
+      // put TBs / ? in the 2000s
+      leaf.century = 20;
+    }
   }
 });
 
@@ -77,9 +77,7 @@ let links = new Array();
 let branchIndex = new Object();
 
 for (branch in branches) {
-  // sort the centuries to make sure they are sequential
-  let branchCenturies = Array.from(branches[branch]).sort();
-  branchCenturies.forEach((c, index) => {
+  centuries.forEach((c, index) => {
     let branchId = branch + c;
     nodes.push({
       id: branchId,
