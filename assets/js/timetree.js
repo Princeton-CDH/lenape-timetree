@@ -58,6 +58,8 @@ sortedLeaves.forEach(leaf => {
   branches[leaf.branch].add(Number(leaf.century));
 });
 
+console.log(branches);
+
 // create a node for the trunk
 nodes.push({
   id: 'trunk',
@@ -75,9 +77,9 @@ let links = new Array();
 // NOTE: may want multiple century branch nodes when a single
 // branch has a large number of leaves in one century
 let branchIndex = new Object();
-
-for (branch in branches) {
-  centuries.forEach((c, index) => {
+let centuriesOldestFirst = Array.from(centuries).reverse();
+for (let branch in branches) {
+  centuriesOldestFirst.forEach((c, index) => {
     let branchId = branch + c;
     nodes.push({
       id: branchId,
@@ -164,6 +166,8 @@ function TreeGraph({nodes, links, centuries}) {
         .attr('style', 'font-size: 10px')
         .text(d => d + '00s');
 
+
+
   // calculate leaf constraints based on leaf container height and century
   const leafConstraints = new Object();
   centuries.forEach((c, i) => {
@@ -173,6 +177,7 @@ function TreeGraph({nodes, links, centuries}) {
       bottom: localTop + leafContainerHeight
     };
   });
+
 
   // draw a couple of lines to help gesture at tree-ness
   let trunkWidth = 65;
@@ -212,11 +217,11 @@ function TreeGraph({nodes, links, centuries}) {
     // .alphaDecay(0.2)
     .force("collide", d3.forceCollide().radius(18))
     // NOTE: may want to adjust to make variable by node type
-    .force("link", d3.forceLink(links))
+    .force("link", d3.forceLink(links).strength(link => 0.8))
     // .force("link", d3.forceLink(links).distance(30).strength(link => {
       // return 1;
     // }))
-    .force("y", d3.forceY().y(node => centuryY(node)).strength(1.7));
+    .force("y", d3.forceY().y(node => centuryY(node)).strength(4));
     // .on("tick", ticked);
 
   // run simulation for 300 ticks without animation
@@ -227,7 +232,8 @@ function TreeGraph({nodes, links, centuries}) {
 
 
 const link = svg.append("g")
-      .attr("stroke", "lightgray")
+      .attr("stroke", "darkgray")
+      .attr("stroke-opacity", 0.4)
       .attr("stroke-width", 1)
     .selectAll("line")
     .data(links)
@@ -243,10 +249,11 @@ const link = svg.append("g")
       // make leaf nodes larger
       .attr("r", d => { return d.type == "leaf" ? 8 : 3 })
       // color leaves by century for now to visually check layout
-      .attr("fill", d => {return d.type == "leaf" ? greenColor(d.century - 14) : "lightgray" })
+      .attr("fill", d => {return d.type == "leaf" ? greenColor(d.century - 14) : "darkgray" })
       // .attr("fill", d => {return d.type == "leaf" ? "green" : "lightgray" })
       .attr("data-url", d => d.id)
       .attr("data-sort-date", d => d.sort_date)
+      .attr("data-century", d => d.century)
       .on("click", selectLeaf);
 
   function ticked() {
@@ -269,7 +276,10 @@ const link = svg.append("g")
       // return height - 150;
     } else {
       // draw nodes vertically to the middle of appropriate century container
-      return min_y + (leafContainerHeight / 2) + leafConstraints[node.century].top;
+      // return min_y + (leafContainerHeight / 2) + leafConstraints[node.century].top;
+      // this calculation is correct for middle of container; but forces are resulting
+      // in leaves displaying one century below; draw furthur up
+      return min_y + (leafContainerHeight / 2) + leafConstraints[node.century].top - leafContainerHeight;
     }
     return 0;
   }
