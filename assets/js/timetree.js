@@ -58,8 +58,6 @@ sortedLeaves.forEach(leaf => {
   branches[leaf.branch].add(Number(leaf.century));
 });
 
-console.log(branches);
-
 // create a node for the trunk
 nodes.push({
   id: 'trunk',
@@ -119,6 +117,24 @@ sortedLeaves.forEach((leaf, index) => {
     })
   }
 });
+
+// add nodes for labels, linked only to their corresponding leaf
+sortedLeaves.forEach((leaf, index) => {
+  nodes.push({
+    type: "leaf-label",
+    title: leaf.title,
+    url: leaf.id,
+    century: leaf.century
+  });
+  links.push({
+    source: index,
+    target: nodes.length -1,
+    value: 5,
+    type: 'leaf-label'
+  });
+});
+
+
 
 TreeGraph({nodes: nodes, links: links, centuries: centuries});
 
@@ -233,11 +249,12 @@ function TreeGraph({nodes, links, centuries}) {
 
 const link = svg.append("g")
       .attr("stroke", "darkgray")
-      .attr("stroke-opacity", 0.4)
       .attr("stroke-width", 1)
     .selectAll("line")
     .data(links)
-    .join("line");
+    .join("line")
+      .attr("stroke-opacity", d => { return d.type == "leaf-label" ? 0 : 0.4 });
+      // hide links to labels
 
   var greenColor = d3.scaleSequential(d3.schemeGreens[5]);
 
@@ -251,10 +268,31 @@ const link = svg.append("g")
       // color leaves by century for now to visually check layout
       .attr("fill", d => {return d.type == "leaf" ? greenColor(d.century - 14) : "darkgray" })
       // .attr("fill", d => {return d.type == "leaf" ? "green" : "lightgray" })
-      .attr("data-url", d => d.id)
+      .attr("fill-opacity", d => {return d.type == "leaf-label" ? 0 : 0.6 }) // hide label nodes
+      .attr("data-url", d => d.url || d.id)
       .attr("data-sort-date", d => d.sort_date)
       .attr("data-century", d => d.century)
       .on("click", selectLeaf);
+
+  const nodeLabel = svg.append("g").attr("id", "labels")
+    .selectAll("text")
+    .data(nodes.filter(d => d.type == "leaf-label"))
+      .join("text")
+        .attr("x", d => d.x)
+        .attr("y", d => d.y)
+        .attr("data-url", d => d.url)  // set url so we can click to select leaf
+        .attr("fill", "lightgray")
+        .attr("fill-opacity", 0.4)
+        .attr('text-anchor', 'middle')  // set coordinates to middle of text
+        .text(d => d.title)
+        .on("click", selectLeaf);
+
+    // if we need words split into separate tspan elements,
+    // do a second join on title words:
+        // .selectAll("tspan")
+        // .data(d => { return d.title == undefined ? ["no title"] : d.title.split(" ") })
+        //   .join("tspan")
+        //   .text(word => word);
 
   function ticked() {
       node
@@ -291,8 +329,8 @@ const link = svg.append("g")
     panel.parentElement.classList.add("closed");
   });
 
-  function selectLeaf(node) {
-    fetch(node.target.getAttribute("data-url"))
+  function selectLeaf(event) {
+    fetch(event.target.getAttribute("data-url"))
       .then((response) => response.text())
       .then((html) => {
         let parser = new DOMParser();
