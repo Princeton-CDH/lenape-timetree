@@ -8,121 +8,120 @@ import {schemeGreens} from "d3-scale-chromatic"
 const d3 = {select, forceSimulation, forceManyBody, forceCenter, forceCollide,
     forceLink, forceY, line, curveNatural, scaleSequential, schemeGreens};
 
+// load & parse leaf data from json embedded in the document
+const leafData = document.querySelector('.leaf-data');
+const data = JSON.parse(leafData.value);
 
-fetch('index.json')
-  .then((response) => response.json())
-  .then((data) => {
 
-      // generate list of expected centuries
-      // adapted from https://stackoverflow.com/a/10050831/9706217
-      let centuries = [...Array(6).keys()].map(i => i + 15).reverse();
+// generate list of expected centuries
+// adapted from https://stackoverflow.com/a/10050831/9706217
+let centuries = [...Array(6).keys()].map(i => i + 15).reverse();
 
-      // check and report on total leaves, unsortable leaves
-      console.log(`${data.leaves.length} total leaves`);
-      // NOTE: some sort dates set to empty string, "?"; 0 is allowed for earliest sort
-      let unsortableLeaves = data.leaves.filter(leaf => leaf.sort_date === null || leaf.sort_date == "");
-      console.log(`${unsortableLeaves.length} lea${unsortableLeaves.length == 1 ? "f" : "ves"} with sort date not set`);
+// check and report on total leaves, unsortable leaves
+console.log(`${data.leaves.length} total leaves`);
+// NOTE: some sort dates set to empty string, "?"; 0 is allowed for earliest sort
+let unsortableLeaves = data.leaves.filter(leaf => leaf.sort_date === null || leaf.sort_date == "");
+console.log(`${unsortableLeaves.length} lea${unsortableLeaves.length == 1 ? "f" : "ves"} with sort date not set`);
 
-      // ignore any records with sort date unset
-      let sortedLeaves = data.leaves.filter(leaf => leaf.sort_date != null)
-        .sort((a, b) => a.sort_date > b.sort_date)
-      // use url as id for node in graph; set type to leaf; set century
-      sortedLeaves.forEach(leaf => {
-        leaf.id = leaf.url;
-        leaf.type = "leaf";
-        // set century based on sort date
-        // - handle special cases first
-        if (leaf.sort_date == 0 || leaf.sort_date == "") {
-          // put zeros in the 1500s
-          leaf.century = 15;
-        } else if (leaf.sort_date == "TBA" || leaf.sort_date == "?") {
-          // put TBs / ? in the 2000s
-          leaf.century = 20;
-        } else {
-          // otherwise get it from sort date
-          leaf.century = leaf.sort_date.toString().substring(0, 2);
-        }
-      });
+// ignore any records with sort date unset
+let sortedLeaves = data.leaves.filter(leaf => leaf.sort_date != null)
+  .sort((a, b) => a.sort_date > b.sort_date)
+// use url as id for node in graph; set type to leaf; set century
+sortedLeaves.forEach(leaf => {
+  leaf.id = leaf.url;
+  leaf.type = "leaf";
+  // set century based on sort date
+  // - handle special cases first
+  if (leaf.sort_date == 0 || leaf.sort_date == "") {
+    // put zeros in the 1500s
+    leaf.century = 15;
+  } else if (leaf.sort_date == "TBA" || leaf.sort_date == "?") {
+    // put TBs / ? in the 2000s
+    leaf.century = 20;
+  } else {
+    // otherwise get it from sort date
+    leaf.century = leaf.sort_date.toString().substring(0, 2);
+  }
+});
 
-      // our nodes will be all leaves plus nodes as needed for branches
-      let nodes = new Array(... sortedLeaves);
+// our nodes will be all leaves plus nodes as needed for branches
+let nodes = new Array(... sortedLeaves);
 
-      // create an object with all unique branch names from the leaves
-      // and unique centuries represented within those branches
-      let branches = new Object();
-      sortedLeaves.forEach(leaf => {
-        if (branches[leaf.branch] == undefined) {
-          branches[leaf.branch] = new Set();
-        }
-        // cast all to numeric to avoid duplication
-        branches[leaf.branch].add(Number(leaf.century));
-      });
+// create an object with all unique branch names from the leaves
+// and unique centuries represented within those branches
+let branches = new Object();
+sortedLeaves.forEach(leaf => {
+  if (branches[leaf.branch] == undefined) {
+    branches[leaf.branch] = new Set();
+  }
+  // cast all to numeric to avoid duplication
+  branches[leaf.branch].add(Number(leaf.century));
+});
 
-      // create a node for the trunk
-      nodes.push({
-        id: 'trunk',
-        title: 'trunk',
-        type: 'trunk'
-      });
-      const trunkNodeIndex = nodes.length - 1;  // last node is the trunk
+// create a node for the trunk
+nodes.push({
+  id: 'trunk',
+  title: 'trunk',
+  type: 'trunk'
+});
+const trunkNodeIndex = nodes.length - 1;  // last node is the trunk
 
-      // array of links between our nodes
-      let links = new Array();
+// array of links between our nodes
+let links = new Array();
 
-      // create nodes for the branches
-      // - create one for each century represented in the data
-      // - use text as id and label
-      // NOTE: may want multiple century branch nodes when a single
-      // branch has a large number of leaves in one century
-      let branchIndex = new Object();
+// create nodes for the branches
+// - create one for each century represented in the data
+// - use text as id and label
+// NOTE: may want multiple century branch nodes when a single
+// branch has a large number of leaves in one century
+let branchIndex = new Object();
 
-      for (branch in branches) {
-        // sort the centuries to make sure they are sequential
-        let branchCenturies = Array.from(branches[branch]).sort();
-        branchCenturies.forEach((c, index) => {
-          let branchId = branch + c;
-          nodes.push({
-            id: branchId,
-            title: branch + " c" +c,
-            type: "branch",
-            century: c,
-          });
-          // keep track of branch indexes for generating links from leaves
-          branchIndex[branchId] = nodes.length - 1;
+for (branch in branches) {
+  // sort the centuries to make sure they are sequential
+  let branchCenturies = Array.from(branches[branch]).sort();
+  branchCenturies.forEach((c, index) => {
+    let branchId = branch + c;
+    nodes.push({
+      id: branchId,
+      title: branch + " c" +c,
+      type: "branch",
+      century: c,
+    });
+    // keep track of branch indexes for generating links from leaves
+    branchIndex[branchId] = nodes.length - 1;
 
-          // add link to previous branch or trunk
-          if (index == 0) {
-            // earliest century in any branch should connect to trunk
-            target = trunkNodeIndex;
-          } else {
-            // otherwise, connect to preceding century in this branch
-            target = nodes.length - 2;
-          }
-          links.push({
-            source: branchIndex[branchId],
-            target: target,
-            value: 10
-          });
+    // add link to previous branch or trunk
+    if (index == 0) {
+      // earliest century in any branch should connect to trunk
+      target = trunkNodeIndex;
+    } else {
+      // otherwise, connect to preceding century in this branch
+      target = nodes.length - 2;
+    }
+    links.push({
+      source: branchIndex[branchId],
+      target: target,
+      value: 10
+    });
 
-        });
-      }
+  });
+}
 
-      // generate links so we can draw as a network graph
-      // each leaf is connected to its branch+century node
-      sortedLeaves.forEach((leaf, index) => {
-        let branchId = leaf.branch + leaf.century;
-        if (branchId in branchIndex) {
-          links.push({
-            source: index,
-            target: branchIndex[branchId],
-            value: 1
-          })
-        }
-      });
+// generate links so we can draw as a network graph
+// each leaf is connected to its branch+century node
+sortedLeaves.forEach((leaf, index) => {
+  let branchId = leaf.branch + leaf.century;
+  if (branchId in branchIndex) {
+    links.push({
+      source: index,
+      target: branchIndex[branchId],
+      value: 1
+    })
+  }
+});
 
-      TreeGraph({nodes: nodes, links: links, centuries: centuries});
+TreeGraph({nodes: nodes, links: links, centuries: centuries});
 
-   });
 
 
 function TreeGraph({nodes, links, centuries}) {
