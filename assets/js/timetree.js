@@ -17,9 +17,11 @@ fetch('index.json')
       // adapted from https://stackoverflow.com/a/10050831/9706217
       let centuries = [...Array(6).keys()].map(i => i + 15).reverse();
 
-      // check and report on unsortable leaves
-      let unsortableLeaves = data.leaves.filter(leaf => leaf.sort_date === null);
-      console.log(unsortableLeaves.length + (unsortableLeaves.length == 1 ? " leaf" : " leaves") + " with sort date not set");
+      // check and report on total leaves, unsortable leaves
+      console.log(`${data.leaves.length} total leaves`);
+      // NOTE: some sort dates set to empty string, "?"; 0 is allowed for earliest sort
+      let unsortableLeaves = data.leaves.filter(leaf => leaf.sort_date === null || leaf.sort_date == "");
+      console.log(`${unsortableLeaves.length} lea${unsortableLeaves.length == 1 ? "f" : "ves"} with sort date not set`);
 
       // ignore any records with sort date unset
       let sortedLeaves = data.leaves.filter(leaf => leaf.sort_date != null)
