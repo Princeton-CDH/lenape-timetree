@@ -1,0 +1,30 @@
+{{/* output data as JSON for use in viz */}}
+{{ $data := newScratch }}
+{{ $data.Set "output" dict }}
+{{ range .Site.Sections }}
+	{{/* create new dict for this section */}}
+	{{ $data.Set "sectionOutput" slice }}
+	{{ range .Pages }}
+		{{/* create page info dict with expected/required values */}}
+		{{ $pageInfo := dict "url" .RelPermalink "display_date" .Params.display_date "sort_date" .Params.sort_date "tags" .Params.tags "text" .Plain }}
+		{{/* set optional values  */}}
+		{{ with .Title }}
+			{{ $pageInfo = merge $pageInfo (dict "title" . ) }}
+		{{ end }}
+		{{/* if sort date is numeric, calculate century */}}
+		{{ with .Params.sort_date }}
+			{{ if (findRE `^\d+` .) }}
+				{{ $pageInfo = merge $pageInfo (dict "century" (int (substr . 0 2))) }}
+			{{ end }}
+		{{ end }}
+		{{ with .Params.branch }}
+			{{ $pageInfo = merge $pageInfo (dict "branch" . ) }}
+		{{ end }}
+
+		{{ $data.Add "sectionOutput" $pageInfo }}
+	{{ end }}
+
+	{{ $data.SetInMap "output" (lower .CurrentSection.Title) ($data.Get "sectionOutput") }}
+{{ end }}
+
+{{ $data.Get "output" | jsonify (dict "indent" "  ") }}
