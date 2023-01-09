@@ -1,7 +1,10 @@
 {{ define "main" }}
 
-{{ $buildOptions := dict "targetPath" "timetree.js" "minify" (not hugo.IsProduction) "sourceMap" hugo.IsProduction }}
-{{ $js := resources.Get "js/timetree.js" | js.Build (dict "params" $buildOptions) | fingerprint }}
+{{/* minimize js if production; adapted from https://github.com/gohugoio/hugo/issues/9132 */}}
+{{ $params := (dict "is_production" hugo.IsProduction ) }}
+{{ $sourceMap := cond hugo.IsProduction "" "inline" }}
+{{ $buildOptions := dict "sourceMap" $sourceMap "minify" hugo.IsProduction "target" "es2018" "params" $params }}
+{{ $js := resources.Get "js/timetree.js" | js.Build $buildOptions | fingerprint }}
 
 <div id="timetree">
 </div>
