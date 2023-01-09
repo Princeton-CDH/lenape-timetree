@@ -4,6 +4,7 @@ display_date: 1829-1831
 sort_date: 1829
 tags:
 - resettlement
+- Midwest
 title: Kansas migration
 ---
 

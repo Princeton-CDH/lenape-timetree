@@ -8,4 +8,4 @@ tags:
 title: Native Students
 ---
 
-24 Native students matriculate at and graduate from Princeton (insert pic)
+24 Native students matriculate at and eventually graduate from Princeton (insert pic)

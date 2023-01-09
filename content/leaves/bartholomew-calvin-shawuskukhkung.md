@@ -8,4 +8,4 @@ tags:
 title: Bartholomew Calvin (Shawuskukhkung)
 ---
 
-Among the Lenape translators at the Treaty of Easton is a man called Stephen Calvin – father to Princeton student Shawuskukhkung, otherwise known as Bartholomew Calvin. Both Stephen and Bartholomew Calvin work as schoolmasters at Brotherton.
+Among the Lenape translators at the Treaty of Easton is a man with the role, “Interpreter of the Delaware and Minisink Languages, ”called Stephen Calvin – father to Princeton student Shawuskukhkung, otherwise known as Bartholomew Calvin. Both Stephen and Bartholomew Calvin work as schoolmasters at Brotherton.

@@ -9,4 +9,4 @@ tags:
 title: Colonel George Morgan
 ---
 
-Colonel George Morgan appointed agent of Indian affairs by Continental Congress (Morgan is proprietor of Prospect Farm[d] and future friend of Delaware sachem Chief White Eyes). Chief White Eyes is one of the signatories on the Treaty of Fort Pitt and marries Rachael Doddridge, a young English girl captured by Lenape at age 5.
+Colonel George Morgan is appointed agent of Indian affairs by Continental Congress (Morgan is proprietor of Prospect Farm and future friend of Delaware sachem Chief White Eyes).

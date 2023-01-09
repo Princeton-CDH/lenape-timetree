@@ -1,7 +1,7 @@
 ---
 branch: The University
-display_date: 1789
-sort_date: 1789
+display_date: 1788
+sort_date: 1788
 tags:
 - Native Princeton students
 - racial killing

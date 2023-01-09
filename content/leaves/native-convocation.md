@@ -4,8 +4,8 @@ display_date: 1970
 sort_date: 1970
 tags:
 - Alliances
-- Native Princeton Students
+- Indigenous Studies
 title: Native Convocation
 ---
 
-First Convocation of American Indian Scholars hosted at Princeton University in March. Pic?...
+During the the surge of the American Indian Movement, Princeton hosts the First Convocation of American Indian Scholars in March. Alfonso Ortiz, Asst Prof. of Anthropology (Tewa) chairs the event. See Prince. Pic?...

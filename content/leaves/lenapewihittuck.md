@@ -10,4 +10,4 @@ tags:
 title: Lenapewihittuck
 ---
 
-By the early 1600s, the Lenape have lived along Lenapewihittuck and its tributaries for millennia. Lenapewihittuck is Lenape for “rapid stream of the Lenape.” English settlers name it the “Delaware” after Lord de la Warr III, governor of Virginia colony. Later, settlers refer to both the Munsee and the Unami Lenape as the “Delaware” – people of Lenapewihittuck.
+By the early 1600s, the Lenape have lived along Lenapewihittuck and its tributaries for millennia. Lenapewihittuck is Lenape for “rapid stream of the Lenape.” English settlers name it the “Delaware” after Lord de la Warr III, governor of Virginia colony. Later, settlers refer to both the Munsee and the Unami Lenape as the “Delaware ' – people of Lenapewihittuck.
