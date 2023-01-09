@@ -1,7 +1,7 @@
 ---
 branch: Lands and Waters
 display_date: Ongoing
-sort_date: 0
+sort_date: 1500
 tags:
 - place names
 title: Lenapehoking
