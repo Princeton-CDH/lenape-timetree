@@ -1,7 +1,7 @@
 ---
 branch: The University
-display_date: TBA
-sort_date: TBA
+display_date: 1750s
+sort_date: 1750
 tags:
 - Princeton lands
 - land claims
