@@ -48,6 +48,10 @@ jobs:
         run: npm ci
 
       - name: build site
+        env:
+          # For maximum backward compatibility with Hugo modules
+          HUGO_ENVIRONMENT: production
+          HUGO_ENV: production
         run: hugo --minify
 
       # this step makes the site's built html and css available for download

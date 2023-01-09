@@ -1,6 +1,11 @@
 {{ define "main" }}
 
-{{ $js := resources.Get "js/timetree.js" | js.Build "timetree.js" | minify | fingerprint }}
+{{/* minimize js if production; adapted from https://github.com/gohugoio/hugo/issues/9132 */}}
+{{ $params := (dict "is_production" hugo.IsProduction ) }}
+{{ $sourceMap := cond hugo.IsProduction "" "inline" }}
+{{ $buildOptions := dict "sourceMap" $sourceMap "minify" hugo.IsProduction "target" "es2018" "params" $params }}
+{{ $js := resources.Get "js/timetree.js" | js.Build $buildOptions | fingerprint }}
+
 <div id="timetree">
 </div>
 
@@ -18,6 +23,8 @@
     <article/>
   </div>
 </aside>
+
+<data class="leaf-data" value='{{ partial "leaf_data.json" . }}'></data>
 
 <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
 {{ end }} {{/* end main */}}
