@@ -7,7 +7,7 @@ on:
       - develop
 
 env:
-    LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+  LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
 jobs:
   build-ci:
@@ -72,6 +72,6 @@ jobs:
       - name: audit site using lighthouse ci
         uses: treosh/lighthouse-ci-action@v9
         with:
-          configPath: './lighthouserc.js'
+          configPath: "./lighthouserc.js"
           uploadArtifacts: true
           temporaryPublicStorage: true

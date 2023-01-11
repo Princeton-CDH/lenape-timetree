@@ -2,8 +2,8 @@
 
 # see requirements.txt for python dependencies
 
-import sys
 import os.path
+import sys
 
 import yaml
 from slugify import slugify

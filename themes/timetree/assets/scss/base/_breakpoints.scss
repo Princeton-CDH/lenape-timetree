@@ -1,10 +1,9 @@
-
 // breakpoints
-$breakpoint-xs: 320px;  // ~ phone
-$breakpoint-s:  768px;   // ~ tablet, portrait
-$breakpoint-m:  1024px;  // ~ tablet landscape
-$breakpoint-l:  1280px;  // ~ small desktop
-$breakpoint-xl: 1440px;  // ~ target desktop size
+$breakpoint-xs: 320px; // ~ phone
+$breakpoint-s: 768px; // ~ tablet, portrait
+$breakpoint-m: 1024px; // ~ tablet landscape
+$breakpoint-l: 1280px; // ~ small desktop
+$breakpoint-xl: 1440px; // ~ target desktop size
 
 // layout TBD
 $gutter: 10px;
@@ -13,21 +12,21 @@ $grid-gap: 10px;
 $margin: 22px;
 
 @mixin for-phone-only {
-    @media (max-width: $breakpoint-xs) {
-        @content;
-    }
+  @media (max-width: $breakpoint-xs) {
+    @content;
+  }
 }
 
 // mobile threshold for this project is 768px and below
 @mixin for-mobile {
-    @media (max-width: $breakpoint-s) {
-        @content;
-    }
+  @media (max-width: $breakpoint-s) {
+    @content;
+  }
 }
 
 // tablet in portrait mode will get desktop view
 @mixin for-desktop-up {
-    @media (min-width: $breakpoint-s + 1px) {
-        @content;
-    }
+  @media (min-width: $breakpoint-s + 1px) {
+    @content;
+  }
 }
