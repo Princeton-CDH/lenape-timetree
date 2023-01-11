@@ -3,12 +3,12 @@ branch: Communities
 display_date: 1840-
 sort_date: 1840
 tags:
-- removals
-- Midwest
-- reservations
-- religion
-- Munsee
-- Unami
+  - removals
+  - Midwest
+  - reservations
+  - religion
+  - Munsee
+  - Unami
 title: Munsee in Wisconsin
 ---
 

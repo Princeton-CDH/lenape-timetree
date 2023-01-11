@@ -3,8 +3,8 @@ branch: Removals
 display_date: 1790-1799
 sort_date: 1790
 tags:
-- removals
-- treaties
+  - removals
+  - treaties
 title: Chiefs
 ---
 

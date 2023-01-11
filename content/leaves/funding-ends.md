@@ -3,9 +3,9 @@ branch: The University
 display_date: 1789
 sort_date: 1789
 tags:
-- Native Princeton Students
-- Midwest
-- alliances
+  - Native Princeton Students
+  - Midwest
+  - alliances
 title: Funding Ends
 ---
 

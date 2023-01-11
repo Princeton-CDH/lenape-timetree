@@ -3,9 +3,9 @@ branch: Lands and Waters
 display_date: 1730
 sort_date: 1730
 tags:
-- deception
-- land claims
-- land purchases
+  - deception
+  - land claims
+  - land purchases
 title: Walking Purchase
 ---
 

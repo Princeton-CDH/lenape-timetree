@@ -3,9 +3,9 @@ branch: Removals
 display_date: 1782
 sort_date: 1782
 tags:
-- removals
-- massacre
-- missions
+  - removals
+  - massacre
+  - missions
 title: Gnadenhutten Massacre
 ---
 

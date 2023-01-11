@@ -3,10 +3,10 @@ branch: Lands and Waters
 display_date: 2006
 sort_date: 2006
 tags:
-- Redress
-- resistance
-- deception
-- US government
+  - Redress
+  - resistance
+  - deception
+  - US government
 title: Lawsuit
 ---
 

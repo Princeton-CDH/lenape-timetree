@@ -1,112 +1,107 @@
-body.home  {
-	main {
+body.home {
+  main {
+    max-height: calc(100vh - $mobile_header_height - $mobile_footer_height);
 
-	    max-height: calc(100vh - $mobile_header_height - $mobile_footer_height);
+    // on mobile, panel is positioned absolutely at bottom of screen
+    aside {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 35vh; // should at least be taller than footer ?
+    }
 
-	    // on mobile, panel is positioned absolutely at bottom of screen
-		aside {
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			width: 100%;
-			height: 35vh;  // should at least be taller than footer ?
-		}
+    @include for-desktop-up {
+      // desktop is two columns (tree | panel)
+      display: grid;
+      grid-template-columns: 60% 28%;
+      column-gap: 12%; // 100 - 60 - 28
+      padding: 0 22px 0 0;
 
-		@include for-desktop-up {
-			// desktop is two columns (tree | panel)
-			display: grid;
-		    grid-template-columns: 60% 28%;
-		    column-gap: 12%; // 100 - 60 - 28
-		    padding: 0 22px 0 0;
+      max-height: calc(100vh - $desktop_header_height - $desktop_footer_height);
 
-		    max-height: calc(100vh - $desktop_header_height - $desktop_footer_height);
+      > aside {
+        position: relative;
+        padding: $margin;
+      }
+    }
 
-		     > aside {
-	    		position: relative;
-		    	padding: $margin;
-		    }
-		}
+    #timetree {
+      height: inherit;
+      max-height: inherit;
 
-	    #timetree {
-	    	height: inherit;
-	    	max-height: inherit;
+      svg {
+        height: 100%;
+        max-width: 100%;
+      }
+    }
 
-	    	svg {
-	    		height: 100%;
-	    		max-width: 100%;
-	    	}
-	    }
+    // styles for intro text and selected panel
+    > aside {
+      background-color: $body-bg-color;
+      padding: $margin;
+      border-top: 1px dashed $line-color;
 
-    	// styles for intro text and selected panel
-		> aside {
-			background-color: $body-bg-color;
-			padding: $margin;
-			border-top: 1px dashed $line-color;
+      // allow closing the intro on mobile
+      &.closed {
+        visibility: hidden;
+      }
+      &.show-panel {
+        visibility: visible;
+      }
 
-			// allow closing the intro on mobile
-			&.closed {
-				visibility: hidden;
-			}
-			&.show-panel {
-				visibility: visible;
-			}
+      @include for-desktop-up {
+        border: 1px dashed $line-color;
 
-			@include for-desktop-up {
-				border: 1px dashed $line-color;
+        &.closed {
+          visibility: visible;
+        }
+      }
 
-				&.closed {
-					visibility: visible;
-				}
-			}
+      > .close {
+        position: absolute;
+        right: $margin;
+        top: $margin;
+        z-index: 3;
+        text-decoration: none;
+        color: $body-fg-color;
+      }
 
-			> .close {
-				position: absolute;
-				right: $margin;
-				top: $margin;
-				z-index: 3;
-				text-decoration: none;
-				color: $body-fg-color;
-			}
+      // selected panel
+      #panel {
+        // hide by default
+        visibility: hidden;
+        // set background to hide intro content
+        background-color: $body-bg-color;
+        padding: $margin;
+        position: absolute;
+        top: 0;
+        left: 0;
+        max-width: 100%;
+      }
 
-			// selected panel
-			#panel {
-				// hide by default
-				visibility: hidden;
-				// set background to hide intro content
-				background-color: $body-bg-color;
-				padding: $margin;
-				position: absolute;
-				top: 0;
-				left: 0;
-				max-width: 100%;
-			}
+      &.show-panel #panel {
+        visibility: visible;
+        bottom: 0;
+        width: 100vw;
+        max-height: 40vh;
+        overflow: scroll;
 
-			&.show-panel #panel {
-			visibility: visible;
-			bottom: 0;
-			width: 100vw;
-			max-height: 40vh;
-			overflow: scroll;
-
-				@include for-desktop-up {
-					bottom: auto;
-					top: 0;
-					max-height: 545px;
-				}
-			}
-		}
-
-	}
+        @include for-desktop-up {
+          bottom: auto;
+          top: 0;
+          max-height: 545px;
+        }
+      }
+    }
+  }
 }
 
-
 // styles for leaf details
-#panel article  {
-	margin: 0;
-	header aside {
-		display: none;
-	}
-
-
+#panel article {
+  margin: 0;
+  header aside {
+    display: none;
+  }
 }

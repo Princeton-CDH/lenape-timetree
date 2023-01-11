@@ -3,8 +3,8 @@ branch: Removals
 display_date: 1829-1831
 sort_date: 1829
 tags:
-- resettlement
-- Midwest
+  - resettlement
+  - Midwest
 title: Kansas migration
 ---
 

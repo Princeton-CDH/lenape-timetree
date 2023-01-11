@@ -3,10 +3,10 @@ branch: Removals
 display_date: 1771
 sort_date: 1771
 tags:
-- removals
-- alliances
-- wars
-- Susquehanna and Ohio River Valleys
+  - removals
+  - alliances
+  - wars
+  - Susquehanna and Ohio River Valleys
 title: Revolutionary Alliances
 ---
 

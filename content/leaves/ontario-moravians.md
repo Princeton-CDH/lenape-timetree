@@ -3,10 +3,10 @@ branch: Communities
 display_date: 1792
 sort_date: 1792
 tags:
-- Religion
-- Ontario
-- migration
-- massacres
+  - Religion
+  - Ontario
+  - migration
+  - massacres
 title: Ontario Moravians
 ---
 

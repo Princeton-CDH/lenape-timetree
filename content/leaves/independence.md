@@ -3,8 +3,8 @@ branch: Resistance + Resurgence
 display_date: 1996
 sort_date: 1996
 tags:
-- state governments
-- resurgence
+  - state governments
+  - resurgence
 title: Independence
 ---
 

@@ -3,9 +3,9 @@ branch: The University
 display_date: 1879-1885
 sort_date: 1882
 tags:
-- missions
-- Native artifacts
-- campus buildings
+  - missions
+  - Native artifacts
+  - campus buildings
 title: The Art Museum
 ---
 

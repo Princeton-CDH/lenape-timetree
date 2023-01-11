@@ -3,9 +3,9 @@ branch: Communities
 display_date: 1795
 sort_date: 1795
 tags:
-- treaties
-- removals
-- Midwest
+  - treaties
+  - removals
+  - Midwest
 title: Greenville Treaty
 ---
 

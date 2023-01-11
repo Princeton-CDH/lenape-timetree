@@ -3,10 +3,10 @@ branch: Communities
 display_date: 1982
 sort_date: 1982
 tags:
-- Alliances
-- renaming
-- state governments
-- resurgence
+  - Alliances
+  - renaming
+  - state governments
+  - resurgence
 title: "\u201CIndian Town\u201D"
 ---
 

@@ -3,8 +3,8 @@ branch: Lands and Waters
 display_date: 1683-1696
 sort_date: 1683
 tags:
-- Princeton lands
-- routes
+  - Princeton lands
+  - routes
 title: Greenland Tavern
 ---
 

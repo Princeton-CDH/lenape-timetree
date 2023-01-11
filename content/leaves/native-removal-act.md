@@ -3,9 +3,9 @@ branch: Removals
 display_date: 1830-
 sort_date: 1830
 tags:
-- Treaties
-- midwest
-- Princeton alumni
+  - Treaties
+  - midwest
+  - Princeton alumni
 title: Native Removal Act
 ? "under_president_andrew_jackson,_the_act_empowers_the_u.s._government_with_the_policy_and_funds_used_to_\u201C\
   persuade,_bribe,_and_threaten\u201D_indigenous_peoples_into_land-exchange_treaties_(\u201C\

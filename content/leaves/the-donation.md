@@ -3,9 +3,9 @@ branch: The University
 display_date: 1750s
 sort_date: 1750
 tags:
-- Princeton lands
-- land claims
-- Quakers
+  - Princeton lands
+  - land claims
+  - Quakers
 title: The Donation
 ---
 

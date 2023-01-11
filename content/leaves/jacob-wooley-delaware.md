@@ -3,7 +3,7 @@ branch: The University
 display_date: 1759
 sort_date: 1759
 tags:
-- Native Princeton Students
+  - Native Princeton Students
 title: Jacob Wooley (Delaware)
 ---
 

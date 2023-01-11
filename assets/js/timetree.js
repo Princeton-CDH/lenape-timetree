@@ -1,34 +1,64 @@
-import {select} from "d3-selection";
-import {forceSimulation, forceManyBody, forceCenter, forceCollide, forceLink, forceY} from "d3-force";
-import {line, curveNatural} from "d3-shape";
-import {scaleSequential} from "d3-scale";
-import {schemeGreens} from "d3-scale-chromatic"
+import { select } from "d3-selection";
+import {
+  forceSimulation,
+  forceManyBody,
+  forceCenter,
+  forceCollide,
+  forceLink,
+  forceY,
+} from "d3-force";
+import { line, curveNatural } from "d3-shape";
+import { scaleSequential } from "d3-scale";
+import { schemeGreens } from "d3-scale-chromatic";
 
 // combine into d3 object for convenience
-const d3 = {select, forceSimulation, forceManyBody, forceCenter, forceCollide,
-    forceLink, forceY, line, curveNatural, scaleSequential, schemeGreens};
+const d3 = {
+  select,
+  forceSimulation,
+  forceManyBody,
+  forceCenter,
+  forceCollide,
+  forceLink,
+  forceY,
+  line,
+  curveNatural,
+  scaleSequential,
+  schemeGreens,
+};
 
 // load & parse leaf data from json embedded in the document
-const leafData = document.querySelector('.leaf-data');
+const leafData = document.querySelector(".leaf-data");
 const data = JSON.parse(leafData.value);
 
 // generate list of centuries referenced in the data; sort most recent first
-let centuries = Array.from(new Set(
-  data.leaves.filter(leaf => leaf.century != undefined)
-      .map(leaf => leaf.century))
-  ).sort().reverse();
+let centuries = Array.from(
+  new Set(
+    data.leaves
+      .filter((leaf) => leaf.century != undefined)
+      .map((leaf) => leaf.century)
+  )
+)
+  .sort()
+  .reverse();
 
 // check and report on total leaves, unsortable leaves
 console.log(`${data.leaves.length} total leaves`);
 // NOTE: some sort dates set to empty string, "?"; 0 is allowed for earliest sort
-let unsortableLeaves = data.leaves.filter(leaf => leaf.sort_date === null || leaf.sort_date == "");
-console.log(`${unsortableLeaves.length} lea${unsortableLeaves.length == 1 ? "f" : "ves"} with sort date not set`);
+let unsortableLeaves = data.leaves.filter(
+  (leaf) => leaf.sort_date === null || leaf.sort_date == ""
+);
+console.log(
+  `${unsortableLeaves.length} lea${
+    unsortableLeaves.length == 1 ? "f" : "ves"
+  } with sort date not set`
+);
 
 // ignore any records with sort date unset
-let sortedLeaves = data.leaves.filter(leaf => leaf.sort_date != null)
-  .sort((a, b) => a.sort_date > b.sort_date)
+let sortedLeaves = data.leaves
+  .filter((leaf) => leaf.sort_date != null)
+  .sort((a, b) => a.sort_date > b.sort_date);
 // use url as id for node in graph; set type to leaf; set century
-sortedLeaves.forEach(leaf => {
+sortedLeaves.forEach((leaf) => {
   leaf.id = leaf.url;
   leaf.type = "leaf";
   // set place-holder centuries for special cases
@@ -45,12 +75,12 @@ sortedLeaves.forEach(leaf => {
 });
 
 // our nodes will be all leaves plus nodes as needed for branches
-let nodes = new Array(... sortedLeaves);
+let nodes = new Array(...sortedLeaves);
 
 // create an object with all unique branch names from the leaves
 // and unique centuries represented within those branches
 let branches = new Object();
-sortedLeaves.forEach(leaf => {
+sortedLeaves.forEach((leaf) => {
   if (branches[leaf.branch] == undefined) {
     branches[leaf.branch] = new Set();
   }
@@ -60,11 +90,11 @@ sortedLeaves.forEach(leaf => {
 
 // create a node for the trunk
 nodes.push({
-  id: 'trunk',
-  title: 'trunk',
-  type: 'trunk'
+  id: "trunk",
+  title: "trunk",
+  type: "trunk",
 });
-const trunkNodeIndex = nodes.length - 1;  // last node is the trunk
+const trunkNodeIndex = nodes.length - 1; // last node is the trunk
 
 // array of links between our nodes
 let links = new Array();
@@ -81,7 +111,7 @@ for (let branch in branches) {
     let branchId = branch + c;
     nodes.push({
       id: branchId,
-      title: branch + " c" +c,
+      title: branch + " c" + c,
       type: "branch",
       century: c,
     });
@@ -99,9 +129,8 @@ for (let branch in branches) {
     links.push({
       source: branchIndex[branchId],
       target: target,
-      value: 10
+      value: 10,
     });
-
   });
 }
 
@@ -113,8 +142,8 @@ sortedLeaves.forEach((leaf, index) => {
     links.push({
       source: index,
       target: branchIndex[branchId],
-      value: 1
-    })
+      value: 1,
+    });
   }
 });
 
@@ -124,108 +153,110 @@ sortedLeaves.forEach((leaf, index) => {
     type: "leaf-label",
     title: leaf.title,
     url: leaf.id,
-    century: leaf.century
+    century: leaf.century,
   });
   links.push({
     source: index,
-    target: nodes.length -1,
+    target: nodes.length - 1,
     value: 5,
-    type: 'leaf-label'
+    type: "leaf-label",
   });
 });
 
+TreeGraph({ nodes: nodes, links: links, centuries: centuries });
 
-
-TreeGraph({nodes: nodes, links: links, centuries: centuries});
-
-
-
-function TreeGraph({nodes, links, centuries}) {
+function TreeGraph({ nodes, links, centuries }) {
   let width = 1200;
   let height = 800;
 
   let min_x = -width / 2;
   let min_y = -height / 2;
 
-  let svg =  d3.select("#timetree")
-      .append("svg")
-      .attr("viewBox", [min_x, min_y, width, height]);
+  let svg = d3
+    .select("#timetree")
+    .append("svg")
+    .attr("viewBox", [min_x, min_y, width, height]);
 
   // create a section for the background
-  let background = svg.append("g")
-    .attr("id", "background");
+  let background = svg.append("g").attr("id", "background");
 
   // create containers for the leaves by century
   const leafContainerHeight = 75;
-  const leafContainers = background.selectAll("rect")
-      .data(centuries)
-      .join("rect")
-        .attr("id", d => "c" + d)
-        .attr("height", leafContainerHeight)
-        .attr("width", width)
-        .attr("x", min_x)
-        .attr("y", (d, i) => (min_y + i * leafContainerHeight))
-        // .attr('fill', "lightgray")
-        .attr('fill-opacity', 0.1)
-        .attr('stroke', 'gray')
-        .attr('stroke-opacity', 0.5)
-        .attr('stroke-dasharray', 2);
-
+  const leafContainers = background
+    .selectAll("rect")
+    .data(centuries)
+    .join("rect")
+    .attr("id", (d) => "c" + d)
+    .attr("height", leafContainerHeight)
+    .attr("width", width)
+    .attr("x", min_x)
+    .attr("y", (d, i) => min_y + i * leafContainerHeight)
+    // .attr('fill', "lightgray")
+    .attr("fill-opacity", 0.1)
+    .attr("stroke", "gray")
+    .attr("stroke-opacity", 0.5)
+    .attr("stroke-dasharray", 2);
 
   // create labels for the centuries
-  const leafContainerLabels = background.selectAll("text")
-      .data(centuries)
-      .join('text')
-        .attr('x', min_x + 5)
-        .attr('y', (d, i) => (min_y + i * leafContainerHeight + 15))
-        .attr('fill', "gray")
-        .attr('style', 'font-size: 10px')
-        .text(d => d + '00s');
-
-
+  const leafContainerLabels = background
+    .selectAll("text")
+    .data(centuries)
+    .join("text")
+    .attr("x", min_x + 5)
+    .attr("y", (d, i) => min_y + i * leafContainerHeight + 15)
+    .attr("fill", "gray")
+    .attr("style", "font-size: 10px")
+    .text((d) => d + "00s");
 
   // calculate leaf constraints based on leaf container height and century
   const leafConstraints = new Object();
   centuries.forEach((c, i) => {
     let localTop = leafContainerHeight * i;
     leafConstraints[c] = {
-      top:  localTop,
-      bottom: localTop + leafContainerHeight
+      top: localTop,
+      bottom: localTop + leafContainerHeight,
     };
   });
-
 
   // draw a couple of lines to help gesture at tree-ness
   let trunkWidth = 65;
   // right side
-  let max_y = height/2;
-  background.append("path")
-    .attr("d", d3.line().curve(d3.curveNatural)([
-      [trunkWidth + 25, max_y],
-      [trunkWidth, max_y - 50],
-      [trunkWidth - 10, max_y - 190],
-      [trunkWidth + 7, min_y + leafConstraints['15'].bottom - 10]
-    ]))
+  let max_y = height / 2;
+  background
+    .append("path")
+    .attr(
+      "d",
+      d3.line().curve(d3.curveNatural)([
+        [trunkWidth + 25, max_y],
+        [trunkWidth, max_y - 50],
+        [trunkWidth - 10, max_y - 190],
+        [trunkWidth + 7, min_y + leafConstraints["15"].bottom - 10],
+      ])
+    )
     .attr("stroke", "#D9D8D8")
     .attr("stroke-width", 3)
-     .attr("fill", "none")
+    .attr("fill", "none");
   // left side
-  background.append("path")
-    .attr("d", d3.line().curve(d3.curveNatural)([
-      [- trunkWidth - 32 , max_y],
-      [- trunkWidth - 20, max_y - 50],
-      [- trunkWidth, max_y - 105],
-      [- trunkWidth - 27, min_y + leafConstraints['15'].bottom - 10]
-    ]))
+  background
+    .append("path")
+    .attr(
+      "d",
+      d3.line().curve(d3.curveNatural)([
+        [-trunkWidth - 32, max_y],
+        [-trunkWidth - 20, max_y - 50],
+        [-trunkWidth, max_y - 105],
+        [-trunkWidth - 27, min_y + leafConstraints["15"].bottom - 10],
+      ])
+    )
     .attr("stroke", "#D9D8D8")
     .attr("stroke-width", 3)
-     .attr("fill", "none")
-
+    .attr("fill", "none");
 
   let g = svg.append("g");
 
   // NOTE: will probably want to tweak and finetune these forces
-  let simulation = d3.forceSimulation(nodes)
+  let simulation = d3
+    .forceSimulation(nodes)
     .force("charge", d3.forceManyBody().strength(-1))
     .force("manyBody", d3.forceManyBody().strength(-8))
     .force("center", d3.forceCenter().strength(0.01))
@@ -233,12 +264,21 @@ function TreeGraph({nodes, links, centuries}) {
     // .alphaDecay(0.2)
     .force("collide", d3.forceCollide().radius(18))
     // NOTE: may want to adjust to make variable by node type
-    .force("link", d3.forceLink(links).strength(link => 0.8))
+    .force(
+      "link",
+      d3.forceLink(links).strength((link) => 0.8)
+    )
     // .force("link", d3.forceLink(links).distance(30).strength(link => {
-      // return 1;
+    // return 1;
     // }))
-    .force("y", d3.forceY().y(node => centuryY(node)).strength(4));
-    // .on("tick", ticked);
+    .force(
+      "y",
+      d3
+        .forceY()
+        .y((node) => centuryY(node))
+        .strength(4)
+    );
+  // .on("tick", ticked);
 
   // run simulation for 300 ticks without animation
   simulation.tick(300);
@@ -246,70 +286,78 @@ function TreeGraph({nodes, links, centuries}) {
   simulation.on("tick", ticked);
   simulation.tick();
 
-
-const link = svg.append("g")
-      .attr("stroke", "darkgray")
-      .attr("stroke-width", 1)
+  const link = svg
+    .append("g")
+    .attr("stroke", "darkgray")
+    .attr("stroke-width", 1)
     .selectAll("line")
     .data(links)
     .join("line")
-      .attr("stroke-opacity", d => { return d.type == "leaf-label" ? 0 : 0.4 });
-      // hide links to labels
+    .attr("stroke-opacity", (d) => {
+      return d.type == "leaf-label" ? 0 : 0.4;
+    });
+  // hide links to labels
 
   var greenColor = d3.scaleSequential(d3.schemeGreens[5]);
 
-  const node = svg.append("g")
-      .attr("fill-opacity", 0.6)
+  const node = svg
+    .append("g")
+    .attr("fill-opacity", 0.6)
     .selectAll("circle")
     .data(nodes)
     .join("circle")
-      // make leaf nodes larger
-      .attr("r", d => { return d.type == "leaf" ? 8 : 3 })
-      // color leaves by century for now to visually check layout
-      .attr("fill", d => {return d.type == "leaf" ? greenColor(d.century - 14) : "darkgray" })
-      // .attr("fill", d => {return d.type == "leaf" ? "green" : "lightgray" })
-      .attr("fill-opacity", d => {return d.type == "leaf-label" ? 0 : 0.6 }) // hide label nodes
-      .attr("data-url", d => d.url || d.id)
-      .attr("data-sort-date", d => d.sort_date)
-      .attr("data-century", d => d.century)
-      .on("click", selectLeaf);
+    // make leaf nodes larger
+    .attr("r", (d) => {
+      return d.type == "leaf" ? 8 : 3;
+    })
+    // color leaves by century for now to visually check layout
+    .attr("fill", (d) => {
+      return d.type == "leaf" ? greenColor(d.century - 14) : "darkgray";
+    })
+    // .attr("fill", d => {return d.type == "leaf" ? "green" : "lightgray" })
+    .attr("fill-opacity", (d) => {
+      return d.type == "leaf-label" ? 0 : 0.6;
+    }) // hide label nodes
+    .attr("data-url", (d) => d.url || d.id)
+    .attr("data-sort-date", (d) => d.sort_date)
+    .attr("data-century", (d) => d.century)
+    .on("click", selectLeaf);
 
-  const nodeLabel = svg.append("g").attr("id", "labels")
+  const nodeLabel = svg
+    .append("g")
+    .attr("id", "labels")
     .selectAll("text")
-    .data(nodes.filter(d => d.type == "leaf-label"))
-      .join("text")
-        .attr("x", d => d.x)
-        .attr("y", d => d.y)
-        .attr("data-url", d => d.url)  // set url so we can click to select leaf
-        .attr("fill", "lightgray")
-        .attr("fill-opacity", 0.4)
-        .attr('text-anchor', 'middle')  // set coordinates to middle of text
-        .text(d => d.title)
-        .on("click", selectLeaf);
+    .data(nodes.filter((d) => d.type == "leaf-label"))
+    .join("text")
+    .attr("x", (d) => d.x)
+    .attr("y", (d) => d.y)
+    .attr("data-url", (d) => d.url) // set url so we can click to select leaf
+    .attr("fill", "lightgray")
+    .attr("fill-opacity", 0.4)
+    .attr("text-anchor", "middle") // set coordinates to middle of text
+    .text((d) => d.title)
+    .on("click", selectLeaf);
 
-    // if we need words split into separate tspan elements,
-    // do a second join on title words:
-        // .selectAll("tspan")
-        // .data(d => { return d.title == undefined ? ["no title"] : d.title.split(" ") })
-        //   .join("tspan")
-        //   .text(word => word);
+  // if we need words split into separate tspan elements,
+  // do a second join on title words:
+  // .selectAll("tspan")
+  // .data(d => { return d.title == undefined ? ["no title"] : d.title.split(" ") })
+  //   .join("tspan")
+  //   .text(word => word);
 
   function ticked() {
-      node
-        .attr("cx", d => d.x)
-        .attr("cy", d => d.y);
+    node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
 
-      link
-        .attr("x1", d => d.source.x)
-        .attr("y1", d => d.source.y)
-        .attr("x2", d => d.target.x)
-        .attr("y2", d => d.target.y)
-
-    }
+    link
+      .attr("x1", (d) => d.source.x)
+      .attr("y1", (d) => d.source.y)
+      .attr("x2", (d) => d.target.x)
+      .attr("y2", (d) => d.target.y);
+  }
 
   function centuryY(node) {
     // y-axis force to align nodes by century
-    if (node.type == 'trunk') {
+    if (node.type == "trunk") {
       return 0;
       // return height - 150;
     } else {
@@ -317,14 +365,19 @@ const link = svg.append("g")
       // return min_y + (leafContainerHeight / 2) + leafConstraints[node.century].top;
       // this calculation is correct for middle of container; but forces are resulting
       // in leaves displaying one century below; draw furthur up
-      return min_y + (leafContainerHeight / 2) + leafConstraints[node.century].top - leafContainerHeight;
+      return (
+        min_y +
+        leafContainerHeight / 2 +
+        leafConstraints[node.century].top -
+        leafContainerHeight
+      );
     }
     return 0;
   }
 
   const panel = document.querySelector("#panel");
 
-  d3.select('aside .close').on("click", function() {
+  d3.select("aside .close").on("click", function () {
     panel.parentElement.classList.remove("show-panel");
     panel.parentElement.classList.add("closed");
   });
@@ -334,9 +387,9 @@ const link = svg.append("g")
       .then((response) => response.text())
       .then((html) => {
         let parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
+        const doc = parser.parseFromString(html, "text/html");
         // Get the article content and insert into panel
-        const article = doc.querySelector('article');
+        const article = doc.querySelector("article");
         panel.querySelector("article").replaceWith(article);
         // make sure panel is active
         panel.parentElement.classList.add("show-panel");

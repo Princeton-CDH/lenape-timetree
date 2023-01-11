@@ -3,9 +3,9 @@ branch: The University
 display_date: 2022-
 sort_date: 2022
 tags:
-- resurgence
-- Indigenous studies
-- language revitalization
+  - resurgence
+  - Indigenous studies
+  - language revitalization
 title: Indigenous Language Alliance
 ---
 

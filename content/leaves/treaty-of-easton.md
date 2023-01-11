@@ -1,15 +1,15 @@
 ---
 branch: Lands and Waters
-display_date: ''
-sort_date: ''
+display_date: ""
+sort_date: ""
 tags:
-- Susquehanna and Ohio River Valleys
-- alliances
-- resistance
-- land purchases
-- colonial governments
-- treaties
-- war
+  - Susquehanna and Ohio River Valleys
+  - alliances
+  - resistance
+  - land purchases
+  - colonial governments
+  - treaties
+  - war
 title: Treaty of Easton
 ---
 

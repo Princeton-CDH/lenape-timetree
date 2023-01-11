@@ -3,7 +3,7 @@ branch: Communities
 display_date: 1798
 sort_date: 1798
 tags:
-- Oneida
+  - Oneida
 title: Brotherton Refusal
 ---
 

@@ -3,9 +3,9 @@ branch: Lands and Waters
 display_date: 1624
 sort_date: 1624
 tags:
-- Dutch settlers
-- Mannahatta/Manhattan
-- trade
+  - Dutch settlers
+  - Mannahatta/Manhattan
+  - trade
 title: Mannahatta
 ---
 

@@ -1,4 +1,4 @@
-baseURL: 'http://example.org/'
+baseURL: "http://example.org/"
 languageCode: en-us
 title: Lenape Princeton Timetree
 theme: timetree
@@ -11,5 +11,5 @@ params:
 
 outputs:
   home:
-  - HTML
-  - JSON
+    - HTML
+    - JSON

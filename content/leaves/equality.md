@@ -3,9 +3,9 @@ branch: Lands and Waters
 display_date: 1682-1776
 sort_date: 1682
 tags:
-- English settlers
-- Quakers
-- affinities
+  - English settlers
+  - Quakers
+  - affinities
 title: Equality
 ---
 

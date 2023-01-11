@@ -3,10 +3,10 @@ branch: The University
 display_date: 1778
 sort_date: 1778
 tags:
-- Colonial government
-- resistance
-- alliances
-- campus buildings
+  - Colonial government
+  - resistance
+  - alliances
+  - campus buildings
 title: Prospect Occupation
 ---
 
