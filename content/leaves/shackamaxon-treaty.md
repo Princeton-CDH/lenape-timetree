@@ -3,11 +3,11 @@ branch: Lands and Waters
 display_date: 1682
 sort_date: 1682
 tags:
-- English settlers
-- Philadelphia
-- treaties
-- affinities
-- land claims
+  - English settlers
+  - Philadelphia
+  - treaties
+  - affinities
+  - land claims
 title: Shackamaxon Treaty
 ---
 

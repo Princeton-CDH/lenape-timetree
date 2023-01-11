@@ -3,11 +3,11 @@ branch: Lands and Waters
 display_date: 1737
 sort_date: 1737
 tags:
-- Lenape resistance
-- Iroquois
-- removals
-- Susquehanna and Ohio River Valleys
-- colonial governments
+  - Lenape resistance
+  - Iroquois
+  - removals
+  - Susquehanna and Ohio River Valleys
+  - colonial governments
 title: Concession
 ---
 

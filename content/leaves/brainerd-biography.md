@@ -3,9 +3,9 @@ branch: The University
 display_date: 1907
 sort_date: 1907
 tags:
-- missions
-- reservations
-- native artifacts
+  - missions
+  - reservations
+  - native artifacts
 title: Brainerd Biography
 ---
 

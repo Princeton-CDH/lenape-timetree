@@ -12,7 +12,7 @@ module.exports = {
         "/",
         // "/about/",
         // "/404.html"
-    ]
+      ],
     },
     assert: {
       preset: "lighthouse:no-pwa",
@@ -24,7 +24,7 @@ module.exports = {
         IDs are also available in GH Actions output. */
 
         "csp-xss": "warn",
-      }
+      },
     },
     upload: {
       target: "temporary-public-storage",

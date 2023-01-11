@@ -3,10 +3,10 @@ branch: The University
 display_date: 1842-1866
 sort_date: 1842
 tags:
-- wars
-- Native Princeton students
-- alliances
-- wars
+  - wars
+  - Native Princeton students
+  - alliances
+  - wars
 title: William Potter Ross
 ---
 

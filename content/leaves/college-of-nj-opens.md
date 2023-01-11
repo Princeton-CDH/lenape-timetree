@@ -3,8 +3,8 @@ branch: The University
 display_date: 1747
 sort_date: 1747
 tags:
-- university presidents
-- religion
+  - university presidents
+  - religion
 title: College of NJ Opens
 ---
 

@@ -3,7 +3,7 @@ branch: Resistance + Resurgence
 display_date: 2020
 sort_date: 2020
 tags:
-- governance
+  - governance
 title: Land governance
 ---
 

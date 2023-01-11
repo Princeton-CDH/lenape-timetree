@@ -3,12 +3,12 @@ branch: Communities
 display_date: 1762-1802
 sort_date: 1762
 tags:
-- reservations
-- emigration
-- treaties
-- renaming
-- Oneida
-- colonial governments
+  - reservations
+  - emigration
+  - treaties
+  - renaming
+  - Oneida
+  - colonial governments
 title: Stockbridge
 ---
 

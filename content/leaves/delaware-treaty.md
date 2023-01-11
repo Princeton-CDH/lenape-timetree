@@ -3,12 +3,12 @@ branch: Removals
 display_date: 1866
 sort_date: 1866
 tags:
-- Wars
-- treaties
-- US government
-- resettlement
-- reservations
-- Cherokee
+  - Wars
+  - treaties
+  - US government
+  - resettlement
+  - reservations
+  - Cherokee
 title: Delaware Treaty
 ---
 

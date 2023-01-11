@@ -3,11 +3,11 @@ branch: Removals
 display_date: 1866
 sort_date: 1866
 tags:
-- purchases
-- alliances
-- Native Princeton students
-- treaties
-- Cherokee
+  - purchases
+  - alliances
+  - Native Princeton students
+  - treaties
+  - Cherokee
 title: Cherokee Purchase
 ---
 

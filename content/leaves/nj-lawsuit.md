@@ -3,9 +3,9 @@ branch: Lands and Waters
 display_date: 1832
 sort_date: 1832
 tags:
-- Native Princeton students
-- redress
-- state governments
+  - Native Princeton students
+  - redress
+  - state governments
 title: NJ Lawsuit
 ---
 

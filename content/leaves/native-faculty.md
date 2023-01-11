@@ -3,8 +3,8 @@ branch: The University
 display_date: 1973
 sort_date: 1973
 tags:
-- resistance
-- US Government
+  - resistance
+  - US Government
 title: Native Faculty
 ---
 

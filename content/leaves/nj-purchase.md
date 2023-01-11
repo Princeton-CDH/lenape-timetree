@@ -3,8 +3,8 @@ branch: Lands and Waters
 display_date: 1677
 sort_date: 1677
 tags:
-- Quakers
-- land purchase
+  - Quakers
+  - land purchase
 title: NJ Purchase
 ---
 

@@ -3,8 +3,8 @@ branch: Lands and Waters
 display_date: 1737
 sort_date: 1737
 tags:
-- deception
-- land claims
+  - deception
+  - land claims
 title: Land Seizure
 ---
 

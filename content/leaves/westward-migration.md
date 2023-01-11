@@ -3,9 +3,9 @@ branch: Lands and Waters
 display_date: 1737
 sort_date: 1737
 tags:
-- deception
-- removals
-- Susquehanna and Ohio River Valleys
+  - deception
+  - removals
+  - Susquehanna and Ohio River Valleys
 title: Westward Migration
 ---
 

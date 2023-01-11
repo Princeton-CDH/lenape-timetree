@@ -3,9 +3,9 @@ branch: Lands and Waters
 display_date: 1709
 sort_date: 1709
 tags:
-- land purchases
-- Princeton lands
-- routes
+  - land purchases
+  - Princeton lands
+  - routes
 title: Kingston
 ---
 

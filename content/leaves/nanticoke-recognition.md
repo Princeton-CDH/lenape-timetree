@@ -3,8 +3,8 @@ branch: Resistance + Resurgence
 display_date: 1976-1982
 sort_date: 1982
 tags:
-- state governments
-- resurgence
+  - state governments
+  - resurgence
 title: Nanticoke Recognition
 ---
 

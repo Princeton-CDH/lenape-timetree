@@ -3,10 +3,10 @@ branch: The University
 display_date: 1774
 sort_date: 1774
 tags:
-- Native Princeton students
-- treaties
-- religion
-- wars
+  - Native Princeton students
+  - treaties
+  - religion
+  - wars
 title: Scott Calvin (Shawukukhkung)
 ---
 

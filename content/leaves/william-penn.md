@@ -3,10 +3,10 @@ branch: Lands and Waters
 display_date: 1682
 sort_date: 1682
 tags:
-- Lenapewihittuck/Delaware River
-- English settlers
-- disease
-- land claims
+  - Lenapewihittuck/Delaware River
+  - English settlers
+  - disease
+  - land claims
 title: William Penn
 ---
 

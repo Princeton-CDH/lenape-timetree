@@ -3,13 +3,13 @@ branch: Communities
 display_date: 1866
 sort_date: 1866
 tags:
-- wars
-- removals
-- treaties
-- Native Princeton Students
-- Cherokee
-- self-determination
-- Midwest
+  - wars
+  - removals
+  - treaties
+  - Native Princeton Students
+  - Cherokee
+  - self-determination
+  - Midwest
 title: 1866 Delaware Treaty
 ---
 

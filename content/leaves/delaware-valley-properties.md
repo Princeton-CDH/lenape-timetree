@@ -3,8 +3,8 @@ branch: Lands and Waters
 display_date: 1682-1776
 sort_date: 1682
 tags:
-- Lenapewihittuck/Delaware River
-- colonial governments
+  - Lenapewihittuck/Delaware River
+  - colonial governments
 title: Delaware Valley properties
 ---
 
