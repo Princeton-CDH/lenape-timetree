@@ -26,6 +26,9 @@ const d3 = {
   schemeGreens,
 };
 
+// constant for selection classname
+const selectedClass = "select";
+
 // load & parse leaf data from json embedded in the document
 const leafData = document.querySelector(".leaf-data");
 const data = JSON.parse(leafData.value);
@@ -395,11 +398,11 @@ function TreeGraph({ nodes, links, centuries }) {
   function selectLeaf(event) {
     deselectAllLeaves();
     // visually highlight selected leaf in the tree
-    event.target.classList.add("select");
+    event.target.classList.add(selectedClass);
     let leafUrl = event.target.getAttribute("data-url");
     let leafAndLabel = document.querySelectorAll(`[data-url="${leafUrl}"]`);
     for (let item of leafAndLabel) {
-      item.classList.add("select");
+      item.classList.add(selectedClass);
     }
 
     fetch(leafUrl)
@@ -418,11 +421,11 @@ function TreeGraph({ nodes, links, centuries }) {
 
 function deselectAllLeaves() {
   // deselect any leaf or leaf label that is currently highlighted
-  let selected = document.getElementsByClassName("select");
+  let selected = document.getElementsByClassName(selectedClass);
   // convert to array rather than iterating, since htmlcollection is live
   // and changes as updated
   Array.from(selected).forEach((item) => {
-    item.classList.remove("select");
+    item.classList.remove(selectedClass);
   });
 }
 
@@ -431,7 +434,7 @@ function selectLeavesByTag(tagName) {
   deselectAllLeaves();
   let leaves = document.getElementsByClassName(tagName);
   for (let item of leaves) {
-    item.classList.add("select");
+    item.classList.add(selectedClass);
   }
 }
 
