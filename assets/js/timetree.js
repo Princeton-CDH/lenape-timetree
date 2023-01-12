@@ -154,6 +154,7 @@ sortedLeaves.forEach((leaf, index) => {
     title: leaf.title,
     url: leaf.id,
     century: leaf.century,
+    tags: leaf.tags,
   });
   links.push({
     source: index,
@@ -310,17 +311,22 @@ function TreeGraph({ nodes, links, centuries }) {
     .attr("r", (d) => {
       return d.type == "leaf" ? 8 : 3;
     })
-    // color leaves by century for now to visually check layout
+    // color leaves by century for now to visually check layout (temporary)
     .attr("fill", (d) => {
       return d.type == "leaf" ? greenColor(d.century - 14) : "darkgray";
     })
-    // .attr("fill", d => {return d.type == "leaf" ? "green" : "lightgray" })
     .attr("fill-opacity", (d) => {
       return d.type == "leaf-label" ? 0 : 0.6;
     }) // hide label nodes
     .attr("data-url", (d) => d.url || d.id)
     .attr("data-sort-date", (d) => d.sort_date)
     .attr("data-century", (d) => d.century)
+    .attr("class", (d) => {
+      if (d.tags != undefined) {
+        return d.tags.join(" ");
+      }
+      return "";
+    })
     .on("click", selectLeaf);
 
   const nodeLabel = svg
@@ -332,9 +338,13 @@ function TreeGraph({ nodes, links, centuries }) {
     .attr("x", (d) => d.x)
     .attr("y", (d) => d.y)
     .attr("data-url", (d) => d.url) // set url so we can click to select leaf
-    .attr("fill", "lightgray")
-    .attr("fill-opacity", 0.4)
     .attr("text-anchor", "middle") // set coordinates to middle of text
+    .attr("class", (d) => {
+      if (d.tags != undefined) {
+        return d.tags.join(" ");
+      }
+      return "";
+    })
     .text((d) => d.title)
     .on("click", selectLeaf);
 
@@ -383,6 +393,11 @@ function TreeGraph({ nodes, links, centuries }) {
   });
 
   function selectLeaf(event) {
+    deselectAllLeaves();
+
+    // visually highlight selected leaf in the tree
+    event.target.classList.add("select");
+
     fetch(event.target.getAttribute("data-url"))
       .then((response) => response.text())
       .then((html) => {
@@ -396,6 +411,38 @@ function TreeGraph({ nodes, links, centuries }) {
       });
   }
 }
+
+function deselectAllLeaves() {
+  // deselect anything currently highlighted
+  let selected = document.getElementsByClassName("select");
+  for (let item of selected) {
+    item.classList.remove("select");
+  }
+}
+
+function selectLeavesByTag(tagName) {
+  // select all leaves with the specified tag
+  deselectAllLeaves();
+  let leaves = document.getElementsByClassName(tagName);
+  for (let item of leaves) {
+    item.classList.add("select");
+  }
+}
+
+// bind a delegated click handler to override tag link behavior
+const asideContainer = document.querySelector("aside");
+asideContainer.addEventListener("click", (event) => {
+  let element = event.target;
+  // if click target is a link in the tags section, select leaves for that tag
+  if (
+    element.tagName == "A" &&
+    element.parentElement.classList.contains("tags")
+  ) {
+    event.preventDefault();
+    event.stopPropagation();
+    selectLeavesByTag(element.textContent);
+  }
+});
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);

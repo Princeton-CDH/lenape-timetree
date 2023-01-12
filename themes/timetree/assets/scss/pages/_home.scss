@@ -37,6 +37,20 @@ body.home {
       }
     }
 
+    circle.select {
+      stroke: #fecd70;
+      stroke-width: 2px;
+    }
+    text.select {
+      fill: #fecd70;
+      fill-opacity: 1;
+    }
+
+    text {
+      fill: lightgray;
+      fill-opacity: 0.4;
+    }
+
     // styles for intro text and selected panel
     > aside {
       background-color: $body-bg-color;
