@@ -99,6 +99,17 @@ nodes.push({
 });
 const trunkNodeIndex = nodes.length - 1; // last node is the trunk
 
+// branch style color sequence; set class name and control with css
+let branchStyles = ["a", "b", "c", "d", "e"];
+
+function getBranchStyle(branchName) {
+  let branchIndex = Object.keys(branches).indexOf(branchName);
+  let branchStyle = branchStyles[branchIndex];
+  if (branchStyle != undefined) {
+    return "branch-" + branchStyles[branchIndex];
+  }
+}
+
 // array of links between our nodes
 let links = new Array();
 
@@ -191,15 +202,11 @@ function TreeGraph({ nodes, links, centuries }) {
     .data(centuries)
     .join("rect")
     .attr("id", (d) => "c" + d)
+    .attr("class", "century-container")
     .attr("height", leafContainerHeight)
     .attr("width", width)
     .attr("x", min_x)
-    .attr("y", (d, i) => min_y + i * leafContainerHeight)
-    // .attr('fill', "lightgray")
-    .attr("fill-opacity", 0.1)
-    .attr("stroke", "gray")
-    .attr("stroke-opacity", 0.5)
-    .attr("stroke-dasharray", 2);
+    .attr("y", (d, i) => min_y + i * leafContainerHeight);
 
   // create labels for the centuries
   const leafContainerLabels = background
@@ -208,8 +215,7 @@ function TreeGraph({ nodes, links, centuries }) {
     .join("text")
     .attr("x", min_x + 5)
     .attr("y", (d, i) => min_y + i * leafContainerHeight + 15)
-    .attr("fill", "gray")
-    .attr("style", "font-size: 10px")
+    .attr("class", "century-label")
     .text((d) => d + "00s");
 
   // calculate leaf constraints based on leaf container height and century
@@ -237,9 +243,7 @@ function TreeGraph({ nodes, links, centuries }) {
         [trunkWidth + 7, min_y + leafConstraints["15"].bottom - 10],
       ])
     )
-    .attr("stroke", "#D9D8D8")
-    .attr("stroke-width", 3)
-    .attr("fill", "none");
+    .attr("class", "trunk");
   // left side
   background
     .append("path")
@@ -252,9 +256,7 @@ function TreeGraph({ nodes, links, centuries }) {
         [-trunkWidth - 27, min_y + leafConstraints["15"].bottom - 10],
       ])
     )
-    .attr("stroke", "#D9D8D8")
-    .attr("stroke-width", 3)
-    .attr("fill", "none");
+    .attr("class", "trunk");
 
   let g = svg.append("g");
 
@@ -306,7 +308,7 @@ function TreeGraph({ nodes, links, centuries }) {
 
   const node = svg
     .append("g")
-    .attr("fill-opacity", 0.6)
+    // .attr("fill-opacity", 0.6)
     .selectAll("circle")
     .data(nodes)
     .join("circle")
@@ -315,9 +317,9 @@ function TreeGraph({ nodes, links, centuries }) {
       return d.type == "leaf" ? 8 : 3;
     })
     // color leaves by century for now to visually check layout (temporary)
-    .attr("fill", (d) => {
-      return d.type == "leaf" ? greenColor(d.century - 14) : "darkgray";
-    })
+    // .attr("fill", (d) => {
+    // return d.type == "leaf" ? greenColor(d.century - 14) : "darkgray";
+    // })
     .attr("fill-opacity", (d) => {
       return d.type == "leaf-label" ? 0 : 0.6;
     }) // hide label nodes
@@ -325,10 +327,11 @@ function TreeGraph({ nodes, links, centuries }) {
     .attr("data-sort-date", (d) => d.sort_date)
     .attr("data-century", (d) => d.century)
     .attr("class", (d) => {
+      let classes = [d.type, getBranchStyle(d.branch)];
       if (d.tags != undefined) {
-        return d.tags.join(" ");
+        classes.push(...d.tags);
       }
-      return "";
+      return classes.join(" ");
     })
     .on("click", selectLeaf);
 
@@ -343,10 +346,11 @@ function TreeGraph({ nodes, links, centuries }) {
     .attr("data-url", (d) => d.url) // set url so we can click to select leaf
     .attr("text-anchor", "middle") // set coordinates to middle of text
     .attr("class", (d) => {
+      let classes = ["leaf-label"];
       if (d.tags != undefined) {
-        return d.tags.join(" ");
+        classes.push(...d.tags);
       }
-      return "";
+      return classes.join(" ");
     })
     .text((d) => d.title)
     .on("click", selectLeaf);
