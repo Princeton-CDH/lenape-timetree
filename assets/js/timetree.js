@@ -394,11 +394,15 @@ function TreeGraph({ nodes, links, centuries }) {
 
   function selectLeaf(event) {
     deselectAllLeaves();
-
     // visually highlight selected leaf in the tree
     event.target.classList.add("select");
+    let leafUrl = event.target.getAttribute("data-url");
+    let leafAndLabel = document.querySelectorAll(`[data-url="${leafUrl}"]`);
+    for (let item of leafAndLabel) {
+      item.classList.add("select");
+    }
 
-    fetch(event.target.getAttribute("data-url"))
+    fetch(leafUrl)
       .then((response) => response.text())
       .then((html) => {
         let parser = new DOMParser();
@@ -413,11 +417,13 @@ function TreeGraph({ nodes, links, centuries }) {
 }
 
 function deselectAllLeaves() {
-  // deselect anything currently highlighted
+  // deselect any leaf or leaf label that is currently highlighted
   let selected = document.getElementsByClassName("select");
-  for (let item of selected) {
+  // convert to array rather than iterating, since htmlcollection is live
+  // and changes as updated
+  Array.from(selected).forEach((item) => {
     item.classList.remove("select");
-  }
+  });
 }
 
 function selectLeavesByTag(tagName) {
