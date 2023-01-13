@@ -44,7 +44,6 @@ body > header {
 }
 
 body > footer {
-  border-top: 1px dashed $line-color;
   height: $mobile_footer_height;
 
   @include for-desktop-up {
