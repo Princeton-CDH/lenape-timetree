@@ -57,4 +57,21 @@ a:link,
 a:hover,
 a:visited {
   color: $body-bg-color;
+  color: $body-fg-color;
+  text-decoration: underline;
+  text-decoration-color: #fecd70;
+}
+
+article {
+  margin: 30px;
+
+  h1 {
+    font-weight: bold;
+    font-size: larger;
+    margin-bottom: 15px;
+  }
+}
+
+.tags {
+  margin-top: 20px;
 }

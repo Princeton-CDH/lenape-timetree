@@ -1,0 +1,12 @@
+{{ define "main" }}
+  <article>
+    <div>{{ .Content }}</div>
+      <section>
+        <ul>
+          {{ range $tag, $content := .Data.Terms }}
+          <li><a href="{{ .Page.Permalink }}">{{ $tag }}</a> ({{ $content.Count }})
+           </li>
+          {{ end }}
+        </ul>
+</section>
+{{ end }}
