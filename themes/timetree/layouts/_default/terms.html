@@ -4,7 +4,7 @@
       <section>
         <ul>
           {{ range $tag, $content := .Data.Terms }}
-          <li><a href="{{ .Page.Permalink }}">{{ $tag }}</a> ({{ $content.Count }})
+          <li><a href="{{ .Page.RelPermalink }}">{{ $tag }}</a> ({{ $content.Count }})
            </li>
           {{ end }}
         </ul>
