@@ -17,3 +17,4 @@ repos:
         exclude: (\.html$|^content/)
         # exclude hugo templates, which prettier does not support by default
         # exclude content markdown files, to avoid introducing formatting conflicts with content editor changes
+
