@@ -119,3 +119,9 @@ body.home {
     display: none;
   }
 }
+
+// provisional styles to delimit leaves on tag list page
+article.container article {
+  padding-bottom: 12px;
+  border-bottom: 1px dashed $line-color;
+}
