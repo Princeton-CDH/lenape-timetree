@@ -104,6 +104,20 @@ body.home {
       fill-opacity: 0.4;
     }
 
+    circle.select {
+      stroke: #fecd70;
+      stroke-width: 2px;
+    }
+    text.select {
+      fill: #fecd70;
+      fill-opacity: 1;
+    }
+
+    text {
+      fill: lightgray;
+      fill-opacity: 0.4;
+    }
+
     // styles for intro text and selected panel
     > aside {
       background-color: $body-bg-color;
@@ -190,4 +204,10 @@ body.home {
   padding: 9px 12px;
   background-color: $lightgray;
   color: $nearblack;
+}
+
+// provisional styles to delimit leaves on tag list page
+article.container article {
+  padding-bottom: 12px;
+  border-bottom: 1px dashed $line-color;
 }
