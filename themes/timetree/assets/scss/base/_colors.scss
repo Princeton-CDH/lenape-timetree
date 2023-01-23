@@ -1,6 +1,22 @@
 // colors
-// TBD
-$body-bg-color: #222222;
-$body-fg-color: #fefefe;
-$nav-bg-color: #404040;
 $line-color: #8e8e8e;
+
+$nearwhite: #fefefe;
+$nearblack: #121212;
+$lightgray: #eeeeee;
+
+$body-bg-color: #75645d;
+$nav-bg-color: #635752;
+$body-fg-color: $nearwhite;
+
+// tree colors
+$root-color: rgba(197, 176, 160, 0.5); // #C5B0A0, 50% opacity
+$trunk-color: #c5b0a0;
+$dashes-color: rgba(254, 254, 254, 0.4); // near white, 40% opacity
+$branch-color-a: #ffdcae;
+$branch-color-b: #fecd70;
+$branch-color-c: #ced89e;
+$branch-color-d: #adcf9f;
+$branch-color-e: #cc7351;
+
+$highlight-color: $branch-color-b;

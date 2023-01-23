@@ -4,5 +4,10 @@
 @import "breakpoints";
 @import "colors";
 
+* {
+  // unset all in css reset somehow sets fill-opacity to 0.6; undo that
+  fill-opacity: 1;
+}
+
 // fonts
 // TBD
