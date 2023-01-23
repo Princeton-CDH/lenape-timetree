@@ -143,7 +143,7 @@ for (let branch in branches) {
     links.push({
       source: branchIndex[branchId],
       target: target,
-      value: 10,
+      value: 1,
     });
   });
 }
@@ -156,7 +156,7 @@ sortedLeaves.forEach((leaf, index) => {
     links.push({
       source: index,
       target: branchIndex[branchId],
-      value: 1,
+      value: 4.5,
     });
   }
 });
@@ -268,11 +268,36 @@ function TreeGraph({ nodes, links, centuries }) {
     .force("center", d3.forceCenter().strength(0.01))
     // .alpha(0.1)
     // .alphaDecay(0.2)
-    .force("collide", d3.forceCollide().radius(18))
-    // NOTE: may want to adjust to make variable by node type
+    .force(
+      "collide",
+      d3.forceCollide().radius((d) => {
+        // collision radius should vary by node type
+        if (d.type == "leaf") {
+          return 22;
+        } else if (d.type == "leaf-label") {
+          if (d.title != undefined) {
+            return d.title.length * 1.5;
+          }
+          return 2;
+        }
+        return 2;
+      })
+    )
     .force(
       "link",
-      d3.forceLink(links).strength((link) => 0.8)
+      d3.forceLink(links).strength((link) => {
+        return link.value; // link strength defined when links created
+        // if (link.value != undefined) {
+        // return link.value;
+        // }
+        // alternately, could set based on source/target node type,
+        // or link type
+        // console.log(link);
+        // if (link.target.type == "leaf-label") {
+        //   return 5;
+        // }
+        // return 0.8
+      })
     )
     // .force("link", d3.forceLink(links).distance(30).strength(link => {
     // return 1;
@@ -311,11 +336,19 @@ function TreeGraph({ nodes, links, centuries }) {
     // .attr("fill-opacity", 0.6)
     .selectAll("circle")
     .data(nodes)
-    .join("circle")
+    .join("path")
     // make leaf nodes larger
-    .attr("r", (d) => {
-      return d.type == "leaf" ? 8 : 3;
+    .attr("d", (d) => {
+      if (d.type == "leaf") {
+        return drawLeafCurve();
+      } else {
+        // empty path for everything else (todo: is this valid?)
+        return "0 0";
+      }
     })
+    // .attr("r", (d) => {
+    //   return d.type == "leaf" ? 8 : 3;
+    // })
     // color leaves by century for now to visually check layout (temporary)
     // .attr("fill", (d) => {
     // return d.type == "leaf" ? greenColor(d.century - 14) : "darkgray";
@@ -363,7 +396,19 @@ function TreeGraph({ nodes, links, centuries }) {
   //   .text(word => word);
 
   function ticked() {
-    node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
+    // node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
+    // node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
+    let rotation = Math.random() * 60;
+    // since nodes are paths and not circles, position using transform + translate
+    // rotate leaves to vary the visual display of leaves
+    // (could also skew?)
+    node.attr("transform", (d) => {
+      // rotate negative or positive depending on side of the tree
+      if (d.x > 0) {
+        rotation = 0 - rotation;
+      }
+      return `rotate(${rotation} ${d.x} ${d.y}) translate(${d.x} ${d.y})`;
+    });
 
     link
       .attr("x1", (d) => d.source.x)
@@ -422,6 +467,39 @@ function TreeGraph({ nodes, links, centuries }) {
       });
   }
 }
+
+function drawLeafCurve() {
+  let x = 0;
+  let maxLeafHeight = 50;
+  let maxLeafWidth = 35;
+
+  // vary the width and height; treat initial values as maximums
+  let leafHeight = maxLeafHeight - Math.random() * 20;
+  let leafWidth = maxLeafWidth - Math.random() * 20;
+  // by default, leaf should be widest at the middle; but vary slightly
+  let midLeafHeight = leafHeight / 2;
+  midLeafHeight += Math.random() * 10 - 5; // random number between +/- 5
+
+  // where should the "tail" of the leaf curve in?
+  let tailCurveHeight = leafHeight - 5 - Math.random() * 10;
+  let tailCurveDepth = x - leafWidth / 10 + Math.random() * 5;
+
+  let curve = d3.line().curve(d3.curveNatural)([
+    [x, 0], // top
+    [x - leafWidth / 2, midLeafHeight], // left middle
+    [x - leafWidth / 10, tailCurveHeight], // left near bottom
+    [x, leafHeight], // bottom
+    [x + leafWidth / 2, midLeafHeight], // right middle
+    [x, 0], // top
+  ]);
+
+  return curve;
+}
+
+// svg.append("path")
+//     .attr("d", curve)
+//     .attr("fill", "green");
+// }
 
 function deselectAllLeaves() {
   // deselect any leaf or leaf label that is currently highlighted

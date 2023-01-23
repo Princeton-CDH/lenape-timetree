@@ -52,7 +52,8 @@ body.home {
         opacity: 1;
       }
 
-      circle.select {
+      circle.select,
+      path.select {
         stroke: #1d1c01;
         stroke-width: 4px;
       }
