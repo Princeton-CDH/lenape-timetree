@@ -57,7 +57,7 @@ a:hover,
 a:visited {
   color: $body-fg-color;
   text-decoration: underline;
-  text-decoration-color: #fecd70;
+  text-decoration-color: $highlight-color;
 }
 
 article {
