@@ -23,8 +23,11 @@ body > footer {
   a:visited {
     // set color since lighthouse is complaining about contrast
     color: $body-fg-color;
-    font-weight: bold;
     text-decoration: underline;
+
+    &.selected {
+      font-weight: 900;
+    }
   }
 }
 
@@ -56,6 +59,7 @@ a:link,
 a:hover,
 a:visited {
   color: $body-fg-color;
+  font-weight: normal;
   text-decoration: underline;
   text-decoration-color: $highlight-color;
 }
