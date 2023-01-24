@@ -26,6 +26,22 @@ const d3 = {
   schemeGreens,
 };
 
+// strength of the various forces used to lay out the leaves
+const forceStrength = {
+  // standard d3 forces
+  charge: -1, // simulate gravity (attraction) if the strength is positive, or electrostatic charge (repulsion) if the strength is negative
+  manybody: -8, // A positive value causes nodes to attract each other, similar to gravity, while a negative value causes nodes to repel each other, similar to electrostatic charge; d3 default is -30
+  center: 0.01, // how strongly drawn to the center of the svg
+
+  // custom y force for century
+  centuryY: 4, // draw to Y coordinate for center of assigned century band
+
+  // strength of link force by type of link
+  leafToLabel: 5, // between leaves and their labels
+  leafToBranch: 3, // between leaf and branch-century node
+  branchToBranch: 2.5, // between branch century nodes
+};
+
 // constant for selection classname
 const selectedClass = "select";
 
@@ -143,7 +159,7 @@ for (let branch in branches) {
     links.push({
       source: branchIndex[branchId],
       target: target,
-      value: 1,
+      value: forceStrength.branchToBranch,
     });
   });
 }
@@ -156,7 +172,7 @@ sortedLeaves.forEach((leaf, index) => {
     links.push({
       source: index,
       target: branchIndex[branchId],
-      value: 4.5,
+      value: forceStrength.leafToBranch,
     });
   }
 });
@@ -173,7 +189,7 @@ sortedLeaves.forEach((leaf, index) => {
   links.push({
     source: index,
     target: nodes.length - 1,
-    value: 5,
+    value: forceStrength.leafToLabel,
     type: "leaf-label",
   });
 });
@@ -263,9 +279,9 @@ function TreeGraph({ nodes, links, centuries }) {
   // NOTE: will probably want to tweak and finetune these forces
   let simulation = d3
     .forceSimulation(nodes)
-    .force("charge", d3.forceManyBody().strength(-1))
-    .force("manyBody", d3.forceManyBody().strength(-8))
-    .force("center", d3.forceCenter().strength(0.01))
+    .force("charge", d3.forceManyBody().strength(forceStrength.charge))
+    .force("manyBody", d3.forceManyBody().strength(forceStrength.manyBody))
+    .force("center", d3.forceCenter().strength(forceStrength.center))
     // .alpha(0.1)
     // .alphaDecay(0.2)
     .force(
@@ -307,7 +323,7 @@ function TreeGraph({ nodes, links, centuries }) {
       d3
         .forceY()
         .y((node) => centuryY(node))
-        .strength(4)
+        .strength(forceStrength.centuryY)
     );
   // .on("tick", ticked);
 
@@ -470,8 +486,8 @@ function TreeGraph({ nodes, links, centuries }) {
 
 function drawLeafCurve() {
   let x = 0;
-  let maxLeafHeight = 50;
-  let maxLeafWidth = 35;
+  let maxLeafHeight = 45;
+  let maxLeafWidth = 25;
 
   // vary the width and height; treat initial values as maximums
   let leafHeight = maxLeafHeight - Math.random() * 20;
