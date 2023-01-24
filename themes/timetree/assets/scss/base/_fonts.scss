@@ -1,0 +1,46 @@
+// timetree site fonts
+
+/* Overlock */
+
+// reference google fonts css for these fonts here:
+// https://fonts.googleapis.com/css2?family=Overlock:ital,wght@0,400;0,700;0,900;1,400&display=swap
+
+/* regular */
+@font-face {
+  font-family: "Overlock";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/overlock/Overlock-Regular.woff2") format("woff2"),
+    url("/fonts/overlock/Overlock-Regular.woff") format("woff");
+}
+
+/* bold */
+@font-face {
+  font-family: "Overlock";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/overlock/Overlock-Bold.woff2") format("woff2"),
+    url("/fonts/overlock/Overlock-Bold.woff") format("woff");
+}
+
+/* black */
+@font-face {
+  font-family: "Overlock";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("/fonts/overlock/Overlock-Black.woff2") format("woff2"),
+    url("/fonts/overlock/Overlock-Black.woff") format("woff");
+}
+
+/* regular italic */
+@font-face {
+  font-family: "Overlock";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/overlock/Overlock-Italic.woff2") format("woff2"),
+    url("/fonts/overlock/Overlock-Italic.woff") format("woff");
+}
