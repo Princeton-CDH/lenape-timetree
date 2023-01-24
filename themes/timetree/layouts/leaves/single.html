@@ -1,0 +1,16 @@
+{{ define "main" }}
+  {{ $section := .Site.GetPage "section" .Section }}
+  <article>
+    <header>
+      <aside>{{ .Params.branch }}</aside>
+      <h1>{{- .Title -}}</h1>
+      {{ with .Params.display_date }}
+      <time>{{ . }}</time>
+      {{ end}}
+      </header>
+
+      {{- .Content -}}
+
+      {{- partial "tags.html" . -}}
+  </article>
+{{ end }}
