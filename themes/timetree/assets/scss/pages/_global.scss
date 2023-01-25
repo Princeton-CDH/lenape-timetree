@@ -77,9 +77,20 @@ article {
 }
 
 footer nav {
-  width: 80%;
+  // use flex to space out footer links, for now
   display: flex;
+
+  // limit footer nav width on larger screens
+  @include for-desktop-up {
+    width: 80%;
+  }
+
   > * {
     flex-grow: 1;
+  }
+  // make links sufficiently large tap targets
+  a {
+    display: inline-block;
+    height: 48px;
   }
 }
