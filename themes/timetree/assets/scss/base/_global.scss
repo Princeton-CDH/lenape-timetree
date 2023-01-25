@@ -50,7 +50,6 @@ body {
   font-family: $body-font;
   font-size: 18px;
   line-height: 27px;
-  letter-spacing: -1px;
 
   @include for-desktop-up {
     font-size: $base-font-size;
