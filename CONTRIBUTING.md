@@ -6,7 +6,11 @@ Content for this site can be edited on GitHub or locally, if you are
 comfortable working with git and hugo. For local editing, first follow
 the setup instructions in the [README](README.md).
 
-### Leaves
+All edits should be made on the `develop` branch so they can be reviewed
+before being published on the main site. Using pull requests for edits
+is recommended.
+
+### Add and edit Leaves
 
 Leaf content is stored in [content/leaves][content/leaves]. Each leaf
 is represented by a single Markdown file with yaml metadata for

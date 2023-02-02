@@ -5,7 +5,10 @@
 ![Node version](https://img.shields.io/badge/node-18-blue)
 [![visual regression testing](https://percy.io/static/images/percy-badge.svg)](https://percy.io/2cf28a24/lenape-timetree)
 
-## Developer + contributor instructions
+## Developer + contributor setup instructions
+
+For instructions on editing site content, refer to [CONTRIBUTING](CONTRIBUTING.md).
+Local setup is not required for content editing.
 
 ### Hugo setup
 
