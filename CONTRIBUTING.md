@@ -10,7 +10,7 @@ All edits should be made on the `develop` branch so they can be reviewed
 before being published on the main site. Using pull requests for edits
 is recommended.
 
-### Add and edit Leaves
+### Add and edit leaves
 
 Leaf content is stored in [content/leaves][content/leaves]. Each leaf
 is represented by a single Markdown file with yaml metadata for
