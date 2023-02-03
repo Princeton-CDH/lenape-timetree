@@ -11,7 +11,13 @@ import { line, curveNatural } from "d3-shape";
 import { scaleSequential } from "d3-scale";
 import { schemeGreens } from "d3-scale-chromatic";
 
-import { drawLeaf, leafSize, plusOrMinus, randomNumBetween } from "./leaves.js";
+import { drawLeaf, leafSize, randomNumBetween } from "./leaves";
+import {
+  labelLineHeight,
+  splitLabel,
+  labelRadius,
+  labelHeight,
+} from "./labels";
 
 // combine into d3 object for convenience
 const d3 = {
@@ -187,6 +193,7 @@ sortedLeaves.forEach((leaf, index) => {
     url: leaf.id,
     century: leaf.century,
     tags: leaf.tags,
+    radius: labelRadius(leaf.title), // calculate radius once for position/collision avoidance
   });
   links.push({
     source: index,
@@ -202,6 +209,10 @@ function TreeGraph({ nodes, links, centuries }) {
   // let width = 775;   == 1.0 scale for tree container on 1280x810 screen
   // let height = 540;
 
+  // what if 1280 is 2.0 scale and mobile is 1.0 ?
+  // let width = 1550;
+  // let height = 1080;
+
   let width = 1200;
   let height = 800;
 
@@ -215,6 +226,11 @@ function TreeGraph({ nodes, links, centuries }) {
 
   // create a section for the background
   let background = svg.append("g").attr("id", "background");
+  // visual debugging layer
+  const debugLayer = svg
+    .append("g")
+    .attr("id", "debug")
+    .attr("visibility", "visible");
 
   // create containers for the leaves by century
   const leafContainerHeight = 75;
@@ -296,10 +312,7 @@ function TreeGraph({ nodes, links, centuries }) {
         if (d.type == "leaf") {
           return leafSize.width;
         } else if (d.type == "leaf-label") {
-          if (d.title != undefined) {
-            return d.title.length * 1.5;
-          }
-          return 2;
+          return d.radius;
         }
         return 2;
       })
@@ -338,7 +351,8 @@ function TreeGraph({ nodes, links, centuries }) {
   simulation.on("tick", ticked);
   simulation.tick();
 
-  const link = svg
+  // add lines for links to the debug layer
+  const link = debugLayer
     .append("g")
     .attr("stroke", "darkgray")
     .attr("stroke-width", 1)
@@ -361,11 +375,7 @@ function TreeGraph({ nodes, links, centuries }) {
     .join("path")
     // make leaf nodes larger
     .attr("d", (d) => {
-      if (d.type == "leaf") {
-        return drawLeaf();
-      } else {
-        return emptyPath;
-      }
+      return d.type == "leaf" ? drawLeaf() : emptyPath;
     })
     // .attr("r", (d) => {
     //   return d.type == "leaf" ? 8 : 3;
@@ -391,8 +401,10 @@ function TreeGraph({ nodes, links, centuries }) {
     .selectAll("text")
     .data(nodes.filter((d) => d.type == "leaf-label"))
     .join("text")
-    .attr("x", (d) => d.x)
-    .attr("y", (d) => d.y)
+    // x,y for a circle is the center, but for a text element it is top left
+    // set position based on x,y adjusted by radius and height
+    .attr("x", (d) => d.x - d.radius)
+    .attr("y", (d) => d.y - labelHeight(d.title) / 2)
     .attr("data-url", (d) => d.url) // set url so we can click to select leaf
     .attr("text-anchor", "middle") // set coordinates to middle of text
     .attr("class", (d) => {
@@ -402,8 +414,55 @@ function TreeGraph({ nodes, links, centuries }) {
       }
       return classes.join(" ");
     })
-    .text((d) => d.title)
+    // .text((d) => d.title)
     .on("click", selectLeaf);
+
+  // split labels into words and use tspans to position on multiple lines;
+  // inherits text-anchor: middle from parent text element
+  nodeLabel
+    .selectAll("tspan")
+    .data((d) => {
+      // split label into words, then return as a map so
+      // each word has a reference to the parent node
+      return splitLabel(d.title).map((i) => {
+        return { word: i, node: d };
+      });
+    })
+    .join("tspan")
+    .text((d) => d.word)
+    .attr("x", (d) => {
+      // position at the same x as the parent node
+      return d.node.x;
+    })
+    .attr("dy", labelLineHeight); // delta-y : relative position based on line height
+
+  // visual debugging for layout
+
+  // debug label placement + collision radius
+  //  draw a circle around each label with calculated radius
+  debugLayer
+    .selectAll("circle.debug-label")
+    .data(nodes.filter((d) => d.type == "leaf-label"))
+    .join("circle")
+    .attr("class", "debug-label")
+    .attr("cx", (d) => d.x)
+    .attr("cy", (d) => d.y)
+    .attr("r", (d) => d.radius)
+    .attr("stroke", "yellow")
+    .attr("fill", "transparent");
+
+  // debug leaf placement + collision radius
+  //  draw a circle around each leaf with radius used for collision avoidance
+  debugLayer
+    .selectAll("circle.debug-leaf")
+    .data(nodes.filter((d) => d.type == "leaf"))
+    .attr("class", "debug-leaf")
+    .join("circle")
+    .attr("cx", (d) => d.x)
+    .attr("cy", (d) => d.y)
+    .attr("r", (d) => leafSize.width)
+    .attr("stroke", "cyan")
+    .attr("fill", "transparent");
 
   // if we need words split into separate tspan elements,
   // do a second join on title words:
@@ -412,6 +471,13 @@ function TreeGraph({ nodes, links, centuries }) {
   //   .join("tspan")
   //   .text(word => word);
 
+  // nodeLabel.selectAll("tspan")
+  // .data(d => { return d.title == undefined ? ["no title"] : d.title.split(" ") })
+  //   .join("tspan")
+  //   .text(d => d.word)
+  //   .attr("x", (d, i) => { console.log(this)})
+  //   .attr("dy", "12px");
+
   function ticked() {
     // node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
     // node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
@@ -419,14 +485,28 @@ function TreeGraph({ nodes, links, centuries }) {
     // since nodes are paths and not circles, position using transform + translate
     // rotate leaves to vary the visual display of leaves
     // (could also skew?)
-    node.attr("transform", (d) => {
-      // rotate negative or positive depending on side of the tree
-      if (d.x > 0) {
-        rotation = 0 - rotation;
+    node.attr("transform", (d, i, n) => {
+      if (d.type == "leaf") {
+        // rotate negative or positive depending on side of the tree
+        if (d.x > 0) {
+          rotation = 0 - rotation;
+        }
+        // determine height based on the bounding box of the element,
+        // then adjust vertically so y is closer to the center of the leaf
+        // (x is the middle of the top of the leaf already)
+        let pathElement = n[i];
+        let bbox = pathElement.getBBox();
+
+        // adjust position of the leaf so it is inside the collision
+        // radius used for the d3 simulation
+
+        let y = d.y - bbox.height / 2;
+        return `translate(${d.x} ${y})`;
+        // NOTE: rotation makes this more complicated;
+        // maybe leaf coordinates should be centered around 0,0
+        // instead of stem point at 0,0
+        return `rotate(${rotation} ${d.x} ${y}) translate(${d.x} ${y})`;
       }
-      // rotate relative to x, y, and move to x, y
-      // return `rotate(${rotation} ${d.x} ${d.y}) translate(${d.x} ${d.y})`;
-      return `rotate(${rotation} ${d.x} ${d.y}) translate(${d.x} ${d.y})`;
     });
 
     link
@@ -466,8 +546,12 @@ function TreeGraph({ nodes, links, centuries }) {
   function selectLeaf(event) {
     deselectAllLeaves();
     // visually highlight selected leaf in the tree
-    event.target.classList.add(selectedClass);
-    let leafUrl = event.target.getAttribute("data-url");
+    let target = event.target;
+    if (target.tagName == "tspan") {
+      target = target.parentElement;
+    }
+    target.classList.add(selectedClass);
+    let leafUrl = target.getAttribute("data-url");
     let leafAndLabel = document.querySelectorAll(`[data-url="${leafUrl}"]`);
     for (let item of leafAndLabel) {
       item.classList.add(selectedClass);
