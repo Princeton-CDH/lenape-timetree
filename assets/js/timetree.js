@@ -11,7 +11,7 @@ import { line, curveNatural } from "d3-shape";
 import { scaleSequential } from "d3-scale";
 import { schemeGreens } from "d3-scale-chromatic";
 
-import { drawLeafCurve } from "./leaves.js";
+import { drawLeaf, leafSize } from "./leaves.js";
 
 // combine into d3 object for convenience
 const d3 = {
@@ -275,9 +275,13 @@ function TreeGraph({ nodes, links, centuries }) {
       d3.forceCollide().radius((d) => {
         // collision radius should vary by node type
         if (d.type == "leaf") {
-          return 22;
+          return leafSize.width + 5;
         } else if (d.type == "leaf-label") {
           if (d.title != undefined) {
+            let words =
+              d.title == undefined ? ["no title"] : d.title.split(" ");
+            // use the length of the longest word in the title to set radius
+            return Math.max(...words.map((w) => w.length)) * 1.5;
             return d.title.length * 1.5;
           }
           return 2;
@@ -331,7 +335,7 @@ function TreeGraph({ nodes, links, centuries }) {
     });
   // hide links to labels
 
-  var greenColor = d3.scaleSequential(d3.schemeGreens[5]);
+  // var greenColor = d3.scaleSequential(d3.schemeGreens[5]);
 
   const node = svg
     .append("g")
@@ -341,12 +345,13 @@ function TreeGraph({ nodes, links, centuries }) {
     .join("path")
     // make leaf nodes larger
     .attr("d", (d) => {
-      if (d.type == "leaf") {
-        return drawLeafCurve();
-      } else {
-        // empty path for everything else (todo: is this valid?)
-        return "0 0";
-      }
+      return d.type == "leaf" ? drawLeaf() : "0 0 ";
+      // if (d.type == "leaf") {
+      //   return drawLeaf();
+      // } else {
+      //   // empty path for everything else (todo: is this valid?)
+      //   return "0 0";
+      // }
     })
     // .attr("r", (d) => {
     //   return d.type == "leaf" ? 8 : 3;
@@ -387,8 +392,25 @@ function TreeGraph({ nodes, links, centuries }) {
       }
       return classes.join(" ");
     })
-    .text((d) => d.title)
+    // .text((d) => d.title)
     .on("click", selectLeaf);
+
+  nodeLabel
+    .selectAll("tspan")
+    // .data(d => { return d.title == undefined ? ["no title"] : d.title.split(" ") })
+    .data((d) => {
+      let words = d.title == undefined ? ["no title"] : d.title.split(" ");
+      return words.map((i) => {
+        return { word: i, node: d };
+      }); //[i.key, i.val]))
+      // console.log(words.forEach(w => {word: w, d}))/
+    })
+    .join("tspan")
+    .text((d) => d.word)
+    .attr("x", (d, i, j) => {
+      return d.node.x;
+    })
+    .attr("dy", "18");
 
   // if we need words split into separate tspan elements,
   // do a second join on title words:
@@ -396,6 +418,13 @@ function TreeGraph({ nodes, links, centuries }) {
   // .data(d => { return d.title == undefined ? ["no title"] : d.title.split(" ") })
   //   .join("tspan")
   //   .text(word => word);
+
+  // nodeLabel.selectAll("tspan")
+  // .data(d => { return d.title == undefined ? ["no title"] : d.title.split(" ") })
+  //   .join("tspan")
+  //   .text(d => d.word)
+  //   .attr("x", (d, i) => { console.log(this)})
+  //   .attr("dy", "12px");
 
   function ticked() {
     // node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
@@ -449,8 +478,12 @@ function TreeGraph({ nodes, links, centuries }) {
   function selectLeaf(event) {
     deselectAllLeaves();
     // visually highlight selected leaf in the tree
-    event.target.classList.add(selectedClass);
-    let leafUrl = event.target.getAttribute("data-url");
+    let target = event.target;
+    if (target.tagName == "tspan") {
+      target = target.parentElement;
+    }
+    target.classList.add(selectedClass);
+    let leafUrl = target.getAttribute("data-url");
     let leafAndLabel = document.querySelectorAll(`[data-url="${leafUrl}"]`);
     for (let item of leafAndLabel) {
       item.classList.add(selectedClass);
