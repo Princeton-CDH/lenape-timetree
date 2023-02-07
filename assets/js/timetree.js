@@ -197,6 +197,9 @@ sortedLeaves.forEach((leaf, index) => {
 TreeGraph({ nodes: nodes, links: links, centuries: centuries });
 
 function TreeGraph({ nodes, links, centuries }) {
+  // let width = 775;   == 1.0 scale for tree container on 1280x810 screen
+  // let height = 540;
+
   let width = 1200;
   let height = 800;
 
