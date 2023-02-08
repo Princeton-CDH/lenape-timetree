@@ -144,4 +144,4 @@ function drawLeaf() {
   return curve;
 }
 
-export { drawLeaf, leafSize, plusOrMinus, randomNumBetween };
+export { cointoss, drawLeaf, leafSize, plusOrMinus, randomNumBetween };
