@@ -13,7 +13,6 @@ const d3 = {
 let leafSize = {
   minHeight: 40,
   maxHeight: 100,
-  heightDiffRange: 100 - 40,
   width: 40,
   maxMidShift: 34, // 34,  (34px at most, so 17 either way)
   maxTipShift: 12,
@@ -21,7 +20,8 @@ let leafSize = {
 
 // get a random number between a min and max
 function randomNumBetween(max, min = 0) {
-  return Math.random() * max - 0;
+  // scale random value between 0 and 1 to desired scale, start at min value
+  return Math.random() * (max - min) + min;
 }
 
 function plusOrMinus(x) {
@@ -29,7 +29,8 @@ function plusOrMinus(x) {
 }
 
 function cointoss() {
-  // randomly return true or false; based on https://stackoverflow.com/a/60322877/9706217
+  // randomly return true or false;
+  // based on https://stackoverflow.com/a/60322877/9706217
   return Math.random() < 0.5;
 }
 
@@ -39,8 +40,7 @@ function drawLeaf() {
   // x = starting x
 
   // generate a random height somewhere between our min and max
-  let heightDiff = leafSize.maxHeight - leafSize.minHeight;
-  let leafHeight = leafSize.maxHeight - randomNumBetween(heightDiff);
+  let leafHeight = randomNumBetween(leafSize.maxHeight, leafSize.minHeight);
   let midLeafHeight = leafHeight / 2;
 
   // collect leaf points as we go for the two sides of the leaf in tandem
