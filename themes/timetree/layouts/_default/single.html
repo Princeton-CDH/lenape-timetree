@@ -28,7 +28,17 @@
       {{end}}
 
       {{- .Content -}}
-      {{- partial "tags.html" . -}}
+      {{/*- partial "tags.html" . -*/}}
+
+      <footer>
+        {{ with .Params.display_date }}
+          <div>{{ . }}</div>
+        {{ end}}
+        {{- partial "tags.html" . -}}
+        {{ with .Params.branch }}
+        <div>Branch: {{ . }}</div>
+        {{ end }}
+      </footer>
 
   </article>
 {{ end }}
