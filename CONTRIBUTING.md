@@ -42,7 +42,7 @@ To include an image in the detailed description for a leaf:
 - Make sure the image file is named something readable and meaningful; preferably lower case only, no symbols or whitespace. It should have an appropriate extension based on the format of the image (e.g., .jpg, .jpeg, .png)
 - Upload the image file to the appropriate directory under [assets/images](assets/images),
   based on the branch the leaf belongs to.
-- Edit the markdown file for that leaf to add a figure shortcode at the desired place in the content.
+- Edit the markdown file for that leaf to add a figure "shortcode" at the desired place in the content. (A shortcode is a snippet of code in a content file that calls a custom template. See the [Hugo documentation on shortcodes](https://gohugo.io/content-management/shortcodes/) for more details.)
   Specify the path to the image relative to the `assets` directory. Add alternate text to briefly describe the image as used in context.
 
 ```
