@@ -350,10 +350,13 @@ function TreeGraph({ nodes, links, centuries }) {
 
   var greenColor = d3.scaleSequential(d3.schemeGreens[5]);
 
+  // define once an empty path for nodes we don't want to display
+  var emptyPath = d3.line().curve(d3.curveNatural)([[0, 0]]);
+
   const node = svg
     .append("g")
     // .attr("fill-opacity", 0.6)
-    .selectAll("circle")
+    .selectAll("path")
     .data(nodes)
     .join("path")
     // make leaf nodes larger
@@ -361,8 +364,7 @@ function TreeGraph({ nodes, links, centuries }) {
       if (d.type == "leaf") {
         return drawLeafCurve();
       } else {
-        // empty path for everything else (todo: is this valid?)
-        return "0 0";
+        return emptyPath;
       }
     })
     // .attr("r", (d) => {
