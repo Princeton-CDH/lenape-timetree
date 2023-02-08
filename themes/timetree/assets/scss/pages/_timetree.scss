@@ -17,9 +17,9 @@ body.home {
     @include for-desktop-up {
       // desktop is two columns (tree | panel)
       display: grid;
-      grid-template-columns: 60% 28%;
-      column-gap: 12%; // 100 - 60 - 28
-      padding: 0 22px 0 0;
+      grid-template-columns: auto 410px;
+      column-gap: 38px; // space between panel and timetree
+      padding: 0 40px 0 0; // right margin outside the panel
 
       max-height: calc(
         100vh - #{$desktop_header_height} - #{$desktop_footer_height}
@@ -54,7 +54,8 @@ body.home {
         line-height: 18px;
       }
 
-      circle.select {
+      circle.select,
+      path.select {
         stroke: #1d1c01;
         stroke-width: 4px;
       }

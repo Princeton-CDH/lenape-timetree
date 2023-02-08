@@ -26,6 +26,22 @@ const d3 = {
   schemeGreens,
 };
 
+// strength of the various forces used to lay out the leaves
+const forceStrength = {
+  // standard d3 forces
+  charge: -1, // simulate gravity (attraction) if the strength is positive, or electrostatic charge (repulsion) if the strength is negative
+  manybody: -8, // A positive value causes nodes to attract each other, similar to gravity, while a negative value causes nodes to repel each other, similar to electrostatic charge; d3 default is -30
+  center: 0.01, // how strongly drawn to the center of the svg
+
+  // custom y force for century
+  centuryY: 4, // draw to Y coordinate for center of assigned century band
+
+  // strength of link force by type of link
+  leafToLabel: 5, // between leaves and their labels
+  leafToBranch: 3, // between leaf and branch-century node
+  branchToBranch: 2.5, // between branch century nodes
+};
+
 // constant for selection classname
 const selectedClass = "select";
 
@@ -143,7 +159,7 @@ for (let branch in branches) {
     links.push({
       source: branchIndex[branchId],
       target: target,
-      value: 10,
+      value: forceStrength.branchToBranch,
     });
   });
 }
@@ -156,7 +172,7 @@ sortedLeaves.forEach((leaf, index) => {
     links.push({
       source: index,
       target: branchIndex[branchId],
-      value: 1,
+      value: forceStrength.leafToBranch,
     });
   }
 });
@@ -173,7 +189,7 @@ sortedLeaves.forEach((leaf, index) => {
   links.push({
     source: index,
     target: nodes.length - 1,
-    value: 5,
+    value: forceStrength.leafToLabel,
     type: "leaf-label",
   });
 });
@@ -181,6 +197,9 @@ sortedLeaves.forEach((leaf, index) => {
 TreeGraph({ nodes: nodes, links: links, centuries: centuries });
 
 function TreeGraph({ nodes, links, centuries }) {
+  // let width = 775;   == 1.0 scale for tree container on 1280x810 screen
+  // let height = 540;
+
   let width = 1200;
   let height = 800;
 
@@ -263,16 +282,41 @@ function TreeGraph({ nodes, links, centuries }) {
   // NOTE: will probably want to tweak and finetune these forces
   let simulation = d3
     .forceSimulation(nodes)
-    .force("charge", d3.forceManyBody().strength(-1))
-    .force("manyBody", d3.forceManyBody().strength(-8))
-    .force("center", d3.forceCenter().strength(0.01))
+    .force("charge", d3.forceManyBody().strength(forceStrength.charge))
+    .force("manyBody", d3.forceManyBody().strength(forceStrength.manyBody))
+    .force("center", d3.forceCenter().strength(forceStrength.center))
     // .alpha(0.1)
     // .alphaDecay(0.2)
-    .force("collide", d3.forceCollide().radius(18))
-    // NOTE: may want to adjust to make variable by node type
+    .force(
+      "collide",
+      d3.forceCollide().radius((d) => {
+        // collision radius should vary by node type
+        if (d.type == "leaf") {
+          return 22;
+        } else if (d.type == "leaf-label") {
+          if (d.title != undefined) {
+            return d.title.length * 1.5;
+          }
+          return 2;
+        }
+        return 2;
+      })
+    )
     .force(
       "link",
-      d3.forceLink(links).strength((link) => 0.8)
+      d3.forceLink(links).strength((link) => {
+        return link.value; // link strength defined when links created
+        // if (link.value != undefined) {
+        // return link.value;
+        // }
+        // alternately, could set based on source/target node type,
+        // or link type
+        // console.log(link);
+        // if (link.target.type == "leaf-label") {
+        //   return 5;
+        // }
+        // return 0.8
+      })
     )
     // .force("link", d3.forceLink(links).distance(30).strength(link => {
     // return 1;
@@ -282,7 +326,7 @@ function TreeGraph({ nodes, links, centuries }) {
       d3
         .forceY()
         .y((node) => centuryY(node))
-        .strength(4)
+        .strength(forceStrength.centuryY)
     );
   // .on("tick", ticked);
 
@@ -306,16 +350,26 @@ function TreeGraph({ nodes, links, centuries }) {
 
   var greenColor = d3.scaleSequential(d3.schemeGreens[5]);
 
+  // define once an empty path for nodes we don't want to display
+  var emptyPath = d3.line().curve(d3.curveNatural)([[0, 0]]);
+
   const node = svg
     .append("g")
     // .attr("fill-opacity", 0.6)
-    .selectAll("circle")
+    .selectAll("path")
     .data(nodes)
-    .join("circle")
+    .join("path")
     // make leaf nodes larger
-    .attr("r", (d) => {
-      return d.type == "leaf" ? 8 : 3;
+    .attr("d", (d) => {
+      if (d.type == "leaf") {
+        return drawLeafCurve();
+      } else {
+        return emptyPath;
+      }
     })
+    // .attr("r", (d) => {
+    //   return d.type == "leaf" ? 8 : 3;
+    // })
     // color leaves by century for now to visually check layout (temporary)
     // .attr("fill", (d) => {
     // return d.type == "leaf" ? greenColor(d.century - 14) : "darkgray";
@@ -363,7 +417,19 @@ function TreeGraph({ nodes, links, centuries }) {
   //   .text(word => word);
 
   function ticked() {
-    node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
+    // node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
+    // node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
+    let rotation = Math.random() * 60;
+    // since nodes are paths and not circles, position using transform + translate
+    // rotate leaves to vary the visual display of leaves
+    // (could also skew?)
+    node.attr("transform", (d) => {
+      // rotate negative or positive depending on side of the tree
+      if (d.x > 0) {
+        rotation = 0 - rotation;
+      }
+      return `rotate(${rotation} ${d.x} ${d.y}) translate(${d.x} ${d.y})`;
+    });
 
     link
       .attr("x1", (d) => d.source.x)
@@ -422,6 +488,39 @@ function TreeGraph({ nodes, links, centuries }) {
       });
   }
 }
+
+function drawLeafCurve() {
+  let x = 0;
+  let maxLeafHeight = 45;
+  let maxLeafWidth = 25;
+
+  // vary the width and height; treat initial values as maximums
+  let leafHeight = maxLeafHeight - Math.random() * 20;
+  let leafWidth = maxLeafWidth - Math.random() * 20;
+  // by default, leaf should be widest at the middle; but vary slightly
+  let midLeafHeight = leafHeight / 2;
+  midLeafHeight += Math.random() * 10 - 5; // random number between +/- 5
+
+  // where should the "tail" of the leaf curve in?
+  let tailCurveHeight = leafHeight - 5 - Math.random() * 10;
+  let tailCurveDepth = x - leafWidth / 10 + Math.random() * 5;
+
+  let curve = d3.line().curve(d3.curveNatural)([
+    [x, 0], // top
+    [x - leafWidth / 2, midLeafHeight], // left middle
+    [x - leafWidth / 10, tailCurveHeight], // left near bottom
+    [x, leafHeight], // bottom
+    [x + leafWidth / 2, midLeafHeight], // right middle
+    [x, 0], // top
+  ]);
+
+  return curve;
+}
+
+// svg.append("path")
+//     .attr("d", curve)
+//     .attr("fill", "green");
+// }
 
 function deselectAllLeaves() {
   // deselect any leaf or leaf label that is currently highlighted
