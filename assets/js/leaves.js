@@ -9,12 +9,13 @@ const d3 = {
   curveBumpY,
 };
 
+// configuration for leaf sizes
 let leafSize = {
   minHeight: 40,
   maxHeight: 100,
   heightDiffRange: 100 - 40,
   width: 40,
-  maxMidShift: 17, // 34,  (34px at most, so 17 either way)
+  maxMidShift: 34, // 34,  (34px at most, so 17 either way)
   maxTipShift: 12,
 };
 
@@ -139,61 +140,8 @@ function drawLeaf() {
 
   let leafPoints = leftPoints.concat(rightPoints);
 
-  let curve = d3.line().curve(d3.curveBumpY)(leafPoints);
-  return curve;
-
-  // // rotate(${rotation} ${d.x} ${d.y}) translate(${d.x} ${d.y})
-  // let transform = "";
-  // if (rotate) {
-  //   let rotation = Math.random() * 60;
-  //   transform = `rotate(${rotation} ${x} ${midLeafHeight})`;
-  // }
-
-  // svg.append("path")
-  //   .attr("d", curve)
-  //   .attr("fill", "green")
-  //   .attr("transform", transform);
-
-  // if (showPoints) {
-  //   svg.append("g")
-  //     // .attr("fill-opacity", 0.6)
-  //     .selectAll("circle")
-  //     .data(leafPoints)
-  //     .join("circle")
-  //     .attr("r", 5)
-  //     .attr("cx", d => d[0])
-  //     .attr("cy", d => d[1])
-  //     .attr("fill", "black")
-  //  }
-}
-
-function drawLeafCurve() {
-  let x = 0;
-  let maxLeafHeight = 50;
-  let maxLeafWidth = 35;
-
-  // vary the width and height; treat initial values as maximums
-  let leafHeight = maxLeafHeight - Math.random() * 20;
-  let leafWidth = maxLeafWidth - Math.random() * 20;
-  // by default, leaf should be widest at the middle; but vary slightly
-  let midLeafHeight = leafHeight / 2;
-  midLeafHeight += Math.random() * 10 - 5; // random number between +/- 5
-
-  // where should the "tail" of the leaf curve in?
-  let tailCurveHeight = leafHeight - 5 - Math.random() * 10;
-  let tailCurveDepth = x - leafWidth / 10 + Math.random() * 5;
-
-  let curve = d3.line().curve(d3.bumpY)([
-    // let curve = d3.line().curve(d3.curveNatural)([
-    [x, 0], // top
-    [x - leafWidth / 2, midLeafHeight], // left middle
-    [x - leafWidth / 10, tailCurveHeight], // left near bottom
-    [x, leafHeight], // bottom
-    [x + leafWidth / 2, midLeafHeight], // right middle
-    [x, 0], // top
-  ]);
-
+  let curve = d3.line().curve(d3.curveNatural)(leafPoints);
   return curve;
 }
 
-export { drawLeaf, leafSize };
+export { drawLeaf, leafSize, plusOrMinus, randomNumBetween };

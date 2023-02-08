@@ -11,7 +11,7 @@ import { line, curveNatural } from "d3-shape";
 import { scaleSequential } from "d3-scale";
 import { schemeGreens } from "d3-scale-chromatic";
 
-import { drawLeafCurve } from "./leaves.js";
+import { drawLeaf, leafSize, plusOrMinus, randomNumBetween } from "./leaves.js";
 
 // combine into d3 object for convenience
 const d3 = {
@@ -294,7 +294,7 @@ function TreeGraph({ nodes, links, centuries }) {
       d3.forceCollide().radius((d) => {
         // collision radius should vary by node type
         if (d.type == "leaf") {
-          return 22;
+          return leafSize.width;
         } else if (d.type == "leaf-label") {
           if (d.title != undefined) {
             return d.title.length * 1.5;
@@ -350,8 +350,6 @@ function TreeGraph({ nodes, links, centuries }) {
     });
   // hide links to labels
 
-  var greenColor = d3.scaleSequential(d3.schemeGreens[5]);
-
   // define once an empty path for nodes we don't want to display
   var emptyPath = d3.line().curve(d3.curveNatural)([[0, 0]]);
 
@@ -364,17 +362,13 @@ function TreeGraph({ nodes, links, centuries }) {
     // make leaf nodes larger
     .attr("d", (d) => {
       if (d.type == "leaf") {
-        return drawLeafCurve();
+        return drawLeaf();
       } else {
         return emptyPath;
       }
     })
     // .attr("r", (d) => {
     //   return d.type == "leaf" ? 8 : 3;
-    // })
-    // color leaves by century for now to visually check layout (temporary)
-    // .attr("fill", (d) => {
-    // return d.type == "leaf" ? greenColor(d.century - 14) : "darkgray";
     // })
     .attr("fill-opacity", (d) => {
       return d.type == "leaf-label" ? 0 : 0.6;
@@ -421,7 +415,7 @@ function TreeGraph({ nodes, links, centuries }) {
   function ticked() {
     // node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
     // node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
-    let rotation = Math.random() * 60;
+    let rotation = randomNumBetween(125); // Math.random() * 90;
     // since nodes are paths and not circles, position using transform + translate
     // rotate leaves to vary the visual display of leaves
     // (could also skew?)
@@ -430,6 +424,8 @@ function TreeGraph({ nodes, links, centuries }) {
       if (d.x > 0) {
         rotation = 0 - rotation;
       }
+      // rotate relative to x, y, and move to x, y
+      // return `rotate(${rotation} ${d.x} ${d.y}) translate(${d.x} ${d.y})`;
       return `rotate(${rotation} ${d.x} ${d.y}) translate(${d.x} ${d.y})`;
     });
 
