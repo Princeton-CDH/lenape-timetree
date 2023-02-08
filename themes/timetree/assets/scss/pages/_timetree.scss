@@ -18,8 +18,8 @@ body.home {
       // desktop is two columns (tree | panel)
       display: grid;
       grid-template-columns: auto 410px;
-      column-gap: 38px;
-      padding: 0 58px 0 0;
+      column-gap: 38px; // space between panel and timetree
+      padding: 0 40px 0 0; // right margin outside the panel
 
       max-height: calc(
         100vh - #{$desktop_header_height} - #{$desktop_footer_height}
