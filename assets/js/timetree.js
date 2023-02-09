@@ -11,6 +11,8 @@ import { line, curveNatural } from "d3-shape";
 import { scaleSequential } from "d3-scale";
 import { schemeGreens } from "d3-scale-chromatic";
 
+import { drawLeaf, leafSize, plusOrMinus, randomNumBetween } from "./leaves.js";
+
 // combine into d3 object for convenience
 const d3 = {
   select,
@@ -292,7 +294,7 @@ function TreeGraph({ nodes, links, centuries }) {
       d3.forceCollide().radius((d) => {
         // collision radius should vary by node type
         if (d.type == "leaf") {
-          return 22;
+          return leafSize.width;
         } else if (d.type == "leaf-label") {
           if (d.title != undefined) {
             return d.title.length * 1.5;
@@ -348,8 +350,6 @@ function TreeGraph({ nodes, links, centuries }) {
     });
   // hide links to labels
 
-  var greenColor = d3.scaleSequential(d3.schemeGreens[5]);
-
   // define once an empty path for nodes we don't want to display
   var emptyPath = d3.line().curve(d3.curveNatural)([[0, 0]]);
 
@@ -362,17 +362,13 @@ function TreeGraph({ nodes, links, centuries }) {
     // make leaf nodes larger
     .attr("d", (d) => {
       if (d.type == "leaf") {
-        return drawLeafCurve();
+        return drawLeaf();
       } else {
         return emptyPath;
       }
     })
     // .attr("r", (d) => {
     //   return d.type == "leaf" ? 8 : 3;
-    // })
-    // color leaves by century for now to visually check layout (temporary)
-    // .attr("fill", (d) => {
-    // return d.type == "leaf" ? greenColor(d.century - 14) : "darkgray";
     // })
     .attr("fill-opacity", (d) => {
       return d.type == "leaf-label" ? 0 : 0.6;
@@ -419,7 +415,7 @@ function TreeGraph({ nodes, links, centuries }) {
   function ticked() {
     // node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
     // node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
-    let rotation = Math.random() * 60;
+    let rotation = randomNumBetween(125); // Math.random() * 90;
     // since nodes are paths and not circles, position using transform + translate
     // rotate leaves to vary the visual display of leaves
     // (could also skew?)
@@ -428,6 +424,8 @@ function TreeGraph({ nodes, links, centuries }) {
       if (d.x > 0) {
         rotation = 0 - rotation;
       }
+      // rotate relative to x, y, and move to x, y
+      // return `rotate(${rotation} ${d.x} ${d.y}) translate(${d.x} ${d.y})`;
       return `rotate(${rotation} ${d.x} ${d.y}) translate(${d.x} ${d.y})`;
     });
 
@@ -487,34 +485,6 @@ function TreeGraph({ nodes, links, centuries }) {
         panel.parentElement.classList.add("show-panel");
       });
   }
-}
-
-function drawLeafCurve() {
-  let x = 0;
-  let maxLeafHeight = 45;
-  let maxLeafWidth = 25;
-
-  // vary the width and height; treat initial values as maximums
-  let leafHeight = maxLeafHeight - Math.random() * 20;
-  let leafWidth = maxLeafWidth - Math.random() * 20;
-  // by default, leaf should be widest at the middle; but vary slightly
-  let midLeafHeight = leafHeight / 2;
-  midLeafHeight += Math.random() * 10 - 5; // random number between +/- 5
-
-  // where should the "tail" of the leaf curve in?
-  let tailCurveHeight = leafHeight - 5 - Math.random() * 10;
-  let tailCurveDepth = x - leafWidth / 10 + Math.random() * 5;
-
-  let curve = d3.line().curve(d3.curveNatural)([
-    [x, 0], // top
-    [x - leafWidth / 2, midLeafHeight], // left middle
-    [x - leafWidth / 10, tailCurveHeight], // left near bottom
-    [x, leafHeight], // bottom
-    [x + leafWidth / 2, midLeafHeight], // right middle
-    [x, 0], // top
-  ]);
-
-  return curve;
 }
 
 // svg.append("path")
