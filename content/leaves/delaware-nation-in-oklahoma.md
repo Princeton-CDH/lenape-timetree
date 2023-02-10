@@ -3,13 +3,13 @@ branch: Communities
 display_date: 1789-
 sort_date: 1789
 tags:
-  - Midwest
-  - migration
-  - reservations
-  - renaming
-  - Midwest
-  - Unami
-  - Munsee
+- Midwest
+- migration
+- reservations
+- renaming
+- Midwest
+- Unami
+- Munsee
 title: Delaware Nation in Oklahoma
 ---
 

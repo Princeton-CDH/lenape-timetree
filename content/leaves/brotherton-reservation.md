@@ -3,9 +3,9 @@ branch: Lands and Waters
 display_date: 1754-1758
 sort_date: 1754
 tags:
-  - reservations
-  - resistance
-  - treaties
+- reservations
+- resistance
+- treaties
 title: Brotherton Reservation
 ---
 
