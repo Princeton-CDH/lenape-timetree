@@ -3,12 +3,12 @@ branch: Removals
 display_date: 1795
 sort_date: 1795
 tags:
-  - removals
-  - treaties
-  - resistance
-  - purchases
-  - US government
-  - battles
+- removals
+- treaties
+- resistance
+- purchases
+- US government
+- battles
 title: Treaty of Greenville
 ---
 

@@ -3,8 +3,8 @@ branch: Communities
 display_date: 1780
 sort_date: 1780
 tags:
-  - resistance
-  - reservations
+- resistance
+- reservations
 title: Brotherton Resistance
 ---
 

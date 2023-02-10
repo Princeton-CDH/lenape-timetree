@@ -3,9 +3,9 @@ branch: The University
 display_date: 2019
 sort_date: 2019
 tags:
-  - resurgence
-  - indigenous studies
-  - Native students
+- resurgence
+- indigenous studies
+- Native students
 title: Indigenous Advocacy Coalition
 ---
 

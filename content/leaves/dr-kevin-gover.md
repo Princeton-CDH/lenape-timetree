@@ -3,8 +3,8 @@ branch: The University
 display_date: 2001
 sort_date: 2001
 tags:
-  - US Government
-  - resurgence
+- US Government
+- resurgence
 title: Dr. Kevin Gover
 ---
 

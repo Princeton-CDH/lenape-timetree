@@ -3,9 +3,9 @@ branch: Removals
 display_date: 1802
 sort_date: 1802
 tags:
-  - removals
-  - state government
-  - reservations
+- removals
+- state government
+- reservations
 title: Brotherton emigration
 ---
 

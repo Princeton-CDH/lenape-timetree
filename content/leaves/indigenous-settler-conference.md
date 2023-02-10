@@ -3,8 +3,8 @@ branch: The University
 display_date: 2019
 sort_date: 2019
 tags:
-  - resurgence
-  - indigenous studies
+- resurgence
+- indigenous studies
 title: Indigenous/Settler Conference
 ---
 

@@ -3,8 +3,8 @@ branch: The University
 display_date: 1788
 sort_date: 1788
 tags:
-  - Native Princeton students
-  - racial killing
+- Native Princeton students
+- racial killing
 title: Murdered
 ---
 

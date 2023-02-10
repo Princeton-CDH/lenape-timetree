@@ -3,9 +3,9 @@ branch: The University
 display_date: 1776
 sort_date: 1776
 tags:
-  - campus buildings
-  - alliances
-  - treaties
+- campus buildings
+- alliances
+- treaties
 title: Colonel George Morgan
 ---
 

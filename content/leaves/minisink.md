@@ -3,8 +3,8 @@ branch: Lands and Waters
 display_date: 1600
 sort_date: 1600
 tags:
-  - Lenapewihittuck/Delaware River
-  - Muhheakantuck/Hudson
+- Lenapewihittuck/Delaware River
+- Muhheakantuck/Hudson
 title: Minisink
 ---
 

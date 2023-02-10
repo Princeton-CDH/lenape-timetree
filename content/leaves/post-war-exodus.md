@@ -3,10 +3,10 @@ branch: Removals
 display_date: 1700s
 sort_date: 1780
 tags:
-  - removals
-  - war
-  - alliances
-  - Susquehanna and Ohio River Valleys
+- removals
+- war
+- alliances
+- Susquehanna and Ohio River Valleys
 title: Post-War Exodus
 ---
 

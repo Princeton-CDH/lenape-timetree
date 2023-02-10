@@ -3,8 +3,8 @@ branch: Lands and Waters
 display_date: 1634
 sort_date: 1634
 tags:
-  - colonial encounters
-  - Princeton lands
+- colonial encounters
+- Princeton lands
 title: Thomas Yong
 ---
 

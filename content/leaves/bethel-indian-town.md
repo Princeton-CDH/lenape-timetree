@@ -3,9 +3,9 @@ branch: Lands and Waters
 display_date: 1746-1759
 sort_date: 1746
 tags:
-  - Affiliations
-  - missions
-  - religion
+- Affiliations
+- missions
+- religion
 title: Bethel Indian Town
 ---
 
