@@ -40,6 +40,7 @@ body.home {
       svg {
         height: 100%;
         max-width: 100%;
+        overflow: hidden; // hide overflow when zoomed
       }
 
       rect.century-container {

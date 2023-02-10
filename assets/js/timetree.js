@@ -8,8 +8,7 @@ import {
   forceY,
 } from "d3-force";
 import { line, curveNatural } from "d3-shape";
-import { scaleSequential } from "d3-scale";
-import { schemeGreens } from "d3-scale-chromatic";
+import { zoom } from "d3-zoom";
 
 import { drawLeaf, leafSize, randomNumBetween } from "./leaves";
 import {
@@ -30,8 +29,7 @@ const d3 = {
   forceY,
   line,
   curveNatural,
-  scaleSequential,
-  schemeGreens,
+  zoom,
 };
 
 // strength of the various forces used to lay out the leaves
@@ -223,6 +221,23 @@ function TreeGraph({ nodes, links, centuries }) {
     .select("#timetree")
     .append("svg")
     .attr("viewBox", [min_x, min_y, width, height]);
+
+  // make svg zoomable using default d3 zoom behavior
+  svg.call(
+    d3
+      .zoom()
+      // provide upper left and bottom right coordinates
+      .extent([
+        [min_x, min_y],
+        [min_x + width, min_y + height],
+      ])
+      .scaleExtent([1, 8]) // limit scale extent
+      .on("zoom", zoomed)
+  );
+
+  function zoomed({ transform }) {
+    svg.attr("transform", transform);
+  }
 
   // create a section for the background
   let background = svg.append("g").attr("id", "background");
