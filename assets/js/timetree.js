@@ -37,15 +37,15 @@ const d3 = {
 // strength of the various forces used to lay out the leaves
 const forceStrength = {
   // standard d3 forces
-  charge: -1, // simulate gravity (attraction) if the strength is positive, or electrostatic charge (repulsion) if the strength is negative
-  manybody: -8, // A positive value causes nodes to attract each other, similar to gravity, while a negative value causes nodes to repel each other, similar to electrostatic charge; d3 default is -30
+  charge: -75, // simulate gravity (attraction) if the strength is positive, or electrostatic charge (repulsion) if the strength is negative
+  manybody: -35, // A positive value causes nodes to attract each other, similar to gravity, while a negative value causes nodes to repel each other, similar to electrostatic charge; d3 default is -30
   center: 0.01, // how strongly drawn to the center of the svg
 
   // custom y force for century
   centuryY: 4, // draw to Y coordinate for center of assigned century band
 
   // strength of link force by type of link
-  leafToLabel: 5, // between leaves and their labels
+  leafToLabel: 5.5, // between leaves and their labels
   leafToBranch: 3, // between leaf and branch-century node
   branchToBranch: 2.5, // between branch century nodes
 };
@@ -230,10 +230,10 @@ function TreeGraph({ nodes, links, centuries }) {
   const debugLayer = svg
     .append("g")
     .attr("id", "debug")
-    .attr("visibility", "visible");
+    .attr("visibility", "hidden");
 
   // create containers for the leaves by century
-  const leafContainerHeight = 75;
+  const leafContainerHeight = 80;
   const leafContainers = background
     .selectAll("rect")
     .data(centuries)
@@ -243,7 +243,7 @@ function TreeGraph({ nodes, links, centuries }) {
     .attr("height", leafContainerHeight)
     .attr("width", width)
     .attr("x", min_x)
-    .attr("y", (d, i) => min_y + i * leafContainerHeight);
+    .attr("y", (d, i) => min_y + 15 + i * leafContainerHeight);
 
   // create labels for the centuries
   const leafContainerLabels = background
@@ -301,7 +301,7 @@ function TreeGraph({ nodes, links, centuries }) {
   let simulation = d3
     .forceSimulation(nodes)
     .force("charge", d3.forceManyBody().strength(forceStrength.charge))
-    .force("manyBody", d3.forceManyBody().strength(forceStrength.manyBody))
+    // .force("manyBody", d3.forceManyBody().strength(forceStrength.manyBody))
     .force("center", d3.forceCenter().strength(forceStrength.center))
     // .alpha(0.1)
     // .alphaDecay(0.2)
@@ -310,9 +310,9 @@ function TreeGraph({ nodes, links, centuries }) {
       d3.forceCollide().radius((d) => {
         // collision radius should vary by node type
         if (d.type == "leaf") {
-          return leafSize.width;
+          return leafSize.width - 5;
         } else if (d.type == "leaf-label") {
-          return d.radius;
+          return d.radius - 10;
         }
         return 2;
       })
