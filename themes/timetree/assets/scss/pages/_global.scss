@@ -2,13 +2,13 @@ $mobile_header_height: 48px;
 $desktop_header_height: 75px;
 
 $mobile_footer_height: 250px;
-$desktop_footer_height: 170px;
+$desktop_footer_height: 130px;
 
 body {
   /* use grid layout to keep the footer on the bottom */
   min-height: 100vh;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto auto auto;
   background-color: $body-bg-color;
   color: $body-fg-color;
 }
