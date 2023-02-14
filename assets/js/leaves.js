@@ -10,12 +10,16 @@ const d3 = {
 };
 
 // configuration for leaf sizes
+// sizes are scaled from 40px width design:
+//   min height and width: 40px; max height 100px;
+//   max mid shift 34 (34px at most, 17 either way); max tip shift 12
+
 let leafSize = {
-  minHeight: 40,
-  maxHeight: 100,
-  width: 40,
-  maxMidShift: 34, // 34,  (34px at most, so 17 either way)
-  maxTipShift: 12,
+  minHeight: 30,
+  maxHeight: 75,
+  width: 30,
+  maxMidShift: 25,
+  maxTipShift: 9,
 };
 
 // get a random number between a min and max
