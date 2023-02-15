@@ -13,10 +13,11 @@ import { schemeGreens } from "d3-scale-chromatic";
 
 import { drawLeaf, leafSize, randomNumBetween } from "./leaves";
 import {
-  labelLineHeight,
-  splitLabel,
-  labelRadius,
-  labelHeight,
+  LeafLabel,
+  // labelLineHeight,
+  // splitLabel,
+  // labelRadius,
+  // labelHeight,
 } from "./labels";
 
 // combine into d3 object for convenience
@@ -189,11 +190,10 @@ sortedLeaves.forEach((leaf, index) => {
 sortedLeaves.forEach((leaf, index) => {
   nodes.push({
     type: "leaf-label",
-    title: leaf.title,
+    label: new LeafLabel(leaf.title),
     url: leaf.id,
     century: leaf.century,
     tags: leaf.tags,
-    radius: labelRadius(leaf.title), // calculate radius once for position/collision avoidance
   });
   links.push({
     source: index,
@@ -312,7 +312,7 @@ function TreeGraph({ nodes, links, centuries }) {
         if (d.type == "leaf") {
           return leafSize.width - 5;
         } else if (d.type == "leaf-label") {
-          return d.radius - 10;
+          return d.label.radius - 10;
         }
         return 2;
       })
@@ -369,7 +369,6 @@ function TreeGraph({ nodes, links, centuries }) {
 
   const node = svg
     .append("g")
-    // .attr("fill-opacity", 0.6)
     .selectAll("path")
     .data(nodes)
     .join("path")
@@ -382,7 +381,7 @@ function TreeGraph({ nodes, links, centuries }) {
     // })
     .attr("fill-opacity", (d) => {
       return d.type == "leaf-label" ? 0 : 0.6;
-    }) // hide label nodes
+    }) // hide label nodes  TODO: hide with css?
     .attr("data-url", (d) => d.url || d.id)
     .attr("data-sort-date", (d) => d.sort_date)
     .attr("data-century", (d) => d.century)
@@ -403,8 +402,8 @@ function TreeGraph({ nodes, links, centuries }) {
     .join("text")
     // x,y for a circle is the center, but for a text element it is top left
     // set position based on x,y adjusted by radius and height
-    .attr("x", (d) => d.x - d.radius)
-    .attr("y", (d) => d.y - labelHeight(d.title) / 2)
+    .attr("x", (d) => d.x - d.label.radius)
+    .attr("y", (d) => d.y - d.label.height / 2)
     .attr("data-url", (d) => d.url) // set url so we can click to select leaf
     .attr("text-anchor", "middle") // set coordinates to middle of text
     .attr("class", (d) => {
@@ -414,7 +413,7 @@ function TreeGraph({ nodes, links, centuries }) {
       }
       return classes.join(" ");
     })
-    // .text((d) => d.title)
+    // .text((d) => d.label.text)
     .on("click", selectLeaf);
 
   // split labels into words and use tspans to position on multiple lines;
@@ -423,8 +422,8 @@ function TreeGraph({ nodes, links, centuries }) {
     .selectAll("tspan")
     .data((d) => {
       // split label into words, then return as a map so
-      // each word has a reference to the parent node
-      return splitLabel(d.title).map((i) => {
+      // each element has a reference to the parent node
+      return d.label.parts.map((i) => {
         return { word: i, node: d };
       });
     })
@@ -434,7 +433,7 @@ function TreeGraph({ nodes, links, centuries }) {
       // position at the same x as the parent node
       return d.node.x;
     })
-    .attr("dy", labelLineHeight); // delta-y : relative position based on line height
+    .attr("dy", LeafLabel.lineHeight); // delta-y : relative position based on line height
 
   // visual debugging for layout
 
@@ -463,20 +462,6 @@ function TreeGraph({ nodes, links, centuries }) {
     .attr("r", (d) => leafSize.width)
     .attr("stroke", "cyan")
     .attr("fill", "transparent");
-
-  // if we need words split into separate tspan elements,
-  // do a second join on title words:
-  // .selectAll("tspan")
-  // .data(d => { return d.title == undefined ? ["no title"] : d.title.split(" ") })
-  //   .join("tspan")
-  //   .text(word => word);
-
-  // nodeLabel.selectAll("tspan")
-  // .data(d => { return d.title == undefined ? ["no title"] : d.title.split(" ") })
-  //   .join("tspan")
-  //   .text(d => d.word)
-  //   .attr("x", (d, i) => { console.log(this)})
-  //   .attr("dy", "12px");
 
   function ticked() {
     // node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
@@ -571,11 +556,6 @@ function TreeGraph({ nodes, links, centuries }) {
   }
 }
 
-// svg.append("path")
-//     .attr("d", curve)
-//     .attr("fill", "green");
-// }
-
 function deselectAllLeaves() {
   // deselect any leaf or leaf label that is currently highlighted
   let selected = document.getElementsByClassName(selectedClass);
@@ -609,7 +589,3 @@ asideContainer.addEventListener("click", (event) => {
     selectLeavesByTag(element.textContent);
   }
 });
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
-}

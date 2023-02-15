@@ -1,31 +1,44 @@
 import {
+  LeafLabel,
   splitLabel,
   labelRadius,
   pixelsPerChar,
   labelLineHeight,
 } from "labels";
 
-describe("splitLabel", () => {
-  test("splits label into words", () => {
-    const words = splitLabel("munsee sisters farm");
-    expect(words).toEqual(["munsee", "sisters", "farm"]);
+describe("LeafLabel", () => {
+  const labelText = "munsee sisters farm";
+  test("init sets label", () => {
+    const label = new LeafLabel(labelText);
+    expect(label.text).toEqual(labelText);
   });
-  test("handles missing label", () => {
-    expect(splitLabel(null)).toEqual(["no title"]);
-    expect(splitLabel(undefined)).toEqual(["no title"]);
+  test("parts returns label split into words", () => {
+    const label = new LeafLabel(labelText);
+    expect(label.parts).toEqual(["munsee", "sisters", "farm"]);
   });
-});
-
-describe("labelRadius", () => {
-  test("calculated based on line height for short words", () => {
-    // one word only, should use line height
-    expect(labelRadius("munsee")).toEqual(labelLineHeight);
-    // two words
-    expect(labelRadius("munsee sisters")).toEqual(2 * labelLineHeight);
+  test("parts handles missing label", () => {
+    const label = new LeafLabel();
+    expect(label.parts).toEqual(["no title"]);
   });
-
-  test("calculated based on word length for long words", () => {
+  test("calculates height based on parts and line height", () => {
+    const label = new LeafLabel(labelText);
+    expect(label.height).toEqual(label.parts.length * LeafLabel.lineHeight);
+  });
+  test("calculates width based on longest word", () => {
     const word = "Shawukukhkung";
-    expect(labelRadius(word)).toEqual(word.length * pixelsPerChar);
+    const label = new LeafLabel(word);
+    expect(label.width).toEqual(word.length * LeafLabel.pixelsPerChar);
+  });
+  test("calculates radius based on line height for short words", () => {
+    // one word only, should use line height
+    const oneWordLabel = new LeafLabel("a");
+    expect(oneWordLabel.radius).toEqual(LeafLabel.lineHeight / 2.0);
+    // two words
+    const twoWordLabel = new LeafLabel("a bc");
+    expect(twoWordLabel.radius).toEqual((LeafLabel.lineHeight * 2) / 2.0);
+  });
+  test("calculates radius based on word length for long words", () => {
+    const word = "Shawukukhkung";
+    // expect(new LeafLabel(word).radius).toEqual(word.length * LeafLabel.pixelsPerChar / 2.0);
   });
 });

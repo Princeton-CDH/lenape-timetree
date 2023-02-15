@@ -1,32 +1,45 @@
-const labelLineHeight = 18;
+// const labelLineHeight = 18;
 // multiplier to use for calculating size based on characters
-const pixelsPerChar = 7;
+// const pixelsPerChar = 7;
 
-function splitLabel(label = null) {
-  // split a leaf label into words for wrapping
-  // for now, splitting on whitespace, but could adjust
-  if (label == null || label == undefined) {
-    return ["no title"];
+class LeafLabel {
+  static lineHeight = 18;
+  // multiplier to use for calculating size based on characters
+  static pixelsPerChar = 7;
+
+  constructor(label = null) {
+    this.text = label;
+    // always need parts and want to calculate once, so getter doesn't make sense
+    this.parts = this.splitLabel();
   }
-  return label.split(" ");
+
+  splitLabel() {
+    // split a leaf label into words for wrapping
+    // for now, splitting on whitespace, but could adjust
+    if (this.text == null || this.text == undefined) {
+      return ["no title"];
+    }
+    return this.text.split(" ");
+  }
+
+  get height() {
+    // height is based on line height and number of words
+    return this.parts.length * LeafLabel.lineHeight;
+  }
+
+  get width() {
+    // width is based on the longest word
+    return (
+      Math.max(...this.parts.map((w) => w.length)) * LeafLabel.pixelsPerChar
+    );
+  }
+
+  get radius() {
+    // calculate radius based on text content, for avoiding collision in
+    // the d3-force simulation
+    // determine whichever is bigger is the diameter; halve for radius
+    return Math.max(this.width, this.height) / 2.0;
+  }
 }
 
-function labelHeight(label = null) {
-  // height is based on line height and number of words
-  return splitLabel(label).length * labelLineHeight;
-}
-
-function labelRadius(label = null) {
-  // calculate a label radius to use for avoiding collision in
-  // the d3-force simulation
-
-  const words = splitLabel(label);
-  // width is based on the longest word
-  const width = Math.max(...words.map((w) => w.length)) * pixelsPerChar;
-  // height is based on line height and number of words
-  const height = words.length * labelLineHeight;
-  // whichever is bigger is the diameter; halve for radius
-  return Math.max(width, height) / 2;
-}
-
-export { labelLineHeight, splitLabel, labelRadius, labelHeight, pixelsPerChar };
+export { LeafLabel };
