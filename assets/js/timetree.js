@@ -11,7 +11,7 @@ import { line, curveNatural } from "d3-shape";
 import { scaleSequential } from "d3-scale";
 import { schemeGreens } from "d3-scale-chromatic";
 
-import { drawLeaf, leafSize, randomNumBetween } from "./leaves";
+import { Leaf, drawLeaf, leafSize, randomNumBetween } from "./leaves";
 import {
   LeafLabel,
   // labelLineHeight,
@@ -392,7 +392,7 @@ function TreeGraph({ nodes, links, centuries }) {
       }
       return classes.join(" ");
     })
-    .on("click", selectLeaf);
+    .on("click", Leaf.selectLeaf);
 
   const nodeLabel = svg
     .append("g")
@@ -414,7 +414,7 @@ function TreeGraph({ nodes, links, centuries }) {
       return classes.join(" ");
     })
     // .text((d) => d.label.text)
-    .on("click", selectLeaf);
+    .on("click", Leaf.selectLeaf);
 
   // split labels into words and use tspans to position on multiple lines;
   // inherits text-anchor: middle from parent text element
@@ -527,52 +527,6 @@ function TreeGraph({ nodes, links, centuries }) {
     panel.parentElement.classList.remove("show-panel");
     panel.parentElement.classList.add("closed");
   });
-
-  function selectLeaf(event) {
-    deselectAllLeaves();
-    // visually highlight selected leaf in the tree
-    let target = event.target;
-    if (target.tagName == "tspan") {
-      target = target.parentElement;
-    }
-    target.classList.add(selectedClass);
-    let leafUrl = target.getAttribute("data-url");
-    let leafAndLabel = document.querySelectorAll(`[data-url="${leafUrl}"]`);
-    for (let item of leafAndLabel) {
-      item.classList.add(selectedClass);
-    }
-
-    fetch(leafUrl)
-      .then((response) => response.text())
-      .then((html) => {
-        let parser = new DOMParser();
-        const doc = parser.parseFromString(html, "text/html");
-        // Get the article content and insert into panel
-        const article = doc.querySelector("article");
-        panel.querySelector("article").replaceWith(article);
-        // make sure panel is active
-        panel.parentElement.classList.add("show-panel");
-      });
-  }
-}
-
-function deselectAllLeaves() {
-  // deselect any leaf or leaf label that is currently highlighted
-  let selected = document.getElementsByClassName(selectedClass);
-  // convert to array rather than iterating, since htmlcollection is live
-  // and changes as updated
-  Array.from(selected).forEach((item) => {
-    item.classList.remove(selectedClass);
-  });
-}
-
-function selectLeavesByTag(tagName) {
-  // select all leaves with the specified tag
-  deselectAllLeaves();
-  let leaves = document.getElementsByClassName(tagName);
-  for (let item of leaves) {
-    item.classList.add(selectedClass);
-  }
 }
 
 // bind a delegated click handler to override tag link behavior
@@ -586,6 +540,6 @@ asideContainer.addEventListener("click", (event) => {
   ) {
     event.preventDefault();
     event.stopPropagation();
-    selectLeavesByTag(element.textContent);
+    Leaf.selectByTag(element.textContent);
   }
 });

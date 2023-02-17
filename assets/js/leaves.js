@@ -38,6 +38,62 @@ function cointoss() {
   return Math.random() < 0.5;
 }
 
+class Leaf {
+  // constant for selection classname
+  static selectedClass = "select";
+
+  static deselectAll() {
+    // deselect any leaf or leaf label that is currently highlighted
+    let selected = document.getElementsByClassName(Leaf.selectedClass);
+    // convert to array rather than iterating, since htmlcollection is live
+    // and changes as updated
+    Array.from(selected).forEach((item) => {
+      item.classList.remove(Leaf.selectedClass);
+    });
+  }
+
+  static selectByTag(tag) {
+    // select all leaves with the specified tag
+    Leaf.deselectAll();
+    let leaves = document.getElementsByClassName(tag);
+    for (let item of leaves) {
+      item.classList.add(Leaf.selectedClass);
+    }
+  }
+
+  static selectLeaf(event) {
+    // event handler to select leaf when leaf or label is clicked/tapped
+    Leaf.deselectAll();
+
+    // visually highlight selected leaf in the tree
+    let target = event.target;
+    // if the target is the tspan within text label, use parent element
+    if (target.tagName == "tspan") {
+      target = target.parentElement;
+    }
+    target.classList.add(Leaf.selectedClass);
+    // ensure both leaf and label are selected
+    let leafURL = target.getAttribute("data-url");
+    let leafAndLabel = document.querySelectorAll(`[data-url="${leafURL}"]`);
+    for (let item of leafAndLabel) {
+      item.classList.add(Leaf.selectedClass);
+    }
+
+    // load leaf details and display in the panel
+    fetch(leafURL)
+      .then((response) => response.text())
+      .then((html) => {
+        let parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+        // Get the article content and insert into panel
+        const article = doc.querySelector("article");
+        panel.querySelector("article").replaceWith(article);
+        // make sure panel is active
+        panel.parentElement.classList.add("show-panel");
+      });
+  }
+}
+
 // function to draw with the points identified
 function drawLeaf() {
   let x = 0;
@@ -148,4 +204,4 @@ function drawLeaf() {
   return curve;
 }
 
-export { cointoss, drawLeaf, leafSize, plusOrMinus, randomNumBetween };
+export { cointoss, drawLeaf, leafSize, plusOrMinus, randomNumBetween, Leaf };
