@@ -7,6 +7,8 @@
 {{ $js := resources.Get "js/timetree.js" | js.Build $buildOptions | fingerprint }}
 
 <div id="timetree">
+
+  <data class="leaf-data" value='{{ partial "leaf_data.json" . }}'></data>
 </div>
 
 <aside class="initial">
@@ -24,7 +26,7 @@
   </div>
 </aside>
 
-<data class="leaf-data" value='{{ partial "leaf_data.json" . }}'></data>
 
 <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
 {{ end }} {{/* end main */}}
+

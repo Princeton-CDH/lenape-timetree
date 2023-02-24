@@ -11,7 +11,8 @@ import { line, curveNatural } from "d3-shape";
 import { scaleSequential } from "d3-scale";
 import { schemeGreens } from "d3-scale-chromatic";
 
-import { drawLeaf, leafSize, plusOrMinus, randomNumBetween } from "./leaves.js";
+import { Leaf, LeafPath, leafSize, randomNumBetween } from "./leaves";
+import { LeafLabel } from "./labels";
 
 // combine into d3 object for convenience
 const d3 = {
@@ -31,15 +32,15 @@ const d3 = {
 // strength of the various forces used to lay out the leaves
 const forceStrength = {
   // standard d3 forces
-  charge: -1, // simulate gravity (attraction) if the strength is positive, or electrostatic charge (repulsion) if the strength is negative
-  manybody: -8, // A positive value causes nodes to attract each other, similar to gravity, while a negative value causes nodes to repel each other, similar to electrostatic charge; d3 default is -30
+  charge: -75, // simulate gravity (attraction) if the strength is positive, or electrostatic charge (repulsion) if the strength is negative
+  manybody: -35, // A positive value causes nodes to attract each other, similar to gravity, while a negative value causes nodes to repel each other, similar to electrostatic charge; d3 default is -30
   center: 0.01, // how strongly drawn to the center of the svg
 
   // custom y force for century
   centuryY: 4, // draw to Y coordinate for center of assigned century band
 
   // strength of link force by type of link
-  leafToLabel: 5, // between leaves and their labels
+  leafToLabel: 5.5, // between leaves and their labels
   leafToBranch: 3, // between leaf and branch-century node
   branchToBranch: 2.5, // between branch century nodes
 };
@@ -183,7 +184,7 @@ sortedLeaves.forEach((leaf, index) => {
 sortedLeaves.forEach((leaf, index) => {
   nodes.push({
     type: "leaf-label",
-    title: leaf.title,
+    label: new LeafLabel(leaf.title),
     url: leaf.id,
     century: leaf.century,
     tags: leaf.tags,
@@ -202,6 +203,10 @@ function TreeGraph({ nodes, links, centuries }) {
   // let width = 775;   == 1.0 scale for tree container on 1280x810 screen
   // let height = 540;
 
+  // what if 1280 is 2.0 scale and mobile is 1.0 ?
+  // let width = 1550;
+  // let height = 1080;
+
   let width = 1200;
   let height = 800;
 
@@ -215,9 +220,14 @@ function TreeGraph({ nodes, links, centuries }) {
 
   // create a section for the background
   let background = svg.append("g").attr("id", "background");
+  // visual debugging layer
+  const debugLayer = svg
+    .append("g")
+    .attr("id", "debug")
+    .attr("visibility", "hidden");
 
   // create containers for the leaves by century
-  const leafContainerHeight = 75;
+  const leafContainerHeight = 80;
   const leafContainers = background
     .selectAll("rect")
     .data(centuries)
@@ -227,7 +237,7 @@ function TreeGraph({ nodes, links, centuries }) {
     .attr("height", leafContainerHeight)
     .attr("width", width)
     .attr("x", min_x)
-    .attr("y", (d, i) => min_y + i * leafContainerHeight);
+    .attr("y", (d, i) => min_y + 15 + i * leafContainerHeight);
 
   // create labels for the centuries
   const leafContainerLabels = background
@@ -285,7 +295,7 @@ function TreeGraph({ nodes, links, centuries }) {
   let simulation = d3
     .forceSimulation(nodes)
     .force("charge", d3.forceManyBody().strength(forceStrength.charge))
-    .force("manyBody", d3.forceManyBody().strength(forceStrength.manyBody))
+    // .force("manyBody", d3.forceManyBody().strength(forceStrength.manyBody))
     .force("center", d3.forceCenter().strength(forceStrength.center))
     // .alpha(0.1)
     // .alphaDecay(0.2)
@@ -294,12 +304,9 @@ function TreeGraph({ nodes, links, centuries }) {
       d3.forceCollide().radius((d) => {
         // collision radius should vary by node type
         if (d.type == "leaf") {
-          return leafSize.width;
+          return leafSize.width - 5;
         } else if (d.type == "leaf-label") {
-          if (d.title != undefined) {
-            return d.title.length * 1.5;
-          }
-          return 2;
+          return d.label.radius - 10;
         }
         return 2;
       })
@@ -338,7 +345,8 @@ function TreeGraph({ nodes, links, centuries }) {
   simulation.on("tick", ticked);
   simulation.tick();
 
-  const link = svg
+  // add lines for links to the debug layer
+  const link = debugLayer
     .append("g")
     .attr("stroke", "darkgray")
     .attr("stroke-width", 1)
@@ -355,24 +363,19 @@ function TreeGraph({ nodes, links, centuries }) {
 
   const node = svg
     .append("g")
-    // .attr("fill-opacity", 0.6)
     .selectAll("path")
     .data(nodes)
     .join("path")
     // make leaf nodes larger
     .attr("d", (d) => {
-      if (d.type == "leaf") {
-        return drawLeaf();
-      } else {
-        return emptyPath;
-      }
+      return d.type == "leaf" ? new LeafPath().path : emptyPath;
     })
     // .attr("r", (d) => {
     //   return d.type == "leaf" ? 8 : 3;
     // })
     .attr("fill-opacity", (d) => {
       return d.type == "leaf-label" ? 0 : 0.6;
-    }) // hide label nodes
+    }) // hide label nodes  TODO: hide with css?
     .attr("data-url", (d) => d.url || d.id)
     .attr("data-sort-date", (d) => d.sort_date)
     .attr("data-century", (d) => d.century)
@@ -383,7 +386,7 @@ function TreeGraph({ nodes, links, centuries }) {
       }
       return classes.join(" ");
     })
-    .on("click", selectLeaf);
+    .on("click", Leaf.selectLeaf);
 
   const nodeLabel = svg
     .append("g")
@@ -391,8 +394,10 @@ function TreeGraph({ nodes, links, centuries }) {
     .selectAll("text")
     .data(nodes.filter((d) => d.type == "leaf-label"))
     .join("text")
-    .attr("x", (d) => d.x)
-    .attr("y", (d) => d.y)
+    // x,y for a circle is the center, but for a text element it is top left
+    // set position based on x,y adjusted by radius and height
+    .attr("x", (d) => d.x - d.label.radius)
+    .attr("y", (d) => d.y - d.label.height / 2)
     .attr("data-url", (d) => d.url) // set url so we can click to select leaf
     .attr("text-anchor", "middle") // set coordinates to middle of text
     .attr("class", (d) => {
@@ -402,15 +407,55 @@ function TreeGraph({ nodes, links, centuries }) {
       }
       return classes.join(" ");
     })
-    .text((d) => d.title)
-    .on("click", selectLeaf);
+    // .text((d) => d.label.text)
+    .on("click", Leaf.selectLeaf);
 
-  // if we need words split into separate tspan elements,
-  // do a second join on title words:
-  // .selectAll("tspan")
-  // .data(d => { return d.title == undefined ? ["no title"] : d.title.split(" ") })
-  //   .join("tspan")
-  //   .text(word => word);
+  // split labels into words and use tspans to position on multiple lines;
+  // inherits text-anchor: middle from parent text element
+  nodeLabel
+    .selectAll("tspan")
+    .data((d) => {
+      // split label into words, then return as a map so
+      // each element has a reference to the parent node
+      return d.label.parts.map((i) => {
+        return { word: i, node: d };
+      });
+    })
+    .join("tspan")
+    .text((d) => d.word)
+    .attr("x", (d) => {
+      // position at the same x as the parent node
+      return d.node.x;
+    })
+    .attr("dy", LeafLabel.lineHeight); // delta-y : relative position based on line height
+
+  // visual debugging for layout
+
+  // debug label placement + collision radius
+  //  draw a circle around each label with calculated radius
+  debugLayer
+    .selectAll("circle.debug-label")
+    .data(nodes.filter((d) => d.type == "leaf-label"))
+    .join("circle")
+    .attr("class", "debug-label")
+    .attr("cx", (d) => d.x)
+    .attr("cy", (d) => d.y)
+    .attr("r", (d) => d.radius)
+    .attr("stroke", "yellow")
+    .attr("fill", "transparent");
+
+  // debug leaf placement + collision radius
+  //  draw a circle around each leaf with radius used for collision avoidance
+  debugLayer
+    .selectAll("circle.debug-leaf")
+    .data(nodes.filter((d) => d.type == "leaf"))
+    .attr("class", "debug-leaf")
+    .join("circle")
+    .attr("cx", (d) => d.x)
+    .attr("cy", (d) => d.y)
+    .attr("r", (d) => leafSize.width)
+    .attr("stroke", "cyan")
+    .attr("fill", "transparent");
 
   function ticked() {
     // node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
@@ -419,10 +464,14 @@ function TreeGraph({ nodes, links, centuries }) {
     // since nodes are paths and not circles, position using transform + translate
     // rotate leaves to vary the visual display of leaves
     // (could also skew?)
-    node.attr("transform", (d) => {
-      // rotate negative or positive depending on side of the tree
-      if (d.x > 0) {
-        rotation = 0 - rotation;
+    node.attr("transform", (d, i, n) => {
+      if (d.type == "leaf") {
+        // rotate negative or positive depending on side of the tree
+        if (d.x > 0) {
+          rotation = 0 - rotation;
+        }
+        // leaf coordinates are be centered around 0,0
+        return `rotate(${rotation} ${d.x} ${d.y}) translate(${d.x} ${d.y})`;
       }
       // rotate relative to x, y, and move to x, y
       // return `rotate(${rotation} ${d.x} ${d.y}) translate(${d.x} ${d.y})`;
@@ -462,53 +511,6 @@ function TreeGraph({ nodes, links, centuries }) {
     panel.parentElement.classList.remove("show-panel");
     panel.parentElement.classList.add("closed");
   });
-
-  function selectLeaf(event) {
-    deselectAllLeaves();
-    // visually highlight selected leaf in the tree
-    event.target.classList.add(selectedClass);
-    let leafUrl = event.target.getAttribute("data-url");
-    let leafAndLabel = document.querySelectorAll(`[data-url="${leafUrl}"]`);
-    for (let item of leafAndLabel) {
-      item.classList.add(selectedClass);
-    }
-
-    fetch(leafUrl)
-      .then((response) => response.text())
-      .then((html) => {
-        let parser = new DOMParser();
-        const doc = parser.parseFromString(html, "text/html");
-        // Get the article content and insert into panel
-        const article = doc.querySelector("article");
-        panel.querySelector("article").replaceWith(article);
-        // make sure panel is active
-        panel.parentElement.classList.add("show-panel");
-      });
-  }
-}
-
-// svg.append("path")
-//     .attr("d", curve)
-//     .attr("fill", "green");
-// }
-
-function deselectAllLeaves() {
-  // deselect any leaf or leaf label that is currently highlighted
-  let selected = document.getElementsByClassName(selectedClass);
-  // convert to array rather than iterating, since htmlcollection is live
-  // and changes as updated
-  Array.from(selected).forEach((item) => {
-    item.classList.remove(selectedClass);
-  });
-}
-
-function selectLeavesByTag(tagName) {
-  // select all leaves with the specified tag
-  deselectAllLeaves();
-  let leaves = document.getElementsByClassName(tagName);
-  for (let item of leaves) {
-    item.classList.add(selectedClass);
-  }
 }
 
 // bind a delegated click handler to override tag link behavior
@@ -522,10 +524,6 @@ asideContainer.addEventListener("click", (event) => {
   ) {
     event.preventDefault();
     event.stopPropagation();
-    selectLeavesByTag(element.textContent);
+    Leaf.selectByTag(element.textContent);
   }
 });
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
-}
