@@ -11,7 +11,7 @@ import { line, curveNatural } from "d3-shape";
 import { scaleSequential } from "d3-scale";
 import { schemeGreens } from "d3-scale-chromatic";
 
-import { Leaf, drawLeaf, leafSize, randomNumBetween } from "./leaves";
+import { Leaf, LeafPath, leafSize, randomNumBetween } from "./leaves";
 import {
   LeafLabel,
   // labelLineHeight,
@@ -374,7 +374,8 @@ function TreeGraph({ nodes, links, centuries }) {
     .join("path")
     // make leaf nodes larger
     .attr("d", (d) => {
-      return d.type == "leaf" ? drawLeaf() : emptyPath;
+      // return d.type == "leaf" ? drawLeaf() : emptyPath;
+      return d.type == "leaf" ? new LeafPath().path : emptyPath;
     })
     // .attr("r", (d) => {
     //   return d.type == "leaf" ? 8 : 3;
@@ -485,12 +486,12 @@ function TreeGraph({ nodes, links, centuries }) {
         // adjust position of the leaf so it is inside the collision
         // radius used for the d3 simulation
 
-        let y = d.y - bbox.height / 2;
-        return `translate(${d.x} ${y})`;
+        // let y = d.y - bbox.height / 2;
+        // return `translate(${d.x} ${d.y})`;
         // NOTE: rotation makes this more complicated;
         // maybe leaf coordinates should be centered around 0,0
         // instead of stem point at 0,0
-        return `rotate(${rotation} ${d.x} ${y}) translate(${d.x} ${y})`;
+        return `rotate(${rotation} ${d.x} ${d.y}) translate(${d.x} ${d.y})`;
       }
     });
 

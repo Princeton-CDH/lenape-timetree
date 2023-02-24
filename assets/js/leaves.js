@@ -94,114 +94,166 @@ class Leaf {
   }
 }
 
-// function to draw with the points identified
-function drawLeaf() {
-  let x = 0;
-  // x = starting x
+class LeafPath {
+  x = 0;
+  static curve = d3.line().curve(d3.curveNatural);
+  // stem = [];
+  leftPoints = [];
+  rightPoints = [];
+  // tip = [];
 
-  // generate a random height somewhere between our min and max
-  let leafHeight = randomNumBetween(leafSize.maxHeight, leafSize.minHeight);
-  let midLeafHeight = leafHeight / 2;
+  constructor() {
+    this.height = this.getHeight();
+    this.halfHeight = this.height / 2;
 
-  // collect leaf points as we go for the two sides of the leaf in tandem
-  // left side starts at the stem; append new points after
-  let leftPoints = [
-    [x, 0], // top (stem)
-  ];
-  // right side ends up at the stem; insert new points before
-  let rightPoints = [[x, 0]];
+    // center of leaf should be at 0,0
+    // middle of the leaf can be shifted +/-
+    let midXShift = plusOrMinus(leafSize.maxMidShift);
+    // left middle is center of leaf + half leaf width + random shift
+    this.leftMid = this.x - leafSize.width / 2 + midXShift;
+    let rightMid = this.leftMid + leafSize.width;
 
-  // width is always consistent, but it may be shifted sidewise as much as 34px in either direction
-  let leafWidth = leafSize.width;
+    this.tip = this.getTip();
 
-  // middle of the leaf can be shifted +/-
-  let midXShift = plusOrMinus(leafSize.maxMidShift);
-  // left middle is center of leaf + half leaf width + random shift
-  let leftMid = x - leafSize.width / 2 + midXShift;
-  let rightMid = leftMid + leafWidth;
+    // can we just add points to both sides and then sort by Y ?
 
-  // if leaf is long enough, do two mid points
-  if (leafHeight > 50) {
-    // two mid points around thirds
-    let midY1 = leafHeight * 0.33 - randomNumBetween(7);
-    let midY2 = leafHeight * 0.66 - randomNumBetween(7);
+    // generate points for left and right sides programmatically from
+    // top to bottom (stem to tip) with some randomness
 
-    // should we adjust the upper width?
-    if (cointoss()) {
-      // yes, adjust the first
-      // should we adjust the left or the right?
+    // collect leaf points as we go for the two sides of the leaf in tandem
+    // left side starts at the stem; append new points after
+    this.leftPoints = [
+      this.stem, // top (stem)
+    ];
+    // right side ends up at the stem; insert new points before
+    this.rightPoints = [this.stem];
+
+    // if leaf is long enough, do two mid points
+    if (this.height > 50) {
+      // two mid points around thirds
+      let midY1 = -this.height / 2 + this.height * 0.33 - randomNumBetween(7);
+      let midY2 = -this.height / 2 + this.height * 0.66 - randomNumBetween(7);
+
+      // should we adjust the upper width?
       if (cointoss()) {
-        // left
-        // shrink width by adjustment on the leftside
-        let adjustment = randomNumBetween(7);
-        leftPoints.push([leftMid + adjustment, midY1]);
-      } else {
-        leftPoints.push([leftMid, midY1]);
-      }
+        // yes, adjust the first
+        // should we adjust the left or the right?
+        if (cointoss()) {
+          // left
+          // shrink width by adjustment on the leftside
+          let adjustment = randomNumBetween(7);
+          this.leftPoints.push([this.leftMid + adjustment, midY1]);
+        } else {
+          this.leftPoints.push([this.leftMid, midY1]);
+        }
 
-      if (cointoss()) {
-        // right
-        let adjustment = randomNumBetween(7);
-        rightPoints.unshift([rightMid - adjustment, midY1]);
+        if (cointoss()) {
+          // right
+          let adjustment = randomNumBetween(7);
+          this.rightPoints.unshift([this.rightMid - adjustment, midY1]);
+        } else {
+          this.rightPoints.unshift([this.rightMid, midY1]);
+        }
       } else {
-        rightPoints.unshift([rightMid, midY1]);
+        // push first width without adjusting
+        this.leftPoints.push([this.leftMid, midY1]);
+        this.rightPoints.unshift([this.rightMid, midY1]);
+
+        // adjust the second; should we adjust the left or the right?
+        let adjustment = randomNumBetween(5);
+        if (cointoss()) {
+          // left
+          // shrink width by adjustment on the leftside
+          this.leftPoints.push([this.leftMid + adjustment, midY2]);
+        } else {
+          this.leftPoints.push([this.leftMid, midY2]);
+        }
+        if (cointoss()) {
+          // right
+          this.rightPoints.unshift([this.rightMid - adjustment, midY2]);
+        } else {
+          this.rightPoints.unshift([this.rightMid, midY2]);
+        }
       }
     } else {
-      // push first width without adjusting
-      leftPoints.push([leftMid, midY1]);
-      rightPoints.unshift([rightMid, midY1]);
+      // for shorter leaves, only one set of midpoints
+      // Y-axis midpoint is 0
+      this.leftPoints.push([this.leftMid, 0]);
+      this.rightPoints.unshift([rightMid, 0]);
+    }
 
-      // adjust the second; should we adjust the left or the right?
-      let adjustment = randomNumBetween(5);
+    // how pointy is the tail? add points relative to the tail
+    // at 80% of the height, leaf should be on average 60% of the width; adjust randomly
+    let nearTailWidth = leafSize.width * 0.6 - randomNumBetween(7);
+    // let nearTailX = tailX - nearTailWidth; // randomNumBetween(nearTailWidth, - nearTailWidth);
+    // unadajusted tailx
+    let nearTailX = this.leftMid + leafSize.width / 2 - nearTailWidth / 2; // randomNumBetween(nearTailWidth, -
+    // let nearTailY = this.height * 0.8 - this.height/2;
+    let nearTailY = this.tip[1] - this.height * 0.2;
+    if (cointoss()) {
+      this.leftPoints.push([nearTailX, nearTailY]);
+    } else {
       if (cointoss()) {
-        // left
-        // shrink width by adjustment on the leftside
-        leftPoints.push([leftMid + adjustment, midY2]);
-      } else {
-        leftPoints.push([leftMid, midY2]);
-      }
-      if (cointoss()) {
-        // right
-        rightPoints.unshift([rightMid - adjustment, midY2]);
-      } else {
-        rightPoints.unshift([rightMid, midY2]);
+        this.rightPoints.unshift([nearTailX + nearTailWidth, nearTailY]);
       }
     }
-  } else {
-    // for shorter leaves, only one set of midpoints
-    let midY = leafHeight / 2;
-    leftPoints.push([leftMid, midY]);
-    rightPoints.unshift([rightMid, midY]);
+
+    // tail only needs to be added once
+    this.leftPoints.push(this.tip); //[tailX, leafHeight]);
+
+    this.rightPoints.unshift(this.tip); //[tailX, leafHeight]);
   }
 
-  // tail of the leaf does not need to be centered
-  // start with midpoint of shifted middle, then shift slightly more
-  let tailX = leftMid + leafSize.width / 2 + plusOrMinus(leafSize.maxTipShift);
-  //let tailX = x + randomNumBetween(leafSize.maxTipShift, - leafSize.maxTipShift);
-  // may need some limits to limit shift based on midXShift
-
-  // how pointy is the tail? add points relative to the tail
-  // at 80% of the height, leaf should be on average 60% of the width; adjust randomly
-  let nearTailWidth = leafSize.width * 0.6 - randomNumBetween(7);
-  // let nearTailX = tailX - nearTailWidth; // randomNumBetween(nearTailWidth, - nearTailWidth);
-  // unadajusted tailx
-  let nearTailX = leftMid + leafSize.width / 2 - nearTailWidth / 2; // randomNumBetween(nearTailWidth, -
-  let nearTailY = leafHeight * 0.8;
-  if (cointoss()) {
-    leftPoints.push([nearTailX, nearTailY]);
-  } else {
-    // if (cointoss()) {
-    rightPoints.unshift([nearTailX + nearTailWidth, nearTailY]);
-    // }
+  get stem() {
+    // stem is half the leaf height above 0
+    return [this.x, -this.halfHeight];
   }
 
-  // tail only needs to be added once
-  leftPoints.push([tailX, leafHeight]);
+  getHeight() {
+    // generate a random height somewhere between our min and max
+    return randomNumBetween(leafSize.maxHeight, leafSize.minHeight);
+  }
 
-  let leafPoints = leftPoints.concat(rightPoints);
+  getTip() {
+    // tail of the leaf does not need to be centered
+    // start with midpoint of shifted middle, then shift slightly more
+    let tailX =
+      this.leftMid + leafSize.width / 2 + plusOrMinus(leafSize.maxTipShift);
+    return [tailX, this.halfHeight];
+  }
 
-  let curve = d3.line().curve(d3.curveNatural)(leafPoints);
-  return curve;
+  get rightMid() {
+    return this.leftMid + leafSize.width;
+  }
+
+  get points() {
+    return [
+      this.stem,
+      [this.leftMid, 0],
+      this.tip,
+      [this.rightMid, 0],
+      this.stem,
+    ];
+  }
+
+  // get leftPoints() {
+  //   return [this.stem, [this.leftMid, 0], this.tip];
+  // }
+
+  // get rightPoints() {
+  //   return [this.tip, [this.rightMid, 0], this.stem];
+  // }
+
+  get path() {
+    // combine two curves so the tip doesn't get too curved
+    return LeafPath.curve(this.leftPoints) + LeafPath.curve(this.rightPoints);
+    //    // tail only needs to be added once
+    //   leftPoints.push([tailX, leafHeight]);
+    // let leafPoints = leftPoints.concat(rightPoints);
+
+    // let curve = d3.line().curve(d3.curveNatural)(leafPoints);
+    // return curve;
+  }
 }
 
-export { cointoss, drawLeaf, leafSize, plusOrMinus, randomNumBetween, Leaf };
+export { cointoss, leafSize, plusOrMinus, randomNumBetween, Leaf, LeafPath };
