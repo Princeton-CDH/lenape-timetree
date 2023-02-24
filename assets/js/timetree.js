@@ -12,13 +12,7 @@ import { scaleSequential } from "d3-scale";
 import { schemeGreens } from "d3-scale-chromatic";
 
 import { Leaf, LeafPath, leafSize, randomNumBetween } from "./leaves";
-import {
-  LeafLabel,
-  // labelLineHeight,
-  // splitLabel,
-  // labelRadius,
-  // labelHeight,
-} from "./labels";
+import { LeafLabel } from "./labels";
 
 // combine into d3 object for convenience
 const d3 = {
@@ -374,7 +368,6 @@ function TreeGraph({ nodes, links, centuries }) {
     .join("path")
     // make leaf nodes larger
     .attr("d", (d) => {
-      // return d.type == "leaf" ? drawLeaf() : emptyPath;
       return d.type == "leaf" ? new LeafPath().path : emptyPath;
     })
     // .attr("r", (d) => {
@@ -477,22 +470,12 @@ function TreeGraph({ nodes, links, centuries }) {
         if (d.x > 0) {
           rotation = 0 - rotation;
         }
-        // determine height based on the bounding box of the element,
-        // then adjust vertically so y is closer to the center of the leaf
-        // (x is the middle of the top of the leaf already)
-        let pathElement = n[i];
-        let bbox = pathElement.getBBox();
-
-        // adjust position of the leaf so it is inside the collision
-        // radius used for the d3 simulation
-
-        // let y = d.y - bbox.height / 2;
-        // return `translate(${d.x} ${d.y})`;
-        // NOTE: rotation makes this more complicated;
-        // maybe leaf coordinates should be centered around 0,0
-        // instead of stem point at 0,0
+        // leaf coordinates are be centered around 0,0
         return `rotate(${rotation} ${d.x} ${d.y}) translate(${d.x} ${d.y})`;
       }
+      // rotate relative to x, y, and move to x, y
+      // return `rotate(${rotation} ${d.x} ${d.y}) translate(${d.x} ${d.y})`;
+      return `rotate(${rotation} ${d.x} ${d.y}) translate(${d.x} ${d.y})`;
     });
 
     link

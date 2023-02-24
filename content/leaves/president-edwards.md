@@ -3,9 +3,9 @@ branch: The University
 display_date: 1758
 sort_date: 1758
 tags:
-  - religion
-  - university presidents
-  - missions
+- religion
+- university presidents
+- missions
 title: President Edwards
 ---
 

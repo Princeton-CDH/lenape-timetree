@@ -24,8 +24,10 @@ def parse_file(filepath):
                     datapoints.append(data)
                     data = {}
 
-            elif ":" in line:
-                label, value = line.split(":")
+            # look for colon in first few characters, indicating a labeled field
+            elif ": " in line[:20]:
+                # only split once
+                label, value = line.split(": ", 1)
                 # convert readable label to data variable
 
                 label = label.strip().lower().replace(" ", "_")

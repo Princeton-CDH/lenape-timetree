@@ -3,8 +3,8 @@ branch: Lands and Waters
 display_date: 1737
 sort_date: 1737
 tags:
-  - Dutch settlers
-  - land purchases
+- Dutch settlers
+- land purchases
 title: Dutch Princeton
 ---
 

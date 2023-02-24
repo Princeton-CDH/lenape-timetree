@@ -3,10 +3,10 @@ branch: Lands and Waters
 display_date: 1754 - 1763
 sort_date: 1754
 tags:
-  - treaties
-  - resistance
-  - affiliations
-  - deception
+- treaties
+- resistance
+- affiliations
+- deception
 title: Easton Signing
 ---
 

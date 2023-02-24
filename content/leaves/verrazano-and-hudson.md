@@ -3,10 +3,10 @@ branch: Lands and Waters
 display_date: 1524-1609
 sort_date: 1524
 tags:
-  - colonial encounters
-  - land claims
-  - Muhheakantuck/Hudson River
-  - Dutch settlers
+- colonial encounters
+- land claims
+- Muhheakantuck/Hudson River
+- Dutch settlers
 title: Verrazano and Hudson
 ---
 

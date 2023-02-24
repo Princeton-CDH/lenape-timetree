@@ -4,8 +4,8 @@ display_date: 1763
 siege_of_fort_pitt: smallpox blankets scheme
 sort_date: 1763
 tags:
-  - disease
-  - trade
+- disease
+- trade
 title: Smallpox
 ---
 

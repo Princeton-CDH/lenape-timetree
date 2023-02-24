@@ -3,9 +3,9 @@ branch: Removals
 display_date: 1791
 sort_date: 1791
 tags:
-  - removals
-  - Seneca
-  - reservations
+- removals
+- Seneca
+- reservations
 title: Seneca Nation
 ---
 

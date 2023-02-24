@@ -3,8 +3,8 @@ branch: Removals
 display_date: 1794
 sort_date: 1794
 tags:
-  - removals
-  - battles
+- removals
+- battles
 title: Battle of Fallen Timbers
 ---
 

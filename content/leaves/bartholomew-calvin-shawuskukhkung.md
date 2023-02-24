@@ -3,8 +3,8 @@ branch: Lands and Waters
 display_date: 1754
 sort_date: 1754
 tags:
-  - treaties
-  - Native Princeton students
+- treaties
+- Native Princeton students
 title: Bartholomew Calvin (Shawuskukhkung)
 ---
 

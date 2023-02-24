@@ -3,11 +3,11 @@ branch: Lands and Waters
 display_date: Ongoing
 sort_date: 1500
 tags:
-  - place names
-  - renaming
-  - Princeton
-  - routes
-  - Lenapewihittuck/Delaware River
+- place names
+- renaming
+- Princeton
+- routes
+- Lenapewihittuck/Delaware River
 title: Assunpink Trail
 ---
 
