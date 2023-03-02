@@ -50,6 +50,11 @@ class Leaf {
     Array.from(selected).forEach((item) => {
       item.classList.remove(Leaf.selectedClass);
     });
+
+    // change url location hash to indicate no leaf is selected
+    // needs to be non-empty to avoid page reload
+    window.location.replace("#-");
+    history.replaceState(null, "", window.location);
   }
 
   static selectByTag(tag) {
@@ -79,6 +84,11 @@ class Leaf {
       item.classList.add(Leaf.selectedClass);
     }
 
+    // update URL to reflect the currently selected leaf;
+    // replace the location & state to avoid polluting browser history
+    window.location.replace(`#${target.getAttribute("data-id")}`);
+    history.replaceState(null, "", window.location);
+
     // load leaf details and display in the panel
     fetch(leafURL)
       .then((response) => response.text())
@@ -87,10 +97,31 @@ class Leaf {
         const doc = parser.parseFromString(html, "text/html");
         // Get the article content and insert into panel
         const article = doc.querySelector("article");
+        const panel = document.querySelector("#panel");
         panel.querySelector("article").replaceWith(article);
         // make sure panel is active
         panel.parentElement.classList.add("show-panel");
       });
+  }
+
+  static selectLeafByHash() {
+    if (location.hash.startsWith("#")) {
+      let leaf = document.querySelector(
+        `path[data-id=${location.hash.slice(1)}]`
+      );
+      // if hash id corresponds to a leaf, select it
+      if (leaf != undefined) {
+        // simulate click event, sending leaf as event target
+        Leaf.selectLeaf({ target: leaf });
+      }
+    }
+  }
+
+  static closeLeafDetails() {
+    const panel = document.querySelector("#panel");
+    Leaf.deselectAll();
+    panel.parentElement.classList.remove("show-panel");
+    panel.parentElement.classList.add("closed");
   }
 }
 
