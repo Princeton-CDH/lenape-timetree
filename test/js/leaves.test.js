@@ -69,7 +69,7 @@ describe("Leaf", () => {
     test("updates window location", () => {
       window.location.replace("#lenape");
       Leaf.deselectAll();
-      expect(window.location.hash).toEqual("#-");
+      expect(window.location.hash).toEqual(""); // does not include #
     });
   });
 

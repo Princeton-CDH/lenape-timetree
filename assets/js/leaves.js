@@ -53,8 +53,8 @@ class Leaf {
 
     // change url location hash to indicate no leaf is selected
     // needs to be non-empty to avoid page reload
-    window.location.replace("#-");
-    history.replaceState(null, "", window.location);
+    window.location.replace("#");
+    history.replaceState(null, "", window.hash);
   }
 
   static selectByTag(tag) {
@@ -87,7 +87,7 @@ class Leaf {
     // update URL to reflect the currently selected leaf;
     // replace the location & state to avoid polluting browser history
     window.location.replace(`#${target.getAttribute("data-id")}`);
-    history.replaceState(null, "", window.location);
+    history.replaceState(null, "", window.hash);
 
     // load leaf details and display in the panel
     fetch(leafURL)
