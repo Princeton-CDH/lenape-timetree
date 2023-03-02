@@ -61,23 +61,23 @@ class Leaf {
     }
   }
 
+  static targetLeafURL(target) {
+    // if the target is the tspan within text label, use parent element
+    if (target.tagName == "tspan") {
+      target = target.parentElement;
+    }
+    // both text and path have data-url set
+    return target.getAttribute("data-url");
+  }
+
   static selectLeaf(event) {
     // event handler to select leaf when leaf or label is clicked/tapped
     Leaf.deselectAll();
 
     // visually highlight selected leaf in the tree
-    let target = event.target;
-    // if the target is the tspan within text label, use parent element
-    if (target.tagName == "tspan") {
-      target = target.parentElement;
-    }
-    target.classList.add(Leaf.selectedClass);
+    let leafURL = Leaf.targetLeafURL(event.target);
     // ensure both leaf and label are selected
-    let leafURL = target.getAttribute("data-url");
-    let leafAndLabel = document.querySelectorAll(`[data-url="${leafURL}"]`);
-    for (let item of leafAndLabel) {
-      item.classList.add(Leaf.selectedClass);
-    }
+    Leaf.setLeafLabelClass(leafURL, Leaf.selectedClass);
 
     // load leaf details and display in the panel
     fetch(leafURL)
@@ -91,6 +91,27 @@ class Leaf {
         // make sure panel is active
         panel.parentElement.classList.add("show-panel");
       });
+  }
+
+  static highlightLeaf(event) {
+    // visually highlight both leaf & label when corresponding one is hovered
+    Leaf.setLeafLabelClass(Leaf.targetLeafURL(event.target), "hover");
+  }
+
+  static unhighlightLeaf(event) {
+    // turn off visual highlight for both when hover ends
+    Leaf.setLeafLabelClass(Leaf.targetLeafURL(event.target), "hover", false);
+  }
+
+  static setLeafLabelClass(leafURL, classname, add = true) {
+    let leafAndLabel = document.querySelectorAll(`[data-url="${leafURL}"]`);
+    for (let item of leafAndLabel) {
+      if (add) {
+        item.classList.add(classname);
+      } else {
+        item.classList.remove(classname);
+      }
+    }
   }
 }
 
@@ -247,12 +268,8 @@ class LeafPath {
   get path() {
     // combine two curves so the tip doesn't get too curved
     return LeafPath.curve(this.leftPoints) + LeafPath.curve(this.rightPoints);
-    //    // tail only needs to be added once
-    //   leftPoints.push([tailX, leafHeight]);
-    // let leafPoints = leftPoints.concat(rightPoints);
-
-    // let curve = d3.line().curve(d3.curveNatural)(leafPoints);
-    // return curve;
+    // NOTE: two paths makes the outlines visibly disconnected...
+    // return LeafPath.curve(this.points);
   }
 }
 
