@@ -1,6 +1,7 @@
 ---
 branch: The University
 display_date: 2023
+display_title: Tlingit Art Symposium
 sort_date: 2023
 tags:
 - artifacts

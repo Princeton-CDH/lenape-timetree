@@ -41,6 +41,7 @@ def parse_file(filepath):
                     "sort_date",
                     "tags",
                     "title",
+                    "display_title",
                 ]:
                     data["text"] = line.strip()
 
@@ -72,8 +73,11 @@ def generate_leaf_pages(datapoints, offset=0):
     # expects a list of dictionaries
     for i, data in enumerate(datapoints):
         # NOTE: need short names to use for file names & page titles,
-        # not all records have them yet
-        title = data.get("title", "")
+        # but not all records have them yet
+        # use display title first, if set, since it will be shorter
+        title = data.get("display_title", "")
+        if not title:
+            title = data.get("title", "")
         # slugify title to use as basis for filename
         slug = slugify(title)
         if not slug:
