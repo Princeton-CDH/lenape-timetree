@@ -24,6 +24,10 @@ def parse_file(filepath):
                     datapoints.append(data)
                     data = {}
 
+            # skip empty display title with : and no space
+            elif line.endswith(":"):
+                continue
+
             # look for colon in first few characters, indicating a labeled field
             elif ": " in line[:20]:
                 # only split once
