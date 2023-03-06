@@ -93,6 +93,7 @@ def generate_leaf_pages(datapoints, offset=0):
             try:
                 text = data.pop("text")
             except KeyError:
+                text = ""  # don't use text from preceeding entry
                 print("no text")
                 print(data)
             # output remaining info as yaml
