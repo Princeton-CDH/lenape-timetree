@@ -81,7 +81,6 @@ let sortedLeaves = data.leaves
   .sort((a, b) => a.sort_date > b.sort_date);
 // use url as id for node in graph; set type to leaf; set century
 sortedLeaves.forEach((leaf) => {
-  leaf.id = leaf.url;
   leaf.type = "leaf";
   // set place-holder centuries for special cases
   // (century set in json based on sort date if numeric)
@@ -185,7 +184,8 @@ sortedLeaves.forEach((leaf, index) => {
   nodes.push({
     type: "leaf-label",
     label: new LeafLabel(leaf.title),
-    url: leaf.id,
+    url: leaf.url,
+    id: leaf.id,
     century: leaf.century,
     tags: leaf.tags,
   });
@@ -376,6 +376,7 @@ function TreeGraph({ nodes, links, centuries }) {
     .attr("fill-opacity", (d) => {
       return d.type == "leaf-label" ? 0 : 0.6;
     }) // hide label nodes  TODO: hide with css?
+    .attr("data-id", (d) => d.id)
     .attr("data-url", (d) => d.url || d.id)
     .attr("data-sort-date", (d) => d.sort_date)
     .attr("data-century", (d) => d.century)
@@ -398,6 +399,7 @@ function TreeGraph({ nodes, links, centuries }) {
     // set position based on x,y adjusted by radius and height
     .attr("x", (d) => d.x - d.label.radius)
     .attr("y", (d) => d.y - d.label.height / 2)
+    .attr("data-id", (d) => d.id) // leaf id for url state
     .attr("data-url", (d) => d.url) // set url so we can click to select leaf
     .attr("text-anchor", "middle") // set coordinates to middle of text
     .attr("class", (d) => {
@@ -505,12 +507,13 @@ function TreeGraph({ nodes, links, centuries }) {
     return 0;
   }
 
-  const panel = document.querySelector("#panel");
-
+  // const panel = document.querySelector("#panel");
   d3.select("aside .close").on("click", function () {
-    panel.parentElement.classList.remove("show-panel");
-    panel.parentElement.classList.add("closed");
+    Leaf.closeLeafDetails();
   });
+
+  // check for presence of hash when page is first loaded and select leaf
+  Leaf.selectLeafByHash();
 }
 
 // bind a delegated click handler to override tag link behavior
