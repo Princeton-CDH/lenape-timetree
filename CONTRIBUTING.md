@@ -20,6 +20,8 @@ To add a new leaf, create a new file in the leaves directory; the filename
 shoud be in "slug" format (lower case only, words separated by hyphens)
 based on the leaf title, and ending in `.md`. For example, if the leaf
 title is **Assunpink Trail** the filename should be `assunpink-trail.md`.
+Shorter filenames are preferable; if a leaf has both short and full titles,
+use the shorter title for the filename.
 
 Add leaf metadata in this format at the top of the file:
 
@@ -32,8 +34,13 @@ tags:
   - tag1
   - tag2
 title:
+display_title:
 ---
 ```
+
+Display title is optional, and can be used to set a shorter title for display
+in the timetree while using a longer, more detailed title in the leaf details.
+If not specified, title will be used for both and display_title may be omitted.
 
 ### Adding images to leaves
 

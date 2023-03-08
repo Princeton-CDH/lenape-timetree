@@ -6,7 +6,7 @@ tags:
 - removals
 - renaming
 - Iroquois
-- Susquehanna and Ohio River Valleys
+- Ohio Country
 title: Midwest Resettlement
 ---
 

@@ -6,10 +6,14 @@
 	{{ $data.Set "sectionOutput" slice }}
 	{{ range .Pages }}
 		{{/* create page info dict with expected/required values */}}
-		{{ $pageInfo := dict "url" .RelPermalink "display_date" .Params.display_date "sort_date" .Params.sort_date "tags" .Params.tags "text" .Plain }}
+		{{/* file basename without extension = slug = id */}}
+		{{ $pageInfo := dict "url" .RelPermalink "id" .File.TranslationBaseName "display_date" .Params.display_date "sort_date" .Params.sort_date "tags" .Params.tags "text" .Plain }}
 		{{/* set optional values  */}}
 		{{ with .Title }}
 			{{ $pageInfo = merge $pageInfo (dict "title" . ) }}
+		{{ end }}
+		{{ with .Params.display_title }}
+			{{ $pageInfo = merge $pageInfo (dict "display_title" . ) }}
 		{{ end }}
 		{{/* if sort date is numeric, calculate century */}}
 		{{ with .Params.sort_date }}

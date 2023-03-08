@@ -3,7 +3,8 @@ branch: Communities
 display_date: 1980
 sort_date: 1980
 tags:
-- TBA
+- Munsee
+- Ramapough
 title: Ramapough Lenape
 ---
 
