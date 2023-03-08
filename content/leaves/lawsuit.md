@@ -10,4 +10,4 @@ tags:
 title: Lawsuit
 ---
 
-In 2006, the Lenape seek redress for the fraudulent Walking Purchase, but the US Tenth Circuit Court of Appeals rules that the claim, although substantive, is “nonjusticiable.”
+In 2006, Lunaapeew seek redress for the fraudulent Walking Purchase, but the US Tenth Circuit Court of Appeals rules that the claim, although substantive, is “nonjusticiable.”

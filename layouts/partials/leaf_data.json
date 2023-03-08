@@ -12,6 +12,9 @@
 		{{ with .Title }}
 			{{ $pageInfo = merge $pageInfo (dict "title" . ) }}
 		{{ end }}
+		{{ with .Params.display_title }}
+			{{ $pageInfo = merge $pageInfo (dict "display_title" . ) }}
+		{{ end }}
 		{{/* if sort date is numeric, calculate century */}}
 		{{ with .Params.sort_date }}
 			{{ if (findRE `^\d+` .) }}

@@ -5,7 +5,6 @@ sort_date: 1785
 tags:
 - Alliances
 - Ontario
-- Midwest
 - Munsee
 - migration
 - wars

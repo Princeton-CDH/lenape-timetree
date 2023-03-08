@@ -8,4 +8,4 @@ tags:
 title: Chiefs
 ---
 
-British and Iroquois compel Lenape to appoint a single chief for negotiations, violating old Lenape custom of shared authority among multiple sachems, or chiefs
+British and Iroquois compel Lunaapeew to appoint a single chief for negotiations, violating old Lunaapecustom of shared authority among multiple sachems, or chiefs

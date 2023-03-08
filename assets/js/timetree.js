@@ -183,7 +183,8 @@ sortedLeaves.forEach((leaf, index) => {
 sortedLeaves.forEach((leaf, index) => {
   nodes.push({
     type: "leaf-label",
-    label: new LeafLabel(leaf.title),
+    // display title takes precedence over title but is optional
+    label: new LeafLabel(leaf.display_title || leaf.title),
     url: leaf.url,
     id: leaf.id,
     century: leaf.century,
