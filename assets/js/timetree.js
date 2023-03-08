@@ -364,19 +364,17 @@ function TreeGraph({ nodes, links, centuries }) {
 
   const node = svg
     .append("g")
+    .attr("class", "nodes")
     .selectAll("path")
     .data(nodes)
     .join("path")
-    // make leaf nodes larger
+    // draw leaf path for leaves, empty path for everything else
     .attr("d", (d) => {
       return d.type == "leaf" ? new LeafPath().path : emptyPath;
     })
-    // .attr("r", (d) => {
-    //   return d.type == "leaf" ? 8 : 3;
-    // })
-    .attr("fill-opacity", (d) => {
-      return d.type == "leaf-label" ? 0 : 0.6;
-    }) // hide label nodes  TODO: hide with css?
+    // make leaves keyboard focusable
+    .attr("tabindex", (d) => (d.type == "leaf" ? 0 : null))
+    .attr("stroke-linejoin", "bevel")
     .attr("data-id", (d) => d.id)
     .attr("data-url", (d) => d.url || d.id)
     .attr("data-sort-date", (d) => d.sort_date)
@@ -388,7 +386,9 @@ function TreeGraph({ nodes, links, centuries }) {
       }
       return classes.join(" ");
     })
-    .on("click", Leaf.selectLeaf);
+    .on("click", Leaf.selectLeaf)
+    .on("mouseover", Leaf.highlightLeaf)
+    .on("mouseout", Leaf.unhighlightLeaf);
 
   const nodeLabel = svg
     .append("g")
@@ -411,7 +411,9 @@ function TreeGraph({ nodes, links, centuries }) {
       return classes.join(" ");
     })
     // .text((d) => d.label.text)
-    .on("click", Leaf.selectLeaf);
+    .on("click", Leaf.selectLeaf)
+    .on("mouseover", Leaf.highlightLeaf)
+    .on("mouseout", Leaf.unhighlightLeaf);
 
   // split labels into words and use tspans to position on multiple lines;
   // inherits text-anchor: middle from parent text element
@@ -508,8 +510,11 @@ function TreeGraph({ nodes, links, centuries }) {
     return 0;
   }
 
-  // const panel = document.querySelector("#panel");
+  const panel = document.querySelector("#panel");
   d3.select("aside .close").on("click", function () {
+    panel.parentElement.classList.remove("show-panel");
+    panel.parentElement.classList.add("closed");
+    Leaf.deselectAll();
     Leaf.closeLeafDetails();
   });
 

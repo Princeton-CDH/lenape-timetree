@@ -71,20 +71,60 @@ body.home {
         // font-weight: 900;
       }
 
+      // mixin for leaf styles in all states,
+      // using color set for leaves from each branch
+      @mixin leaf-styles($branch) {
+        fill: map-get($leaf-color, $branch);
+        // stroke-linejoin: "bevel";
+
+        // selected (active state)
+        &.select,
+        &:hover,
+        &:focus,
+        &:active,
+        &.hover {
+          stroke: map-get($leaf-outline-color, $branch);
+          stroke-width: 3px;
+          $glow: map-get($leaf-glow-color, $branch);
+          filter: drop-shadow(-6px -8px 16px $glow)
+            drop-shadow(6px 14px 16px $glow) drop-shadow(-9px 4px 16px $glow)
+            drop-shadow(9px 0px 16px $glow);
+
+          outline: none; // disable browser default focus outline box
+        }
+
+        &:focus-visible {
+          stroke: $focus-color;
+          outline: none; // disable browser default focus outline box
+        }
+
+        &.disabled {
+          opacity: 0.4;
+          pointer-events: none;
+        }
+      }
+
       .branch-a {
-        fill: $branch-color-a;
+        @include leaf-styles("a");
       }
       .branch-b {
-        fill: $branch-color-b;
+        @include leaf-styles("b");
       }
       .branch-c {
-        fill: $branch-color-c;
+        @include leaf-styles("c");
       }
       .branch-d {
-        fill: $branch-color-d;
+        @include leaf-styles("d");
       }
       .branch-e {
-        fill: $branch-color-e;
+        @include leaf-styles("e");
+      }
+
+      // hide nodes used for layout but not meant to be displayed
+      g.nodes path.leaf-label,
+      g.nodes path.branch,
+      g.nodes path.trunk {
+        display: none;
       }
 
       circle.branch,
@@ -105,16 +145,14 @@ body.home {
       text-shadow: $nav-bg-color 2px 2px 2px;
     }
 
-    circle.select {
-      stroke: #fecd70;
-      stroke-width: 2px;
-    }
-    text.select {
-      fill: #fecd70;
-    }
-
     text {
       fill: lightgray;
+    }
+
+    text:hover,
+    text.select,
+    text.hover {
+      font-weight: 900;
     }
 
     // styles for intro text and selected panel
