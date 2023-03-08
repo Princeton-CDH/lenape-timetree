@@ -189,4 +189,56 @@ describe("Leaf", () => {
       expect(mockLeafSelect.mock.calls[0][0]).toEqual({ target: targetLeaf });
     });
   });
+
+  describe("targetLeafURL", () => {
+    test("gets data-url attribute from target element", () => {
+      // Set up document body with selected leaves and labels
+      document.body.innerHTML =
+        "<div><svg>" + '  <path data-url="/leaves/munsee/" />' + "</svg></div>";
+
+      let url = Leaf.targetLeafURL(document.querySelector("path"));
+      expect(url).toEqual("/leaves/munsee/");
+    });
+
+    test("handles nested tspan element within text ", () => {
+      document.body.innerHTML =
+        "<div><svg>" +
+        '  <text data-url="/leaves/munsee/" ><tspan>Munsee</tspan></text>' +
+        "</svg></div>";
+
+      let url = Leaf.targetLeafURL(document.querySelector("tspan"));
+      expect(url).toEqual("/leaves/munsee/");
+    });
+  });
+
+  describe("highlightLeaf", () => {
+    test("sets hover class on corresponding path and text elements", () => {
+      document.body.innerHTML =
+        "<div><svg>" +
+        '  <path class="food disease" data-id="munsee" data-url="/leaves/munsee/" />' +
+        '  <text class="food access" data-id="munsee" data-url="/leaves/munsee/"><tspan>munsee</tspan></text>' +
+        "</svg>" +
+        "</div>";
+
+      let path = document.querySelector("path");
+      Leaf.highlightLeaf({ target: path });
+      expect(path.classList).toContain("hover");
+      expect(document.querySelector("text").classList).toContain("hover");
+    });
+  });
+
+  describe("unhighlightLeaf", () => {
+    test("removes hover class on corresponding path and text elements", () => {
+      document.body.innerHTML =
+        "<div><svg>" +
+        '  <path class="food disease hover" data-id="munsee" data-url="/leaves/munsee/" />' +
+        '  <text class="food access hover" data-id="munsee" data-url="/leaves/munsee/"><tspan>munsee</tspan></text>' +
+        "</svg>" +
+        "</div>";
+
+      let path = document.querySelector("path");
+      Leaf.unhighlightLeaf({ target: path });
+      expect(document.getElementsByClassName("hover").length).toEqual(0);
+    });
+  });
 });
