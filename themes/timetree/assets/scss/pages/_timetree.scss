@@ -281,3 +281,90 @@ article.container article {
   padding-bottom: 12px;
   border-bottom: 1px dashed $line-color;
 }
+
+// visual debug styles
+#debug {
+  circle {
+    fill: transparent; // override branch fill styles elsewhere
+  }
+  circle.debug-leaf-label {
+    stroke: yellow;
+  }
+  circle.debug-leaf {
+    stroke: cyan;
+  }
+  circle.debug-branch {
+    fill: lightgreen;
+
+    // color branch nodes based on the branch they belong to
+    // use outline colors since they are darker
+    &.dbg-branch-a {
+      fill: map-get($leaf-outline-color, "a");
+    }
+    &.dbg-branch-b {
+      fill: map-get($leaf-outline-color, "b");
+    }
+    &.dbg-branch-c {
+      fill: map-get($leaf-outline-color, "c");
+    }
+    &.dbg-branch-d {
+      fill: map-get($leaf-outline-color, "d");
+    }
+    &.dbg-branch-e {
+      fill: map-get($leaf-outline-color, "e");
+    }
+  }
+  line {
+    stroke: lightgray;
+    stroke-width: 1;
+    // could hide or adjust visibility depending on type of link
+
+    // color links within branch based on the branch they belong to
+    &.dbg-branch-a {
+      stroke: map-get($leaf-outline-color, "a");
+    }
+    &.dbg-branch-b {
+      stroke: map-get($leaf-outline-color, "b");
+    }
+    &.dbg-branch-c {
+      stroke: map-get($leaf-outline-color, "c");
+    }
+    &.dbg-branch-d {
+      stroke: map-get($leaf-outline-color, "d");
+    }
+    &.dbg-branch-e {
+      stroke: map-get($leaf-outline-color, "e");
+    }
+  }
+}
+
+#debug-controls {
+  position: absolute;
+  right: 0;
+  // position so it sits above the footer
+  top: calc(
+    100vh - #{$mobile_header_height} - #{$mobile_footer_height} - 175px;
+  );
+  padding: $margin;
+  height: 175px;
+
+  background-color: $lightgray;
+  color: $nearblack;
+  font-size: 80%;
+  label {
+    display: block;
+  }
+
+  input {
+    text-align: right;
+    padding-left: 5px;
+    width: 10em;
+  }
+
+  // customize range input slider
+  input[type="range"]::-webkit-slider-runnable-track,
+  input[type="range"]::-moz-range-track {
+    background: #053a5f;
+    height: 0.2rem;
+  }
+}
