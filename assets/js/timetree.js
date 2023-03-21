@@ -439,7 +439,7 @@ function TreeGraph({ nodes, links, centuries }) {
       // in the network simulation; probably needs some
       // adjusments, and should make sure these match
       if (d.type == "leaf-label") {
-        return leafSize.width - 5;
+        return d.label.radius - 10;
         // return d.label.radius;
       }
       if (d.type == "leaf") {
