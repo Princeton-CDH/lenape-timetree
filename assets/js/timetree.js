@@ -512,11 +512,26 @@ function TreeGraph({ nodes, links, centuries }) {
 
   const panel = document.querySelector("#panel");
   d3.select("aside .close").on("click", function () {
+    // Close panel and deselect
+    close_panel(panel);
+  });
+
+  // Close panel function
+  function close_panel(panel) {
     panel.parentElement.classList.remove("show-panel");
     panel.parentElement.classList.add("closed");
     Leaf.deselectAll();
     Leaf.closeLeafDetails();
-  });
+  }
+
+  // Also allow Escape key to close window
+  document.onkeydown = function (evt) {
+    evt = evt || window.event;
+    var isEscape = evt.key === "Escape" || evt.key === "Esc";
+    if (isEscape) {
+      close_panel(panel);
+    }
+  };
 
   // check for presence of hash when page is first loaded and select leaf
   Leaf.selectLeafByHash();
