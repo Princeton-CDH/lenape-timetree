@@ -26,7 +26,8 @@
   </div>
 </aside>
 
-
+{{/* include visual debug controls unless this is a production build */}}
+{{ if not hugo.IsProduction }}
 <div id="debug-controls">
 <h2>Visual debug</h2>
 
@@ -45,11 +46,8 @@
   <input type="range" id="label-visible" name="label-visible"
          min="0" max="100" value="100">
   </label>
-
-
 </div>
-
-
+{{ end }}
 
 <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
 {{ end }} {{/* end main */}}
