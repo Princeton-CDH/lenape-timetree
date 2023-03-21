@@ -513,11 +513,11 @@ function TreeGraph({ nodes, links, centuries }) {
   const panel = document.querySelector("#panel");
   d3.select("aside .close").on("click", function () {
     // Close panel and deselect
-    close_panel(panel);
+    closePanel(panel);
   });
 
   // Close panel function
-  function close_panel(panel) {
+  function closePanel(panel) {
     panel.parentElement.classList.remove("show-panel");
     panel.parentElement.classList.add("closed");
     Leaf.deselectAll();
@@ -525,11 +525,25 @@ function TreeGraph({ nodes, links, centuries }) {
   }
 
   // Also allow Escape key to close window
+  // Along with (potentially) other keyboard commands
   document.onkeydown = function (evt) {
+    // Get event object
     evt = evt || window.event;
-    var isEscape = evt.key === "Escape" || evt.key === "Esc";
-    if (isEscape) {
-      close_panel(panel);
+
+    // Keypress switch logic
+    switch (evt.key) {
+      // Escape key
+      case "Escape":
+      case "Esc":
+        // Closes the detail panel
+        closePanel(panel);
+        break;
+
+      // ... Add other cases here for more keyboard commands ...
+
+      // Otherwise
+      default:
+        return; // Do nothing
     }
   };
 
