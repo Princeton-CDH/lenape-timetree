@@ -5,6 +5,7 @@ import {
   forceCenter,
   forceCollide,
   forceLink,
+  forceRadial,
   forceY,
 } from "d3-force";
 import { line, curveNatural } from "d3-shape";
@@ -23,6 +24,7 @@ const d3 = {
   forceCenter,
   forceCollide,
   forceLink,
+  forceRadial,
   forceY,
   line,
   curveNatural,
@@ -38,12 +40,14 @@ const forceStrength = {
   center: 0.01, // how strongly drawn to the center of the svg
 
   // custom y force for century
-  centuryY: 4, // draw to Y coordinate for center of assigned century band
+  centuryY: 5, // draw to Y coordinate for center of assigned century band
 
   // strength of link force by type of link
-  leafToLabel: 5.5, // between leaves and their labels
+  leafToLabel: 5.65, // between leaves and their labels
   leafToBranch: 3, // between leaf and branch-century node
   branchToBranch: 2.5, // between branch century nodes
+  labelToOutside: 0.8, // radial force to draw label towards the outside of the tree
+  labelRadius: 500, // radius for the radial force used to draw labels outide
 };
 
 // constant for selection classname
@@ -330,6 +334,16 @@ function TreeGraph({ nodes, links, centuries }) {
     // return 1;
     // }))
     .force(
+      "radius",
+      d3.forceRadial(forceStrength.labelRadius).strength((node) => {
+        if (node.type == "leaf-label") {
+          return forceStrength.labelToOutside;
+        } else {
+          return 0.1;
+        }
+      })
+    )
+    .force(
       "y",
       d3
         .forceY()
@@ -460,6 +474,15 @@ function TreeGraph({ nodes, links, centuries }) {
       return `${d.type || ""} dbg-${getBranchStyle(d.branch) || ""}`;
     });
   // hide links to labels
+
+  // draw a circle showing the radial force applied to labels
+  debugLayer
+    .append("circle")
+    .attr("r", forceStrength.labelRadius)
+    .attr("cx", 0)
+    .attr("cy", 0)
+    .attr("stroke", "white")
+    .attr("stroke-width", 1);
 
   // add debug controls
   let debugLayerControls = {
