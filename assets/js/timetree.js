@@ -46,8 +46,8 @@ const forceStrength = {
   branchX: 0.2, // draw to X coordinate based on branch
 
   // strength of link force by type of link
-  leafToLabel: 5.5, // between leaves and their labels
-  leafToBranch: 3, // between leaf and branch-century node
+  // leafToLabel: 5.5, // between leaves and their labels
+  leafToBranch: 3.75, // between leaf and branch-century node
   branchToBranch: 2.5, // between branch century nodes
 };
 
@@ -187,6 +187,7 @@ for (const branch in leavesByBranch) {
       }
     }
     // add the current leaf as a node
+    leaf.label = new LeafLabel(leaf.display_title || leaf.title);
     nodes.push(leaf);
     currentBranchNodeCount += 1;
     // add link between leaf and branch
@@ -341,8 +342,8 @@ function TreeGraph({ nodes, links, centuries }) {
         // collision radius should vary by node type
         if (d.type == "leaf") {
           return leafSize.width - 5;
-        } else if (d.type == "leaf-label") {
-          return d.label.radius - 10;
+          // } else if (d.type == "leaf-label") {
+          // return d.label.radius - 10;
         }
         return 2;
       })
@@ -417,9 +418,10 @@ function TreeGraph({ nodes, links, centuries }) {
 
   const nodeLabel = svg
     .append("g")
-    .attr("id", "labels")
+
     .selectAll("text")
-    .data(nodes.filter((d) => d.type == "leaf-label"))
+    // .data(nodes.filter((d) => d.type == "leaf-label"))
+    .data(nodes.filter((d) => d.type == "leaf"))
     .join("text")
     // x,y for a circle is the center, but for a text element it is top left
     // set position based on x,y adjusted by radius and height
