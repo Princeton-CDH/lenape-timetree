@@ -5,6 +5,7 @@ import {
   forceCenter,
   forceCollide,
   forceLink,
+  forceX,
   forceY,
 } from "d3-force";
 import { line, curveNatural } from "d3-shape";
@@ -23,6 +24,7 @@ const d3 = {
   forceCenter,
   forceCollide,
   forceLink,
+  forceX,
   forceY,
   line,
   curveNatural,
@@ -38,7 +40,10 @@ const forceStrength = {
   center: 0.01, // how strongly drawn to the center of the svg
 
   // custom y force for century
-  centuryY: 4, // draw to Y coordinate for center of assigned century band
+  centuryY: 10, // draw to Y coordinate for center of assigned century band
+
+  // custom x force for branch
+  branchX: 0.2, // draw to X coordinate based on branch
 
   // strength of link force by type of link
   leafToLabel: 5.5, // between leaves and their labels
@@ -195,21 +200,21 @@ for (const branch in leavesByBranch) {
     });
 
     // add a label for the leaf
-    nodes.push({
-      type: "leaf-label",
-      // display title takes precedence over title but is optional
-      label: new LeafLabel(leaf.display_title || leaf.title),
-      url: leaf.url,
-      id: leaf.id,
-      century: leaf.century,
-      tags: leaf.tags,
-    });
-    links.push({
-      source: leafIndex,
-      target: nodes.length - 1,
-      value: forceStrength.leafToLabel,
-      type: "leaf-label",
-    });
+    // nodes.push({
+    //   type: "leaf-label",
+    //   // display title takes precedence over title but is optional
+    //   label: new LeafLabel(leaf.display_title || leaf.title),
+    //   url: leaf.url,
+    //   id: leaf.id,
+    //   century: leaf.century,
+    //   tags: leaf.tags,
+    // });
+    // links.push({
+    //   source: leafIndex,
+    //   target: nodes.length - 1,
+    //   value: forceStrength.leafToLabel,
+    //   type: "leaf-label",
+    // });
   });
 }
 // branch style color sequence; set class name and control with css
@@ -279,6 +284,17 @@ function TreeGraph({ nodes, links, centuries }) {
     };
   });
 
+  // determine placement for branches left to right
+  let branchCoords = {};
+  let branchMargin = 50;
+  let branchWidth = (width - branchMargin * 2) / 5;
+  console.log(branchWidth);
+  for (const [i, b] of Object.keys(branches).entries()) {
+    // for (let [b, index] in branches) { // branches.forEach((b, i) => {
+    branchCoords[b] = branchMargin + min_x + i * branchWidth + branchWidth / 2;
+  }
+  console.log(branchCoords);
+
   // draw a couple of lines to help gesture at tree-ness
   let trunkWidth = 65;
   // right side
@@ -346,6 +362,19 @@ function TreeGraph({ nodes, links, centuries }) {
         .forceY()
         .y((node) => centuryY(node))
         .strength(forceStrength.centuryY)
+    )
+    .force(
+      "x",
+      d3
+        .forceX()
+        .x((node) => branchX(node))
+        .strength((node) => {
+          if (node.century != undefined) {
+            // apply the force more strongly the further up the tree we go
+            return forceStrength.branchX * (node.century - 14);
+          }
+          return 0;
+        })
     );
   // .on("tick", ticked);
 
@@ -472,6 +501,18 @@ function TreeGraph({ nodes, links, centuries }) {
     });
   // hide links to labels
 
+  debugLayer
+    .selectAll("line.debug-branch")
+    .data(Object.keys(branchCoords))
+    .join("line")
+    .attr("class", (d) => {
+      return `debug-branch-x dbg-${getBranchStyle(d)}`;
+    })
+    .attr("x1", (d) => branchCoords[d])
+    .attr("y1", min_y)
+    .attr("x2", (d) => branchCoords[d])
+    .attr("y2", max_y);
+
   // add debug controls
   let debugLayerControls = {
     // control id => layer id
@@ -533,6 +574,14 @@ function TreeGraph({ nodes, links, centuries }) {
         leafConstraints[node.century].top -
         leafContainerHeight
       );
+    }
+    return 0;
+  }
+
+  function branchX(node) {
+    // x-axis force to align branches left to right based on branch
+    if (node.branch !== undefined) {
+      return branchCoords[node.branch];
     }
     return 0;
   }

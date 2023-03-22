@@ -374,6 +374,10 @@ article.container article {
     &.dbg-branch-resistance-resurgence {
       stroke: map-get($leaf-outline-color, "a");
     }
+
+    &.debug-branch-x {
+      stroke-width: 3;
+    }
   }
 }
 
