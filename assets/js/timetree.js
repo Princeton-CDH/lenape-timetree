@@ -97,16 +97,31 @@ sortedLeaves.forEach((leaf) => {
   }
 });
 
+// branches are defined and should be displayed in this order
+const branches = {
+  "Lands and Waters": "lands-waters",
+  Communities: "communities",
+  Removals: "removals",
+  "The University": "university",
+  "Resistance + Resurgence": "resistance-resurgence",
+};
+
 // group leaves by branch, preserving sort order
 let leavesByBranch = sortedLeaves.reduce((acc, leaf) => {
   let b = leaf.branch;
-  if (acc[b] == undefined) {
-    acc[b] = [];
+  // check that branch is in our list
+  if (b in branches) {
+    if (acc[b] == undefined) {
+      acc[b] = [];
+    }
+    acc[b].push(leaf);
+  } else {
+    // report unknown branchand omit from  the tree
+    console.log(`Unknown branch: ${b}`);
   }
-  acc[b].push(leaf);
   return acc;
 }, {});
-// console.log(leavesByBranch);
+console.log(leavesByBranch);
 
 // create a list to add nodes, starting with a node for the trunk
 let nodes = [
@@ -198,14 +213,10 @@ for (const branch in leavesByBranch) {
   });
 }
 // branch style color sequence; set class name and control with css
-let branchStyles = ["a", "b", "c", "d", "e"];
-
 function getBranchStyle(branchName) {
-  let branchIndex = Object.keys(leavesByBranch).indexOf(branchName);
-  // let branchIndex = Object.keys(branches).indexOf(branchName);
-  let branchStyle = branchStyles[branchIndex];
-  if (branchStyle != undefined) {
-    return "branch-" + branchStyles[branchIndex];
+  let branchSlug = branches[branchName];
+  if (branchSlug != undefined) {
+    return `branch-${branchSlug}`;
   }
 }
 
