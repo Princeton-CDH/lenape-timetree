@@ -563,5 +563,10 @@ asideContainer.addEventListener("click", (event) => {
     event.preventDefault();
     event.stopPropagation();
     Leaf.selectByTag(element.textContent);
+
+    // Update the URL to reflect the tag
+    slug = element.href.split("/").pop();
+    window.location.replace(`?tag=${slug}`);
+    history.replaceState(null, "", window.hash);
   }
 });
