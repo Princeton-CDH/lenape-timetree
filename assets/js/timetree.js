@@ -549,6 +549,9 @@ function TreeGraph({ nodes, links, centuries }) {
 
   // check for presence of hash when page is first loaded and select leaf
   Leaf.selectLeafByHash();
+
+  // check for presence of tag when page is first loaded and select leaves by tag
+  Leaf.selectLeavesByTag();
 }
 
 // bind a delegated click handler to override tag link behavior
@@ -563,10 +566,5 @@ asideContainer.addEventListener("click", (event) => {
     event.preventDefault();
     event.stopPropagation();
     Leaf.selectByTag(element.textContent);
-
-    // Update the URL to reflect the tag
-    slug = element.href.split("/").pop();
-    window.location.replace(`?tag=${slug}`);
-    history.replaceState(null, "", window.hash);
   }
 });
