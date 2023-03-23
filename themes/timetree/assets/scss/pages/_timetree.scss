@@ -159,7 +159,7 @@ body.home {
 
     text.leaf-label {
       fill: $body-fg-color;
-      text-shadow: $nav-bg-color 2px 2px 2px;
+      text-shadow: $nav-bg-color 2px 2px 2px, $nav-bg-color -2px -2px 2px;
     }
 
     text {
