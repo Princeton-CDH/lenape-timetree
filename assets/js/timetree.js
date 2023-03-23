@@ -35,20 +35,20 @@ const d3 = {
 // strength of the various forces used to lay out the leaves
 const forceStrength = {
   // standard d3 forces
-  charge: -75, // simulate gravity (attraction) if the strength is positive, or electrostatic charge (repulsion) if the strength is negative
+  charge: -15, // simulate gravity (attraction) if the strength is positive, or electrostatic charge (repulsion) if the strength is negative
   manybody: -35, // A positive value causes nodes to attract each other, similar to gravity, while a negative value causes nodes to repel each other, similar to electrostatic charge; d3 default is -30
   center: 0.01, // how strongly drawn to the center of the svg
 
   // custom y force for century
-  centuryY: 10, // draw to Y coordinate for center of assigned century band
+  centuryY: 5, // draw to Y coordinate for center of assigned century band
 
   // custom x force for branch
-  branchX: 0.2, // draw to X coordinate based on branch
+  branchX: 0.05, // draw to X coordinate based on branch
 
   // strength of link force by type of link
   // leafToLabel: 5.5, // between leaves and their labels
-  leafToBranch: 3.75, // between leaf and branch-century node
-  branchToBranch: 2.5, // between branch century nodes
+  leafToBranch: 3.85, // between leaf and branch-century node
+  branchToBranch: 2, // between branch century nodes
 };
 
 // constant for selection classname
@@ -287,14 +287,13 @@ function TreeGraph({ nodes, links, centuries }) {
 
   // determine placement for branches left to right
   let branchCoords = {};
-  let branchMargin = 50;
+  let branchMargin = 100;
+  // etermine how much space to give to each branch
   let branchWidth = (width - branchMargin * 2) / 5;
-  console.log(branchWidth);
+  // calculate the midpoint of each branch and set for easy lookup
   for (const [i, b] of Object.keys(branches).entries()) {
-    // for (let [b, index] in branches) { // branches.forEach((b, i) => {
     branchCoords[b] = branchMargin + min_x + i * branchWidth + branchWidth / 2;
   }
-  console.log(branchCoords);
 
   // draw a couple of lines to help gesture at tree-ness
   let trunkWidth = 65;
@@ -341,7 +340,7 @@ function TreeGraph({ nodes, links, centuries }) {
       d3.forceCollide().radius((d) => {
         // collision radius should vary by node type
         if (d.type == "leaf") {
-          return leafSize.width - 5;
+          return leafSize.width; // - 5;
           // } else if (d.type == "leaf-label") {
           // return d.label.radius - 10;
         }
