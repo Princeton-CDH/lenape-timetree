@@ -46,7 +46,6 @@ const forceStrength = {
   branchX: 0.05, // draw to X coordinate based on branch
 
   // strength of link force by type of link
-  // leafToLabel: 5.5, // between leaves and their labels
   leafToBranch: 3.85, // between leaf and branch-century node
   branchToBranch: 2, // between branch century nodes
 };
@@ -199,23 +198,6 @@ for (const branch in leavesByBranch) {
       value: forceStrength.leafToBranch,
       branch: leaf.branch,
     });
-
-    // add a label for the leaf
-    // nodes.push({
-    //   type: "leaf-label",
-    //   // display title takes precedence over title but is optional
-    //   label: new LeafLabel(leaf.display_title || leaf.title),
-    //   url: leaf.url,
-    //   id: leaf.id,
-    //   century: leaf.century,
-    //   tags: leaf.tags,
-    // });
-    // links.push({
-    //   source: leafIndex,
-    //   target: nodes.length - 1,
-    //   value: forceStrength.leafToLabel,
-    //   type: "leaf-label",
-    // });
   });
 }
 // branch style color sequence; set class name and control with css
@@ -338,11 +320,9 @@ function TreeGraph({ nodes, links, centuries }) {
     .force(
       "collide",
       d3.forceCollide().radius((d) => {
-        // collision radius should vary by node type
+        // collision radius varies by node type
         if (d.type == "leaf") {
           return leafSize.width; // - 5;
-          // } else if (d.type == "leaf-label") {
-          // return d.label.radius - 10;
         }
         return 2;
       })
@@ -353,9 +333,6 @@ function TreeGraph({ nodes, links, centuries }) {
         return link.value; // link strength defined when links created
       })
     )
-    // .force("link", d3.forceLink(links).distance(30).strength(link => {
-    // return 1;
-    // }))
     .force(
       "y",
       d3
@@ -415,11 +392,11 @@ function TreeGraph({ nodes, links, centuries }) {
     .on("mouseover", Leaf.highlightLeaf)
     .on("mouseout", Leaf.unhighlightLeaf);
 
+  // add text labels for leaves; position based on the leaf node
   const nodeLabel = svg
     .append("g")
-
+    .attr("id", "labels")
     .selectAll("text")
-    // .data(nodes.filter((d) => d.type == "leaf-label"))
     .data(nodes.filter((d) => d.type == "leaf"))
     .join("text")
     // x,y for a circle is the center, but for a text element it is top left
@@ -462,12 +439,12 @@ function TreeGraph({ nodes, links, centuries }) {
     .attr("dy", LeafLabel.lineHeight); // delta-y : relative position based on line height
 
   // visual debugging for layout
-  // draw circles and lines in a debug layer that can be shown or hidden
-  // circle size for leaf and leaf label matches radius used for collision
+  // draw circles and lines in a debug layer that can be shown or hidden;
+  // circle size for leaf matches radius used for collision
   // avoidance in the network layout
   debugLayer
     .selectAll("circle.debug")
-    .data(nodes) // .filter((d) => d.type == "leaf-label"))
+    .data(nodes)
     .join("circle")
     .attr(
       "class",
@@ -476,22 +453,15 @@ function TreeGraph({ nodes, links, centuries }) {
     .attr("cx", (d) => d.x)
     .attr("cy", (d) => d.y)
     .attr("r", (d) => {
-      // NOTE: we're currently adjusting collision radius slightly
-      // in the network simulation; probably needs some
-      // adjusments, and should make sure these match
-      if (d.type == "leaf-label") {
-        return d.label.radius - 10;
-        // return d.label.radius;
-      }
       if (d.type == "leaf") {
-        return leafSize.width - 5;
-        // return leafSize.width;
+        // return leafSize.width - 5;
+        return leafSize.width;
       }
       // note: this is larger than collision radius, increase size for visibility
       return 5; // for branch nodes
     });
 
-  // add lines for links to the debug layer
+  // add lines for links within the network to the debug layer
   const link = debugLayer
     .append("g")
     .selectAll("line")
@@ -500,7 +470,6 @@ function TreeGraph({ nodes, links, centuries }) {
     .attr("class", (d) => {
       return `${d.type || ""} dbg-${getBranchStyle(d.branch) || ""}`;
     });
-  // hide links to labels
 
   debugLayer
     .selectAll("line.debug-branch")
