@@ -347,6 +347,10 @@ article.container article {
 }
 
 #debug-controls {
+  @include for-mobile {
+    display: none;
+  }
+
   position: absolute;
   right: 0;
   // position so it sits above the footer
