@@ -160,6 +160,13 @@ body.home {
     text.leaf-label {
       fill: $body-fg-color;
       text-shadow: $nav-bg-color 2px 2px 2px, $nav-bg-color -2px -2px 2px;
+      // Hand cursor for leaf labels
+      cursor: pointer;
+    }
+
+    path.leaf {
+      // Hand cursor for leaves
+      cursor: pointer;
     }
 
     text {
@@ -227,7 +234,8 @@ body.home {
         bottom: 0;
         width: 100vw;
         max-height: 40vh;
-        overflow: scroll;
+        overflow-y: auto;
+        overflow-x: hidden;
 
         @include for-desktop-up {
           bottom: auto;
@@ -307,9 +315,6 @@ article.container article {
   circle.debug-leaf-label {
     stroke: $nearwhite;
   }
-  circle.debug-leaf {
-    // stroke: cyan;
-  }
   circle.debug-branch {
     // color branch nodes based on the branch they belong to;
     // they are smaller, so fill entirely.
@@ -375,7 +380,7 @@ article.container article {
       stroke: map-get($leaf-outline-color, "a");
     }
 
-    &.debug-branch-x {
+    &.debug-branch {
       stroke-width: 3;
     }
   }

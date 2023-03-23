@@ -125,7 +125,6 @@ let leavesByBranch = sortedLeaves.reduce((acc, leaf) => {
   }
   return acc;
 }, {});
-console.log(leavesByBranch);
 
 // create a list to add nodes, starting with a node for the trunk
 let nodes = [
@@ -190,7 +189,6 @@ for (const branch in leavesByBranch) {
     nodes.push(leaf);
     currentBranchNodeCount += 1;
     // add link between leaf and branch
-    // links.push(nodes.length - 1, branchIndex);
     let leafIndex = nodes.length - 1;
     links.push({
       source: branchIndex,
@@ -558,11 +556,40 @@ function TreeGraph({ nodes, links, centuries }) {
 
   const panel = document.querySelector("#panel");
   d3.select("aside .close").on("click", function () {
+    // Close panel and deselect
+    closePanel(panel);
+  });
+
+  // Close panel function
+  function closePanel(panel) {
     panel.parentElement.classList.remove("show-panel");
     panel.parentElement.classList.add("closed");
     Leaf.deselectAll();
     Leaf.closeLeafDetails();
-  });
+  }
+
+  // Also allow Escape key to close window
+  // Along with (potentially) other keyboard commands
+  document.onkeydown = function (evt) {
+    // Get event object
+    evt = evt || window.event;
+
+    // Keypress switch logic
+    switch (evt.key) {
+      // Escape key
+      case "Escape":
+      case "Esc":
+        // Closes the detail panel
+        closePanel(panel);
+        break;
+
+      // ... Add other cases here for more keyboard commands ...
+
+      // Otherwise
+      default:
+        return; // Do nothing
+    }
+  };
 
   // check for presence of hash when page is first loaded and select leaf
   Leaf.selectLeafByHash();
