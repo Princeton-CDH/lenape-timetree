@@ -3,8 +3,9 @@
     <div>{{ .Content }}</div>
       <section>
         <ul>
-          {{ range $tag, $content := .Data.Terms }}
-          <li><a href="{{ .Page.RelPermalink }}">{{ $tag }}</a> ({{ $content.Count }})
+          {{ range .Data.Terms.Alphabetical }}
+          {{/* use the last portion of the permalink to get the slug for the tag */}}
+          <li><a href="{{ .Page.Site.BaseURL }}?tag={{ .Page.RelPermalink | path.Base }}">{{ .Page.Title }}</a> ({{ .Count }})
            </li>
           {{ end }}
         </ul>

@@ -9,6 +9,10 @@ params:
     An alternate view of the history of Princeton incorporating
     Lenape and indigenous events and perspectives
 
+# disable categories taxonomy included by default
+taxonomies:
+  tag: tags
+
 outputs:
   home:
     - HTML
