@@ -26,6 +26,28 @@
   </div>
 </aside>
 
+{{/* include visual debug controls unless this is a production build */}}
+{{ if not hugo.IsProduction }}
+<div id="debug-controls">
+<h2>Visual debug</h2>
+
+<p>Control layer visibility (0 - 100%)</p>
+
+<div>
+  <label>Debug
+  <input type="range" id="debug-visible" name="debug-visible"
+         min="0" max="100" value="0">
+  </label>
+  <label>Leaves
+  <input type="range" id="leaf-visible" name="leaf-visible"
+         min="0" max="100" value="100">
+  </label>
+  <label>Labels
+  <input type="range" id="label-visible" name="label-visible"
+         min="0" max="100" value="100">
+  </label>
+</div>
+{{ end }}
 
 <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
 {{ end }} {{/* end main */}}
