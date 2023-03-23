@@ -1,4 +1,4 @@
-import { select } from "d3-selection";
+import { select, selectAll } from "d3-selection";
 import {
   forceSimulation,
   forceManyBody,
@@ -17,6 +17,7 @@ import { LeafLabel } from "./labels";
 // combine into d3 object for convenience
 const d3 = {
   select,
+  selectAll,
   forceSimulation,
   forceManyBody,
   forceCenter,
@@ -54,11 +55,12 @@ const data = JSON.parse(leafData.value);
 
 // generate list of centuries referenced in the data; sort most recent first
 let centuries = Array.from(
-  new Set(
-    data.leaves
-      .filter((leaf) => leaf.century != undefined)
-      .map((leaf) => leaf.century)
-  )
+  data.leaves
+    .filter((leaf) => leaf.century != undefined)
+    .reduce((acc, leaf) => {
+      acc.add(leaf.century);
+      return acc;
+    }, new Set())
 )
   .sort()
   .reverse();
@@ -95,108 +97,117 @@ sortedLeaves.forEach((leaf) => {
   }
 });
 
-// our nodes will be all leaves plus nodes as needed for branches
-let nodes = new Array(...sortedLeaves);
-
-// create an object with all unique branch names from the leaves
-// and unique centuries represented within those branches
-let branches = new Object();
-sortedLeaves.forEach((leaf) => {
-  if (branches[leaf.branch] == undefined) {
-    branches[leaf.branch] = new Set();
+// group leaves by branch, preserving sort order
+let leavesByBranch = sortedLeaves.reduce((acc, leaf) => {
+  let b = leaf.branch;
+  if (acc[b] == undefined) {
+    acc[b] = [];
   }
-  // cast all to numeric to avoid duplication
-  branches[leaf.branch].add(Number(leaf.century));
-});
+  acc[b].push(leaf);
+  return acc;
+}, {});
+// console.log(leavesByBranch);
 
-// create a node for the trunk
-nodes.push({
-  id: "trunk",
-  title: "trunk",
-  type: "trunk",
-});
-const trunkNodeIndex = nodes.length - 1; // last node is the trunk
+// create a list to add nodes, starting with a node for the trunk
+let nodes = [
+  {
+    id: "trunk",
+    title: "trunk",
+    type: "trunk",
+  },
+];
+const trunkNodeIndex = 0; // first node is the trunk
 
+// array of links between our nodes
+let links = new Array();
+
+// add leaves to nodes by branch, in sequence,
+// creating branch+century nodes as we go
+for (const branch in leavesByBranch) {
+  // *in* for keys
+  let currentBranchNode;
+  let currentBranchNodeCount = 0;
+  let currentCentury;
+  let previousBranchIndex = trunkNodeIndex;
+  let branchIndex;
+  // for (const leaf of leavesByBranch[branch]) {  // *of* for values
+  leavesByBranch[branch].forEach((leaf, index) => {
+    // *of* for values
+    // check if we need to make a new branch node:
+    // - no node exists
+    // - too many leaves on current node
+    // - century has changed
+    if (
+      currentBranchNode == undefined ||
+      currentBranchNodeCount > 3 ||
+      currentCentury != leaf.century
+    ) {
+      let branchId = `${branch}-century${leaf.century}-${index}`;
+      let currentCentury = leaf.century;
+      currentBranchNodeCount = 0;
+      nodes.push({
+        id: `${branch}-century${leaf.century}-${index}`,
+        title: `${branch} ${leaf.century}century (${index})`,
+        type: "branch",
+        branch: branch,
+        century: leaf.century,
+      });
+      // add to links
+      branchIndex = nodes.length - 1;
+      // link to trunk or previous branch node
+      links.push({
+        source: previousBranchIndex,
+        target: branchIndex,
+        value: forceStrength.branchToBranch,
+        branch: branch,
+      });
+
+      if (branchIndex != undefined) {
+        previousBranchIndex = branchIndex;
+      }
+    }
+    // add the current leaf as a node
+    nodes.push(leaf);
+    currentBranchNodeCount += 1;
+    // add link between leaf and branch
+    // links.push(nodes.length - 1, branchIndex);
+    let leafIndex = nodes.length - 1;
+    links.push({
+      source: branchIndex,
+      target: leafIndex,
+      value: forceStrength.leafToBranch,
+      branch: leaf.branch,
+    });
+
+    // add a label for the leaf
+    nodes.push({
+      type: "leaf-label",
+      // display title takes precedence over title but is optional
+      label: new LeafLabel(leaf.display_title || leaf.title),
+      url: leaf.url,
+      id: leaf.id,
+      century: leaf.century,
+      tags: leaf.tags,
+    });
+    links.push({
+      source: leafIndex,
+      target: nodes.length - 1,
+      value: forceStrength.leafToLabel,
+      type: "leaf-label",
+    });
+  });
+}
 // branch style color sequence; set class name and control with css
 let branchStyles = ["a", "b", "c", "d", "e"];
 
 function getBranchStyle(branchName) {
-  let branchIndex = Object.keys(branches).indexOf(branchName);
+  let branchIndex = Object.keys(leavesByBranch).indexOf(branchName);
+  // let branchIndex = Object.keys(branches).indexOf(branchName);
   let branchStyle = branchStyles[branchIndex];
   if (branchStyle != undefined) {
     return "branch-" + branchStyles[branchIndex];
   }
 }
-
-// array of links between our nodes
-let links = new Array();
-
-// create nodes for the branches
-// - create one for each century represented in the data
-// - use text as id and label
-// NOTE: may want multiple century branch nodes when a single
-// branch has a large number of leaves in one century
-let branchIndex = new Object();
-let centuriesOldestFirst = Array.from(centuries).reverse();
-for (let branch in branches) {
-  centuriesOldestFirst.forEach((c, index) => {
-    let branchId = branch + c;
-    nodes.push({
-      id: branchId,
-      title: branch + " c" + c,
-      type: "branch",
-      century: c,
-    });
-    // keep track of branch indexes for generating links from leaves
-    branchIndex[branchId] = nodes.length - 1;
-
-    // add link to previous branch or trunk
-    if (index == 0) {
-      // earliest century in any branch should connect to trunk
-      target = trunkNodeIndex;
-    } else {
-      // otherwise, connect to preceding century in this branch
-      target = nodes.length - 2;
-    }
-    links.push({
-      source: branchIndex[branchId],
-      target: target,
-      value: forceStrength.branchToBranch,
-    });
-  });
-}
-
-// generate links so we can draw as a network graph
-// each leaf is connected to its branch+century node
-sortedLeaves.forEach((leaf, index) => {
-  let branchId = leaf.branch + leaf.century;
-  if (branchId in branchIndex) {
-    links.push({
-      source: index,
-      target: branchIndex[branchId],
-      value: forceStrength.leafToBranch,
-    });
-  }
-});
-
-// add nodes for labels, linked only to their corresponding leaf
-sortedLeaves.forEach((leaf, index) => {
-  nodes.push({
-    type: "leaf-label",
-    // display title takes precedence over title but is optional
-    label: new LeafLabel(leaf.display_title || leaf.title),
-    url: leaf.url,
-    id: leaf.id,
-    century: leaf.century,
-    tags: leaf.tags,
-  });
-  links.push({
-    source: index,
-    target: nodes.length - 1,
-    value: forceStrength.leafToLabel,
-    type: "leaf-label",
-  });
-});
 
 TreeGraph({ nodes: nodes, links: links, centuries: centuries });
 
@@ -222,10 +233,7 @@ function TreeGraph({ nodes, links, centuries }) {
   // create a section for the background
   let background = svg.append("g").attr("id", "background");
   // visual debugging layer
-  const debugLayer = svg
-    .append("g")
-    .attr("id", "debug")
-    .attr("visibility", "hidden");
+  const debugLayer = svg.append("g").attr("id", "debug").style("opacity", 0); // not visibly by default
 
   // create containers for the leaves by century
   const leafContainerHeight = 80;
@@ -316,16 +324,6 @@ function TreeGraph({ nodes, links, centuries }) {
       "link",
       d3.forceLink(links).strength((link) => {
         return link.value; // link strength defined when links created
-        // if (link.value != undefined) {
-        // return link.value;
-        // }
-        // alternately, could set based on source/target node type,
-        // or link type
-        // console.log(link);
-        // if (link.target.type == "leaf-label") {
-        //   return 5;
-        // }
-        // return 0.8
       })
     )
     // .force("link", d3.forceLink(links).distance(30).strength(link => {
@@ -345,19 +343,6 @@ function TreeGraph({ nodes, links, centuries }) {
   // only position once after simulation has run
   simulation.on("tick", ticked);
   simulation.tick();
-
-  // add lines for links to the debug layer
-  const link = debugLayer
-    .append("g")
-    .attr("stroke", "darkgray")
-    .attr("stroke-width", 1)
-    .selectAll("line")
-    .data(links)
-    .join("line")
-    .attr("stroke-opacity", (d) => {
-      return d.type == "leaf-label" ? 0 : 0.4;
-    });
-  // hide links to labels
 
   // define once an empty path for nodes we don't want to display
   var emptyPath = d3.line().curve(d3.curveNatural)([[0, 0]]);
@@ -400,6 +385,7 @@ function TreeGraph({ nodes, links, centuries }) {
     // set position based on x,y adjusted by radius and height
     .attr("x", (d) => d.x - d.label.radius)
     .attr("y", (d) => d.y - d.label.height / 2)
+    .attr("y", (d) => d.y - d.label.height / 2)
     .attr("data-id", (d) => d.id) // leaf id for url state
     .attr("data-url", (d) => d.url) // set url so we can click to select leaf
     .attr("text-anchor", "middle") // set coordinates to middle of text
@@ -435,32 +421,62 @@ function TreeGraph({ nodes, links, centuries }) {
     .attr("dy", LeafLabel.lineHeight); // delta-y : relative position based on line height
 
   // visual debugging for layout
-
-  // debug label placement + collision radius
-  //  draw a circle around each label with calculated radius
+  // draw circles and lines in a debug layer that can be shown or hidden
+  // circle size for leaf and leaf label matches radius used for collision
+  // avoidance in the network layout
   debugLayer
-    .selectAll("circle.debug-label")
-    .data(nodes.filter((d) => d.type == "leaf-label"))
+    .selectAll("circle.debug")
+    .data(nodes) // .filter((d) => d.type == "leaf-label"))
     .join("circle")
-    .attr("class", "debug-label")
+    .attr(
+      "class",
+      (d) => `debug debug-${d.type} dbg-${getBranchStyle(d.branch) || ""}`
+    )
     .attr("cx", (d) => d.x)
     .attr("cy", (d) => d.y)
-    .attr("r", (d) => d.radius)
-    .attr("stroke", "yellow")
-    .attr("fill", "transparent");
+    .attr("r", (d) => {
+      // NOTE: we're currently adjusting collision radius slightly
+      // in the network simulation; probably needs some
+      // adjusments, and should make sure these match
+      if (d.type == "leaf-label") {
+        return d.label.radius - 10;
+        // return d.label.radius;
+      }
+      if (d.type == "leaf") {
+        return leafSize.width - 5;
+        // return leafSize.width;
+      }
+      // note: this is larger than collision radius, increase size for visibility
+      return 5; // for branch nodes
+    });
 
-  // debug leaf placement + collision radius
-  //  draw a circle around each leaf with radius used for collision avoidance
-  debugLayer
-    .selectAll("circle.debug-leaf")
-    .data(nodes.filter((d) => d.type == "leaf"))
-    .attr("class", "debug-leaf")
-    .join("circle")
-    .attr("cx", (d) => d.x)
-    .attr("cy", (d) => d.y)
-    .attr("r", (d) => leafSize.width)
-    .attr("stroke", "cyan")
-    .attr("fill", "transparent");
+  // add lines for links to the debug layer
+  const link = debugLayer
+    .append("g")
+    .selectAll("line")
+    .data(links)
+    .join("line")
+    .attr("class", (d) => {
+      return `${d.type || ""} dbg-${getBranchStyle(d.branch) || ""}`;
+    });
+  // hide links to labels
+
+  // add debug controls
+  let debugLayerControls = {
+    // control id => layer id
+    "debug-visible": "#debug",
+    "leaf-visible": ".nodes",
+    "label-visible": "#labels",
+  };
+
+  // When the debug range inputs change, update the opacity for
+  //the corresponding layer
+  d3.selectAll("#debug-controls input").on("input", function () {
+    d3.selectAll(debugLayerControls[this.id]).style(
+      "opacity",
+      `${this.value}%`
+    );
+  });
 
   function ticked() {
     // node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
