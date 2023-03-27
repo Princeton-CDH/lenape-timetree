@@ -64,3 +64,16 @@ Images _may_ include `caption` text.
 
 To document the source of the image, use `attr` for attribution text
 and `attrlink` for the source url, if available.
+
+### Image sizes
+
+Portrait images
+Recommended min height 1800px
+Absolute min height 864px
+
+Landscape images
+Recommended min width 1440px
+Absolute min width 700px
+
+NOTE: When cropping a portrait image your image may become too narrow with respect to the recommended min height (1800px), therefore try to stick to a portrait 16:9 ratio.
+
