@@ -86,9 +86,9 @@ body.home {
           stroke: map-get($leaf-outline-color, $branch);
           stroke-width: 3px;
           $glow: map-get($leaf-glow-color, $branch);
-          filter: drop-shadow(-6px -8px 16px $glow)
-            drop-shadow(6px 14px 16px $glow) drop-shadow(-9px 4px 16px $glow)
-            drop-shadow(9px 0px 16px $glow);
+          filter: drop-shadow(-3px -4px 8px $glow)
+            drop-shadow(3px 7px 8px $glow) drop-shadow(-4px 2px 8px $glow)
+            drop-shadow(4px 0px 8px $glow);
 
           outline: none; // disable browser default focus outline box
         }
@@ -107,17 +107,17 @@ body.home {
       /* branches should be ordered left to right as follows:
         - lands-waters
         - communities
-        - removals
         - university
+        - removals
         - resistance-resurgence
 
       map these branches to colors in this order to keep
       similar colors more separated:
 
         - lands-waters : c
-        - communities : b 
-        - removals : e
-        - university : d 
+        - communities : b
+        - university : e
+        - removals : d
         - resistance-resurgence : a
       */
 
@@ -127,10 +127,10 @@ body.home {
       .branch-communities {
         @include leaf-styles("b");
       }
-      .branch-removals {
+      .branch-university {
         @include leaf-styles("e");
       }
-      .branch-university {
+      .branch-removals {
         @include leaf-styles("d");
       }
       .branch-resistance-resurgence {
@@ -159,7 +159,10 @@ body.home {
 
     text.leaf-label {
       fill: $body-fg-color;
-      text-shadow: $nav-bg-color 2px 2px 2px, $nav-bg-color -2px -2px 2px;
+      // NOTE: previously had two shadows offset +/2px with 2px blur,
+      // but there's a Safari bug with multiple text shadows
+      // text-shadow: $nav-bg-color 2px 2px 2px, $nav-bg-color -2px -2px 2px;
+      text-shadow: $nav-bg-color 0px 0px 4px;
       // Hand cursor for leaf labels
       cursor: pointer;
     }
@@ -347,10 +350,10 @@ article.container article {
     &.dbg-branch-communities {
       stroke: map-get($leaf-color, "b");
     }
-    &.dbg-branch-removals {
+    &.dbg-branch-university {
       stroke: map-get($leaf-color, "e");
     }
-    &.dbg-branch-university {
+    &.dbg-branch-removals {
       stroke: map-get($leaf-color, "d");
     }
     &.dbg-branch-resistance-resurgence {
@@ -370,10 +373,10 @@ article.container article {
     &.dbg-branch-communities {
       stroke: map-get($leaf-outline-color, "b");
     }
-    &.dbg-branch-removals {
+    &.dbg-branch-university {
       stroke: map-get($leaf-outline-color, "e");
     }
-    &.dbg-branch-university {
+    &.dbg-branch-removals {
       stroke: map-get($leaf-outline-color, "d");
     }
     &.dbg-branch-resistance-resurgence {
