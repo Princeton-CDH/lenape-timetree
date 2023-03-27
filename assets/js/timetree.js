@@ -105,9 +105,9 @@ sortedLeaves.forEach((leaf) => {
 const branches = {
   "Lands and Waters": "lands-waters",
   Communities: "communities",
+  "The University": "university",
   Removals: "removals",
   "Resistance + Resurgence": "resistance-resurgence",
-  "The University": "university",
 };
 
 // group leaves by branch, preserving sort order
