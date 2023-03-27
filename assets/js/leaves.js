@@ -67,8 +67,9 @@ class Leaf {
 
     // encode URL to reflect tag
     let slug = encodeURIComponent(tag);
-    window.location.replace(`#?tag=${slug}`);
-    history.replaceState(null, "", window.hash);
+    let url = new URL(document.location.href.replace("#", ""));
+    url.searchParams.set("tag", slug);
+    history.replaceState(null, "", url.toString());
   }
 
   static targetLeafURL(target) {
@@ -131,7 +132,7 @@ class Leaf {
   }
 
   static selectLeafByHash() {
-    if (location.hash.startsWith("#") & !location.hash.startsWith("#?")) {
+    if (location.hash.startsWith("#")) {
       let leaf = document.querySelector(
         `path[data-id=${location.hash.slice(1)}]`
       );
@@ -145,8 +146,8 @@ class Leaf {
 
   static selectLeavesByTag() {
     // If the page is loaded with a tag link, select those leaves
-    if (location.hash.startsWith("#?tag=")) {
-      let params = new URL(location.href.replace("#?", "?")).searchParams;
+    if (location.search.startsWith("?tag=")) {
+      let params = new URL(document.location).searchParams;
       let tag = params.get("tag");
       Leaf.selectByTag(tag);
     }
