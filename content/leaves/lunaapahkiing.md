@@ -1,5 +1,5 @@
 ---
-branch: Lands and Waters
+branch: Lands + Waters
 display_date: Ongoing
 display_title: Lunaapahkiing
 sort_date: 1500

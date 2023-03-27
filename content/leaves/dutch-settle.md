@@ -1,5 +1,5 @@
 ---
-branch: Lands and Waters
+branch: Lands + Waters
 display_date: 1610
 display_title: Dutch Settle
 sort_date: 1610

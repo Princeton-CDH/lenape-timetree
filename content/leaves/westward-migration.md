@@ -1,5 +1,5 @@
 ---
-branch: Lands and Waters
+branch: Lands + Waters
 display_date: 1737
 sort_date: 1737
 tags:

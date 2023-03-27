@@ -1,5 +1,5 @@
 ---
-branch: Lands and Waters
+branch: Lands + Waters
 display_date: 1682-1776
 sort_date: 1682
 tags:

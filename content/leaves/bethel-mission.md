@@ -1,5 +1,5 @@
 ---
-branch: Lands and Waters
+branch: Lands + Waters
 display_date: 1746-1759
 display_title: Bethel Mission
 sort_date: 1746

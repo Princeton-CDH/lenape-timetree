@@ -103,7 +103,7 @@ sortedLeaves.forEach((leaf) => {
 
 // branches are defined and should be displayed in this order
 const branches = {
-  "Lands and Waters": "lands-waters",
+  "Lands + Waters": "lands-waters",
   Communities: "communities",
   "The University": "university",
   Removals: "removals",

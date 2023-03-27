@@ -1,5 +1,5 @@
 ---
-branch: Lands and Waters
+branch: Lands + Waters
 display_date: 1737
 display_title: Dutch Princeton
 sort_date: 1737

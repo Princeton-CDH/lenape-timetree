@@ -1,5 +1,5 @@
 ---
-branch: Lands and Waters
+branch: Lands + Waters
 display_date: 1524-1609
 display_title: Europeans
 sort_date: 1524

@@ -1,5 +1,5 @@
 ---
-branch: Lands and Waters
+branch: Lands + Waters
 display_date: 1832
 display_title: B. Calvin
 sort_date: 1832

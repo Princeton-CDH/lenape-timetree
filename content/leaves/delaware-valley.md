@@ -1,5 +1,5 @@
 ---
-branch: Lands and Waters
+branch: Lands + Waters
 display_date: 1682-1776
 display_title: Delaware Valley
 sort_date: 1682
