@@ -60,10 +60,16 @@ Every image _must_ include alternate text, unless it is purely decorative.
 For more information about how to write alternate text for images,
 see the instructions in the [contributor guides for Startwords](https://startwords.cdh.princeton.edu/guides/style-guide/#images)
 
-Images _may_ include `caption` text.
+Images _may_ include `caption` text. 
 
 To document the source of the image, use `attr` for attribution text
 and `attrlink` for the source url, if available.
+
+If no caption or attribution (source) do not include "=" see below.
+
+```
+{{< figure src="images/branch/filename.jpg" alt="..." >}}
+```
 
 ### Image sizes
 
