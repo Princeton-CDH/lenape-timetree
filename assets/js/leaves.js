@@ -38,25 +38,6 @@ function cointoss() {
   return Math.random() < 0.5;
 }
 
-// Function to get a URL object of the current url,
-// including either or both of search params and location hash
-function getSelfUrl(incl_params = true, incl_hash = true) {
-  // If both params and hash included, just clone this href
-  if (incl_params & incl_hash) {
-    return new URL(window.location.href);
-  }
-
-  // If one or the other are wanted...
-  let url = new URL(window.location.origin + window.location.pathname);
-  if (incl_params) {
-    url.search = window.location.search;
-  }
-  if (incl_hash) {
-    url.hash = window.location.hash;
-  }
-  return url;
-}
-
 // Expedient way of checking param
 // from https://stackoverflow.com/questions/1314383/how-to-check-if-a-query-string-value-is-present-via-javascript
 function urlHasParam(field) {
@@ -80,12 +61,18 @@ class Leaf {
     });
 
     // set history/url to server URL without hash or params
-    let url = getSelfUrl(false, false);
-    // set URL to this
-    history.replaceState(null, "", url.toString());
+    let url = window.location.origin + window.location.pathname;
+    history.replaceState(null, "", url);
   }
 
   static selectByTag(tag) {
+    // set URL to URL of self, with tag updated
+    console.log("selectByTag", window.location.href);
+    let url = new URL(window.location.href);
+    url.searchParams.set("tag", tag);
+    let urlstr = url.toString();
+    console.log("urlstr", urlstr);
+
     // select all leaves with the specified tag
     Leaf.deselectAll();
     let leaves = document.getElementsByClassName(tag);
@@ -93,12 +80,7 @@ class Leaf {
       item.classList.add(Leaf.selectedClass);
     }
 
-    // set URL to URL of self, with params and hash preserved
-    let url = getSelfUrl(true, true);
-    // update tag param
-    url.searchParams.set("tag", tag);
-    // set URL to this
-    history.replaceState(null, "", url.toString());
+    history.replaceState(null, "", urlstr);
   }
 
   static targetLeafURL(target) {
@@ -112,7 +94,7 @@ class Leaf {
 
   static selectLeaf(event) {
     // event handler to select leaf when leaf or label is clicked/tapped
-    Leaf.deselectAll();
+    // Leaf.deselectAll();   // not necessary -- will destabilize URL
 
     // visually highlight selected leaf in the tree
     let leafURL = Leaf.targetLeafURL(event.target);
@@ -122,7 +104,7 @@ class Leaf {
     // update URL to reflect the currently selected leaf;
     // replace the location & state to avoid polluting browser history
     window.location.hash = `#${event.target.getAttribute("data-id")}`;
-    // history.replaceState(null, "", window.hash);
+    // history.replaceState(null, "", window.location.hash);  // not nec
 
     // load leaf details and display in the panel
     fetch(leafURL)
@@ -176,8 +158,8 @@ class Leaf {
   static selectLeavesByTag() {
     // If the page is loaded with a tag link, select those leaves
     if (urlHasParam("tag")) {
-      let url = getSelfUrl();
-      let params = url.searchParams;
+      // searchParams not available on window.location directly
+      let params = new URL(window.location.href).searchParams;
       let tag = params.get("tag");
       Leaf.selectByTag(tag);
     }
@@ -356,6 +338,5 @@ export {
   randomNumBetween,
   Leaf,
   LeafPath,
-  getSelfUrl,
   urlHasParam,
 };

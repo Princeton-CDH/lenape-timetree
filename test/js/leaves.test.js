@@ -7,7 +7,6 @@ import {
   plusOrMinus,
   cointoss,
   randomNumBetween,
-  getSelfUrl,
   urlHasParam,
 } from "leaves";
 
@@ -242,40 +241,5 @@ describe("Leaf", () => {
       Leaf.unhighlightLeaf({ target: path });
       expect(document.getElementsByClassName("hover").length).toEqual(0);
     });
-  });
-});
-
-let mockUrl = "http://localhost:1313/?tag=tagname#hashname";
-let mockUrlNoTag = "http://localhost:1313/#hashname";
-let mockUrlNoHash = "http://localhost:1313/?tag=tagname";
-let mockUrlNothing = "http://localhost:1313/";
-
-describe("getSelfUrl", () => {
-  delete window.location;
-  window.location = new URL(mockUrl);
-
-  test("returns identical url if both params and hash selected", () => {
-    let url = getSelfUrl().toString();
-    expect(url).toEqual(mockUrl);
-  });
-
-  test("returns corect url if params but not hash selected", () => {
-    let url = getSelfUrl(true, false).toString();
-    expect(url).toEqual(mockUrlNoHash);
-  });
-
-  test("returns corect url if not params but hash selected", () => {
-    let url = getSelfUrl(false, true).toString();
-    expect(url).toEqual(mockUrlNoTag);
-  });
-
-  test("returns corect url if neither params nor hash selected", () => {
-    let url = getSelfUrl(false, false).toString();
-    expect(url).toEqual(mockUrlNothing);
-  });
-
-  test("does param checking work?", () => {
-    expect(urlHasParam("tag")).toEqual(true);
-    expect(urlHasParam("nope")).toEqual(false);
   });
 });
