@@ -6,7 +6,7 @@
   waitForTimeout: 1000
 
 - name: Leaf selected
-  url: http://127.0.0.1:1313/#lenapehoking
+  url: http://127.0.0.1:1313/#mannahatta
   waitForTimeout: 1000
   widths:
     - 320
