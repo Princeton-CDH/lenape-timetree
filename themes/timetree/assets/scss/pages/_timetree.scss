@@ -12,7 +12,8 @@ body.home {
       right: 0;
       width: 100%;
       min-height: 327px;
-      height: 44vh;
+      // height: 44vh;
+      height: auto; // set based on content height
     }
 
     @include for-desktop-up {
@@ -29,7 +30,6 @@ body.home {
       > aside {
         position: relative;
         margin-top: 120px;
-        padding: $margin;
       }
     }
 
@@ -184,8 +184,7 @@ body.home {
 
     // styles for intro text and selected panel
     > aside {
-      background-color: $body-bg-color;
-      padding: $margin;
+      color: $nearwhite;
 
       // allow closing the intro on mobile
       &.closed {
@@ -211,33 +210,58 @@ body.home {
 
       > .close {
         position: absolute;
-        right: $margin;
-        top: $margin;
-        padding: $margin;
+        right: 16px;
+        top: 16px;
+        padding: 0;
+
         z-index: 3;
         text-decoration: none;
-        color: $nearblack;
+        background-color: $nav-bg-color;
+
+        @include for-desktop-up {
+          top: 20px;
+        }
+
+        i {
+          width: 20px;
+          height: 20px;
+        }
       }
+
+      // TODO: initial intro should now be styled more
+      // like the panel, with padding, have dark bg color, drop shadow
+      // & > article {
+      //   background-color: $body-bg-color;
+      //   $shadow: rgba(0, 0, 0, 0.4);
+      //   box-shadow: 0px 2px 4px $shadow, 0px 4px 5px $shadow,
+      // }
 
       // selected panel
       #panel {
         // hide by default
         visibility: hidden;
-        // set background to hide intro content
-        background-color: $body-bg-color;
+      }
+
+      &.show-panel #panel,
+      > article {
+        background-color: $nav-bg-color;
         // padding: $margin;
         position: absolute;
         top: auto;
         bottom: 0;
         left: 0;
-        max-width: 100%;
+        width: 100%;
         max-height: 44vh;
-      }
+        scrollbar-width: thin;
+        padding: 16px 20px;
+        margin: 0;
+        min-height: 327px;
+        // height: 44vh;
+        // height: auto;
 
-      &.show-panel #panel {
         visibility: visible;
         bottom: 0;
-        width: 100vw;
+        // width: 100vw;
         overflow-y: auto;
         overflow-x: hidden;
         $shadow: rgba(0, 0, 0, 0.4);
@@ -249,6 +273,10 @@ body.home {
           top: 0;
           max-height: 545px;
         }
+      }
+
+      &.show-panel > article {
+        visibility: hidden;
       }
     }
   }
@@ -278,19 +306,19 @@ body.home {
   color: $nearwhite;
   padding: 16px;
 
-  // make link color visible
-  a,
-  a:link,
-  a:hover,
-  a:visited {
-    color: $nearblack;
-  }
-
   // figure attribution (provisional styles)
   .attribution {
     display: block;
     font-size: 85%;
   }
+}
+
+// make link color visible
+a,
+a:link,
+a:hover,
+a:visited {
+  color: $nearwhite;
 }
 
 .tags a {
