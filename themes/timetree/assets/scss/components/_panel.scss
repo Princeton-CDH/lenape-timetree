@@ -132,6 +132,54 @@ body.home main > aside {
         display: block;
         font-size: 85%;
       }
+
+      // branch name has leaf icon
+      aside {
+        span {
+          vertical-align: top;
+          line-height: 31px;
+          @include for-desktop-up {
+            line-height: 45px;
+          }
+        }
+
+        // use pseudo-element to add leaf icon as a mask
+        &::before {
+          -webkit-mask-image: url(/img/icons/leaf.svg);
+          mask-image: url(/img/icons/leaf.svg);
+          mask-size: contain;
+          mask-repeat: no-repeat;
+          background-color: currentColor;
+          display: inline-block;
+          content: " ";
+          width: 14px;
+          margin-right: 8px;
+          height: 31px;
+
+          @include for-desktop-up {
+            width: 20px;
+            height: 45px;
+          }
+        }
+
+        // color leaf based on branch
+        // TODO: consider making a branch to leaf color mapping in one place...
+        &.lands-waters::before {
+          color: map-get($leaf-color, "c");
+        }
+        &.communities::before {
+          color: map-get($leaf-color, "b");
+        }
+        &.university::before {
+          color: map-get($leaf-color, "e");
+        }
+        &.removals::before {
+          color: map-get($leaf-color, "a");
+        }
+        &.resistance-resurgence::before {
+          color: map-get($leaf-color, "d");
+        }
+      }
     }
   }
 }

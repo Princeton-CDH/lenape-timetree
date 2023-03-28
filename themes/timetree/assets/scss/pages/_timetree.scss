@@ -170,37 +170,6 @@ body.home {
   }
 }
 
-// styles for leaf details
-#leaf-details article {
-  margin: 0;
-  header {
-    h1 {
-      margin-bottom: 2px;
-    }
-    aside,
-    time {
-      // branch name, display date
-      font-weight: 700;
-      font-size: 18px;
-      @include for-desktop-up {
-        font-size: 20px;
-      }
-    }
-
-    margin-bottom: 16px;
-  }
-
-  background-color: $nav-bg-color;
-  color: $nearwhite;
-  padding: 16px;
-
-  // figure attribution (provisional styles)
-  .attribution {
-    display: block;
-    font-size: 85%;
-  }
-}
-
 // make link color visible
 a,
 a:link,
