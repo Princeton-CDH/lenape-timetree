@@ -43,20 +43,27 @@ function cointoss() {
 function getSelfUrl(incl_params = true, incl_hash = true) {
   // If both params and hash included, just clone this href
   if (incl_params & incl_hash) {
-    let url = new URL(document.location.href);
-
-    // If one or the other are wanted...
-  } else {
-    let url = new URL(document.location.origin);
-    if (incl_params) {
-      url.search = document.location.search;
-    }
-    if (incl_hash) {
-      url.hash = document.location.hash;
-    }
+    return new URL(document.location.href);
   }
 
+  // If one or the other are wanted...
+  let url = new URL(document.location.origin);
+  if (incl_params) {
+    url.search = document.location.search;
+  }
+  if (incl_hash) {
+    url.hash = document.location.hash;
+  }
   return url;
+}
+
+// Expedient way of checking param
+// from https://stackoverflow.com/questions/1314383/how-to-check-if-a-query-string-value-is-present-via-javascript
+function urlHasParam(field) {
+  let url = window.location.href;
+  if (url.indexOf("?" + field + "=") != -1) return true;
+  else if (url.indexOf("&" + field + "=") != -1) return true;
+  return false;
 }
 
 class Leaf {
@@ -73,7 +80,9 @@ class Leaf {
     });
 
     // set history/url to server URL without hash or params
-    history.replaceState(null, "", document.location.origin);
+    let url = getSelfUrl(false, false);
+    // set URL to this
+    history.replaceState(null, "", url.toString());
   }
 
   static selectByTag(tag) {
@@ -84,9 +93,11 @@ class Leaf {
       item.classList.add(Leaf.selectedClass);
     }
 
-    // set URL to URL of self, with tag updated
-    let url = getSelfUrl();
+    // set URL to URL of self, with params and hash preserved
+    let url = getSelfUrl(true, true);
+    // update tag param
     url.searchParams.set("tag", tag);
+    // set URL to this
     history.replaceState(null, "", url.toString());
   }
 
@@ -164,9 +175,9 @@ class Leaf {
 
   static selectLeavesByTag() {
     // If the page is loaded with a tag link, select those leaves
-    let url = getSelfUrl();
-    let params = url.searchParams;
-    if (params.has("tag")) {
+    if (urlHasParam("tag")) {
+      let url = getSelfUrl();
+      let params = url.searchParams;
       let tag = params.get("tag");
       Leaf.selectByTag(tag);
     }
