@@ -20,7 +20,7 @@ body.home {
       display: grid;
       grid-template-columns: auto 410px;
       column-gap: 38px; // space between panel and timetree
-      padding: 0 40px 0 0; // right margin outside the panel
+      padding: 30px 40px 0 0; // right margin outside the panel
 
       max-height: calc(
         100vh - #{$desktop_header_height} - #{$desktop_footer_height}
@@ -28,6 +28,7 @@ body.home {
 
       > aside {
         position: relative;
+        margin-top: 120px;
         padding: $margin;
       }
     }
@@ -239,6 +240,9 @@ body.home {
         width: 100vw;
         overflow-y: auto;
         overflow-x: hidden;
+        $shadow: rgba(0, 0, 0, 0.4);
+        box-shadow: 0px 2px 4px $shadow, 0px 4px 5px $shadow,
+          0px 1px 10px $shadow;
 
         @include for-desktop-up {
           bottom: auto;
@@ -270,8 +274,8 @@ body.home {
     margin-bottom: 16px;
   }
 
-  background-color: $nearwhite;
-  color: $nearblack;
+  background-color: $nav-bg-color;
+  color: $nearwhite;
   padding: 16px;
 
   // make link color visible
