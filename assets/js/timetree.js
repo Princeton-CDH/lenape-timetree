@@ -554,7 +554,7 @@ function TreeGraph({ nodes, links, centuries }) {
     return 0;
   }
 
-  const panel = document.querySelector("#panel");
+  const panel = document.querySelector("#leaf-details");
   d3.select("aside .close").on("click", function () {
     // Close panel and deselect
     closePanel(panel);
@@ -562,7 +562,7 @@ function TreeGraph({ nodes, links, centuries }) {
 
   // Close panel function
   function closePanel(panel) {
-    panel.parentElement.classList.remove("show-panel");
+    panel.parentElement.classList.remove("show-details");
     panel.parentElement.classList.add("closed");
     Leaf.deselectAll();
     Leaf.closeLeafDetails();

@@ -97,10 +97,11 @@ class Leaf {
         const doc = parser.parseFromString(html, "text/html");
         // Get the article content and insert into panel
         const article = doc.querySelector("article");
-        const panel = document.querySelector("#panel");
+        const panel = document.querySelector("#leaf-details");
         panel.querySelector("article").replaceWith(article);
         // make sure panel is active
-        panel.parentElement.classList.add("show-panel");
+        panel.parentElement.classList.add("show-details");
+        panel.parentElement.classList.remove("closed");
       });
   }
 
@@ -139,9 +140,9 @@ class Leaf {
   }
 
   static closeLeafDetails() {
-    const panel = document.querySelector("#panel");
+    const panel = document.querySelector("#leaf-details");
     Leaf.deselectAll();
-    panel.parentElement.classList.remove("show-panel");
+    panel.parentElement.classList.remove("show-details");
     panel.parentElement.classList.add("closed");
   }
 }

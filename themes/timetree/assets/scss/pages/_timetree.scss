@@ -1,20 +1,11 @@
+@import "components/leaves";
+@import "components/panel";
+
 body.home {
   main {
     max-height: calc(
       100vh - #{$mobile_header_height} - #{$mobile_footer_height}
     );
-
-    // on mobile, panel is positioned absolutely at bottom of screen
-    & > aside {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      width: 100%;
-      min-height: 327px;
-      // height: 44vh;
-      height: auto; // set based on content height
-    }
 
     @include for-desktop-up {
       // desktop is two columns (tree | panel)
@@ -26,11 +17,6 @@ body.home {
       max-height: calc(
         100vh - #{$desktop_header_height} - #{$desktop_footer_height}
       );
-
-      > aside {
-        position: relative;
-        margin-top: 120px;
-      }
     }
 
     #timetree {
@@ -181,109 +167,11 @@ body.home {
     text.hover {
       font-weight: 900;
     }
-
-    // styles for intro text and selected panel
-    > aside {
-      color: $nearwhite;
-
-      // allow closing the intro on mobile
-      &.closed {
-        visibility: hidden;
-      }
-      &.show-panel {
-        visibility: visible;
-      }
-
-      @include for-desktop-up {
-        .close {
-          visibility: hidden;
-        }
-
-        // hide the close button unless panel has content
-        &.show-panel .close {
-          visibility: visible;
-        }
-        &.closed {
-          visibility: visible;
-        }
-      }
-
-      > .close {
-        position: absolute;
-        right: 16px;
-        top: 16px;
-        padding: 0;
-
-        z-index: 3;
-        text-decoration: none;
-        background-color: $nav-bg-color;
-
-        @include for-desktop-up {
-          top: 20px;
-        }
-
-        i {
-          width: 20px;
-          height: 20px;
-        }
-      }
-
-      // TODO: initial intro should now be styled more
-      // like the panel, with padding, have dark bg color, drop shadow
-      // & > article {
-      //   background-color: $body-bg-color;
-      //   $shadow: rgba(0, 0, 0, 0.4);
-      //   box-shadow: 0px 2px 4px $shadow, 0px 4px 5px $shadow,
-      // }
-
-      // selected panel
-      #panel {
-        // hide by default
-        visibility: hidden;
-      }
-
-      &.show-panel #panel,
-      > article {
-        background-color: $nav-bg-color;
-        // padding: $margin;
-        position: absolute;
-        top: auto;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        max-height: 44vh;
-        scrollbar-width: thin;
-        padding: 16px 20px;
-        margin: 0;
-        min-height: 327px;
-        // height: 44vh;
-        // height: auto;
-
-        visibility: visible;
-        bottom: 0;
-        // width: 100vw;
-        overflow-y: auto;
-        overflow-x: hidden;
-        $shadow: rgba(0, 0, 0, 0.4);
-        box-shadow: 0px 2px 4px $shadow, 0px 4px 5px $shadow,
-          0px 1px 10px $shadow;
-
-        @include for-desktop-up {
-          bottom: auto;
-          top: 0;
-          max-height: 545px;
-        }
-      }
-
-      &.show-panel > article {
-        visibility: hidden;
-      }
-    }
   }
 }
 
 // styles for leaf details
-#panel article {
+#leaf-details article {
   margin: 0;
   header {
     h1 {
