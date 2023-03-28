@@ -38,16 +38,24 @@ function cointoss() {
   return Math.random() < 0.5;
 }
 
-// Function get a URL object of the current url,
+// Function to get a URL object of the current url,
 // including either or both of search params and location hash
 function getSelfUrl(incl_params = true, incl_hash = true) {
-  let url = new URL(document.location.origin);
-  if (incl_params) {
-    url.search = document.location.search;
+  // If both params and hash included, just clone this href
+  if (incl_params & incl_hash) {
+    let url = new URL(document.location.href);
+
+    // If one or the other are wanted...
+  } else {
+    let url = new URL(document.location.origin);
+    if (incl_params) {
+      url.search = document.location.search;
+    }
+    if (incl_hash) {
+      url.hash = document.location.hash;
+    }
   }
-  if (incl_hash) {
-    url.hash = document.location.hash;
-  }
+
   return url;
 }
 
