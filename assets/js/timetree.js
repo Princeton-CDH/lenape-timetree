@@ -49,8 +49,9 @@ const forceStrength = {
 const selectedClass = "select";
 
 // load & parse leaf data from json embedded in the document
-const leafData = document.querySelector(".leaf-data");
-const data = JSON.parse(leafData.value);
+const data = JSON.parse(document.querySelector(".leaf-data").value);
+// load and parse tag list for label / slug lookup label based on slug
+const tags = JSON.parse(document.querySelector(".tag-data").value);
 
 // generate list of centuries referenced in the data; sort most recent first
 let centuries = Array.from(
