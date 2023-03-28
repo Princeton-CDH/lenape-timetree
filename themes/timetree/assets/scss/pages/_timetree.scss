@@ -117,8 +117,8 @@ body.home {
         - lands-waters : c
         - communities : b
         - university : e
-        - removals : d
-        - resistance-resurgence : a
+        - removals : a
+        - resistance-resurgence : d
       */
 
       .branch-lands-waters {
@@ -131,10 +131,10 @@ body.home {
         @include leaf-styles("e");
       }
       .branch-removals {
-        @include leaf-styles("d");
+        @include leaf-styles("a");
       }
       .branch-resistance-resurgence {
-        @include leaf-styles("a");
+        @include leaf-styles("d");
       }
 
       // hide nodes used for layout but not meant to be displayed
@@ -332,10 +332,10 @@ article.container article {
       fill: map-get($leaf-outline-color, "e");
     }
     &.dbg-branch-removals {
-      fill: map-get($leaf-outline-color, "d");
+      fill: map-get($leaf-outline-color, "a");
     }
     &.dbg-branch-resistance-resurgence {
-      fill: map-get($leaf-outline-color, "a");
+      fill: map-get($leaf-outline-color, "d");
     }
   }
 
@@ -354,10 +354,10 @@ article.container article {
       stroke: map-get($leaf-color, "e");
     }
     &.dbg-branch-removals {
-      stroke: map-get($leaf-color, "d");
+      stroke: map-get($leaf-color, "a");
     }
     &.dbg-branch-resistance-resurgence {
-      stroke: map-get($leaf-color, "a");
+      stroke: map-get($leaf-color, "d");
     }
   }
 
@@ -377,10 +377,10 @@ article.container article {
       stroke: map-get($leaf-outline-color, "e");
     }
     &.dbg-branch-removals {
-      stroke: map-get($leaf-outline-color, "d");
+      stroke: map-get($leaf-outline-color, "a");
     }
     &.dbg-branch-resistance-resurgence {
-      stroke: map-get($leaf-outline-color, "a");
+      stroke: map-get($leaf-outline-color, "d");
     }
 
     &.debug-branch {
