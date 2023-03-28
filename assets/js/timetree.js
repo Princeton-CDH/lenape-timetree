@@ -566,6 +566,6 @@ asideContainer.addEventListener("click", (event) => {
   ) {
     event.preventDefault();
     event.stopPropagation();
-    Leaf.selectByTag(element.textContent);
+    Leaf.selectByTag(element.dataset.tag);
   }
 });
