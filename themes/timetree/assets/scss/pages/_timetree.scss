@@ -397,9 +397,7 @@ article.container article {
   position: absolute;
   right: 0;
   // position so it sits above the footer
-  top: calc(
-    100vh - #{$mobile_header_height} - #{$mobile_footer_height} - 175px;
-  );
+  bottom: $desktop_footer_height;
   padding: $margin;
   height: 175px;
 
