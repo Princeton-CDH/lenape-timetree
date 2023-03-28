@@ -67,11 +67,9 @@ class Leaf {
 
   static selectByTag(tag) {
     // set URL to URL of self, with tag updated
-    console.log("selectByTag", window.location.href);
     let url = new URL(window.location.href);
     url.searchParams.set("tag", tag);
     let urlstr = url.toString();
-    console.log("urlstr", urlstr);
 
     // select all leaves with the specified tag
     Leaf.deselectAll();
@@ -80,6 +78,7 @@ class Leaf {
       item.classList.add(Leaf.selectedClass);
     }
 
+    // replace url afterward to preserve tag name
     history.replaceState(null, "", urlstr);
   }
 
@@ -94,7 +93,7 @@ class Leaf {
 
   static selectLeaf(event) {
     // event handler to select leaf when leaf or label is clicked/tapped
-    // Leaf.deselectAll();   // not necessary -- will destabilize URL
+    Leaf.deselectAll();
 
     // visually highlight selected leaf in the tree
     let leafURL = Leaf.targetLeafURL(event.target);
