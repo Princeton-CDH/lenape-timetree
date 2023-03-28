@@ -38,6 +38,19 @@ function cointoss() {
   return Math.random() < 0.5;
 }
 
+// Function get a URL object of the current url,
+// including either or both of search params and location hash
+function getSelfUrl(incl_params = true, incl_hash = true) {
+  let url = new URL(document.location.origin);
+  if (incl_params) {
+    url.search = document.location.search;
+  }
+  if (incl_hash) {
+    url.hash = document.location.hash;
+  }
+  return url;
+}
+
 class Leaf {
   // constant for selection classname
   static selectedClass = "select";
@@ -51,10 +64,8 @@ class Leaf {
       item.classList.remove(Leaf.selectedClass);
     });
 
-    // change url location hash to indicate no leaf is selected
-    // needs to be non-empty to avoid page reload
-    window.location.replace("#");
-    history.replaceState(null, "", window.hash);
+    // set history/url to server URL without hash or params
+    history.replaceState(null, "", document.location.origin);
   }
 
   static selectByTag(tag) {
@@ -65,10 +76,9 @@ class Leaf {
       item.classList.add(Leaf.selectedClass);
     }
 
-    // encode URL to reflect tag
-    let slug = encodeURIComponent(tag);
-    let url = new URL(document.location.href.replace("#", ""));
-    url.searchParams.set("tag", slug);
+    // set URL to URL of self, with tag updated
+    let url = getSelfUrl();
+    url.searchParams.set("tag", tag);
     history.replaceState(null, "", url.toString());
   }
 
@@ -146,8 +156,9 @@ class Leaf {
 
   static selectLeavesByTag() {
     // If the page is loaded with a tag link, select those leaves
-    if (location.search.startsWith("?tag=")) {
-      let params = new URL(document.location).searchParams;
+    let url = getSelfUrl();
+    let params = url.searchParams;
+    if (params.has("tag")) {
       let tag = params.get("tag");
       Leaf.selectByTag(tag);
     }
