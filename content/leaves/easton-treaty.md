@@ -1,5 +1,5 @@
 ---
-branch: Lands and Waters
+branch: Lands + Waters
 display_date: 1758
 display_title: Easton Treaty
 sort_date: 1758

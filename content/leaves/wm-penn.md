@@ -1,5 +1,5 @@
 ---
-branch: Lands and Waters
+branch: Lands + Waters
 display_date: 1682
 display_title: Wm. Penn
 sort_date: 1682

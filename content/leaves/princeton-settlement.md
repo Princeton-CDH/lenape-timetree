@@ -1,5 +1,5 @@
 ---
-branch: Lands and Waters
+branch: Lands + Waters
 display_date: 1683-1696
 display_title: Princeton settlement
 sort_date: 1683

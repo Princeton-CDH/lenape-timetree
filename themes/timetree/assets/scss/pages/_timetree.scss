@@ -86,9 +86,9 @@ body.home {
           stroke: map-get($leaf-outline-color, $branch);
           stroke-width: 3px;
           $glow: map-get($leaf-glow-color, $branch);
-          filter: drop-shadow(-6px -8px 16px $glow)
-            drop-shadow(6px 14px 16px $glow) drop-shadow(-9px 4px 16px $glow)
-            drop-shadow(9px 0px 16px $glow);
+          filter: drop-shadow(-3px -4px 8px $glow)
+            drop-shadow(3px 7px 8px $glow) drop-shadow(-4px 2px 8px $glow)
+            drop-shadow(4px 0px 8px $glow);
 
           outline: none; // disable browser default focus outline box
         }
@@ -104,20 +104,37 @@ body.home {
         }
       }
 
-      .branch-a {
-        @include leaf-styles("a");
-      }
-      .branch-b {
-        @include leaf-styles("b");
-      }
-      .branch-c {
+      /* branches should be ordered left to right as follows:
+        - lands-waters
+        - communities
+        - university
+        - removals
+        - resistance-resurgence
+
+      map these branches to colors in this order to keep
+      similar colors more separated:
+
+        - lands-waters : c
+        - communities : b
+        - university : e
+        - removals : a
+        - resistance-resurgence : d
+      */
+
+      .branch-lands-waters {
         @include leaf-styles("c");
       }
-      .branch-d {
-        @include leaf-styles("d");
+      .branch-communities {
+        @include leaf-styles("b");
       }
-      .branch-e {
+      .branch-university {
         @include leaf-styles("e");
+      }
+      .branch-removals {
+        @include leaf-styles("a");
+      }
+      .branch-resistance-resurgence {
+        @include leaf-styles("d");
       }
 
       // hide nodes used for layout but not meant to be displayed
@@ -142,7 +159,10 @@ body.home {
 
     text.leaf-label {
       fill: $body-fg-color;
-      text-shadow: $nav-bg-color 2px 2px 2px;
+      // NOTE: previously had two shadows offset +/2px with 2px blur,
+      // but there's a Safari bug with multiple text shadows
+      // text-shadow: $nav-bg-color 2px 2px 2px, $nav-bg-color -2px -2px 2px;
+      text-shadow: $nav-bg-color 0px 0px 4px;
       // Hand cursor for leaf labels
       cursor: pointer;
     }
@@ -296,52 +316,75 @@ article.container article {
     fill: transparent; // override branch fill styles elsewhere
   }
   circle.debug-leaf-label {
-    stroke: yellow;
-  }
-  circle.debug-leaf {
-    stroke: cyan;
+    stroke: $nearwhite;
   }
   circle.debug-branch {
-    fill: lightgreen;
-
-    // color branch nodes based on the branch they belong to
+    // color branch nodes based on the branch they belong to;
+    // they are smaller, so fill entirely.
     // use outline colors since they are darker
-    &.dbg-branch-a {
-      fill: map-get($leaf-outline-color, "a");
-    }
-    &.dbg-branch-b {
-      fill: map-get($leaf-outline-color, "b");
-    }
-    &.dbg-branch-c {
+    &.dbg-branch-lands-waters {
       fill: map-get($leaf-outline-color, "c");
     }
-    &.dbg-branch-d {
-      fill: map-get($leaf-outline-color, "d");
+    &.dbg-branch-communities {
+      fill: map-get($leaf-outline-color, "b");
     }
-    &.dbg-branch-e {
+    &.dbg-branch-university {
       fill: map-get($leaf-outline-color, "e");
     }
+    &.dbg-branch-removals {
+      fill: map-get($leaf-outline-color, "a");
+    }
+    &.dbg-branch-resistance-resurgence {
+      fill: map-get($leaf-outline-color, "d");
+    }
   }
+
+  // color circles for leaf markes based on their branch
+  // outline only, so we can see them around their leaves if both are displyaed
+  circle.debug-leaf {
+    stroke-width: 2;
+    // color links within branch based on the branch they belong to
+    &.dbg-branch-lands-waters {
+      stroke: map-get($leaf-color, "c");
+    }
+    &.dbg-branch-communities {
+      stroke: map-get($leaf-color, "b");
+    }
+    &.dbg-branch-university {
+      stroke: map-get($leaf-color, "e");
+    }
+    &.dbg-branch-removals {
+      stroke: map-get($leaf-color, "a");
+    }
+    &.dbg-branch-resistance-resurgence {
+      stroke: map-get($leaf-color, "d");
+    }
+  }
+
   line {
     stroke: lightgray;
     stroke-width: 1;
     // could hide or adjust visibility depending on type of link
 
     // color links within branch based on the branch they belong to
-    &.dbg-branch-a {
-      stroke: map-get($leaf-outline-color, "a");
-    }
-    &.dbg-branch-b {
-      stroke: map-get($leaf-outline-color, "b");
-    }
-    &.dbg-branch-c {
+    &.dbg-branch-lands-waters {
       stroke: map-get($leaf-outline-color, "c");
     }
-    &.dbg-branch-d {
+    &.dbg-branch-communities {
+      stroke: map-get($leaf-outline-color, "b");
+    }
+    &.dbg-branch-university {
+      stroke: map-get($leaf-outline-color, "e");
+    }
+    &.dbg-branch-removals {
+      stroke: map-get($leaf-outline-color, "a");
+    }
+    &.dbg-branch-resistance-resurgence {
       stroke: map-get($leaf-outline-color, "d");
     }
-    &.dbg-branch-e {
-      stroke: map-get($leaf-outline-color, "e");
+
+    &.debug-branch {
+      stroke-width: 3;
     }
   }
 }

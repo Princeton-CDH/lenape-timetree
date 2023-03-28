@@ -1,5 +1,5 @@
 ---
-branch: Lands and Waters
+branch: Resistance + Resurgence
 display_date: 2006
 sort_date: 2006
 tags:

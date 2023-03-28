@@ -5,6 +5,7 @@ import {
   forceCenter,
   forceCollide,
   forceLink,
+  forceX,
   forceY,
 } from "d3-force";
 import { line, curveNatural } from "d3-shape";
@@ -23,6 +24,7 @@ const d3 = {
   forceCenter,
   forceCollide,
   forceLink,
+  forceX,
   forceY,
   line,
   curveNatural,
@@ -33,17 +35,19 @@ const d3 = {
 // strength of the various forces used to lay out the leaves
 const forceStrength = {
   // standard d3 forces
-  charge: -75, // simulate gravity (attraction) if the strength is positive, or electrostatic charge (repulsion) if the strength is negative
+  charge: -15, // simulate gravity (attraction) if the strength is positive, or electrostatic charge (repulsion) if the strength is negative
   manybody: -35, // A positive value causes nodes to attract each other, similar to gravity, while a negative value causes nodes to repel each other, similar to electrostatic charge; d3 default is -30
   center: 0.01, // how strongly drawn to the center of the svg
 
   // custom y force for century
-  centuryY: 4, // draw to Y coordinate for center of assigned century band
+  centuryY: 5, // draw to Y coordinate for center of assigned century band
+
+  // custom x force for branch
+  branchX: 0.05, // draw to X coordinate based on branch
 
   // strength of link force by type of link
-  leafToLabel: 5.5, // between leaves and their labels
-  leafToBranch: 3, // between leaf and branch-century node
-  branchToBranch: 2.5, // between branch century nodes
+  leafToBranch: 3.85, // between leaf and branch-century node
+  branchToBranch: 2, // between branch century nodes
 };
 
 // constant for selection classname
@@ -97,16 +101,30 @@ sortedLeaves.forEach((leaf) => {
   }
 });
 
+// branches are defined and should be displayed in this order
+const branches = {
+  "Lands + Waters": "lands-waters",
+  Communities: "communities",
+  "The University": "university",
+  Removals: "removals",
+  "Resistance + Resurgence": "resistance-resurgence",
+};
+
 // group leaves by branch, preserving sort order
 let leavesByBranch = sortedLeaves.reduce((acc, leaf) => {
   let b = leaf.branch;
-  if (acc[b] == undefined) {
-    acc[b] = [];
+  // check that branch is in our list
+  if (b in branches) {
+    if (acc[b] == undefined) {
+      acc[b] = [];
+    }
+    acc[b].push(leaf);
+  } else {
+    // report unknown branchand omit from  the tree
+    console.log(`Unknown branch: ${b}`);
   }
-  acc[b].push(leaf);
   return acc;
 }, {});
-// console.log(leavesByBranch);
 
 // create a list to add nodes, starting with a node for the trunk
 let nodes = [
@@ -167,10 +185,10 @@ for (const branch in leavesByBranch) {
       }
     }
     // add the current leaf as a node
+    leaf.label = new LeafLabel(leaf.display_title || leaf.title);
     nodes.push(leaf);
     currentBranchNodeCount += 1;
     // add link between leaf and branch
-    // links.push(nodes.length - 1, branchIndex);
     let leafIndex = nodes.length - 1;
     links.push({
       source: branchIndex,
@@ -178,34 +196,13 @@ for (const branch in leavesByBranch) {
       value: forceStrength.leafToBranch,
       branch: leaf.branch,
     });
-
-    // add a label for the leaf
-    nodes.push({
-      type: "leaf-label",
-      // display title takes precedence over title but is optional
-      label: new LeafLabel(leaf.display_title || leaf.title),
-      url: leaf.url,
-      id: leaf.id,
-      century: leaf.century,
-      tags: leaf.tags,
-    });
-    links.push({
-      source: leafIndex,
-      target: nodes.length - 1,
-      value: forceStrength.leafToLabel,
-      type: "leaf-label",
-    });
   });
 }
 // branch style color sequence; set class name and control with css
-let branchStyles = ["a", "b", "c", "d", "e"];
-
 function getBranchStyle(branchName) {
-  let branchIndex = Object.keys(leavesByBranch).indexOf(branchName);
-  // let branchIndex = Object.keys(branches).indexOf(branchName);
-  let branchStyle = branchStyles[branchIndex];
-  if (branchStyle != undefined) {
-    return "branch-" + branchStyles[branchIndex];
+  let branchSlug = branches[branchName];
+  if (branchSlug != undefined) {
+    return `branch-${branchSlug}`;
   }
 }
 
@@ -268,6 +265,16 @@ function TreeGraph({ nodes, links, centuries }) {
     };
   });
 
+  // determine placement for branches left to right
+  let branchCoords = {};
+  let branchMargin = 100;
+  // etermine how much space to give to each branch
+  let branchWidth = (width - branchMargin * 2) / 5;
+  // calculate the midpoint of each branch and set for easy lookup
+  for (const [i, b] of Object.keys(branches).entries()) {
+    branchCoords[b] = branchMargin + min_x + i * branchWidth + branchWidth / 2;
+  }
+
   // draw a couple of lines to help gesture at tree-ness
   let trunkWidth = 65;
   // right side
@@ -311,11 +318,9 @@ function TreeGraph({ nodes, links, centuries }) {
     .force(
       "collide",
       d3.forceCollide().radius((d) => {
-        // collision radius should vary by node type
+        // collision radius varies by node type
         if (d.type == "leaf") {
-          return leafSize.width - 5;
-        } else if (d.type == "leaf-label") {
-          return d.label.radius - 10;
+          return leafSize.width; // - 5;
         }
         return 2;
       })
@@ -326,15 +331,25 @@ function TreeGraph({ nodes, links, centuries }) {
         return link.value; // link strength defined when links created
       })
     )
-    // .force("link", d3.forceLink(links).distance(30).strength(link => {
-    // return 1;
-    // }))
     .force(
       "y",
       d3
         .forceY()
         .y((node) => centuryY(node))
         .strength(forceStrength.centuryY)
+    )
+    .force(
+      "x",
+      d3
+        .forceX()
+        .x((node) => branchX(node))
+        .strength((node) => {
+          if (node.century != undefined) {
+            // apply the force more strongly the further up the tree we go
+            return forceStrength.branchX * (node.century - 14);
+          }
+          return 0;
+        })
     );
   // .on("tick", ticked);
 
@@ -375,11 +390,12 @@ function TreeGraph({ nodes, links, centuries }) {
     .on("mouseover", Leaf.highlightLeaf)
     .on("mouseout", Leaf.unhighlightLeaf);
 
+  // add text labels for leaves; position based on the leaf node
   const nodeLabel = svg
     .append("g")
     .attr("id", "labels")
     .selectAll("text")
-    .data(nodes.filter((d) => d.type == "leaf-label"))
+    .data(nodes.filter((d) => d.type == "leaf"))
     .join("text")
     // x,y for a circle is the center, but for a text element it is top left
     // set position based on x,y adjusted by radius and height
@@ -421,12 +437,12 @@ function TreeGraph({ nodes, links, centuries }) {
     .attr("dy", LeafLabel.lineHeight); // delta-y : relative position based on line height
 
   // visual debugging for layout
-  // draw circles and lines in a debug layer that can be shown or hidden
-  // circle size for leaf and leaf label matches radius used for collision
+  // draw circles and lines in a debug layer that can be shown or hidden;
+  // circle size for leaf matches radius used for collision
   // avoidance in the network layout
   debugLayer
     .selectAll("circle.debug")
-    .data(nodes) // .filter((d) => d.type == "leaf-label"))
+    .data(nodes)
     .join("circle")
     .attr(
       "class",
@@ -435,22 +451,15 @@ function TreeGraph({ nodes, links, centuries }) {
     .attr("cx", (d) => d.x)
     .attr("cy", (d) => d.y)
     .attr("r", (d) => {
-      // NOTE: we're currently adjusting collision radius slightly
-      // in the network simulation; probably needs some
-      // adjusments, and should make sure these match
-      if (d.type == "leaf-label") {
-        return d.label.radius - 10;
-        // return d.label.radius;
-      }
       if (d.type == "leaf") {
-        return leafSize.width - 5;
-        // return leafSize.width;
+        // return leafSize.width - 5;
+        return leafSize.width;
       }
       // note: this is larger than collision radius, increase size for visibility
       return 5; // for branch nodes
     });
 
-  // add lines for links to the debug layer
+  // add lines for links within the network to the debug layer
   const link = debugLayer
     .append("g")
     .selectAll("line")
@@ -459,7 +468,18 @@ function TreeGraph({ nodes, links, centuries }) {
     .attr("class", (d) => {
       return `${d.type || ""} dbg-${getBranchStyle(d.branch) || ""}`;
     });
-  // hide links to labels
+
+  debugLayer
+    .selectAll("line.debug-branch")
+    .data(Object.keys(branchCoords))
+    .join("line")
+    .attr("class", (d) => {
+      return `debug-branch-x dbg-${getBranchStyle(d)}`;
+    })
+    .attr("x1", (d) => branchCoords[d])
+    .attr("y1", min_y)
+    .attr("x2", (d) => branchCoords[d])
+    .attr("y2", max_y);
 
   // add debug controls
   let debugLayerControls = {
@@ -522,6 +542,14 @@ function TreeGraph({ nodes, links, centuries }) {
         leafConstraints[node.century].top -
         leafContainerHeight
       );
+    }
+    return 0;
+  }
+
+  function branchX(node) {
+    // x-axis force to align branches left to right based on branch
+    if (node.branch !== undefined) {
+      return branchCoords[node.branch];
     }
     return 0;
   }
