@@ -43,16 +43,16 @@ function cointoss() {
 function getSelfUrl(incl_params = true, incl_hash = true) {
   // If both params and hash included, just clone this href
   if (incl_params & incl_hash) {
-    return new URL(document.location.href);
+    return new URL(window.location.href);
   }
 
   // If one or the other are wanted...
-  let url = new URL(document.location.origin);
+  let url = new URL(window.location.origin + window.location.pathname);
   if (incl_params) {
-    url.search = document.location.search;
+    url.search = window.location.search;
   }
   if (incl_hash) {
-    url.hash = document.location.hash;
+    url.hash = window.location.hash;
   }
   return url;
 }
@@ -121,8 +121,8 @@ class Leaf {
 
     // update URL to reflect the currently selected leaf;
     // replace the location & state to avoid polluting browser history
-    window.location.replace(`#${event.target.getAttribute("data-id")}`);
-    history.replaceState(null, "", window.hash);
+    window.location.hash = `#${event.target.getAttribute("data-id")}`;
+    // history.replaceState(null, "", window.hash);
 
     // load leaf details and display in the panel
     fetch(leafURL)
@@ -349,4 +349,13 @@ class LeafPath {
   }
 }
 
-export { cointoss, leafSize, plusOrMinus, randomNumBetween, Leaf, LeafPath };
+export {
+  cointoss,
+  leafSize,
+  plusOrMinus,
+  randomNumBetween,
+  Leaf,
+  LeafPath,
+  getSelfUrl,
+  urlHasParam,
+};
