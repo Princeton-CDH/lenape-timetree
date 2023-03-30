@@ -12,6 +12,7 @@ i[class^="ph-"] {
   // use svg as a mask and then set background color with css
   background-color: currentColor;
   mask-size: contain;
+  -webkit-mask-size: contain;
 }
 
 .ph-info {

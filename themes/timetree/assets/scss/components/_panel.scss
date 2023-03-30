@@ -21,6 +21,9 @@ body.home main > aside {
     margin-top: 120px; // todo: adjust for current tag container
 
     justify-content: flex-start; // on desktop, stick to top
+
+    max-height: calc(100% - 120px - 38px - 27px);
+    overflow-y: scroll;
   }
 
   // allow closing the intro on mobile
@@ -57,7 +60,7 @@ body.home main > aside {
 
     z-index: 3;
     text-decoration: none;
-    background-color: $nav-bg-color;
+    // background-color: $nav-bg-color;
 
     @include for-desktop-up {
       padding-top: 20px;
@@ -83,6 +86,7 @@ body.home main > aside {
   &.show-details #leaf-details,
   &.show-details article {
     height: auto;
+    max-height: 100%;
   }
 
   // shadow applied to intro and to leaf-details container (desktop only)
@@ -91,6 +95,7 @@ body.home main > aside {
     #leaf-details {
       $shadow: rgba(0, 0, 0, 0.4);
       box-shadow: 0px 2px 4px $shadow, 0px 4px 5px $shadow, 0px 1px 10px $shadow;
+      margin: 4px;
     }
   }
 
@@ -147,7 +152,9 @@ body.home main > aside {
         &::before {
           -webkit-mask-image: url(/img/icons/leaf.svg);
           mask-image: url(/img/icons/leaf.svg);
+          -webkit-mask-size: contain;
           mask-size: contain;
+          -webkit-mask-repeat: no-repeat;
           mask-repeat: no-repeat;
           background-color: currentColor;
           display: inline-block;
