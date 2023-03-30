@@ -1,13 +1,14 @@
 baseURL: "http://example.org/"
 languageCode: en-us
-title: Lenape Princeton Timetree
+title: Lunaapahkiing Princeton Timetree
 theme: timetree
 paginate: 20
 
 params:
   description: >-
-    An alternate view of the history of Princeton incorporating
-    Lenape and indigenous events and perspectives
+    An interactive timetree displaying interwoven histories of the
+    Princeton University community and the Lenape peoples
+    of Lunaapahkiing, “the land of the Lenape.” .
 
 outputs:
   home:

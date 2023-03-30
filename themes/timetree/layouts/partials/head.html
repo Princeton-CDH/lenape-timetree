@@ -1,7 +1,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ block "title" . }}{{ with .Params.Title }}{{ . }} | {{ end }}{{ .Site.Title }}{{ end }}</title>
+    {{/* output page title before site title unless they are exactly the same */}}
+    <title>{{ block "title" . }}{{ with .Params.Title }}{{ if (ne . $.Site.Title) }}{{ . }} | {{ end }}{{ end }}{{ .Site.Title }}{{ end }}</title>
     <meta name="description" content="{{ .Params.Description | default .Summary | default .Site.Params.description }}">
     <!-- resource preloading -->
     <link rel="preload" as="font" type="font/woff2" href="/fonts/overlock/Overlock-Regular.woff2" crossorigin />
