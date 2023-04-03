@@ -1,3 +1,6 @@
+$tag-height: 40px;
+$desktop-panel-maxheight: calc(100% - 120px - 38px - 27px);
+
 body.home main > aside {
   // on mobile, panel is positioned absolutely at bottom of screen
   position: absolute;
@@ -5,24 +8,27 @@ body.home main > aside {
   left: 0;
   right: 0;
   width: 100%;
-  height: 44vh;
+
+  height: calc(44vh + #{$tag-height});
 
   // aside container is a flexible column
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end; // on mobile, stick to bottom
+  display: grid;
+  grid-template-rows: $tag-height auto 0;
+  grid-template-areas:
+    "tag"
+    "details"
+    "hidden";
+  justify-items: end; // on mobile, stick to bottom
 
   color: $nearwhite;
 
   @include for-desktop-up {
     position: relative;
-    margin-top: 120px; // todo: adjust for current tag container
-
-    justify-content: flex-start; // on desktop, stick to top
+    margin-top: 80px; // panel is 120px from top; aside includes 40px for active tag
+    justify-items: start; // on desktop, stick to top
 
     height: auto; // set based on content height
-    max-height: calc(100% - 120px - 38px - 27px);
-    overflow-y: scroll;
+    max-height: $desktop-panel-maxheight;
   }
 
   // allow closing the intro on mobile
@@ -51,7 +57,7 @@ body.home main > aside {
   > .close {
     position: absolute;
     right: 0;
-    top: 0;
+    top: $tag-height; // position below active tag
     padding: 16px 16px 0 0;
     width: 100%;
     text-align: right;
@@ -59,10 +65,10 @@ body.home main > aside {
 
     z-index: 3;
     text-decoration: none;
-    // background-color: $nav-bg-color;
+    background-color: $nav-bg-color;
 
     @include for-desktop-up {
-      padding-top: 20px;
+      margin: 4px 4px;
       width: auto;
     }
 
@@ -80,15 +86,22 @@ body.home main > aside {
     min-height: 0;
     overflow: hidden;
     padding: 0;
+    grid-area: hidden;
   }
 
   &.show-details #leaf-details,
-  &.show-details article {
-    height: 100%;
-    max-height: 100%;
+  &.show-details article,
+  #intro {
+    height: 44vh;
+
+    overflow: auto;
+    grid-area: details;
+    width: 100%;
 
     @include for-desktop-up {
-      height: auto;
+      min-height: 350px;
+      height: min-content;
+      max-height: calc(#{$desktop-panel-maxheight} - #{$tag-height});
     }
   }
 
@@ -98,7 +111,6 @@ body.home main > aside {
     #leaf-details {
       $shadow: rgba(0, 0, 0, 0.4);
       box-shadow: 0px 2px 4px $shadow, 0px 4px 5px $shadow, 0px 1px 10px $shadow;
-      margin: 4px;
     }
   }
 
@@ -109,6 +121,7 @@ body.home main > aside {
     overflow-x: hidden;
     overflow-y: auto;
     scroll-bar: thin;
+    overscroll-behavior-x: contain;
     background-color: $nav-bg-color;
     color: $nearwhite;
     padding: 52px 16px 16px;
