@@ -216,7 +216,7 @@ function TreeGraph({ nodes, links, centuries }) {
   // let width = 1550;
   // let height = 1080;
 
-  let width = 1200;
+  let width = 1200; // TODO: can we resize to 800 width for mobile? (tablet portrait and mobile only)
   let height = 800;
 
   let min_x = -width / 2;

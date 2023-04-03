@@ -24,6 +24,11 @@ body.home {
       max-height: inherit;
       font-size: 14px;
       line-height: 18px;
+      margin-top: 30px;
+
+      @include for-desktop-up {
+        margin-top: 0;
+      }
 
       svg {
         height: 100%;
