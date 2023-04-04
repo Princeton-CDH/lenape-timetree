@@ -93,6 +93,15 @@ class Leaf {
     return Leaf.getLeafTarget(target).dataset.url;
   }
 
+  static deselectCurrent() {
+    let selected = document.getElementsByClassName(Leaf.selectedClass);
+    // convert to array rather than iterating, since htmlcollection is live
+    // and changes as updated
+    Array.from(selected).forEach((item) => {
+      item.classList.remove(Leaf.selectedClass);
+    });
+  }
+
   static updateSelection() {
     // get selection information from URL
     let url = new URL(window.location.href);
@@ -100,12 +109,7 @@ class Leaf {
     let leafHash = url.hash;
 
     // deselect any current
-    let selected = document.getElementsByClassName(Leaf.selectedClass);
-    // convert to array rather than iterating, since htmlcollection is live
-    // and changes as updated
-    Array.from(selected).forEach((item) => {
-      item.classList.remove(Leaf.selectedClass);
-    });
+    Leaf.deselectCurrent();
 
     // if tag set, select those
     if (tagID) {
