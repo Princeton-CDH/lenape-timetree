@@ -55,7 +55,6 @@ class Leaf {
       let leafID = target.dataset.id;
       // update URL to reflect the currently selected leaf;
       // replace the location & state to avoid polluting browser history
-      window.location.replace(`#${leafID}`);
       history.replaceState(null, "", `#${leafID}`);
     }
     // regardless, update selection
@@ -63,20 +62,19 @@ class Leaf {
   }
 
   static setCurrentTag(tag) {
-    // if no tag set, simply replace URL without tag param
-    if (tag == undefined) {
-      history.replaceState(
-        null,
-        "",
-        window.location.pathname + window.location.hash
-      );
+    // set URL to URL of self
+    let url = new URL(window.location.href);
+
+    // if no tag passed in, remove 'tag' param if it's set
+    if (tag == undefined && url.searchParams.has("tag")) {
+      url.searchParams.delete("tag");
     } else {
-      // set URL to URL of self, with tag updated
-      let url = new URL(window.location.href);
+      // if tag passed in, set it in url params
       url.searchParams.set("tag", tag);
-      history.replaceState(null, "", url.toString());
     }
-    // regardless, update selection
+    // update url in history
+    history.replaceState(null, "", url.toString());
+    // update selection
     Leaf.updateSelection();
   }
 
@@ -175,13 +173,13 @@ class Leaf {
     const panel = document.querySelector("#leaf-details");
     panel.parentElement.classList.remove("show-details");
     panel.parentElement.classList.add("closed");
-    Leaf.setCurrentLeaf(undefined);
+    Leaf.setCurrentLeaf();
     Leaf.closeTag();
   }
 
   static closeTag() {
     // unset current tag and then call updateSelection
-    Leaf.setCurrentTag(undefined);
+    Leaf.setCurrentTag();
   }
 }
 
