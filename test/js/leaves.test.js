@@ -104,7 +104,7 @@ describe("Leaf", () => {
         '  <text class="food access">label</label> />' +
         '  <text class="food access" data-id="munsee" data-url="/leaves/munsee/"><tspan>munsee</tspan></text>' +
         "</svg></div>" +
-        '<div id="panel">' +
+        '<div id="leaf-details">' +
         "  <article/>" +
         "</div>";
     });
@@ -137,7 +137,7 @@ describe("Leaf", () => {
       let targetLeaf = document.querySelector("path[data-id=munsee]");
       Leaf.selectLeaf({ target: targetLeaf });
       expect(fetch).toHaveBeenCalledTimes(1);
-      expect(fetch).toHaveBeenCalledWith(targetLeaf.getAttribute("data-url"));
+      expect(fetch).toHaveBeenCalledWith(targetLeaf.dataset.url);
     });
 
     // not currently testing success logic (update content in panel)
@@ -146,8 +146,8 @@ describe("Leaf", () => {
     test("sets leaf detail panel to active", () => {
       let targetLeaf = document.querySelector("path[data-id=munsee]");
       Leaf.selectLeaf({ target: targetLeaf });
-      const panel = document.querySelector("#panel");
-      expect(panel.parentElement.classList.contains("show-panel")).toEqual(
+      const panel = document.querySelector("#leaf-details");
+      expect(panel.parentElement.classList.contains("show-details")).toEqual(
         true
       );
     });
@@ -163,7 +163,7 @@ describe("Leaf", () => {
         '  <path class="food disease" data-id="munsee" data-url="/leaves/munsee/" />' +
         '  <text class="food access" data-id="munsee" data-url="/leaves/munsee/"><tspan>munsee</tspan></text>' +
         "</svg></div>" +
-        '<div id="panel">' +
+        '<div id="leaf-details">' +
         "  <article/>" +
         "</div>";
     });
