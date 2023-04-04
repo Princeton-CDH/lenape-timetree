@@ -11,17 +11,18 @@
   <data class="leaf-data" value='{{ partial "leaf_data.json" . }}'></data>
 </div>
 
-<aside class="initial">
-  <a class="close" href="#">X</a>
+<aside>
+  <button class="close" aria-label="close details"><i class="ph-x" aria-hidden="true"></i></button>
+  <button class="tag" id="current-tag" aria-label="active tag"></button> {{/* layout placeholder for active tag button */}}
   {{/* introduction content */}}
-  <article>
+  <article id="intro">
     <header>
       <h1>{{ .Params.Title }}</h1>
     </header>
     <div>{{- .Content -}}</div>
   </article>
 
-  <div id="panel">
+  <div id="leaf-details">
     <article/>
   </div>
 </aside>

@@ -54,7 +54,7 @@ class Leaf {
     // change url location hash to indicate no leaf is selected
     // needs to be non-empty to avoid page reload
     window.location.replace("#");
-    history.replaceState(null, "", window.hash);
+    history.replaceState(null, "", window.location.hash);
   }
 
   static selectByTag(tag) {
@@ -73,13 +73,17 @@ class Leaf {
     history.replaceState(null, "", url.toString());
   }
 
-  static targetLeafURL(target) {
+  static getLeafTarget(target) {
     // if the target is the tspan within text label, use parent element
     if (target.tagName == "tspan") {
       target = target.parentElement;
     }
+    return target;
+  }
+
+  static targetLeafURL(target) {
     // both text and path have data-url set
-    return target.getAttribute("data-url");
+    return Leaf.getLeafTarget(target).dataset.url;
   }
 
   static selectLeaf(event) {
@@ -87,27 +91,28 @@ class Leaf {
     Leaf.deselectAll();
 
     // visually highlight selected leaf in the tree
-    let leafURL = Leaf.targetLeafURL(event.target);
+    let target = Leaf.getLeafTarget(event.target);
     // ensure both leaf and label are selected
-    Leaf.setLeafLabelClass(leafURL, Leaf.selectedClass);
+    Leaf.setLeafLabelClass(target.dataset.url, Leaf.selectedClass);
 
     // update URL to reflect the currently selected leaf;
     // replace the location & state to avoid polluting browser history
-    window.location.replace(`#${event.target.getAttribute("data-id")}`);
-    history.replaceState(null, "", window.hash);
+    window.location.replace(`#${target.dataset.id}`);
+    history.replaceState(null, "", `#${target.dataset.id}`);
 
     // load leaf details and display in the panel
-    fetch(leafURL)
+    fetch(target.dataset.url)
       .then((response) => response.text())
       .then((html) => {
         let parser = new DOMParser();
         const doc = parser.parseFromString(html, "text/html");
         // Get the article content and insert into panel
         const article = doc.querySelector("article");
-        const panel = document.querySelector("#panel");
+        const panel = document.querySelector("#leaf-details");
         panel.querySelector("article").replaceWith(article);
         // make sure panel is active
-        panel.parentElement.classList.add("show-panel");
+        panel.parentElement.classList.add("show-details");
+        panel.parentElement.classList.remove("closed");
       });
   }
 
@@ -146,9 +151,9 @@ class Leaf {
   }
 
   static closeLeafDetails() {
-    const panel = document.querySelector("#panel");
+    const panel = document.querySelector("#leaf-details");
     Leaf.deselectAll();
-    panel.parentElement.classList.remove("show-panel");
+    panel.parentElement.classList.remove("show-details");
     panel.parentElement.classList.add("closed");
   }
 }

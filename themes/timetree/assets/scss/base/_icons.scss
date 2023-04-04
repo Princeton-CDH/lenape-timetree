@@ -1,0 +1,26 @@
+/* phosphor icons
+   https://phosphoricons.com/
+
+   Rather than load the full set, download and define only the ones we are using
+*/
+
+i[class^="ph-"] {
+  background-size: contain;
+  display: inline-block;
+  width: 1.25em;
+  height: 1.25em;
+  // use svg as a mask and then set background color with css
+  background-color: currentColor;
+  mask-size: contain;
+  -webkit-mask-size: contain;
+}
+
+.ph-info {
+  -webkit-mask-image: url(/img/icons/phosphor/info.svg);
+  mask-image: url(/img/icons/phosphor/info.svg);
+}
+
+.ph-x {
+  -webkit-mask-image: url(/img/icons/phosphor/x.svg);
+  mask-image: url(/img/icons/phosphor/x.svg);
+}
