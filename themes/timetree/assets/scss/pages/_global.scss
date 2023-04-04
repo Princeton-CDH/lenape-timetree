@@ -8,9 +8,17 @@ body {
   /* use grid layout to keep the footer on the bottom */
   min-height: 100vh;
   display: grid;
-  grid-template-rows: auto auto auto;
-  background-color: $body-bg-color;
+  grid-template-rows: $mobile_header_height auto $mobile_footer_height;
+  background-color: $nav-bg-color;
   color: $body-fg-color;
+
+  @include for-desktop-up {
+    grid-template-rows: $desktop_header_height auto $desktop_footer_height;
+  }
+
+  main {
+    background-color: $body-bg-color;
+  }
 }
 
 body > header,

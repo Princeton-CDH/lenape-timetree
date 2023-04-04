@@ -2,7 +2,8 @@
   {{ $section := .Site.GetPage "section" .Section }}
   <article>
     <header>
-      <aside>{{ .Params.branch }}</aside>
+      {{/* set class based on slug for branch name; remove The, + from branch names */}}
+      <aside class="{{ replace (replace .Params.branch  "The" "") "+" "" | urlize }}"><span>{{ .Params.branch }}</span></aside>
       <h1>{{- .Title -}}</h1>
       {{ with .Params.display_date }}
       <time>{{ . }}</time>
