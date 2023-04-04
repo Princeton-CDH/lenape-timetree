@@ -120,6 +120,7 @@ body.home main > aside {
     width: 100%;
     overflow-x: hidden;
     overflow-y: auto;
+    overflow-wrap: break-word;
     scroll-bar: thin;
     overscroll-behavior-x: contain;
     background-color: $nav-bg-color;
