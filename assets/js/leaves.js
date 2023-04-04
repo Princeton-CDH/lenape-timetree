@@ -86,34 +86,64 @@ class Leaf {
     return Leaf.getLeafTarget(target).dataset.url;
   }
 
-  static selectLeaf(event) {
-    // event handler to select leaf when leaf or label is clicked/tapped
-    Leaf.deselectAll();
+  // static selectLeaf(event) {
+  //   // event handler to select leaf when leaf or label is clicked/tapped
+  //   Leaf.deselectAll();
 
-    // visually highlight selected leaf in the tree
+  //   // visually highlight selected leaf in the tree
+  //   let target = Leaf.getLeafTarget(event.target);
+  //   // ensure both leaf and label are selected
+  //   Leaf.setLeafLabelClass(target.dataset.url, Leaf.selectedClass);
+
+  //   // update URL to reflect the currently selected leaf;
+  //   // replace the location & state to avoid polluting browser history
+  //   window.location.replace(`#${target.dataset.id}`);
+  //   history.replaceState(null, "", `#${target.dataset.id}`);
+
+  //   // load leaf details and display in the panel
+  //   fetch(target.dataset.url)
+  //     .then((response) => response.text())
+  //     .then((html) => {
+  //       let parser = new DOMParser();
+  //       const doc = parser.parseFromString(html, "text/html");
+  //       // Get the article content and insert into panel
+  //       const article = doc.querySelector("article");
+  //       const panel = document.querySelector("#leaf-details");
+  //       panel.querySelector("article").replaceWith(article);
+  //       // make sure panel is active
+  //       panel.parentElement.classList.add("show-details");
+  //       panel.parentElement.classList.remove("closed");
+  //     });
+  // }
+
+  static setCurrentLeaf(event) {
+    // get the actual leaf target from DOM
     let target = Leaf.getLeafTarget(event.target);
-    // ensure both leaf and label are selected
-    Leaf.setLeafLabelClass(target.dataset.url, Leaf.selectedClass);
+    // get leaf ID
+    let leafID = target.dataset.id;
+
+    // // ensure both leaf and label are selected
+    // Leaf.setLeafLabelClass(target.dataset.url, Leaf.selectedClass);
 
     // update URL to reflect the currently selected leaf;
     // replace the location & state to avoid polluting browser history
-    window.location.replace(`#${target.dataset.id}`);
-    history.replaceState(null, "", `#${target.dataset.id}`);
+    window.location.replace(`#${leafID}`);
+    history.replaceState(null, "", `#${leafID}`);
 
-    // load leaf details and display in the panel
-    fetch(target.dataset.url)
-      .then((response) => response.text())
-      .then((html) => {
-        let parser = new DOMParser();
-        const doc = parser.parseFromString(html, "text/html");
-        // Get the article content and insert into panel
-        const article = doc.querySelector("article");
-        const panel = document.querySelector("#leaf-details");
-        panel.querySelector("article").replaceWith(article);
-        // make sure panel is active
-        panel.parentElement.classList.add("show-details");
-        panel.parentElement.classList.remove("closed");
-      });
+    // // load leaf details and display in the panel
+    // fetch(target.dataset.url)
+    //   .then((response) => response.text())
+    //   .then((html) => {
+    //     let parser = new DOMParser();
+    //     const doc = parser.parseFromString(html, "text/html");
+    //     // Get the article content and insert into panel
+    //     const article = doc.querySelector("article");
+    //     const panel = document.querySelector("#leaf-details");
+    //     panel.querySelector("article").replaceWith(article);
+    //     // make sure panel is active
+    //     panel.parentElement.classList.add("show-details");
+    //     panel.parentElement.classList.remove("closed");
+    //   });
   }
 
   static highlightLeaf(event) {

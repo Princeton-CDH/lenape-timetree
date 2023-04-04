@@ -413,7 +413,7 @@ function TreeGraph({ nodes, links, centuries }) {
       return classes.join(" ");
     })
     // .text((d) => d.label.text)
-    .on("click", Leaf.selectLeaf)
+    .on("click", Leaf.setCurrentLeaf)
     .on("mouseover", Leaf.highlightLeaf)
     .on("mouseout", Leaf.unhighlightLeaf);
 
