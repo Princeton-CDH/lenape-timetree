@@ -386,7 +386,7 @@ function TreeGraph({ nodes, links, centuries }) {
       }
       return classes.join(" ");
     })
-    .on("click", Leaf.selectLeaf)
+    .on("click", Leaf.setCurrentLeaf)
     .on("mouseover", Leaf.highlightLeaf)
     .on("mouseout", Leaf.unhighlightLeaf);
 
@@ -606,7 +606,6 @@ asideContainer.addEventListener("click", (event) => {
   ) {
     event.preventDefault();
     event.stopPropagation();
-    // Leaf.selectByTag(element.textContent);
     Leaf.setCurrentTag(element.textContent);
   }
 });

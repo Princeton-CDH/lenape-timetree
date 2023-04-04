@@ -167,19 +167,6 @@ class Leaf {
     }
   }
 
-  static selectLeafByHash() {
-    // if (location.hash.startsWith("#")) {
-    //   let leaf = document.querySelector(
-    //     `path[data-id=${location.hash.slice(1)}]`
-    //   );
-    //   // if hash id corresponds to a leaf, select it
-    //   if (leaf != undefined) {
-    //     // simulate click event, sending leaf as event target
-    //     Leaf.selectLeaf({ target: leaf });
-    //   }
-    // }
-  }
-
   static closeLeafDetails() {
     const panel = document.querySelector("#leaf-details");
     panel.parentElement.classList.remove("show-details");
