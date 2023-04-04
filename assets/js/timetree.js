@@ -591,8 +591,8 @@ function TreeGraph({ nodes, links, centuries }) {
     }
   };
 
-  // check for presence of hash when page is first loaded and select leaf
-  Leaf.selectLeafByHash();
+  // check for presence of hash and/or tag when page is first loaded and select leaves
+  Leaf.updateSelection();
 }
 
 // bind a delegated click handler to override tag link behavior
