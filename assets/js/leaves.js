@@ -66,6 +66,13 @@ class Leaf {
     }
   }
 
+  static setCurrentTag(tag) {
+    // set URL to URL of self, with tag updated
+    let url = new URL(window.location.href);
+    url.searchParams.set("tag", tag);
+    history.replaceState(null, "", url.toString());
+  }
+
   static targetLeafURL(target) {
     // if the target is the tspan within text label, use parent element
     if (target.tagName == "tspan") {
