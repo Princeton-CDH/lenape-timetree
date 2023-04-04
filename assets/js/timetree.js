@@ -564,7 +564,7 @@ function TreeGraph({ nodes, links, centuries }) {
   function closePanel(panel) {
     panel.parentElement.classList.remove("show-details");
     panel.parentElement.classList.add("closed");
-    Leaf.deselectAll();
+    // Leaf.deselectAll();
     Leaf.closeLeafDetails();
   }
 
