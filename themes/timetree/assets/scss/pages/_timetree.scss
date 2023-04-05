@@ -38,6 +38,43 @@ body.home {
         max-width: 100%;
       }
 
+      // on mobile at default zoom level, don't show labels
+      #labels {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+
+        // always show labels on desktop
+        @include for-desktop-up {
+          opacity: 100%;
+        }
+      }
+
+      button.reset-zoom {
+        z-index: 10;
+        background-color: $nav-bg-color;
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        right: 8px;
+        top: -22px;
+        opacity: 0;
+        padding: 8px;
+        text-align: center;
+        cursor: pointer;
+
+        & .ph-arrows-in {
+          width: 22px;
+          height: 22px;
+          display: inline-block;
+        }
+      }
+
+      // show labels and reset button when zoomed
+      &.zoomed #labels,
+      &.zoomed .reset-zoom {
+        opacity: 100%;
+      }
+
       rect.century-container {
         fill: transparent;
       }
