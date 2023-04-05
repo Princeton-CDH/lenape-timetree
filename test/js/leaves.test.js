@@ -94,6 +94,13 @@ describe("Leaf", () => {
     beforeEach(() => {
       fetch.resetMocks();
 
+      // @NOTE: Document location getting changed by tests and not reset
+
+      // console.log('window location href', window.location.href);
+      // console.log('document location href', document.location.href);
+
+      // document.location.href = 'http://localhost/'
+
       document.body.innerHTML =
         "<div><svg>" +
         '  <path class="selected access battles" />' +
@@ -111,13 +118,24 @@ describe("Leaf", () => {
 
     test("deselects other leaves, selects both leaf path and label", () => {
       let targetLeaf = document.querySelector("path[data-id=munsee]");
+
+      console.log(window.location.href);
+
       // Leaf.deselectCurrent();
+      Leaf.setCurrentTag();
+
+      console.log(window.location.href);
+
       Leaf.setCurrentLeaf({ target: targetLeaf });
+
+      console.log(window.location.href);
 
       let selected = document.getElementsByClassName(Leaf.selectedClass);
 
       // ??? This is returning 6 instead of 2
-      // Array.from(selected).forEach((item) => { console.log('??', item, item.parentElement, item.textContent); });
+      Array.from(selected).forEach((item) => {
+        console.log("??", item, item.parentElement, item.textContent);
+      });
 
       // expect path and text to be selected
       expect(selected.length).toEqual(2);
