@@ -65,8 +65,8 @@ class Leaf {
     // set URL to URL of self
     let url = new URL(window.location.href);
 
-    // if no tag passed in, remove 'tag' param if it's set
-    if (tag == undefined && url.searchParams.has("tag")) {
+    // if no tag passed in, remove tag param
+    if (tag == undefined) {
       url.searchParams.delete("tag");
     } else {
       // if tag passed in, set it in url params

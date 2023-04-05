@@ -68,7 +68,7 @@ describe("Leaf", () => {
 
     test("updates window location", () => {
       window.location.replace("#lenape");
-      Leaf.setCurrentLeaf(undefined);
+      Leaf.setCurrentLeaf();
       expect(window.location.hash).toEqual(""); // does not include #
     });
   });
@@ -95,11 +95,7 @@ describe("Leaf", () => {
       fetch.resetMocks();
 
       // @NOTE: Document location getting changed by tests and not reset
-
-      // console.log('window location href', window.location.href);
-      // console.log('document location href', document.location.href);
-
-      // document.location.href = 'http://localhost/'
+      history.replaceState(null, "", "http://localhost/");
 
       document.body.innerHTML =
         "<div><svg>" +
@@ -119,23 +115,8 @@ describe("Leaf", () => {
     test("deselects other leaves, selects both leaf path and label", () => {
       let targetLeaf = document.querySelector("path[data-id=munsee]");
 
-      console.log(window.location.href);
-
-      // Leaf.deselectCurrent();
-      Leaf.setCurrentTag();
-
-      console.log(window.location.href);
-
       Leaf.setCurrentLeaf({ target: targetLeaf });
-
-      console.log(window.location.href);
-
       let selected = document.getElementsByClassName(Leaf.selectedClass);
-
-      // ??? This is returning 6 instead of 2
-      Array.from(selected).forEach((item) => {
-        console.log("??", item, item.parentElement, item.textContent);
-      });
 
       // expect path and text to be selected
       expect(selected.length).toEqual(2);
@@ -200,16 +181,18 @@ describe("Leaf", () => {
     test("does nothing if no hash is set but id is invalid", () => {
       window.location.replace("#bogus");
       Leaf.updateSelection();
-      expect(mockLeafSelect.mock.calls).toHaveLength(0);
+      // expect no elements to be highlighted
+      expect(
+        document.getElementsByClassName(Leaf.selectedClass).length
+      ).toEqual(0);
     });
 
     test("selects leaf if hash is set to valid leaf id", () => {
       window.location.replace("#munsee");
       Leaf.updateSelection();
-      expect(mockLeafSelect.mock.calls).toHaveLength(1);
       let targetLeaf = document.querySelector("path[data-id=munsee]");
-      // should be called with target leaf as argument
-      expect(mockLeafSelect.mock.calls[0][0]).toEqual({ target: targetLeaf });
+      // target leaf should have selected class
+      expect(targetLeaf.classList).toContain(Leaf.selectedClass);
     });
   });
 
