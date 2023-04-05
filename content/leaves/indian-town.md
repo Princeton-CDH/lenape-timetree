@@ -6,7 +6,6 @@ tags:
 - Recognition
 - renaming
 - state governments
-- resurgence
 title: "\u201CIndian Town\u201D"
 ---
 

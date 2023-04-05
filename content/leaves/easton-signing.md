@@ -4,7 +4,6 @@ display_date: 1754 - 1763
 sort_date: 1754
 tags:
 - treaties
-- resistance
 - alliance
 - deception
 title: Easton Signing

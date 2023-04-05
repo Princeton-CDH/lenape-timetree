@@ -5,7 +5,7 @@ display_title: Honorary Degree
 sort_date: 2001
 tags:
 - US Government
-- resurgence
+- recognition
 title: Dr. Kevin Gover
 ---
 

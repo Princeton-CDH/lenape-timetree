@@ -4,7 +4,7 @@ display_date: 2019
 display_title: Conference
 sort_date: 2019
 tags:
-- resurgence
+- alliances
 - Indigenous studies
 title: Indigenous/Settler Conference
 ---

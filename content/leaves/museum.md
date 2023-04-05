@@ -4,7 +4,7 @@ display_date: 1976-1982
 sort_date: 1976
 tags:
 - state governments
-- resurgence
+- recognition
 title: Museum
 ---
 

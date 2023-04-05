@@ -4,7 +4,7 @@ display_date: 2019
 display_title: Advocacy
 sort_date: 2019
 tags:
-- resurgence
+
 - Indigenous studies
 - Native students
 - alliances

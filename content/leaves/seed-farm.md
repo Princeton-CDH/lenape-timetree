@@ -4,7 +4,7 @@ display_date: 2021-
 display_title: Seed Farm
 sort_date: 2021
 tags:
-- resurgence
+- art and culture
 - alliances
 title: The Seed Farm
 ---

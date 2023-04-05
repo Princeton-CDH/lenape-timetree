@@ -5,7 +5,7 @@ display_title: Occupation
 sort_date: 1778
 tags:
 - Colonial governments
-- resistance
+- activism
 - affinity
 - campus buildings
 title: Prospect Occupation

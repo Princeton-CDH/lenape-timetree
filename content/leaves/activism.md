@@ -4,7 +4,7 @@ display_date: 1973
 display_title: Activism
 sort_date: 1973
 tags:
-- resistance
+- activism
 - US Government
 title: Native Faculty
 ---

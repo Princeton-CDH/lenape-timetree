@@ -3,7 +3,8 @@ branch: The University
 display_date: 2021-
 sort_date: 2021
 tags:
-- resurgence
+- art and culture
+- recognition
 - Indigenous Studies
 title: NAISIP Founded
 ---

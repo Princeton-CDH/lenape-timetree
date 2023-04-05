@@ -3,8 +3,8 @@ branch: Resistance + Resurgence
 display_date: 2006
 sort_date: 2006
 tags:
-- Redress
-- resistance
+- redress
+- activism
 - deception
 - US government
 title: Lawsuit

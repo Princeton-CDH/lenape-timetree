@@ -4,7 +4,7 @@ display_date: 2022-
 display_title: Language Alliance
 sort_date: 2022
 tags:
-- resurgence
+- alliance
 - affinity
 - language revitalization
 title: Indigenous Language Alliance

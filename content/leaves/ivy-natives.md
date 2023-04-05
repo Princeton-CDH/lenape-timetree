@@ -7,7 +7,7 @@ display_date: 2017
 display_title: Ivy Natives
 sort_date: 2017
 tags:
-- resurgence
+- Indigenous studies
 - Native students
 title: Ivy Native Council
 ---

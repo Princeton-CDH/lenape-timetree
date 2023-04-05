@@ -6,7 +6,6 @@ sort_date: 1758
 tags:
 - Ohio Country
 - alliances
-- resistance
 - land purchases
 - colonial governments
 - treaties

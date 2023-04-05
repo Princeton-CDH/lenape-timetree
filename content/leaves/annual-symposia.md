@@ -4,7 +4,6 @@ display_date: 2021-
 display_title: Annual Symposia
 sort_date: 2021
 tags:
-- resurgence
 - Indigenous Studies
 - language revitalization
 - alliances

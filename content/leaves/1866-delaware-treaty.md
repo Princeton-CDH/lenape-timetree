@@ -6,7 +6,6 @@ tags:
 - treaties
 - Native students
 - Cherokee
-- resistance
 - alliances
 - Ohio Country
 title: 1866 Delaware Treaty

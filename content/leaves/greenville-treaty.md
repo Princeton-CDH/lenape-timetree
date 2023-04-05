@@ -6,7 +6,7 @@ sort_date: 1795
 tags:
 - removals
 - treaties
-- resistance
+- alliances
 - land purchases
 - US government
 - battles
