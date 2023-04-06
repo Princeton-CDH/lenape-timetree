@@ -242,12 +242,9 @@ class TimeTree {
 
     // create a section for the background
     let background = svg.append("g").attr("id", "background");
-    // visual debugging layer
-    const debugLayer = svg.append("g").attr("id", "debug").style("opacity", 0); // not visibly by default
 
     this.svg = svg;
     this.background = background;
-    this.debugLayer = debugLayer;
 
     // create containers for the leaves by century
     const leafContainerHeight = 80;
@@ -451,12 +448,83 @@ class TimeTree {
       })
       .attr("dy", LeafLabel.lineHeight); // delta-y : relative position based on line height
 
+    this.visualDebug();
+
     // only position once after simulation has run
     let timetree = this;
     simulation.on("tick", (sim) => {
       timetree.updatePositions();
     });
     simulation.tick();
+  }
+
+  visualDebug() {
+    // visual debugging for layout
+    this.debugLayer = this.svg
+      .append("g")
+      .attr("id", "debug")
+      .style("opacity", 0); // not visible by default
+
+    // draw circles and lines in a debug layer that can be shown or hidden;
+    // circle size for leaf matches radius used for collision
+    // avoidance in the network layout
+    this.debugLayer
+      .selectAll("circle.debug")
+      .data(this.network.nodes)
+      .join("circle")
+      .attr(
+        "class",
+        (d) => `debug debug-${d.type} dbg-${getBranchStyle(d.branch) || ""}`
+      )
+      .attr("cx", (d) => d.x)
+      .attr("cy", (d) => d.y)
+      .attr("r", (d) => {
+        if (d.type == "leaf") {
+          // return leafSize.width - 5;
+          return leafSize.width;
+        }
+        // note: this is larger than collision radius, increase size for visibility
+        return 5; // for branch nodes
+      });
+
+    // add lines for links within the network to the debug layer
+    this.simulationLinks = this.debugLayer
+      .append("g")
+      .selectAll("line")
+      .data(this.network.links)
+      .join("line")
+      .attr("class", (d) => {
+        return `${d.type || ""} dbg-${getBranchStyle(d.branch) || ""}`;
+      });
+
+    this.debugLayer
+      .selectAll("line.debug-branch")
+      .data(Object.keys(this.branchCoords))
+      .join("line")
+      .attr("class", (d) => {
+        return `debug-branch-x dbg-${getBranchStyle(d)}`;
+      })
+      .attr("x1", (d) => this.branchCoords[d])
+      .attr("y1", this.min_y)
+      .attr("x2", (d) => this.branchCoords[d])
+      .attr("y2", this.max_y);
+
+    // add debug controls
+    let debugLayerControls = {
+      // control id => layer id
+      "debug-visible": "#debug",
+      "leaf-visible": ".nodes",
+      "label-visible": "#labels",
+    };
+
+    // When the debug range inputs change, update the opacity for
+    //the corresponding layer
+    d3.selectAll("#debug-controls input").on("input", function () {
+      d3.selectAll(debugLayerControls[this.id]).style(
+        "opacity",
+        `${this.value}%`
+      );
+    });
   }
 
   centuryY(node) {
@@ -510,11 +578,12 @@ class TimeTree {
       // return `translate(${d.x} ${d.y})`;
     });
 
-    // link
-    //   .attr("x1", (d) => d.source.x)
-    //   .attr("y1", (d) => d.source.y)
-    //   .attr("x2", (d) => d.target.x)
-    //   .attr("y2", (d) => d.target.y);
+    // todo: if debug
+    this.simulationLinks
+      .attr("x1", (d) => d.source.x)
+      .attr("y1", (d) => d.source.y)
+      .attr("x2", (d) => d.target.x)
+      .attr("y2", (d) => d.target.y);
   }
 }
 
