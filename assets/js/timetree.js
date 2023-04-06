@@ -79,8 +79,10 @@ class TimeTree {
     this.panel = new Panel();
     Leaf.bindHandlers();
     this.drawTimeTree();
-    // update selection to reflect any tag or leaf hash in the url on load
+    // make tag list available on leaf object
+    // (currently needed to update active tag button)
     Leaf.tags = tags;
+    // update selection to reflect active tag and/or leaf hash in url on page load
     Leaf.updateSelection();
   }
 
