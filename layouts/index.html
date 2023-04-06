@@ -4,7 +4,7 @@
 {{ $params := (dict "is_production" hugo.IsProduction ) }}
 {{ $sourceMap := cond hugo.IsProduction "" "inline" }}
 {{ $buildOptions := dict "sourceMap" $sourceMap "minify" hugo.IsProduction "target" "es2018" "params" $params }}
-{{ $js := resources.Get "js/timetree.js" | js.Build $buildOptions | fingerprint }}
+{{ $js := resources.Get "js/main.js" | js.Build $buildOptions | fingerprint }}
 
 <div id="timetree">
 
