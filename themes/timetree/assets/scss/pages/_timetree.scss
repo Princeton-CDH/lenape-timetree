@@ -1,5 +1,6 @@
 @import "components/leaves";
 @import "components/panel";
+@import "components/tags";
 
 body.home {
   main {
@@ -178,32 +179,25 @@ body.home {
       font-weight: 900;
     }
   }
+}
 
-  #current-tag {
-    opacity: 0;
-    display: block;
-    width: 100%;
-    // background-color: yellow;
+// when a tag is active, make all other leaves labels inactive
+// (lower opacity, non-interactive)
+.tag-active {
+  path.leaf:not(.select):not(.highlight),
+  text.leaf-label:not(.select):not(.highlight) {
+    opacity: 0.4;
+    pointer-events: none;
   }
 
-  &.tag-active {
-    // when a tag is active, make all other leaves labels inactive
-    // (lower opacity, non-interactive)
+  text.leaf-label:not(.select):not(.highlight) {
+    opacity: 0; // hide other labels entirely or just lower opacity?
+    pointer-events: none;
+  }
 
-    path.leaf:not(.select):not(.highlight),
-    text.leaf-label:not(.select):not(.highlight) {
-      opacity: 0.4;
-      pointer-events: none;
-    }
-
-    text.leaf-label:not(.select):not(.highlight) {
-      opacity: 0; // hide other labels entirely or just lower opacity?
-      pointer-events: none;
-    }
-
-    #current-tag {
-      opacity: 100%;
-    }
+  // when a tag is active, display the current tag button
+  #current-tag {
+    opacity: 100%;
   }
 }
 
@@ -213,21 +207,6 @@ a:link,
 a:hover,
 a:visited {
   color: $nearwhite;
-}
-
-.tags a {
-  display: inline-block;
-  text-decoration: none;
-  margin: 0 12px 12px 0;
-  padding: 9px 12px;
-  background-color: $lightgray;
-  color: $nearblack;
-
-  font-size: 16px;
-  line-height: 22px;
-  @include for-desktop-up {
-    font-size: 18px;
-  }
 }
 
 // provisional styles to delimit leaves on tag list page

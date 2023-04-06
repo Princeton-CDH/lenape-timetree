@@ -1,0 +1,51 @@
+$tag-color: (
+  "default": #e1d0ca,
+  "hover": #fcede8,
+  "active": #ffdacc,
+);
+
+.tags a {
+  display: inline-block;
+  text-decoration: none;
+  margin: 0 12px 12px 0;
+  padding: 9px 12px;
+  background-color: map-get($tag-color, "default");
+  color: $nearblack;
+  border-radius: 4px;
+
+  font-size: 16px;
+  line-height: 22px;
+  @include for-desktop-up {
+    font-size: 18px;
+  }
+
+  // text should always be black (override regular links)
+  &:link,
+  &:hover,
+  &:visited {
+    color: $nearblack;
+  }
+
+  &:hover {
+    background-color: map-get($tag-color, "hover");
+  }
+
+  &:focus {
+    // outline instead of border so size is not affected
+    outline: 3px solid black;
+  }
+
+  &.active {
+    background-color: map-get($tag-color, "active");
+  }
+}
+
+// button displayed for current tag, when a tag is active
+#current-tag {
+  color: $nearblack;
+  display: block;
+  width: 100%;
+  background-color: map-get($tag-color, "active");
+
+  opacity: 0; // hidden by default; visible only when a tag is active
+}
