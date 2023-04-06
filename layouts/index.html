@@ -10,6 +10,7 @@
 
   <data class="leaf-data" value='{{ partial "leaf_data.json" . }}'></data>
   <data class="tag-data" value='{{ partial "tags.json" . }}'></data>
+  <data class="env-data" value="{{ dict "env" hugo.Environment | jsonify }}"/>
 </div>
 
 <aside>

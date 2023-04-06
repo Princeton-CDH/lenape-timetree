@@ -65,12 +65,14 @@ const forceStrength = {
 };
 
 class TimeTree {
-  constructor(leaves, tags) {
-    // TODO: debug on/off option here also
-
+  constructor(leaves, tags, debug) {
     this.leaves = leaves; // input leaf data from
     this.tags = tags; // dict of tags keyed on slug
-    this.checkLeafData(); // TODO: only if debug / not production
+    // debugging should only be enabled in development; set based on hugo environment
+    this.debug = debug === true;
+    if (this.debug) {
+      this.checkLeafData();
+    }
 
     this.centuries = this.getCenturies();
     this.leavesByBranch = this.sortAndGroupLeaves();
@@ -448,7 +450,9 @@ class TimeTree {
       })
       .attr("dy", LeafLabel.lineHeight); // delta-y : relative position based on line height
 
-    this.visualDebug();
+    if (this.debug) {
+      this.visualDebug();
+    }
 
     // only position once after simulation has run
     let timetree = this;
@@ -578,12 +582,14 @@ class TimeTree {
       // return `translate(${d.x} ${d.y})`;
     });
 
-    // todo: if debug
-    this.simulationLinks
-      .attr("x1", (d) => d.source.x)
-      .attr("y1", (d) => d.source.y)
-      .attr("x2", (d) => d.target.x)
-      .attr("y2", (d) => d.target.y);
+    // links are only displayed for debugging
+    if (this.debug) {
+      this.simulationLinks
+        .attr("x1", (d) => d.source.x)
+        .attr("y1", (d) => d.source.y)
+        .attr("x2", (d) => d.target.x)
+        .attr("y2", (d) => d.target.y);
+    }
   }
 }
 
