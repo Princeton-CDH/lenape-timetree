@@ -77,7 +77,11 @@ class TimeTree {
     this.network = this.generateNetwork();
 
     this.panel = new Panel();
+    Leaf.bindHandlers();
     this.drawTimeTree();
+    // update selection to reflect any tag or leaf hash in the url on load
+    Leaf.tags = tags;
+    Leaf.updateSelection();
   }
 
   getCenturies() {
