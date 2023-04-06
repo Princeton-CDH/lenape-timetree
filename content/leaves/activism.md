@@ -9,4 +9,4 @@ tags:
 title: Native Faculty
 ---
 
-Princeton Anthropology Professor Alfonso Ortiz (Ohkay Owingeh Pueblo) publicly supports the American Indian Movement occupation of Wounded Knee. Ortiz originally joined the faculty in 1967.
+Princeton Anthropology Professor Alfonso Ortiz (Ohkay Owingeh Pueblo) publicly supports the American Indian Movement occupation of Wounded Knee. Ortiz originally joined the faculty in 1967 and actively recruited undergraduates from the Southwest, many of whom lived on reservations.
