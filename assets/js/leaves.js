@@ -41,9 +41,10 @@ function cointoss() {
 class Leaf {
   // constant for selection classname
   static selectedClass = "select";
+  static highlightClass = "highlight";
 
   static setCurrentLeaf(event) {
-    // Are we removing the leaf?
+    // Are we deselecting a leaf?
     if (event == undefined) {
       // remove hash
       let urlNoHash = window.location.pathname + window.location.search;
@@ -62,15 +63,21 @@ class Leaf {
   }
 
   static setCurrentTag(tag) {
-    // set URL to URL of self
+    // parse the curent url
     let url = new URL(window.location.href);
+    // add/remove active tag indicator to container
+    // so css can be used to disable untagged leaves
+    let container = document.querySelector("body");
 
     // if no tag passed in, remove tag param
     if (tag == undefined) {
       url.searchParams.delete("tag");
+      container.classList.remove("tag-active");
     } else {
       // if tag passed in, set it in url params
       url.searchParams.set("tag", tag);
+      container.classList.add("tag-active");
+      // todo: display current tag in tag button
     }
     // update url in history
     history.replaceState(null, "", url.toString());
@@ -98,6 +105,10 @@ class Leaf {
     Array.from(selected).forEach((item) => {
       item.classList.remove(Leaf.selectedClass);
     });
+    let highlighted = document.getElementsByClassName(Leaf.highlightClass);
+    Array.from(highlighted).forEach((item) => {
+      item.classList.remove(Leaf.highlightClass);
+    });
   }
 
   static updateSelection() {
@@ -109,12 +120,16 @@ class Leaf {
     // deselect any current
     Leaf.deselectCurrent();
 
-    // if tag set, select those
+    // if tag set, highlight associated leaves and labels
     if (tagID) {
       let leaves = document.getElementsByClassName(tagID);
       for (let item of leaves) {
-        item.classList.add(Leaf.selectedClass);
+        item.classList.add(Leaf.highlightClass);
       }
+      // add indicator to container to disable untagged leaves
+      document.querySelector("body").classList.add("tag-active");
+    } else {
+      document.querySelector("body").classList.remove("tag-active");
     }
 
     // if hash set, select leaf
