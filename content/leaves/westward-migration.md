@@ -1,10 +1,11 @@
 ---
-branch: Lands + Waters
+branch: Removals
 display_date: 1737
 sort_date: 1737
 tags:
 - deception
-- removals
+- dispossesion
+- migration
 - Ohio Country
 title: Westward Migration
 ---

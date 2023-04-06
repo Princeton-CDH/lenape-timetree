@@ -3,7 +3,7 @@ branch: Removals
 display_date: 1748
 sort_date: 1748
 tags:
-- removals
+- migration
 title: Unami Migration
 ---
 

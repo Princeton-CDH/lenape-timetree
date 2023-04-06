@@ -4,7 +4,6 @@ display_date: 1795
 display_title: Greenville Treaty
 sort_date: 1795
 tags:
-- removals
 - treaties
 - alliances
 - land purchases

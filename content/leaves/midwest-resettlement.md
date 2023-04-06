@@ -3,7 +3,7 @@ branch: Removals
 display_date: 1750s
 sort_date: 1750
 tags:
-- removals
+- migration
 - renaming
 - Iroquois
 - Ohio Country

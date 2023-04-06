@@ -4,7 +4,7 @@ display_date: 1840-
 display_title: Wisconsin Munsee
 sort_date: 1840
 tags:
-- removals
+- migration
 - Midwest
 - reservations
 - religion

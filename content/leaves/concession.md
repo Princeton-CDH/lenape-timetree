@@ -3,9 +3,9 @@ branch: Lands + Waters
 display_date: 1737
 sort_date: 1737
 tags:
-- Activism
+- activism
 - Iroquois
-- removals
+- alliances
 - Ohio Country
 - colonial governments
 title: Concession
