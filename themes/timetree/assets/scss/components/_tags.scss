@@ -46,6 +46,31 @@ $tag-color: (
   display: block;
   width: 100%;
   background-color: map-get($tag-color, "active");
+  text-align: center;
 
   opacity: 0; // hidden by default; visible only when a tag is active
+
+  @include for-desktop-up {
+    border-radius: 4px;
+    width: auto;
+    text-align: left;
+  }
+
+  span {
+    line-height: 40px;
+    padding: 0 12px;
+  }
+
+  .close {
+    float: right;
+    display: inline-block;
+    cursor: pointer;
+    padding: 10px;
+    border-left: 2px solid $body-bg-color;
+
+    i {
+      width: 20px;
+      height: 20px;
+    }
+  }
 }

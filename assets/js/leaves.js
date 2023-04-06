@@ -77,7 +77,7 @@ class Leaf {
       // if tag passed in, set it in url params
       url.searchParams.set("tag", tag);
       container.classList.add("tag-active");
-      // todo: display current tag in tag button
+      // todo: display current tag in tag button; requires taglist
     }
     // update url in history
     history.replaceState(null, "", url.toString());
