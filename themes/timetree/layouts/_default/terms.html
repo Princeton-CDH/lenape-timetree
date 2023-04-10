@@ -5,7 +5,7 @@
         <ul>
           {{ range .Data.Terms.Alphabetical }}
           {{/* use the last portion of the permalink to get the slug for the tag */}}
-          <li><a href="{{ .Page.Site.BaseURL }}?tag={{ .Page.RelPermalink | path.Base }}">{{ .Page.Title }}</a> ({{ .Count }})
+          <li><a href="{{ relURL "" }}?tag={{ .Page.RelPermalink | path.Base }}">{{ .Page.Title }}</a> ({{ .Count }})
            </li>
           {{ end }}
         </ul>
