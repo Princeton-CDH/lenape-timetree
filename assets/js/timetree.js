@@ -464,8 +464,9 @@ class TimeTree {
 
   visualDebug() {
     // visual debugging for layout
+    // insert under other layers to avoid interfering with click/touch/hover
     this.debugLayer = this.svg
-      .append("g")
+      .insert("g", "#background")
       .attr("id", "debug")
       .style("opacity", 0); // not visible by default
 
