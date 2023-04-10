@@ -41,9 +41,34 @@ function cointoss() {
 class Leaf {
   // constant for selection classname
   static selectedClass = "select";
+  static highlightClass = "highlight";
+
+  static bindHandlers() {
+    // bind a delegated click handler to override tag link behavior
+    const asideContainer = document.querySelector("aside");
+    asideContainer.addEventListener("click", (event) => {
+      let element = event.target;
+      // if click target is a link in the tags section, select leaves for that tag
+      if (
+        element.tagName == "A" &&
+        element.parentElement.classList.contains("tags")
+      ) {
+        event.preventDefault();
+        event.stopPropagation();
+        Leaf.setCurrentTag(element.dataset.tag);
+        element.classList.add(Leaf.selectedClass);
+      }
+    });
+
+    // bind handler to current tag x button to deactivate tag
+    const activeTagClose = document.querySelector("#current-tag .close");
+    activeTagClose.addEventListener("click", (event) => {
+      Leaf.setCurrentTag();
+    });
+  }
 
   static setCurrentLeaf(event) {
-    // Are we removing the leaf?
+    // Are we deselecting a leaf?
     if (event == undefined) {
       // remove hash
       let urlNoHash = window.location.pathname + window.location.search;
@@ -62,15 +87,21 @@ class Leaf {
   }
 
   static setCurrentTag(tag) {
-    // set URL to URL of self
+    // parse the curent url
     let url = new URL(window.location.href);
+    // add/remove active tag indicator to container
+    // so css can be used to disable untagged leaves
+    let container = document.querySelector("body");
 
     // if no tag passed in, remove tag param
     if (tag == undefined) {
       url.searchParams.delete("tag");
+      container.classList.remove("tag-active");
     } else {
       // if tag passed in, set it in url params
       url.searchParams.set("tag", tag);
+      container.classList.add("tag-active");
+      // todo: display current tag in tag button; requires taglist
     }
     // update url in history
     history.replaceState(null, "", url.toString());
@@ -98,6 +129,10 @@ class Leaf {
     Array.from(selected).forEach((item) => {
       item.classList.remove(Leaf.selectedClass);
     });
+    let highlighted = document.getElementsByClassName(Leaf.highlightClass);
+    Array.from(highlighted).forEach((item) => {
+      item.classList.remove(Leaf.highlightClass);
+    });
   }
 
   static updateSelection() {
@@ -109,15 +144,26 @@ class Leaf {
     // deselect any current
     Leaf.deselectCurrent();
 
-    // if tag set, select those
+    // deselect any previously active tags
+    Array.from(document.querySelectorAll(".tags a")).forEach((el) => {
+      el.classList.remove(Leaf.selectedClass);
+    });
     if (tagID) {
       let leaves = document.getElementsByClassName(tagID);
       for (let item of leaves) {
-        item.classList.add(Leaf.selectedClass);
+        item.classList.add(Leaf.highlightClass);
       }
+      // add indicator to container to disable untagged leaves
+      document.querySelector("body").classList.add("tag-active");
+
+      let currentTag = document.querySelector("#current-tag span");
+      currentTag.textContent = Leaf.tags[tagID];
+    } else {
+      document.querySelector("body").classList.remove("tag-active");
     }
 
     // if hash set, select leaf
+    // (load leaf first so if there is a current tag it can be set to active)
     if (leafHash && leafHash.startsWith("#")) {
       let leafID = leafHash.slice(1);
       let leafTarget = document.querySelector(`path[data-id=${leafID}]`);
@@ -126,13 +172,22 @@ class Leaf {
         // actually make selection
         Leaf.setLeafLabelClass(leafTarget.dataset.url, Leaf.selectedClass);
         // open panel
-        Leaf.openLeafDetails(leafTarget);
+        Leaf.openLeafDetails(leafTarget, tagID);
       }
     }
   }
 
-  static openLeafDetails(leafTarget) {
+  static openLeafDetails(leafTarget, activeTag) {
     // load leaf details and display in the panel
+    const panel = document.querySelector("#leaf-details");
+
+    // if details for this leaf have already been loaded, do nothing
+    if (
+      panel.dataset.showing &&
+      panel.dataset.showing == leafTarget.dataset.url
+    ) {
+      return;
+    }
     fetch(leafTarget.dataset.url)
       .then((response) => response.text())
       .then((html) => {
@@ -140,11 +195,25 @@ class Leaf {
         const doc = parser.parseFromString(html, "text/html");
         // Get the article content and insert into panel
         const article = doc.querySelector("article");
-        const panel = document.querySelector("#leaf-details");
+
+        // if an active tag is specifed, mark as selected
+        if (activeTag != undefined) {
+          let articleTag = article.querySelector(
+            `.tags a[data-tag=${activeTag}]`
+          );
+          if (articleTag) {
+            articleTag.classList.add(Leaf.selectedClass);
+          }
+        }
+
         panel.querySelector("article").replaceWith(article);
+        // scroll to the top, in case previous leaf was scrolled
+        panel.scrollTop = 0;
         // make sure panel is active
         panel.parentElement.classList.add("show-details");
         panel.parentElement.classList.remove("closed");
+        // store current leaf url in a data attribute so we can check for reload
+        panel.dataset.showing = leafTarget.dataset.url;
       });
   }
 
@@ -173,8 +242,10 @@ class Leaf {
     const panel = document.querySelector("#leaf-details");
     panel.parentElement.classList.remove("show-details");
     panel.parentElement.classList.add("closed");
+
     Leaf.setCurrentLeaf();
     Leaf.closeTag();
+    delete panel.dataset.showing;
   }
 
   static closeTag() {

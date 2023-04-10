@@ -1,5 +1,6 @@
 @import "components/leaves";
 @import "components/panel";
+@import "components/tags";
 
 body.home {
   main {
@@ -14,7 +15,9 @@ body.home {
       column-gap: 38px; // space between panel and timetree
       padding: 30px 40px 0 0; // right margin outside the panel
 
-      max-height: calc(
+      // set height exactly so container
+      // won't change for shorter/longer leaf details in panel
+      height: calc(
         100vh - #{$desktop_header_height} - #{$desktop_footer_height}
       );
     }
@@ -70,6 +73,7 @@ body.home {
 
         // selected (active state)
         &.select,
+        &.highlight,   // highlight = selected tag but not selected leaf
         &:hover,
         &:focus,
         &:active,
@@ -82,6 +86,10 @@ body.home {
             drop-shadow(4px 0px 8px $glow);
 
           outline: none; // disable browser default focus outline box
+        }
+
+        &.highlight:not(.select) {
+          stroke-width: 0;
         }
 
         &:focus-visible {
@@ -175,27 +183,32 @@ body.home {
   }
 }
 
+// when a tag is active, make all other leaves labels inactive
+// (lower opacity, non-interactive)
+.tag-active {
+  path.leaf:not(.select):not(.highlight),
+  text.leaf-label:not(.select):not(.highlight) {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  text.leaf-label:not(.select):not(.highlight) {
+    opacity: 0; // hide other labels entirely or just lower opacity?
+    pointer-events: none;
+  }
+
+  // when a tag is active, display the current tag button
+  #current-tag {
+    opacity: 100%;
+  }
+}
+
 // make link color visible
 a,
 a:link,
 a:hover,
 a:visited {
   color: $nearwhite;
-}
-
-.tags a {
-  display: inline-block;
-  text-decoration: none;
-  margin: 0 12px 12px 0;
-  padding: 9px 12px;
-  background-color: $lightgray;
-  color: $nearblack;
-
-  font-size: 16px;
-  line-height: 22px;
-  @include for-desktop-up {
-    font-size: 18px;
-  }
 }
 
 // provisional styles to delimit leaves on tag list page

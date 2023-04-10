@@ -73,7 +73,11 @@ describe("Leaf", () => {
     });
   });
 
-  test("select by tag sets selected class on leaves and labels", () => {
+  test("select by tag sets highlight class on leaves and labels", () => {
+    // patch in test tag list
+    Leaf.tags = {
+      battles: "Battles",
+    };
     document.body.innerHTML =
       "<div><svg>" +
       '  <path class="access battles" />' +
@@ -82,10 +86,11 @@ describe("Leaf", () => {
       '  <path class="battles" />' +
       '  <text class="access battles">label</text> />' +
       '  <text class="food access">label</text> />' +
-      "</svg></div>";
+      "</svg></div>" +
+      "<div id='current-tag'><span/></div>";
     Leaf.setCurrentTag("battles");
-    // expect 3 paths and one label to be selected
-    expect(document.getElementsByClassName(Leaf.selectedClass).length).toEqual(
+    // expect 3 paths and one label to be highlighted
+    expect(document.getElementsByClassName(Leaf.highlightClass).length).toEqual(
       4
     );
   });
@@ -94,7 +99,7 @@ describe("Leaf", () => {
     beforeEach(() => {
       fetch.resetMocks();
 
-      // @NOTE: Document location getting changed by tests and not reset
+      // reset document location, since some tests update it
       history.replaceState(null, "", "http://localhost/");
 
       document.body.innerHTML =
@@ -107,6 +112,7 @@ describe("Leaf", () => {
         '  <text class="food access">label</label> />' +
         '  <text class="food access" data-id="munsee" data-url="/leaves/munsee/"><tspan>munsee</tspan></text>' +
         "</svg></div>" +
+        "<div id='current-tag'><span/></div>" +
         '<div id="leaf-details">' +
         "  <article/>" +
         "</div>";

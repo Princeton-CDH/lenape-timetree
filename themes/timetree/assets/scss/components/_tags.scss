@@ -1,0 +1,78 @@
+$tag-color: (
+  "default": #e1d0ca,
+  "hover": #fcede8,
+  "active": #ffdacc,
+);
+
+.tags a {
+  display: inline-block;
+  text-decoration: none;
+  margin: 0 12px 12px 0;
+  padding: 9px 12px;
+  background-color: map-get($tag-color, "default");
+  color: $nearblack;
+  border-radius: 4px;
+
+  font-size: 16px;
+  line-height: 22px;
+  @include for-desktop-up {
+    font-size: 18px;
+  }
+
+  // text should always be black (override regular links)
+  &:link,
+  &:hover,
+  &:visited {
+    color: $nearblack;
+  }
+
+  &:hover {
+    background-color: map-get($tag-color, "hover");
+  }
+
+  &:focus-visible,
+  &:active {
+    // use outline instead of border so size is not affected
+    outline: 3px solid black;
+  }
+
+  &.select {
+    // user-selected, currently active tag
+    background-color: map-get($tag-color, "active");
+  }
+}
+
+// button displayed for current tag, when a tag is active
+#current-tag {
+  color: $nearblack;
+  display: block;
+  width: 100%;
+  background-color: map-get($tag-color, "active");
+  text-align: center;
+
+  opacity: 0; // hidden by default; visible only when a tag is active
+
+  @include for-desktop-up {
+    border-radius: 4px;
+    width: auto;
+    text-align: left;
+  }
+
+  span {
+    line-height: 40px;
+    padding: 0 12px;
+  }
+
+  .close {
+    float: right;
+    display: inline-block;
+    cursor: pointer;
+    padding: 10px;
+    border-left: 2px solid $body-bg-color;
+
+    i {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
