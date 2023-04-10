@@ -7,7 +7,7 @@
 {{ $js := resources.Get "js/main.js" | js.Build $buildOptions | fingerprint }}
 
 <div id="timetree">
-  <button class="reset-zoom" aria-label="reset zoom to default"><i class="ph-arrows-in" aria-hidden="true"></i></button>
+  <button class="reset-zoom" aria-label="reset zoom to default"><i class="ph-arrows-in ph-fill" aria-hidden="true"></i></button>
   <data class="leaf-data" value='{{ partial "leaf_data.json" . }}'></data>
   <data class="tag-data" value='{{ partial "tags.json" . }}'></data>
   <data class="env-data" value="{{ dict "env" hugo.Environment | jsonify }}"/>
