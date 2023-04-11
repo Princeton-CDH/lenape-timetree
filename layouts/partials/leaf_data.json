@@ -7,7 +7,13 @@
 	{{ range .Pages }}
 		{{/* create page info dict with expected/required values */}}
 		{{/* file basename without extension = slug = id */}}
-		{{ $pageInfo := dict "url" .RelPermalink "id" .File.TranslationBaseName "display_date" .Params.display_date "sort_date" .Params.sort_date "tags" .Params.tags "text" .Plain }}
+		{{ $pageInfo := dict "url" .RelPermalink "id" .File.TranslationBaseName "display_date" .Params.display_date "sort_date" .Params.sort_date "text" .Plain }}
+		{{/* convert tags to slug form */}}
+		{{ $tags := slice }}
+		{{ range .Params.tags }}
+			{{ $tags = append $tags (slice (urlize .)) }}
+		{{ end }}
+		{{ $pageInfo = merge $pageInfo (dict "tags" $tags) }}
 		{{/* set optional values  */}}
 		{{ with .Title }}
 			{{ $pageInfo = merge $pageInfo (dict "title" . ) }}

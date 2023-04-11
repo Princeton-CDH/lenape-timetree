@@ -10,6 +10,10 @@ params:
     Princeton University community and the Lenape peoples
     of Lunaapahkiing, “the land of the Lenape.” .
 
+# disable categories taxonomy included by default
+taxonomies:
+  tag: tags
+
 outputs:
   home:
     - HTML

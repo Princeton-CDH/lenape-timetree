@@ -1,6 +1,6 @@
 <div class="tags">
   {{ range .Params.tags }}
-     <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}">
+     <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" data-tag="{{ urlize . }}">
        {{- . -}}
      </a>
   {{ end }}
