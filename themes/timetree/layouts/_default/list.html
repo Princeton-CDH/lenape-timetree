@@ -1,0 +1,15 @@
+{{ define "main" }}
+  <article class="container">
+    <section>
+      {{- .Content -}}
+    </section>
+    <section>
+      {{ range .Paginator.Pages }}
+        <div>
+          {{ .Render "summary" }}
+        </div>
+      {{ end }}
+    </section>
+    {{/*- template "_internal/pagination.html" . -*/}}
+  </article>
+{{ end }}

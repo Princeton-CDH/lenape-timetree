@@ -1,0 +1,15 @@
+# NOTE: using hostname 127.0.0.1 instead of localhost
+# because otherwise percy fails to process font files properly
+
+- name: Homepage
+  url: http://127.0.0.1:1313/
+  waitForTimeout: 1000
+
+- name: Leaf selected
+  url: http://127.0.0.1:1313/#mannahatta
+  waitForTimeout: 1000
+  widths:
+    - 320
+    - 768
+    - 1024
+    - 1440

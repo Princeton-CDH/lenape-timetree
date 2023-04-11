@@ -1,0 +1,13 @@
+{{ define "main" }}
+  <article>
+    <div>{{ .Content }}</div>
+      <section>
+        <ul>
+          {{ range .Data.Terms.Alphabetical }}
+          {{/* use the last portion of the permalink to get the slug for the tag */}}
+          <li><a href="{{ relURL "" }}?tag={{ .Page.RelPermalink | path.Base }}">{{ .Page.Title }}</a> ({{ .Count }})
+           </li>
+          {{ end }}
+        </ul>
+</section>
+{{ end }}

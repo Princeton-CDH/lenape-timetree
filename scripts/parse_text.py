@@ -2,8 +2,8 @@
 
 # see requirements.txt for python dependencies
 
-import sys
 import os.path
+import sys
 
 import yaml
 from slugify import slugify
@@ -24,8 +24,14 @@ def parse_file(filepath):
                     datapoints.append(data)
                     data = {}
 
-            elif ":" in line:
-                label, value = line.split(":")
+            # skip empty display title with : and no space
+            elif line.endswith(":"):
+                continue
+
+            # look for colon in first few characters, indicating a labeled field
+            elif ": " in line[:20]:
+                # only split once
+                label, value = line.split(": ", 1)
                 # convert readable label to data variable
 
                 label = label.strip().lower().replace(" ", "_")
@@ -39,6 +45,7 @@ def parse_file(filepath):
                     "sort_date",
                     "tags",
                     "title",
+                    "display_title",
                 ]:
                     data["text"] = line.strip()
 
@@ -70,8 +77,11 @@ def generate_leaf_pages(datapoints, offset=0):
     # expects a list of dictionaries
     for i, data in enumerate(datapoints):
         # NOTE: need short names to use for file names & page titles,
-        # not all records have them yet
-        title = data.get("title", "")
+        # but not all records have them yet
+        # use display title first, if set, since it will be shorter
+        title = data.get("display_title", "")
+        if not title:
+            title = data.get("title", "")
         # slugify title to use as basis for filename
         slug = slugify(title)
         if not slug:
@@ -83,6 +93,7 @@ def generate_leaf_pages(datapoints, offset=0):
             try:
                 text = data.pop("text")
             except KeyError:
+                text = ""  # don't use text from preceeding entry
                 print("no text")
                 print(data)
             # output remaining info as yaml

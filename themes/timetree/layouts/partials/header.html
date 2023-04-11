@@ -1,0 +1,9 @@
+<header>
+    {{/* when the page title is the sitle title, wrap project title in an h1 */}}
+    {{ if eq .Title .Site.Title }}<h1>{{ end }}
+    <picture>
+      <source srcset="/img/site-title-desktop.svg" media="(min-width: 769px)" width="575" height="41"/>
+      <img src="/img/site-title-mobile.svg" alt="{{ .Site.Title }}" width="184" height="68"/>
+    </picture>
+    {{ if eq .Title .Site.Title }}</h1>{{ end }}
+</header>

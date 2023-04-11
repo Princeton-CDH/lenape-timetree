@@ -1,0 +1,19 @@
+repos:
+  - repo: https://github.com/psf/black
+    rev: 22.3.0 # Replace by any tag/version: https://github.com/psf/black/tags
+    hooks:
+      - id: black
+        # Assumes that your shell's `python` command is linked to python3.6+
+        language_version: python
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        args: ["--profile", "black", "--filter-files"]
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v2.4.1
+    hooks:
+      - id: prettier
+        exclude: (\.html$|^content/|^layouts/.*.json)
+        # exclude hugo templates, which prettier does not support by default
+        # exclude content markdown files, to avoid introducing formatting conflicts with content editor changes

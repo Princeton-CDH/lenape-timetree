@@ -1,0 +1,62 @@
+// colors
+$line-color: #8e8e8e;
+
+$nearwhite: #fefefe;
+$nearblack: #121212;
+$lightgray: #eeeeee;
+
+$body-bg-color: #61514b;
+$nav-bg-color: #4b413e;
+$body-fg-color: $nearwhite;
+
+// tree colors
+$root-color: rgba(197, 176, 160, 0.5); // #C5B0A0, 50% opacity
+$trunk-color: #c5b0a0;
+$dashes-color: rgba(254, 254, 254, 0.4); // near white, 40% opacity
+// leaf colors; a-e indicate leaves in different branches
+$leaf-color-a: #ffdcae;
+$leaf-color-b: #fecd70;
+$leaf-color-c: #ced89e;
+$leaf-color-d: #adcf9f;
+$leaf-color-e: #cc7351;
+
+// leaf fill color
+$leaf-color: (
+  "a": #ffdcae,
+  "b": #fecd70,
+  "c": #ced89e,
+  "d": #adcf9f,
+  "e": #cc7351,
+);
+// selected leaf outline
+$leaf-outline-color: (
+  "a": #ac6100,
+  "b": #916001,
+  "c": #606b2b,
+  "d": #3f6231,
+  "e": #582b1a,
+);
+// leaf glow color
+$leaf-glow-color: (
+  "a": #fae8d1,
+  "b": #f9e0b2,
+  "c": #e1e6c9,
+  "d": #d0e1c9,
+  "e": #e0b3a2,
+);
+// "a": rgba(255, 220, 174, 0.5),   // #FAE8D1
+// "b": rgba(254, 205, 112, 0.5),   // #F9E0B2
+// "c": rgba(206, 216, 158, 0.5),   // #E1E6C9
+// "d": rgba(173, 207, 159, 0.5),   // #D0E1C9
+// "e": rgba(204, 115, 81, 0.5),    //#E0B3A2
+
+// re-ordered / renamed color set by RSK & GD to adjust adjacency within the tree
+// $leaf-color-a: #ced89e;
+// $leaf-color-b: #fecd70;
+// $leaf-color-c: #cc7351;
+// $leaf-color-d: #adcf9f;
+// $leaf-color-e: #ffdcae;
+
+$focus-color: #003277; // probably changing to black, but use for now
+
+$highlight-color: map-get($leaf-color, "b"); // temporary
