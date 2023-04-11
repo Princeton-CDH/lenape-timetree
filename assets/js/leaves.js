@@ -101,7 +101,6 @@ class Leaf {
       // if tag passed in, set it in url params
       url.searchParams.set("tag", tag);
       container.classList.add("tag-active");
-      // todo: display current tag in tag button; requires taglist
     }
     // update url in history
     history.replaceState(null, "", url.toString());
@@ -157,7 +156,9 @@ class Leaf {
       document.querySelector("body").classList.add("tag-active");
 
       let currentTag = document.querySelector("#current-tag span");
-      currentTag.textContent = Leaf.tags[tagID];
+      // display the tag name based on the slug;
+      // as fallback, display the tag id if there is no name found
+      currentTag.textContent = Leaf.tags[tagID] || tagID;
     } else {
       document.querySelector("body").classList.remove("tag-active");
     }
