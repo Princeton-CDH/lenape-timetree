@@ -1,8 +1,8 @@
 <header>
     {{/* when the page title is the sitle title, wrap project title in an h1 */}}
     {{ if eq .Title .Site.Title }}<h1>{{ end }}
-    <img srcset="/img/site-title-mobile.svg 223w, /img/site-title-desktop.svg 552w"
-      sizes="(max-width: 768px) 223px, 552px"
+    <img srcset="/img/site-title-mobile.svg 184w, /img/site-title-desktop.svg 575w"
+      sizes="(max-width: 768px) 184px, 575px"
      src="/img/site-title-desktop.svg" alt="{{ .Site.Title }}"/>
     {{ if eq .Title .Site.Title }}</h1>{{ end }}
 </header>
