@@ -192,11 +192,6 @@ body.home {
     pointer-events: none;
   }
 
-  text.leaf-label:not(.select):not(.highlight) {
-    opacity: 0; // hide other labels entirely or just lower opacity?
-    pointer-events: none;
-  }
-
   // when a tag is active, display the current tag button
   #current-tag {
     opacity: 100%;
