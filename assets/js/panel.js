@@ -1,5 +1,7 @@
 import { Leaf } from "./leaves";
 
+const PanelCloseEvent = new Event("panel-close");
+
 class Panel {
   constructor() {
     // get a reference to the panel element
@@ -12,6 +14,7 @@ class Panel {
     this.el.parentElement.classList.remove("show-details");
     this.el.parentElement.classList.add("closed");
     Leaf.closeLeafDetails();
+    this.el.dispatchEvent(PanelCloseEvent);
   }
 
   bindHandlers() {

@@ -98,6 +98,9 @@ class TimeTree {
     Leaf.tags = tags;
     // update selection to reflect active tag and/or leaf hash in url on page load
     Leaf.updateSelection();
+
+    // reset zoom when the panel is closed
+    this.panel.el.addEventListener("panel-close", this.resetZoom.bind(this));
   }
 
   checkLeafData() {
