@@ -8,4 +8,4 @@ const tags = JSON.parse(document.querySelector(".tag-data").value);
 const envinfo = JSON.parse(document.querySelector(".env-data").value);
 
 // pass in leaf data, tag list, and whether debugging should be enabled
-let timetree = new TimeTree(data.leaves, tags, envinfo.env == "development");
+let timetree = new TimeTree(data, tags, envinfo.env == "development");
