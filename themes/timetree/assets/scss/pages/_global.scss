@@ -1,4 +1,4 @@
-$mobile_header_height: 48px;
+$mobile_header_height: 98px;
 $desktop_header_height: 75px;
 
 $mobile_footer_height: 250px;
@@ -23,8 +23,12 @@ body {
 
 body > header,
 body > footer {
-  padding: 0 22px;
+  padding: 0 14px;
   background-color: $nav-bg-color;
+
+  @include for-desktop-up {
+    padding: 0 24px;
+  }
 
   a,
   a:link,
@@ -47,7 +51,13 @@ body > header {
     padding: 0;
   }
 
-  overflow: hidden; // don't allow spillover on mobile for now (mobile header TBD)
+  img {
+    margin: 15px 0 16px; /* header already has 20px horizontal padding */
+
+    @include for-desktop-up {
+      margin: 20px 0 15px; /* horizontal padding set on header */
+    }
+  }
 
   @include for-desktop-up {
     height: $desktop_header_height;
