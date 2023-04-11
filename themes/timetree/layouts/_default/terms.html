@@ -1,11 +1,13 @@
+{{/* tag index page */}}
 {{ define "main" }}
-  <article>
+  <article class="tag-index">
     <div>{{ .Content }}</div>
-      <section>
+      <section class="tags">
         <ul>
           {{ range .Data.Terms.Alphabetical }}
           {{/* use the last portion of the permalink to get the slug for the tag */}}
-          <li><a href="{{ relURL "" }}?tag={{ .Page.RelPermalink | path.Base }}">{{ .Page.Title }}</a> ({{ .Count }})
+          <li><a href="{{ relURL "" }}?tag={{ .Page.RelPermalink | path.Base }}">{{ .Page.Title }}
+            <span class="count">({{ .Count }})</span></a>
            </li>
           {{ end }}
         </ul>
