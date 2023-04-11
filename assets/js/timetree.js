@@ -9,6 +9,7 @@ import {
   forceY,
 } from "d3-force";
 import { line, curveNatural } from "d3-shape";
+import { zoom, zoomIdentity, zoomTransform } from "d3-zoom";
 
 import { LeafLabel } from "./labels";
 import { Panel } from "./panel";
@@ -27,6 +28,9 @@ const d3 = {
   forceY,
   line,
   curveNatural,
+  zoom,
+  zoomIdentity,
+  zoomTransform,
 };
 
 // branches are defined and should be displayed in this order
@@ -65,6 +69,10 @@ const forceStrength = {
 };
 
 class TimeTree {
+  // create a media query element to check for mobile / desktop
+  // using breakpoint-s (tablet in portrait orientation)
+  mobileQuery = window.matchMedia("(max-width: 768px)");
+
   constructor(leaves, tags, debug) {
     this.leaves = leaves; // input leaf data from
     this.tags = tags; // dict of tags keyed on slug
@@ -224,8 +232,21 @@ class TimeTree {
     };
   }
 
+  isMobile() {
+    return this.mobileQuery.matches; // true if our query matches
+  }
+
+  width_opts = {
+    mobile: 800,
+    desktop: 1200,
+  };
+
+  getSVGWidth() {
+    return this.isMobile() ? this.width_opts.mobile : this.width_opts.desktop;
+  }
+
   drawTimeTree() {
-    let width = 1200; // TODO: can we resize to 800 width for mobile? (tablet portrait and mobile only)
+    let width = this.getSVGWidth(); // width depends on if mobile or not
     let height = 800;
 
     let min_x = -width / 2;
@@ -247,6 +268,10 @@ class TimeTree {
 
     this.svg = svg;
     this.background = background;
+
+    // enable zooming
+    console.log("enabling zoom");
+    this.initZoom();
 
     // create containers for the leaves by century
     const leafContainerHeight = 80;
@@ -399,7 +424,7 @@ class TimeTree {
         }
         return classes.join(" ");
       })
-      .on("click", Leaf.setCurrentLeaf)
+      .on("click", this.selectLeaf.bind(this)) // Leaf.setCurrentLeaf)
       .on("mouseover", Leaf.highlightLeaf)
       .on("mouseout", Leaf.unhighlightLeaf);
 
@@ -427,7 +452,7 @@ class TimeTree {
         return classes.join(" ");
       })
       // .text((d) => d.label.text)
-      .on("click", Leaf.setCurrentLeaf)
+      .on("click", this.selectLeaf.bind(this)) // Leaf.setCurrentLeaf)
       .on("mouseover", Leaf.highlightLeaf)
       .on("mouseout", Leaf.unhighlightLeaf);
 
@@ -460,6 +485,78 @@ class TimeTree {
       timetree.updatePositions();
     });
     simulation.tick();
+  }
+
+  maxZoom = 4; // maximum zoom level
+
+  initZoom() {
+    console.log(this.svg);
+
+    // make svg zoomable
+    this.zoom = d3
+      .zoom()
+      // by default, d3 uses window/DOM coordinates for zoom;
+      // for convenience & consistency, use svg coordinate system
+      .extent([
+        [this.min_x, this.min_y],
+        [this.min_x + this.width, this.min_y + this.height],
+      ])
+      .scaleExtent([1, this.maxZoom]) // limit number of zoom levels
+      // limit panning to the same extent so we don't zoom beyond the edges
+      // TODO: may need to constrain this slightly more
+      .translateExtent([
+        [this.min_x, this.min_y],
+        [this.min_x + this.width, this.min_y + this.height],
+      ])
+      .filter(
+        // use filter to control whether zooming is enabled
+        this.isMobile.bind(this)
+      )
+      // .filter((event) => {   // use filter to control whether zooming is enabled
+      //   this.isMobile.bind(this);
+      //   console.log("filter ; allow zoom ?" + timetree.isMobile());
+      //   return isMobile(); // enabled for mobile, otherwise disabled
+      // })
+      .on("zoom", this.zoomed.bind(this));
+
+    // bind zooming behavior to d3 svg selection
+    this.svg.call(this.zoom);
+
+    // bind zoom reset behavior to reset button
+    d3.select(".reset-zoom").on("click", function () {
+      // TODO: probably need transitions here, since we have transitions on the label visibility
+      this.zoom.transform(this.svg, d3.zoomIdentity);
+    });
+  }
+
+  zoomed({ transform }) {
+    this.svg.attr("transform", transform); // translate the svg
+
+    // set zoomed class on timetree container to control visibility of
+    // labels and reset button (hidden/disabled by default on mobile)
+    let container = this.svg.node().parentElement;
+    if (transform.k >= 1.2) {
+      // enable once we get past 1.2 zoom level
+      container.classList.add("zoomed");
+    } else {
+      container.classList.remove("zoomed");
+    }
+  }
+
+  selectLeaf(event, el) {
+    event.stopPropagation();
+    Leaf.setCurrentLeaf(event);
+
+    // programmatic zoom skips filters; check if mobile before auto-zooming
+    if (this.isMobile()) {
+      // zooming is configured to use svg coordinates
+      // so scale and translate to the clicked leaf or label
+      // scale to max zoom level using element coordinates as focus point.
+      this.zoom.scaleTo(this.svg, this.maxZoom, [el.x, el.y]);
+      // transform to element coordinates at the current zoom level
+      // (this seems pretty close but not working in all cases)
+      this.zoom.translateTo(this.svg, el.x / this.maxZoom, el.y / this.maxZoom);
+    }
   }
 
   visualDebug() {
