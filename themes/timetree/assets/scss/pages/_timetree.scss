@@ -88,10 +88,14 @@ body.home {
 
       // d3-axis version of century labels
       #century-axis {
-        .tick text {
-          fill: $nearwhite;
-          line-height: 18px;
-          font-size: 14px;
+        .tick {
+          // TODO: svg elements don't have backgrounds
+          /*          background: rgba(97, 81, 75, 0.7);*/
+          text {
+            fill: $nearwhite;
+            line-height: 18px;
+            font-size: 14px;
+          }
 
           &:hover {
             font-weight: normal;

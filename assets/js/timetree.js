@@ -254,8 +254,26 @@ class TimeTree {
       .append("svg")
       .attr("viewBox", [min_x, min_y, width, height]);
 
+    // Add a clipPath: everything out of this area won't be drawn.
+    var clip = svg
+      .append("defs")
+      .append("SVG:clipPath")
+      .attr("id", "clip")
+      .append("SVG:rect")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("x", min_y)
+      .attr("y", min_x);
+
+    // create a group within the viz for the zoomable portion of the tree
+    // don't draw anything outside of the clip path
+    this.vizGroup = svg
+      .insert("g", "#century-axis")
+      .attr("id", "#viz")
+      .attr("clip-path", "url(#clip)");
+
     // create a section for the background
-    let background = svg.append("g").attr("id", "background");
+    let background = this.vizGroup.append("g").attr("id", "background");
 
     this.svg = svg;
     this.background = background;
@@ -283,7 +301,7 @@ class TimeTree {
       .domain(leafYears) // max year to min year
       .range([axisMin, axisMin + yAxisHeight]); // highest point on the chart to lowest point for leaves
 
-    var yAxis = d3
+    this.yAxis = d3
       .axisLeft(this.yScale)
       .tickValues(centuries) // only display senturies
       .tickFormat((x) => {
@@ -292,11 +310,11 @@ class TimeTree {
 
     // axis is always drawn at origin, which for us is the center of the svg;
     // move to the left with enough space for labels to show
-    background
+    this.gYAxis = svg
       .append("g")
       .attr("id", "century-axis")
-      .attr("transform", `translate(${this.min_x + 60},0)`) // FIXME: 60 too much for mobile
-      .call(yAxis);
+      .attr("transform", `translate(${this.min_x + 60},0)`) // TODO: 60 is too much for mobile
+      .call(this.yAxis);
 
     // determine placement for branches left to right
     this.branchCoords = {};
@@ -339,9 +357,6 @@ class TimeTree {
       )
       .attr("class", "trunk");
 
-    let g = svg.append("g");
-
-    // NOTE: will probably want to tweak and finetune these forces
     let simulation = d3
       .forceSimulation(this.network.nodes)
       .force("charge", d3.forceManyBody().strength(forceStrength.charge))
@@ -391,7 +406,7 @@ class TimeTree {
     // define once an empty path for nodes we don't want to display
     var emptyPath = d3.line().curve(d3.curveNatural)([[0, 0]]);
 
-    let simulationNodes = svg
+    let simulationNodes = this.vizGroup
       .append("g")
       .attr("class", "nodes")
       .selectAll("path")
@@ -422,7 +437,7 @@ class TimeTree {
     this.simulationNodes = simulationNodes;
 
     // add text labels for leaves; position based on the leaf node
-    this.nodeLabels = svg
+    this.nodeLabels = this.vizGroup
       .append("g")
       .attr("id", "labels")
       .selectAll("text")
@@ -493,7 +508,6 @@ class TimeTree {
       ])
       .scaleExtent([1, this.maxZoom]) // limit number of zoom levels
       // limit panning to the same extent so we don't zoom beyond the edges
-      // TODO: may need to constrain this slightly more
       .translateExtent([
         [this.min_x, this.min_y],
         [this.min_x + this.width, this.min_y + this.height],
@@ -502,25 +516,27 @@ class TimeTree {
         // use filter to control whether zooming is enabled
         this.isMobile.bind(this)
       )
-      // .filter((event) => {   // use filter to control whether zooming is enabled
-      //   this.isMobile.bind(this);
-      //   console.log("filter ; allow zoom ?" + timetree.isMobile());
-      //   return isMobile(); // enabled for mobile, otherwise disabled
-      // })
       .on("zoom", this.zoomed.bind(this));
 
     // bind zooming behavior to d3 svg selection
     this.svg.call(this.zoom);
 
     // bind zoom reset behavior to reset button
-    d3.select(".reset-zoom").on("click", function () {
-      // TODO: probably need transitions here, since we have transitions on the label visibility
-      this.zoom.transform(this.svg, d3.zoomIdentity);
-    });
+    d3.select(".reset-zoom").on("click", this.resetZoom.bind(this));
+  }
+
+  resetZoom() {
+    this.svg.call(this.zoom.transform, d3.zoomIdentity);
   }
 
   zoomed({ transform }) {
-    this.svg.attr("transform", transform); // translate the svg
+    // handle zoom event
+
+    // update y-axis for the new scale
+    this.gYAxis.call(this.yAxis.scale(transform.rescaleY(this.yScale)));
+
+    // translate the treeviz portion of the svg
+    this.vizGroup.attr("transform", transform);
 
     // set zoomed class on timetree container to control visibility of
     // labels and reset button (hidden/disabled by default on mobile)
@@ -553,7 +569,7 @@ class TimeTree {
     // visual debugging for layout
     // insert under other layers to avoid interfering with click/touch/hover
     this.debugLayer = this.svg
-      .insert("g", "#background")
+      .insert("g", "#viz")
       .attr("id", "debug")
       .style("opacity", 0); // not visible by default
 
