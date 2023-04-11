@@ -51,7 +51,7 @@ describe("leafSize", () => {
 });
 
 describe("Leaf", () => {
-  describe("deselectAll", () => {
+  describe("deselectCurrent", () => {
     test("removes selected class from leaves and labels", () => {
       // Set up document body with selected leaves and labels
       document.body.innerHTML =
@@ -60,7 +60,7 @@ describe("Leaf", () => {
         '  <text class="selected">label</label> />' +
         "</svg></div>";
 
-      Leaf.deselectAll();
+      Leaf.deselectCurrent();
       expect(
         document.getElementsByClassName(Leaf.selectedClass).length
       ).toEqual(0);
@@ -68,12 +68,16 @@ describe("Leaf", () => {
 
     test("updates window location", () => {
       window.location.replace("#lenape");
-      Leaf.deselectAll();
+      Leaf.setCurrentLeaf();
       expect(window.location.hash).toEqual(""); // does not include #
     });
   });
 
-  test("select by tag sets selected class on leaves and labels", () => {
+  test("select by tag sets highlight class on leaves and labels", () => {
+    // patch in test tag list
+    Leaf.tags = {
+      battles: "Battles",
+    };
     document.body.innerHTML =
       "<div><svg>" +
       '  <path class="access battles" />' +
@@ -82,17 +86,21 @@ describe("Leaf", () => {
       '  <path class="battles" />' +
       '  <text class="access battles">label</text> />' +
       '  <text class="food access">label</text> />' +
-      "</svg></div>";
-    Leaf.selectByTag("battles");
-    // expect 3 paths and one label to be selected
-    expect(document.getElementsByClassName(Leaf.selectedClass).length).toEqual(
+      "</svg></div>" +
+      "<div id='current-tag'><span/></div>";
+    Leaf.setCurrentTag("battles");
+    // expect 3 paths and one label to be highlighted
+    expect(document.getElementsByClassName(Leaf.highlightClass).length).toEqual(
       4
     );
   });
 
-  describe("selectLeaf", () => {
+  describe("setCurrentLeaf", () => {
     beforeEach(() => {
       fetch.resetMocks();
+
+      // reset document location, since some tests update it
+      history.replaceState(null, "", "http://localhost/");
 
       document.body.innerHTML =
         "<div><svg>" +
@@ -104,6 +112,7 @@ describe("Leaf", () => {
         '  <text class="food access">label</label> />' +
         '  <text class="food access" data-id="munsee" data-url="/leaves/munsee/"><tspan>munsee</tspan></text>' +
         "</svg></div>" +
+        "<div id='current-tag'><span/></div>" +
         '<div id="leaf-details">' +
         "  <article/>" +
         "</div>";
@@ -111,16 +120,17 @@ describe("Leaf", () => {
 
     test("deselects other leaves, selects both leaf path and label", () => {
       let targetLeaf = document.querySelector("path[data-id=munsee]");
-      Leaf.selectLeaf({ target: targetLeaf });
+
+      Leaf.setCurrentLeaf({ target: targetLeaf });
+      let selected = document.getElementsByClassName(Leaf.selectedClass);
+
       // expect path and text to be selected
-      expect(
-        document.getElementsByClassName(Leaf.selectedClass).length
-      ).toEqual(2);
+      expect(selected.length).toEqual(2);
     });
 
     test("treats click on tspan as click on parent text element", () => {
       let targetTspan = document.querySelector("text[data-id=munsee] tspan");
-      Leaf.selectLeaf({ target: targetTspan });
+      Leaf.setCurrentLeaf({ target: targetTspan });
       // expect path and text to be selected
       expect(
         document.getElementsByClassName(Leaf.selectedClass).length
@@ -129,13 +139,13 @@ describe("Leaf", () => {
 
     test("updates window location", () => {
       let targetLeaf = document.querySelector("path[data-id=munsee]");
-      Leaf.selectLeaf({ target: targetLeaf });
+      Leaf.setCurrentLeaf({ target: targetLeaf });
       expect(window.location.hash).toEqual("#munsee");
     });
 
     test("fetches content for leaf details", () => {
       let targetLeaf = document.querySelector("path[data-id=munsee]");
-      Leaf.selectLeaf({ target: targetLeaf });
+      Leaf.setCurrentLeaf({ target: targetLeaf });
       expect(fetch).toHaveBeenCalledTimes(1);
       expect(fetch).toHaveBeenCalledWith(targetLeaf.dataset.url);
     });
@@ -145,7 +155,7 @@ describe("Leaf", () => {
 
     test("sets leaf detail panel to active", () => {
       let targetLeaf = document.querySelector("path[data-id=munsee]");
-      Leaf.selectLeaf({ target: targetLeaf });
+      Leaf.setCurrentLeaf({ target: targetLeaf });
       const panel = document.querySelector("#leaf-details");
       expect(panel.parentElement.classList.contains("show-details")).toEqual(
         true
@@ -153,11 +163,11 @@ describe("Leaf", () => {
     });
   });
 
-  describe("selectLeafByHash", () => {
+  describe("updateSelection", () => {
     const mockLeafSelect = jest.fn();
 
     beforeEach(() => {
-      jest.spyOn(Leaf, "selectLeaf").mockImplementation(mockLeafSelect);
+      jest.spyOn(Leaf, "setCurrentLeaf").mockImplementation(mockLeafSelect);
       document.body.innerHTML =
         "<div><svg>" +
         '  <path class="food disease" data-id="munsee" data-url="/leaves/munsee/" />' +
@@ -170,23 +180,25 @@ describe("Leaf", () => {
 
     test("does nothing if no hash is set", () => {
       window.location.replace("");
-      Leaf.selectLeafByHash();
+      Leaf.updateSelection();
       expect(mockLeafSelect.mock.calls).toHaveLength(0);
     });
 
     test("does nothing if no hash is set but id is invalid", () => {
       window.location.replace("#bogus");
-      Leaf.selectLeafByHash();
-      expect(mockLeafSelect.mock.calls).toHaveLength(0);
+      Leaf.updateSelection();
+      // expect no elements to be highlighted
+      expect(
+        document.getElementsByClassName(Leaf.selectedClass).length
+      ).toEqual(0);
     });
 
     test("selects leaf if hash is set to valid leaf id", () => {
       window.location.replace("#munsee");
-      Leaf.selectLeafByHash();
-      expect(mockLeafSelect.mock.calls).toHaveLength(1);
+      Leaf.updateSelection();
       let targetLeaf = document.querySelector("path[data-id=munsee]");
-      // should be called with target leaf as argument
-      expect(mockLeafSelect.mock.calls[0][0]).toEqual({ target: targetLeaf });
+      // target leaf should have selected class
+      expect(targetLeaf.classList).toContain(Leaf.selectedClass);
     });
   });
 
