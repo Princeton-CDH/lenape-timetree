@@ -1,28 +1,57 @@
 import { Leaf } from "./leaves";
 
 class Panel {
+  /*
+    The panel is used to display the project introduction on page load
+    and leaf details as leaves are selected.
+    On desktop, leaf details can be closed but the panel is always visible.
+    On mobile, the panel can be closed completely; there is an info
+    button to redisplay the project introduction.
+
+    The class `closed`` is used to indicate the panel is closed
+    (hidden on mobile, display introduction on desktop); the class
+    `show-details` is used to indicate whether leaf details are visible or not.`
+
+    */
+
   constructor() {
     // get a reference to the panel element
     this.el = document.querySelector("#leaf-details");
+    this.infoButton = document.querySelector("header .info");
     this.bindHandlers();
   }
 
+  open(showDetails = true) {
+    // open the panel; show leaf details by default
+    // disable the info button
+    if (showDetails) {
+      this.el.parentElement.classList.add("show-details");
+    }
+    this.el.parentElement.classList.remove("closed");
+    this.infoButton.disabled = true;
+  }
+
   close() {
-    // close the panel
+    // close the panel and enable the info button
     this.el.parentElement.classList.remove("show-details");
     this.el.parentElement.classList.add("closed");
     Leaf.closeLeafDetails();
+    this.infoButton.disabled = false;
+  }
+
+  showIntro() {
+    // special case: showing the intro means opening the panel
+    // but not showing leaf details section
+    this.open(false);
   }
 
   bindHandlers() {
     // bind click event handler for panel close button
-    let panel = this;
     document
       .querySelector("aside .close")
-      .addEventListener("click", (event) => {
-        // Close panel and deselect leaves
-        panel.close();
-      });
+      .addEventListener("click", this.close.bind(this));
+
+    this.infoButton.addEventListener("click", this.showIntro.bind(this));
 
     // bind keyboard handler
 
