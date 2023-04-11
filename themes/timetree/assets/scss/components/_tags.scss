@@ -4,6 +4,14 @@ $tag-color: (
   "active": #ffdacc,
 );
 
+.tags {
+  /* use flex to avoid unwanted space between tags caused by 
+    whitespace between tags in the markup */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 .tags a {
   display: inline-block;
   text-decoration: none;
