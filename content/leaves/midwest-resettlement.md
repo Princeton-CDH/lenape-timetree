@@ -3,10 +3,10 @@ branch: Removals
 display_date: 1750s
 sort_date: 1750
 tags:
-- removals
+- migration
 - renaming
 - Iroquois
-- Susquehanna and Ohio River Valleys
+- Ohio Country
 title: Midwest Resettlement
 ---
 

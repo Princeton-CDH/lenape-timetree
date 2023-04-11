@@ -1,0 +1,114 @@
+$mobile_header_height: 98px;
+$desktop_header_height: 75px;
+
+$mobile_footer_height: 250px;
+$desktop_footer_height: 130px;
+
+body {
+  /* use grid layout to keep the footer on the bottom */
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: $mobile_header_height auto $mobile_footer_height;
+  background-color: $nav-bg-color;
+  color: $body-fg-color;
+
+  @include for-desktop-up {
+    grid-template-rows: $desktop_header_height auto $desktop_footer_height;
+  }
+
+  main {
+    background-color: $body-bg-color;
+  }
+}
+
+body > header,
+body > footer {
+  padding: 0 14px;
+  background-color: $nav-bg-color;
+
+  @include for-desktop-up {
+    padding: 0 24px;
+  }
+
+  a,
+  a:link,
+  a:visited {
+    // set color since lighthouse is complaining about contrast
+    color: $body-fg-color;
+    text-decoration: underline;
+
+    &.selected {
+      font-weight: 900;
+    }
+  }
+}
+
+body > header {
+  height: $mobile_header_height;
+
+  h1 {
+    margin: 0;
+    padding: 0;
+  }
+
+  img {
+    margin: 15px 0 16px; /* header already has 20px horizontal padding */
+
+    @include for-desktop-up {
+      margin: 20px 0 15px; /* horizontal padding set on header */
+    }
+  }
+
+  @include for-desktop-up {
+    height: $desktop_header_height;
+  }
+}
+
+body > footer {
+  height: $mobile_footer_height;
+
+  @include for-desktop-up {
+    height: $desktop_footer_height;
+  }
+}
+
+a,
+a:link,
+a:hover,
+a:visited {
+  color: $body-fg-color;
+  font-weight: normal;
+  text-decoration: underline;
+  text-decoration-color: $highlight-color;
+}
+
+article {
+  margin: 30px;
+
+  h1 {
+    margin-bottom: 15px;
+  }
+}
+
+.tags {
+  margin-top: 20px;
+}
+
+footer nav {
+  // use flex to space out footer links, for now
+  display: flex;
+
+  // limit footer nav width on larger screens
+  @include for-desktop-up {
+    width: 80%;
+  }
+
+  > * {
+    flex-grow: 1;
+  }
+  // make links sufficiently large tap targets
+  a {
+    display: inline-block;
+    height: 48px;
+  }
+}

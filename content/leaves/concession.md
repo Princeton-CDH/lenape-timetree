@@ -1,14 +1,14 @@
 ---
-branch: Lands and Waters
+branch: Lands + Waters
 display_date: 1737
 sort_date: 1737
 tags:
-- Lenape resistance
+- activism
 - Iroquois
-- removals
-- Susquehanna and Ohio River Valleys
+- alliances
+- Ohio Country
 - colonial governments
 title: Concession
 ---
 
-Following this huge deceit, the Lenape refuse to leave their lands. The Pennsylvania government recruits the Haudenosaunee (later called Iroquois) to persuade the Lenape to honor the “purchase” and leave the territory.
+Following the deceitful “Walking Purchase,” Lunaapeew refuse to leave their lands. The Pennsylvania government recruits the Haudenosaunee (later called Iroquois) to persuade Lunaapeewto honor the “purchase” and leave the territory.

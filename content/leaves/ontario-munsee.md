@@ -5,11 +5,10 @@ sort_date: 1785
 tags:
 - Alliances
 - Ontario
-- Midwest
 - Munsee
 - migration
 - wars
 title: Ontario Munsee
 ---
 
-Known previously as the Munsee of the Thames. [See Ian McCallum language teaching, Chief Mark Peters’ history series]
+Known previously as the Munsee of the Thames.

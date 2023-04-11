@@ -1,0 +1,57 @@
+name: visual review
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  visual-review:
+    name: Visual regression tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Get Hugo version
+        run: echo "HUGO_VERSION=$(cat .hugo_version)" >> $GITHUB_ENV
+
+      - name: Setup hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: ${{ env.HUGO_VERSION }}
+          extended: true
+
+      - name: Get node version from package.json
+        run: echo "NODE_VERSION=$(cat package.json | jq -r '.volta.node')" >> $GITHUB_ENV
+
+      - name: Setup node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            npm-${{ hashFiles('package-lock.json') }}
+            npm-
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Start Hugo server
+        # run in production mode to disable debug control panel
+        env:
+          # For maximum backward compatibility with Hugo modules
+          HUGO_ENVIRONMENT: production
+          HUGO_ENV: production
+        run: hugo server &
+
+      - name: Take DOM snapshots and upload to Percy
+        run: npx percy snapshot snapshots.yml
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}

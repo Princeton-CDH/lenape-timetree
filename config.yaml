@@ -1,12 +1,20 @@
-baseURL: 'http://example.org/'
+baseURL: https://lenapetimetree.indigenous.princeton.edu/
 languageCode: en-us
-title: Lenape Princeton Timetree
-# use theme for now
-theme: ananke
+title: Lunaapahkiing Princeton Timetree
+theme: timetree
 paginate: 20
 
+params:
+  description: >-
+    An interactive timetree displaying interwoven histories of the
+    Princeton University community and the Lenape peoples
+    of Lunaapahkiing, “the land of the Lenape.” .
+
+# disable categories taxonomy included by default
+taxonomies:
+  tag: tags
 
 outputs:
   home:
-  - HTML
-  - JSON
+    - HTML
+    - JSON

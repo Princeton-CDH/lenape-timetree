@@ -5,7 +5,7 @@ sort_date: 1979
 tags:
 - religion
 - state governments
-- resurgence
+- recognition
 title: Recognition of Ritual Authority
 ---
 

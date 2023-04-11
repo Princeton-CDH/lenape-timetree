@@ -1,0 +1,23 @@
+<article>
+  <header>
+  {{with .CurrentSection.Title }}<span class="f6 db">{{ . }}</span>{{end}}
+    <h1>
+      <a href="{{ .RelPermalink }}" class="link black dim">
+        {{ .Title | default "unnamed leaf" }}
+      </a>
+    </h1>
+  </header>
+
+    <div>
+      {{ .Summary }}
+    </div>
+    <footer>
+      {{ with .Params.display_date }}
+        <div>{{ . }}</div>
+      {{ end}}
+      {{- partial "tags.html" . -}}
+      {{ with .Params.branch }}
+      <div>Branch: {{ . }}</div>
+      {{ end }}
+    </footer>
+</article>

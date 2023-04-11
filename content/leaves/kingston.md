@@ -1,5 +1,5 @@
 ---
-branch: Lands and Waters
+branch: Lands + Waters
 display_date: 1709
 sort_date: 1709
 tags:
@@ -9,4 +9,4 @@ tags:
 title: Kingston
 ---
 
-In 1709, a Jedediah Higgins “buys” one thousand acres from the Lenape right next to the Assunpink Trail, in exchange for a sow and piglets. This land becomes the settler town of Kingston, which neighbors Princeton.
+In 1709, a Jedediah Higgins “buys” one thousand acres from Lunaapeew right next to the Assunpink Trail, in exchange for a sow and piglets. This land becomes the settler town of Kingston, which neighbors Princeton.

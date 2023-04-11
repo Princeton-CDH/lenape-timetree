@@ -1,0 +1,325 @@
+@import "components/leaves";
+@import "components/panel";
+@import "components/tags";
+
+body.home {
+  main {
+    max-height: calc(
+      100vh - #{$mobile_header_height} - #{$mobile_footer_height}
+    );
+
+    @include for-desktop-up {
+      // desktop is two columns (tree | panel)
+      display: grid;
+      grid-template-columns: auto 410px;
+      column-gap: 38px; // space between panel and timetree
+      padding: 30px 40px 0 0; // right margin outside the panel
+
+      // set height exactly so container
+      // won't change for shorter/longer leaf details in panel
+      height: calc(
+        100vh - #{$desktop_header_height} - #{$desktop_footer_height}
+      );
+    }
+
+    #timetree {
+      height: inherit;
+      max-height: inherit;
+      font-size: 14px;
+      line-height: 18px;
+      margin-top: 30px;
+
+      @include for-desktop-up {
+        margin-top: 0;
+      }
+
+      svg {
+        height: 100%;
+        max-width: 100%;
+      }
+
+      rect.century-container {
+        fill: transparent;
+      }
+
+      text.century-label {
+        fill: $nearwhite;
+        line-height: 18px;
+      }
+
+      circle.select,
+      path.select {
+        stroke: #1d1c01;
+        stroke-width: 4px;
+      }
+
+      text.select {
+        font-weight: 900;
+      }
+
+      circle.leaf-label {
+        display: none;
+      }
+
+      text:hover {
+        // font-weight: 900;
+      }
+
+      // mixin for leaf styles in all states,
+      // using color set for leaves from each branch
+      @mixin leaf-styles($branch) {
+        fill: map-get($leaf-color, $branch);
+        // stroke-linejoin: "bevel";
+
+        // selected (active state)
+        &.select,
+        &.highlight,   // highlight = selected tag but not selected leaf
+        &:hover,
+        &:focus,
+        &:active,
+        &.hover {
+          stroke: map-get($leaf-outline-color, $branch);
+          stroke-width: 3px;
+          $glow: map-get($leaf-glow-color, $branch);
+          filter: drop-shadow(-3px -4px 8px $glow)
+            drop-shadow(3px 7px 8px $glow) drop-shadow(-4px 2px 8px $glow)
+            drop-shadow(4px 0px 8px $glow);
+
+          outline: none; // disable browser default focus outline box
+        }
+
+        &.highlight:not(.select) {
+          stroke-width: 0;
+        }
+
+        &:focus-visible {
+          stroke: $focus-color;
+          outline: none; // disable browser default focus outline box
+        }
+
+        &.disabled {
+          opacity: 0.4;
+          pointer-events: none;
+        }
+      }
+
+      /* branches should be ordered left to right as follows:
+        - lands-waters
+        - communities
+        - university
+        - removals
+        - resistance-resurgence
+
+      map these branches to colors in this order to keep
+      similar colors more separated:
+
+        - lands-waters : c
+        - communities : b
+        - university : e
+        - removals : a
+        - resistance-resurgence : d
+      */
+
+      .branch-lands-waters {
+        @include leaf-styles("c");
+      }
+      .branch-communities {
+        @include leaf-styles("b");
+      }
+      .branch-university {
+        @include leaf-styles("e");
+      }
+      .branch-removals {
+        @include leaf-styles("a");
+      }
+      .branch-resistance-resurgence {
+        @include leaf-styles("d");
+      }
+
+      // hide nodes used for layout but not meant to be displayed
+      g.nodes path.leaf-label,
+      g.nodes path.branch,
+      g.nodes path.trunk {
+        display: none;
+      }
+
+      circle.branch,
+      circle.trunk {
+        fill: $trunk-color;
+        opacity: 0.7;
+      }
+
+      path.trunk {
+        fill: transparent;
+        stroke: $trunk-color;
+        stroke-width: 3px;
+      }
+    }
+
+    text.leaf-label {
+      fill: $body-fg-color;
+      // NOTE: previously had two shadows offset +/2px with 2px blur,
+      // but there's a Safari bug with multiple text shadows
+      // text-shadow: $nav-bg-color 2px 2px 2px, $nav-bg-color -2px -2px 2px;
+      text-shadow: $nav-bg-color 0px 0px 4px;
+      // Hand cursor for leaf labels
+      cursor: pointer;
+    }
+
+    path.leaf {
+      // Hand cursor for leaves
+      cursor: pointer;
+    }
+
+    text {
+      fill: lightgray;
+    }
+
+    text:hover,
+    text.select,
+    text.hover {
+      font-weight: 900;
+    }
+  }
+}
+
+// when a tag is active, make all other leaves labels inactive
+// (lower opacity, non-interactive)
+.tag-active {
+  path.leaf:not(.select):not(.highlight),
+  text.leaf-label:not(.select):not(.highlight) {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  // when a tag is active, display the current tag button
+  #current-tag {
+    opacity: 100%;
+  }
+}
+
+// make link color visible
+a,
+a:link,
+a:hover,
+a:visited {
+  color: $nearwhite;
+}
+
+// provisional styles to delimit leaves on tag list page
+article.container article {
+  padding-bottom: 12px;
+  border-bottom: 1px dashed $line-color;
+}
+
+// visual debug styles
+#debug {
+  circle {
+    fill: transparent; // override branch fill styles elsewhere
+  }
+  circle.debug-leaf-label {
+    stroke: $nearwhite;
+  }
+  circle.debug-branch {
+    // color branch nodes based on the branch they belong to;
+    // they are smaller, so fill entirely.
+    // use outline colors since they are darker
+    &.dbg-branch-lands-waters {
+      fill: map-get($leaf-outline-color, "c");
+    }
+    &.dbg-branch-communities {
+      fill: map-get($leaf-outline-color, "b");
+    }
+    &.dbg-branch-university {
+      fill: map-get($leaf-outline-color, "e");
+    }
+    &.dbg-branch-removals {
+      fill: map-get($leaf-outline-color, "a");
+    }
+    &.dbg-branch-resistance-resurgence {
+      fill: map-get($leaf-outline-color, "d");
+    }
+  }
+
+  // color circles for leaf markes based on their branch
+  // outline only, so we can see them around their leaves if both are displyaed
+  circle.debug-leaf {
+    stroke-width: 2;
+    // color links within branch based on the branch they belong to
+    &.dbg-branch-lands-waters {
+      stroke: map-get($leaf-color, "c");
+    }
+    &.dbg-branch-communities {
+      stroke: map-get($leaf-color, "b");
+    }
+    &.dbg-branch-university {
+      stroke: map-get($leaf-color, "e");
+    }
+    &.dbg-branch-removals {
+      stroke: map-get($leaf-color, "a");
+    }
+    &.dbg-branch-resistance-resurgence {
+      stroke: map-get($leaf-color, "d");
+    }
+  }
+
+  line {
+    stroke: lightgray;
+    stroke-width: 1;
+    // could hide or adjust visibility depending on type of link
+
+    // color links within branch based on the branch they belong to
+    &.dbg-branch-lands-waters {
+      stroke: map-get($leaf-outline-color, "c");
+    }
+    &.dbg-branch-communities {
+      stroke: map-get($leaf-outline-color, "b");
+    }
+    &.dbg-branch-university {
+      stroke: map-get($leaf-outline-color, "e");
+    }
+    &.dbg-branch-removals {
+      stroke: map-get($leaf-outline-color, "a");
+    }
+    &.dbg-branch-resistance-resurgence {
+      stroke: map-get($leaf-outline-color, "d");
+    }
+
+    &.debug-branch {
+      stroke-width: 3;
+    }
+  }
+}
+
+#debug-controls {
+  @include for-mobile {
+    display: none;
+  }
+
+  position: absolute;
+  right: 0;
+  // position so it sits above the footer
+  bottom: $desktop_footer_height;
+  padding: $margin;
+  height: 175px;
+
+  background-color: $lightgray;
+  color: $nearblack;
+  font-size: 80%;
+  label {
+    display: block;
+  }
+
+  input {
+    text-align: right;
+    padding-left: 5px;
+    width: 10em;
+  }
+
+  // customize range input slider
+  input[type="range"]::-webkit-slider-runnable-track,
+  input[type="range"]::-moz-range-track {
+    background: #053a5f;
+    height: 0.2rem;
+  }
+}
