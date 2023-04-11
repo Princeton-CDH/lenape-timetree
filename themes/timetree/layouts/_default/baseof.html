@@ -4,6 +4,9 @@
     <body {{ if .IsHome }}class="home"{{ end }}>
         {{- partial "header.html" . -}}
         <main>
+        {{/* if the page title is not the site title, include title in h1 */}}
+        {{ if ne .Title .Site.Title }}<h1>{{ .Title }}</h1>{{ end }}
+
         {{- block "main" . }}{{- end }}
         </main>
         {{- partial "footer.html" . -}}
