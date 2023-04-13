@@ -1,7 +1,9 @@
 {{/* tag index page */}}
 {{ define "main" }}
   <article class="tag-index">
-    <div>{{ .Content }}</div>
+    {{ with .Content }}
+    <div>{{ . }}</div>
+    {{ end }}
       <section class="tags">
         <ul>
           {{ range .Data.Terms.Alphabetical }}

@@ -88,6 +88,16 @@ $tag-color: (
 }
 
 // tag index page
+body.taxonomy {
+  h1 {
+    margin: 40px 22px 20px;
+
+    @include for-desktop-up {
+      margin: 50px 60px 20px;
+    }
+  }
+}
+
 .tag-index {
   margin: 0 18px 22px;
 
