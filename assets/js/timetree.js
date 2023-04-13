@@ -399,7 +399,10 @@ class TimeTree {
         }
         return classes.join(" ");
       })
-      .on("click", Leaf.setCurrentLeaf)
+      .on("click", (event) => {
+        this.panel.close(); // close so info button will be active on mobile
+        Leaf.setCurrentLeaf(event);
+      })
       .on("mouseover", Leaf.highlightLeaf)
       .on("mouseout", Leaf.unhighlightLeaf);
 
@@ -427,7 +430,10 @@ class TimeTree {
         return classes.join(" ");
       })
       // .text((d) => d.label.text)
-      .on("click", Leaf.setCurrentLeaf)
+      .on("click", (event) => {
+        this.panel.close(); // close so info button will be active on mobile
+        Leaf.setCurrentLeaf(event);
+      })
       .on("mouseover", Leaf.highlightLeaf)
       .on("mouseout", Leaf.unhighlightLeaf);
 

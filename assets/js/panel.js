@@ -24,10 +24,14 @@ class Panel {
   open(showDetails = true) {
     // open the panel; show leaf details by default
     // disable the info button
+    let container = this.el.parentElement;
     if (showDetails) {
-      this.el.parentElement.classList.add("show-details");
+      container.classList.add("show-details");
+    } else {
+      // when show details is not true, ensure leaf details are hidden
+      container.classList.remove("show-details");
     }
-    this.el.parentElement.classList.remove("closed");
+    container.classList.remove("closed");
     this.infoButton.disabled = true;
   }
 
