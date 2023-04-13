@@ -37,10 +37,16 @@ class Panel {
 
   close() {
     // close the panel and enable the info button
-    this.el.parentElement.classList.remove("show-details");
-    this.el.parentElement.classList.add("closed");
-    Leaf.closeLeafDetails();
+    let container = this.el.parentElement;
+    container.classList.add("closed");
     this.infoButton.disabled = false;
+
+    // if leaf details are currently displayed, close that also
+    // (has a side effect of also removing any currently selected tag)
+    if (container.classList.contains("show-details")) {
+      container.classList.remove("show-details");
+      Leaf.closeLeafDetails();
+    }
   }
 
   showIntro() {
