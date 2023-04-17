@@ -10,7 +10,7 @@ class Panel {
 
     The class `closed`` is used to indicate the panel is closed
     (hidden on mobile, display introduction on desktop); the class
-    `show-details` is used to indicate whether leaf details are visible or not.`
+    `show-details` is used to indicate whether leaf details are visible or not.
 
     */
 
@@ -32,21 +32,34 @@ class Panel {
       container.classList.remove("show-details");
     }
     container.classList.remove("closed");
+    // disable the info button; inactive when the intro is visible
     this.infoButton.disabled = true;
   }
 
-  close() {
-    // close the panel and enable the info button
+  close(closeDetails = true) {
+    // close the intro and enable the info button
+    // by default, closes panel entireuly
     let container = this.el.parentElement;
-    container.classList.add("closed");
-    this.infoButton.disabled = false;
+    // determine if leaf details are currently displayed
+    let leafVisible = container.classList.contains("show-details");
 
-    // if leaf details are currently displayed, close that also
+    // if leaf details are visible and close details is true,
+    // deselct the leaf currently displayed, close that also,
+    // unless closeDetails has been disabled;
     // (has a side effect of also removing any currently selected tag)
-    if (container.classList.contains("show-details")) {
+    if (leafVisible && closeDetails) {
       container.classList.remove("show-details");
       Leaf.closeLeafDetails();
     }
+
+    // if we are closing everything or no leaf is visible, close the panel
+    if (closeDetails || !leafVisible) {
+      container.classList.add("closed");
+    }
+
+    // enable the info button;
+    // provides a way to get back to the intro on mobile
+    this.infoButton.disabled = false;
   }
 
   showIntro() {
@@ -54,6 +67,11 @@ class Panel {
     Leaf.closeLeafDetails();
     // open the panel without showing leaf details section
     this.open(false);
+  }
+
+  closeIntro() {
+    // close the panel without closing leaf details
+    this.close(false);
   }
 
   bindHandlers() {

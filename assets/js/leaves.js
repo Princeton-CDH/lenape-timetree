@@ -249,8 +249,6 @@ class Leaf {
 
   static closeLeafDetails() {
     const panel = document.querySelector("#leaf-details");
-    panel.parentElement.classList.remove("show-details");
-    panel.parentElement.classList.add("closed");
 
     Leaf.setCurrentLeaf();
     Leaf.closeTag();
