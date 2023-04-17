@@ -50,8 +50,9 @@ class Panel {
   }
 
   showIntro() {
-    // special case: showing the intro means opening the panel
-    // but not showing leaf details section
+    // showing the intro implies closing leaf details (if a leaf is selected)
+    Leaf.closeLeafDetails();
+    // open the panel without showing leaf details section
     this.open(false);
   }
 
