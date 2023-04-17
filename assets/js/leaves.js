@@ -189,7 +189,22 @@ class Leaf {
     ) {
       return;
     }
-    fetch(leafTarget.dataset.url)
+
+    function handleErrors(response) {
+      if (!response.ok) {
+        return Promise.reject(response);
+      }
+      return response;
+    }
+
+    let url = leafTarget.dataset.url;
+    if (Math.random() < 0.5) {
+      url = url + "xxx";
+    }
+
+    console.log("fetching:", url);
+    fetch(url)
+      .then(handleErrors)
       .then((response) => response.text())
       .then((html) => {
         let parser = new DOMParser();
@@ -208,14 +223,22 @@ class Leaf {
         }
 
         panel.querySelector("article").replaceWith(article);
-        // scroll to the top, in case previous leaf was scrolled
-        panel.scrollTop = 0;
-        // make sure panel is active
-        panel.parentElement.classList.add("show-details");
-        panel.parentElement.classList.remove("closed");
         // store current leaf url in a data attribute so we can check for reload
         panel.dataset.showing = leafTarget.dataset.url;
+      })
+      .catch((response) => {
+        // clone error article and pass in to article
+        let errorArticle = document.querySelector("#leaferror").cloneNode(true);
+        errorArticle.classList.remove("closed");
+        errorArticle.classList.add("show-details");
+        panel.querySelector("article").replaceWith(errorArticle);
       });
+
+    // scroll to the top, in case previous leaf was scrolled
+    panel.scrollTop = 0;
+    // make sure panel is active
+    panel.parentElement.classList.add("show-details");
+    panel.parentElement.classList.remove("closed");
   }
 
   static highlightLeaf(event) {
