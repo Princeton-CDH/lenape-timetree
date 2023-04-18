@@ -191,6 +191,11 @@ body.home {
     opacity: 0.4;
     pointer-events: none;
   }
+
+  // when a tag is active, display the current tag button
+  #current-tag {
+    opacity: 100%;
+  }
 }
 
 // make link color visible
