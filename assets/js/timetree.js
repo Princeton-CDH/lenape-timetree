@@ -85,16 +85,7 @@ class TimeTree {
     // (currently needed to update active tag button)
     Leaf.tags = tags;
     // update selection to reflect active tag and/or leaf hash in url on page load
-    let status = Leaf.updateSelection();
-
-    // special case: if a tag is selected without a leaf on page load,
-    // hide the intro panel
-    if (status.tag && !status.leaf) {
-      this.panel.close();
-    } else if (status.leaf) {
-      // if a leaf is selected on load, close the intro
-      this.panel.closeIntro();
-    }
+    Leaf.updateSelection();
   }
 
   getCenturies() {
@@ -408,10 +399,7 @@ class TimeTree {
         }
         return classes.join(" ");
       })
-      .on("click", (event) => {
-        this.panel.closeIntro(); // close so info button will be active on mobile
-        Leaf.setCurrentLeaf(event);
-      })
+      .on("click", Leaf.setCurrentLeaf)
       .on("mouseover", Leaf.highlightLeaf)
       .on("mouseout", Leaf.unhighlightLeaf);
 
@@ -439,10 +427,7 @@ class TimeTree {
         return classes.join(" ");
       })
       // .text((d) => d.label.text)
-      .on("click", (event) => {
-        this.panel.closeIntro(); // close so info button will be active on mobile
-        Leaf.setCurrentLeaf(event);
-      })
+      .on("click", Leaf.setCurrentLeaf)
       .on("mouseover", Leaf.highlightLeaf)
       .on("mouseout", Leaf.unhighlightLeaf);
 
