@@ -52,6 +52,7 @@ class Panel {
     if (leafVisible && closeDetails) {
       container.classList.remove("show-details");
       Leaf.closeLeafDetails();
+      this.el.dispatchEvent(PanelCloseEvent);
     }
 
     // if we are closing everything or no leaf is visible, close the panel

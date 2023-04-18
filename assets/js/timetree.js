@@ -103,21 +103,30 @@ class TimeTree {
     // hide the intro panel
     if (status.tag && !status.leaf) {
       this.panel.close();
+      // zoom in on the tagged leaves
+      this.zoomToTagged();
     } else if (status.leaf) {
       // if a leaf is selected on load, close the intro
       this.panel.closeIntro();
-      // zoom in on the selected leaf
-      this.zoomToSelectedLeaf();
+
+      // if a tag is active, zoom in on tagged leaves
+      if (status.tag) {
+        this.zoomToTagged();
+      } else {
+        // otherwise, zoom in on the selected leaf
+        this.zoomToSelectedLeaf();
+      }
     }
 
-    // reset zoom when the panel is closed
+    // event handlers for adjusting zoom
+    // - reset zoom when the panel is closed
     this.panel.el.addEventListener("panel-close", this.resetZoom.bind(this));
-    // reset zoom when a tag is selected
-    // TODO: ideally, only zoom out as far as required to see all tagged leaves
+    // - when a tag is selected, zoom out to see all tagged leaves
     this.panel.el.parentElement.addEventListener(
       "tag-select",
-      this.resetZoom.bind(this)
+      this.zoomToTagged.bind(this)
     );
+    // - when a tag is deselected, zoom back in on selected leaf
     this.panel.el.parentElement.addEventListener(
       "tag-deselect",
       this.zoomToSelectedLeaf.bind(this)
@@ -354,7 +363,7 @@ class TimeTree {
           .attr("y", (d, i, n) => {
             return n[i].parentElement.getBBox().y - labelMargin.y;
           })
-          .attr("width", 50)
+          .attr("width", 60)
           .attr("height", 38)
       );
 
@@ -615,21 +624,25 @@ class TimeTree {
     this.zoomToDatum(d);
   }
 
-  zoomToDatum(d) {
-    // zoom to a specified leaf; takes the data entry that is joined
-    // to the path for the leaf in the d3 force simulation
+  zoomToDatum(d, scale) {
+    // zoom to a specified point; takes a data entry with an x,y coordinate
+    // (generally a data point for a leaf used in the d3 force simulation)
+    // scale is optional; if not specified, will scale to maximum zoom level
+
+    if (scale == undefined) {
+      scale = this.maxZoom;
+    }
 
     // programmatic zoom skips filters; check if mobile before auto-zooming
     if (this.isMobile()) {
-      // let transform = d3.zoomIdentity.translate(d.x, d.y).scale(this.maxZoom);
-      let transform = d3.zoomIdentity.scale(this.maxZoom);
+      let transform = d3.zoomIdentity.scale(scale);
       // call the zoom handler to scale the century axis
       this.zoomed({ transform });
 
       // zooming is bound to the svg;
       // scale and translate to the selected leaf or label
       // scale to max zoom level using element coordinates as focus point.
-      this.zoom.scaleTo(this.svg, this.maxZoom, [d.x, d.y]);
+      this.zoom.scaleTo(this.svg, scale, [d.x, d.y]);
 
       // transform to coordinates for the selected elment
       this.zoom.translateTo(this.svg, d.x, d.y);
@@ -638,14 +651,51 @@ class TimeTree {
 
   zoomToSelectedLeaf() {
     // zoom in selected leaf on page load or when a tag is closed
-    // - determine which leaf is currently selected
-    let leaf = document.querySelector("path.select");
-    // if a selected leaf is found, find the corresponding datum
-    if (leaf != undefined) {
-      let nodes = this.network.nodes.filter((d) => d.id == leaf.dataset.id);
-      if (nodes.length) {
-        this.zoomToDatum(nodes[0]);
+    if (this.isMobile()) {
+      // - determine which leaf is currently selected
+      let state = Leaf.getCurrentState();
+      // if a leaf is currently selected, find datum for the leaf id
+      if (state.leaf) {
+        let nodes = this.network.nodes.filter((d) => d.id == state.leaf);
+        if (nodes.length) {
+          this.zoomToDatum(nodes[0]);
+        }
       }
+    }
+  }
+
+  zoomToTagged() {
+    // zoom out the amount needed to show all leaves with the current tag
+    if (this.isMobile()) {
+      let state = Leaf.getCurrentState();
+      // get data points for all leaves with this tag
+      let nodes = this.network.nodes.filter(
+        (d) => d.tags != undefined && d.tags.includes(state.tag)
+      );
+      // collect all the x and y coordinates and determine min and max
+      let nodesX = nodes.map((el) => el.x);
+      let nodesY = nodes.map((el) => el.y);
+      let [min_x, min_y, max_x, max_y] = [
+        Math.min(...nodesX),
+        Math.min(...nodesY),
+        Math.max(...nodesX),
+        Math.max(...nodesY),
+      ];
+
+      let margin = 100;
+      let tagWidth = max_x - min_x;
+      let tagHeight = max_y - min_y;
+      // use ratio between full width and width needed to show all tagged items
+      // determine necessary zoom level; don't go beyond max zoom
+      let scale = Math.min(this.width / (tagWidth + margin), this.maxZoom);
+      // determine the center of the tags, for focusing the zoom
+      let tagCenter = {
+        x: min_x + tagWidth / 2,
+        y: min_y + tagHeight / 2,
+      };
+
+      // zoom in on the tags at the calculated scale
+      this.zoomToDatum(tagCenter, scale);
     }
   }
 
