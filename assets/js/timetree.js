@@ -252,8 +252,10 @@ class TimeTree {
     let width = this.getSVGWidth(); // width depends on if mobile or not
     let height = 800;
 
+    // point [0, 0] is the center of the svg
     let min_x = -width / 2;
     let min_y = -height / 2;
+    // let [min_x, min_y] = [0, 0];
 
     // store on the class instance for other methods
     this.width = width;
@@ -323,8 +325,25 @@ class TimeTree {
     this.gYAxis = svg
       .append("g")
       .attr("id", "century-axis")
-      .attr("transform", `translate(${this.min_x + 60},0)`) // TODO: 60 is too much for mobile
-      .call(this.yAxis);
+      .attr("transform", `translate(${this.min_x + 15},0)`)
+      .call(this.yAxis)
+      .call((g) => g.attr("text-anchor", "start")) // override left axis default of end
+      .call((g) => g.select(".domain").remove())
+      .call((g) =>
+        g
+          .selectAll(".tick")
+          .append("rect")
+          .lower()
+          .attr("class", "tick-bg")
+          .attr("x", (d, i, n) => {
+            return n[i].parentElement.getBBox().x;
+          })
+          .attr("y", (d, i, n) => {
+            return n[i].parentElement.getBBox().y;
+          })
+          .attr("width", 50)
+          .attr("height", 20)
+      );
 
     // determine placement for branches left to right
     this.branchCoords = {};
@@ -340,7 +359,7 @@ class TimeTree {
     // draw a couple of lines to help gesture at tree-ness
     let trunkWidth = 65;
     // right side
-    let max_y = height / 2;
+    let max_y = min_y + height;
     background
       .append("path")
       .attr(
@@ -367,11 +386,20 @@ class TimeTree {
       )
       .attr("class", "trunk");
 
+    console.log(this.width / 2, this.height / 2);
+
+    svg
+      .append("circle")
+      .attr("r", 5)
+      .attr("fill", "red")
+      .attr("cx", this.width / 2)
+      .attr("cy", this.height / 2);
+
     let simulation = d3
       .forceSimulation(this.network.nodes)
       .force("charge", d3.forceManyBody().strength(forceStrength.charge))
       // .force("manyBody", d3.forceManyBody().strength(forceStrength.manyBody))
-      .force("center", d3.forceCenter().strength(forceStrength.center))
+      // .force("center", d3.forceCenter([this.width/2, this.height/2]).strength(forceStrength.center))
       // .alpha(0.1)
       // .alphaDecay(0.2)
       .force(
@@ -544,6 +572,13 @@ class TimeTree {
 
     // update y-axis for the new scale
     this.gYAxis.call(this.yAxis.scale(transform.rescaleY(this.yScale)));
+    if (transform.k < 2.5) {
+      // zoom axis labels and backgrounds, but don't zoom all the way
+      this.gYAxis.selectAll("text").attr("transform", `scale(${transform.k})`);
+      this.gYAxis
+        .selectAll(".tick-bg")
+        .attr("transform", `scale(${transform.k})`);
+    }
 
     // translate the treeviz portion of the svg
     this.vizGroup.attr("transform", transform);
@@ -572,7 +607,8 @@ class TimeTree {
       this.zoom.scaleTo(this.svg, this.maxZoom, [el.x, el.y]);
       // transform to element coordinates at the current zoom level
       // (this seems pretty close but not working in all cases)
-      this.zoom.translateTo(this.svg, el.x / this.maxZoom, el.y / this.maxZoom);
+      // this.zoom.translateTo(this.svg, el.x / this.maxZoom, el.y / this.maxZoom);
+      this.zoom.translateTo(this.svg, el.x, el.y);
     }
   }
 

@@ -59,10 +59,12 @@ body.home {
         position: absolute;
         right: 8px;
         top: -22px;
-        opacity: 0;
         padding: 8px;
         text-align: center;
         cursor: pointer;
+        // hidden by default
+        opacity: 0;
+        pointer-events: none;
 
         & .ph-arrows-in {
           width: 22px;
@@ -75,6 +77,7 @@ body.home {
       &.zoomed #labels,
       &.zoomed .reset-zoom {
         opacity: 100%;
+        pointer-events: auto;
       }
 
       rect.century-container {
@@ -89,12 +92,21 @@ body.home {
       // d3-axis version of century labels
       #century-axis {
         .tick {
-          // TODO: svg elements don't have backgrounds
-          /*          background: rgba(97, 81, 75, 0.7);*/
           text {
             fill: $nearwhite;
             line-height: 18px;
-            font-size: 14px;
+            font-size: 16px;
+
+            // @include for-desktop-up {
+            // font-size: 16px;
+            // }
+          }
+
+          // svg elements don't have backgrounds,
+          // so we have to use a rectangle positioned within the tick
+          rect.tick-bg {
+            fill: $body-bg-color;
+            fill-opacity: 0.7;
           }
 
           &:hover {
