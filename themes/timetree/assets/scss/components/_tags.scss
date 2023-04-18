@@ -40,12 +40,12 @@ $tag-color: (
     background-color: map-get($tag-color, "hover");
   }
 
-  &:focus-visible,
-  &:active {
+  &:focus-visible {
     // use outline instead of border so size is not affected
     outline: 3px solid black;
   }
 
+  &:active,
   &.select {
     // user-selected, currently active tag
     background-color: map-get($tag-color, "active");
