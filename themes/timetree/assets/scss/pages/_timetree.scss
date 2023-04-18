@@ -94,7 +94,9 @@ body.home {
         .tick {
           text {
             fill: $nearwhite;
-            line-height: 18px;
+            // NOTE: because svg is ~ half scale when unzoomed on mobile,
+            // use desktop font size
+            line-height: 30px;
             font-size: 16px;
 
             // @include for-desktop-up {

@@ -38,6 +38,9 @@ function cointoss() {
   return Math.random() < 0.5;
 }
 
+const TagSelectEvent = new Event("tag-select");
+const TagDeselectEvent = new Event("tag-deselect");
+
 class Leaf {
   // constant for selection classname
   static selectedClass = "select";
@@ -57,6 +60,7 @@ class Leaf {
         event.stopPropagation();
         Leaf.setCurrentTag(element.dataset.tag);
         element.classList.add(Leaf.selectedClass);
+        asideContainer.dispatchEvent(TagSelectEvent);
       }
     });
 
@@ -64,6 +68,7 @@ class Leaf {
     const activeTagClose = document.querySelector("#current-tag .close");
     activeTagClose.addEventListener("click", (event) => {
       Leaf.setCurrentTag();
+      asideContainer.dispatchEvent(TagDeselectEvent);
     });
   }
 
@@ -172,7 +177,7 @@ class Leaf {
     if (leafHash && leafHash.startsWith("#")) {
       let leafID = leafHash.slice(1);
       currentState.leaf = leafID;
-      let leafTarget = document.querySelector(`path[data-id=${leafID}]`);
+      let leafTarget = document.querySelector(`path[data-id="${leafID}"]`);
       // if hash id corresponds to a leaf, select it
       if (leafTarget != undefined) {
         // actually make selection

@@ -106,10 +106,22 @@ class TimeTree {
     } else if (status.leaf) {
       // if a leaf is selected on load, close the intro
       this.panel.closeIntro();
+      // zoom in on the selected leaf
+      this.zoomToSelectedLeaf();
     }
 
     // reset zoom when the panel is closed
     this.panel.el.addEventListener("panel-close", this.resetZoom.bind(this));
+    // reset zoom when a tag is selected
+    // TODO: ideally, only zoom out as far as required to see all tagged leaves
+    this.panel.el.parentElement.addEventListener(
+      "tag-select",
+      this.resetZoom.bind(this)
+    );
+    this.panel.el.parentElement.addEventListener(
+      "tag-deselect",
+      this.zoomToSelectedLeaf.bind(this)
+    );
   }
 
   checkLeafData() {
@@ -322,6 +334,7 @@ class TimeTree {
 
     // axis is always drawn at origin, which for us is the center of the svg;
     // move to the left with enough space for labels to show
+    let labelMargin = { x: 4, y: 10 };
     this.gYAxis = svg
       .append("g")
       .attr("id", "century-axis")
@@ -336,13 +349,13 @@ class TimeTree {
           .lower()
           .attr("class", "tick-bg")
           .attr("x", (d, i, n) => {
-            return n[i].parentElement.getBBox().x;
+            return n[i].parentElement.getBBox().x - labelMargin.x;
           })
           .attr("y", (d, i, n) => {
-            return n[i].parentElement.getBBox().y;
+            return n[i].parentElement.getBBox().y - labelMargin.y;
           })
           .attr("width", 50)
-          .attr("height", 20)
+          .attr("height", 38)
       );
 
     // determine placement for branches left to right
@@ -386,14 +399,13 @@ class TimeTree {
       )
       .attr("class", "trunk");
 
-    console.log(this.width / 2, this.height / 2);
-
-    svg
-      .append("circle")
-      .attr("r", 5)
-      .attr("fill", "red")
-      .attr("cx", this.width / 2)
-      .attr("cy", this.height / 2);
+    // for debugging: mark the center of the svg
+    // svg
+    //   .append("circle")
+    //   .attr("r", 5)
+    //   .attr("fill", "red")
+    //   .attr("cx", this.min_x + this.width / 2)
+    //   .attr("cy", this.min_y + this.height / 2);
 
     let simulation = d3
       .forceSimulation(this.network.nodes)
@@ -569,17 +581,16 @@ class TimeTree {
 
   zoomed({ transform }) {
     // handle zoom event
-
-    // update y-axis for the new scale
+    // update century y-axis for the new scale
     this.gYAxis.call(this.yAxis.scale(transform.rescaleY(this.yScale)));
-    if (transform.k < 2.5) {
-      // zoom axis labels and backgrounds, but don't zoom all the way
-      this.gYAxis.selectAll("text").attr("transform", `scale(${transform.k})`);
-      this.gYAxis
-        .selectAll(".tick-bg")
-        .attr("transform", `scale(${transform.k})`);
-    }
-
+    let axisLabelTransform = Math.min(2.75, transform.k);
+    // zoom axis labels and backgrounds, but don't zoom all the way
+    this.gYAxis
+      .selectAll("text")
+      .attr("transform", `scale(${axisLabelTransform})`);
+    this.gYAxis
+      .selectAll(".tick-bg")
+      .attr("transform", `scale(${axisLabelTransform})`);
     // translate the treeviz portion of the svg
     this.vizGroup.attr("transform", transform);
 
@@ -594,21 +605,47 @@ class TimeTree {
     }
   }
 
-  selectLeaf(event, el) {
-    event.stopPropagation();
+  selectLeaf(event, d) {
+    if (event) {
+      event.stopPropagation();
+      Leaf.setCurrentLeaf(event);
+    }
     this.panel.closeIntro(); // close so info button will be active on mobile
-    Leaf.setCurrentLeaf(event);
+    // zoom in on the data point for the selected leaf
+    this.zoomToDatum(d);
+  }
+
+  zoomToDatum(d) {
+    // zoom to a specified leaf; takes the data entry that is joined
+    // to the path for the leaf in the d3 force simulation
 
     // programmatic zoom skips filters; check if mobile before auto-zooming
     if (this.isMobile()) {
-      // zooming is configured to use svg coordinates
-      // so scale and translate to the clicked leaf or label
+      // let transform = d3.zoomIdentity.translate(d.x, d.y).scale(this.maxZoom);
+      let transform = d3.zoomIdentity.scale(this.maxZoom);
+      // call the zoom handler to scale the century axis
+      this.zoomed({ transform });
+
+      // zooming is bound to the svg;
+      // scale and translate to the selected leaf or label
       // scale to max zoom level using element coordinates as focus point.
-      this.zoom.scaleTo(this.svg, this.maxZoom, [el.x, el.y]);
-      // transform to element coordinates at the current zoom level
-      // (this seems pretty close but not working in all cases)
-      // this.zoom.translateTo(this.svg, el.x / this.maxZoom, el.y / this.maxZoom);
-      this.zoom.translateTo(this.svg, el.x, el.y);
+      this.zoom.scaleTo(this.svg, this.maxZoom, [d.x, d.y]);
+
+      // transform to coordinates for the selected elment
+      this.zoom.translateTo(this.svg, d.x, d.y);
+    }
+  }
+
+  zoomToSelectedLeaf() {
+    // zoom in selected leaf on page load or when a tag is closed
+    // - determine which leaf is currently selected
+    let leaf = document.querySelector("path.select");
+    // if a selected leaf is found, find the corresponding datum
+    if (leaf != undefined) {
+      let nodes = this.network.nodes.filter((d) => d.id == leaf.dataset.id);
+      if (nodes.length) {
+        this.zoomToDatum(nodes[0]);
+      }
     }
   }
 
