@@ -190,13 +190,6 @@ class Leaf {
       return;
     }
 
-    function handleErrors(response) {
-      if (!response.ok) {
-        return Promise.reject(response);
-      }
-      return response;
-    }
-
     let url = leafTarget.dataset.url;
     if (Math.random() < 0.5) {
       url = url + "xxx";
@@ -204,7 +197,12 @@ class Leaf {
 
     console.log("fetching:", url);
     fetch(url)
-      .then(handleErrors)
+      .then((response) => {
+        if (!response.ok) {
+          return Promise.reject(response);
+        }
+        return response;
+      })
       .then((response) => response.text())
       .then((html) => {
         let parser = new DOMParser();
@@ -229,9 +227,8 @@ class Leaf {
       .catch((response) => {
         // clone error article and pass in to article
         let errorArticle = document.querySelector("#leaferror").cloneNode(true);
-        errorArticle.classList.remove("closed");
-        errorArticle.classList.add("show-details");
         panel.querySelector("article").replaceWith(errorArticle);
+        errorArticle.classList.add("showing");
       });
 
     // scroll to the top, in case previous leaf was scrolled
