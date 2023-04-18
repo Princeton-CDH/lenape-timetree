@@ -33,10 +33,19 @@ body.home main > aside {
 
   // allow closing the intro on mobile
   &.closed {
-    visibility: hidden;
+    height: 0;
+    #intro,
+    article,
+    > .close {
+      height: 0;
+    }
   }
   &.show-panel {
-    visibility: visible;
+    #intro,
+    article,
+    > .close {
+      height: auto;
+    }
   }
 
   @include for-desktop-up {
@@ -204,5 +213,13 @@ body.home main > aside {
         }
       }
     }
+  }
+}
+
+// special case: tag is active but intro panel is closed
+body.tag-active.home main > aside {
+  // panel should be exactly the height of the tag
+  &.closed {
+    height: $tag-height;
   }
 }

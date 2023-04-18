@@ -1,5 +1,5 @@
 ---
-'1832': Descendants of Lunaapew in Wisconsin successfully petition the State of New
+'1832': Descendants of Lunaapeew in Wisconsin successfully petition the State of New
   Jersey for compensation based on claims to lost fishing and hunting rights promised
   by the Treaty of Easton
 branch: Resistance + Resurgence
@@ -13,4 +13,4 @@ tags:
 title: Recovering NJ land rights
 ---
 
-1832: Descendants of Lunaapew in Wisconsin successfully petition the State of New Jersey for compensation based on claims to lost fishing and hunting rights promised by the Treaty of Easton
+1832: Descendants of Lunaapeew in Wisconsin successfully petition the State of New Jersey for compensation based on claims to lost fishing and hunting rights promised by the Treaty of Easton
