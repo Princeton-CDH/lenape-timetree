@@ -616,6 +616,7 @@ class TimeTree {
 
   selectLeaf(event, d) {
     if (event) {
+      event.preventDefault();
       event.stopPropagation();
       Leaf.setCurrentLeaf(event);
     }
