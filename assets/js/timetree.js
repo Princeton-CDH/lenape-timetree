@@ -660,6 +660,9 @@ class TimeTree {
         if (nodes.length) {
           this.zoomToDatum(nodes[0]);
         }
+      } else {
+        // if no leaf is selected, reset zoom
+        this.resetZoom();
       }
     }
   }
