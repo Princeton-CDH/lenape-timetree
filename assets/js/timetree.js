@@ -279,10 +279,8 @@ class TimeTree {
 
     // create a group within the viz for the zoomable portion of the tree
     // don't draw anything outside of the clip path
-    this.vizGroup = svg
-      .insert("g", "#century-axis")
-      .attr("id", "#viz")
-      .attr("clip-path", "url(#clip)");
+    this.vizGroup = svg.insert("g", "#century-axis").attr("id", "#viz");
+    // .attr("clip-path", "url(#clip)");   // clip path isn't working; is it needed?
 
     // create a section for the background
     let background = this.vizGroup.append("g").attr("id", "background");
@@ -580,9 +578,10 @@ class TimeTree {
 
   visualDebug() {
     // visual debugging for layout
-    // insert under other layers to avoid interfering with click/touch/hover
+    // should be under other layers to avoid interfering with click/touch/hover
     this.debugLayer = this.svg
-      .insert("g", "#viz")
+      .append("g")
+      .lower() // make this group the lowest in the stack
       .attr("id", "debug")
       .style("opacity", 0); // not visible by default
 
