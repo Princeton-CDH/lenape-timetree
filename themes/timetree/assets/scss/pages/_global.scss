@@ -62,30 +62,6 @@ body > header {
   @include for-desktop-up {
     height: $desktop_header_height;
   }
-
-  /* info button for mobile */
-  .info {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 25px 25px;
-    opacity: 1;
-    cursor: pointer;
-
-    @include for-desktop-up {
-      visibility: hidden;
-    }
-
-    &[disabled] {
-      opacity: 0.3;
-      pointer-events: none;
-    }
-
-    i {
-      width: 24px;
-      height: 24px;
-    }
-  }
 }
 
 body > footer {

@@ -84,12 +84,3 @@ $tag-color: (
     }
   }
 }
-
-.tag-active {
-  // when a tag is active, display the current tag button
-  // show even if the panel is closed on mobile
-  #current-tag,
-  aside.closed #current-tag {
-    opacity: 100%;
-  }
-}
