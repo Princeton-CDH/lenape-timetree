@@ -97,7 +97,16 @@ class TimeTree {
     // (currently needed to update active tag button)
     Leaf.tags = tags;
     // update selection to reflect active tag and/or leaf hash in url on page load
-    Leaf.updateSelection();
+    let status = Leaf.updateSelection();
+
+    // special case: if a tag is selected without a leaf on page load,
+    // hide the intro panel
+    if (status.tag && !status.leaf) {
+      this.panel.close();
+    } else if (status.leaf) {
+      // if a leaf is selected on load, close the intro
+      this.panel.closeIntro();
+    }
 
     // reset zoom when the panel is closed
     this.panel.el.addEventListener("panel-close", this.resetZoom.bind(this));
@@ -433,7 +442,7 @@ class TimeTree {
         }
         return classes.join(" ");
       })
-      .on("click", this.selectLeaf.bind(this)) // Leaf.setCurrentLeaf)
+      .on("click", this.selectLeaf.bind(this))
       .on("mouseover", Leaf.highlightLeaf)
       .on("mouseout", Leaf.unhighlightLeaf);
 
@@ -461,7 +470,7 @@ class TimeTree {
         return classes.join(" ");
       })
       // .text((d) => d.label.text)
-      .on("click", this.selectLeaf.bind(this)) // Leaf.setCurrentLeaf)
+      .on("click", this.selectLeaf.bind(this))
       .on("mouseover", Leaf.highlightLeaf)
       .on("mouseout", Leaf.unhighlightLeaf);
 
@@ -554,6 +563,7 @@ class TimeTree {
 
   selectLeaf(event, el) {
     event.stopPropagation();
+    this.panel.closeIntro(); // close so info button will be active on mobile
     Leaf.setCurrentLeaf(event);
 
     // programmatic zoom skips filters; check if mobile before auto-zooming
