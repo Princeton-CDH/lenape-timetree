@@ -242,8 +242,9 @@ class Leaf {
     // scroll to the top, in case previous leaf was scrolled
     panel.scrollTop = 0;
     // make sure panel is active
+
+    // @TODO: This should become unnecessary when zoom PR is merged
     panel.parentElement.classList.add("show-details");
-    // panel.parentElement.classList.remove("closed");   // unnec
   }
 
   static highlightLeaf(event) {
