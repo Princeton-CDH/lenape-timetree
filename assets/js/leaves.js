@@ -235,7 +235,7 @@ class Leaf {
     panel.scrollTop = 0;
     // make sure panel is active
     panel.parentElement.classList.add("show-details");
-    panel.parentElement.classList.remove("closed");
+    // panel.parentElement.classList.remove("closed");   // unnec
   }
 
   static highlightLeaf(event) {
