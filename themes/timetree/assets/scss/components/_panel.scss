@@ -211,7 +211,8 @@ body.home main > aside {
 #leaferror {
   visibility: hidden;
 
-  &.showing {
+  // visible when present in panel container for load error
+  aside & {
     visibility: visible;
   }
 }
