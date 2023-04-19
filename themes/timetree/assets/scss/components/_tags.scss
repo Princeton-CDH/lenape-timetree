@@ -5,11 +5,13 @@ $tag-color: (
 );
 
 .tags {
-  /* use flex to avoid unwanted space between tags caused by 
+  /* use flex to avoid unwanted space between tags caused by
     whitespace between tags in the markup */
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+
+  margin-top: 20px;
 }
 
 .tags a {
@@ -38,12 +40,12 @@ $tag-color: (
     background-color: map-get($tag-color, "hover");
   }
 
-  &:focus-visible,
-  &:active {
+  &:focus-visible {
     // use outline instead of border so size is not affected
     outline: 3px solid black;
   }
 
+  &:active,
   &.select {
     // user-selected, currently active tag
     background-color: map-get($tag-color, "active");
@@ -82,5 +84,56 @@ $tag-color: (
       width: 20px;
       height: 20px;
     }
+  }
+}
+
+// tag index page
+body.taxonomy {
+  h1 {
+    margin: 40px 22px 20px;
+
+    @include for-desktop-up {
+      margin: 50px 60px 20px;
+    }
+  }
+}
+
+.tag-index {
+  margin: 0 18px 22px;
+
+  @include for-desktop-up {
+    margin: 0 60px 38px;
+    // display in two columns on desktop only
+    columns: 2 auto; // second arg is width
+    column-gap: 8px;
+    // don't let the columns get too far apart;
+    // set max width based on expected size at xl breakpoint
+    max-width: calc(#{$breakpoint-xl} - 120px);
+  }
+
+  .tags {
+    margin-top: 0;
+
+    a {
+      margin: 8px 0 8px;
+    }
+  }
+
+  .count {
+    font-size: 14px;
+    padding-left: 12px;
+
+    @include for-desktop-up {
+      font-size: 16px;
+    }
+  }
+}
+
+.tag-active {
+  // when a tag is active, display the current tag button
+  // show even if the panel is closed on mobile
+  #current-tag,
+  aside.closed #current-tag {
+    opacity: 100%;
   }
 }

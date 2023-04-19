@@ -1,12 +1,12 @@
 <footer>
     <nav id="footer-nav">
-        <a {{ if (eq .Page.RelPermalink "/") }}class="selected" {{ end }}href="/">Home</a>
-        {{/* temporary, until we build out pages and footer */}}
-        {{ range .Site.Sections }}
-          <a href="{{ .RelPermalink }}">All {{ .Title }}</a>
-        {{ end }}
-        <a href="/tags/">Tags</a>
-        <span>About</span>
-        <span>Resources</span>
+        {{- $page := . }}
+        {{/* get menu from site config; sort by configured weight */}}
+        {{- $footerMenu := index site.Menus "footer" }}
+        {{ range $entry := sort $footerMenu "Weight" }}
+            {{ $active := $page.IsMenuCurrent $entry.Menu .}}
+            <a href="{{ $entry.URL}}" {{ if $active }}aria-current="page"{{ end }}>{{ $entry.Title }}
+        </a>
+        {{- end }}
     </nav>
 </footer>

@@ -16,17 +16,17 @@ $dashes-color: rgba(254, 254, 254, 0.4); // near white, 40% opacity
 // leaf colors; a-e indicate leaves in different branches
 $leaf-color-a: #ffdcae;
 $leaf-color-b: #fecd70;
-$leaf-color-c: #ced89e;
-$leaf-color-d: #adcf9f;
-$leaf-color-e: #cc7351;
+$leaf-color-c: #c5d18c;
+$leaf-color-d: #99c886;
+$leaf-color-e: #d89479;
 
 // leaf fill color
 $leaf-color: (
   "a": #ffdcae,
   "b": #fecd70,
-  "c": #ced89e,
-  "d": #adcf9f,
-  "e": #cc7351,
+  "c": #c5d18c,
+  "d": #99c886,
+  "e": #d89479,
 );
 // selected leaf outline
 $leaf-outline-color: (

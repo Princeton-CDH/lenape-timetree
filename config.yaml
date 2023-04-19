@@ -18,3 +18,23 @@ outputs:
   home:
     - HTML
     - JSON
+
+menu:
+  footer:
+    - name: Home
+      title: Home
+      pageRef: /
+      weight: 1
+    - name: About
+      pageRef: /about
+      weight: 2
+    - name: Tag Index
+      pageRef: /tags
+      weight: 3
+    - name: Resources
+      pageRef: /resources
+      weight: 4
+    - name: Contributors
+      pageRef: /contributors
+      title: Contributors
+      weight: 5
