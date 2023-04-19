@@ -140,6 +140,9 @@ class Leaf {
     let tagID = url.searchParams.get("tag");
     let leafHash = url.hash;
 
+    // construct an object to track current state
+    let currentState = {};
+
     // deselect any current
     Leaf.deselectCurrent();
 
@@ -148,6 +151,7 @@ class Leaf {
       el.classList.remove(Leaf.selectedClass);
     });
     if (tagID) {
+      currentState.tag = tagID;
       let leaves = document.getElementsByClassName(tagID);
       for (let item of leaves) {
         item.classList.add(Leaf.highlightClass);
@@ -167,6 +171,7 @@ class Leaf {
     // (load leaf first so if there is a current tag it can be set to active)
     if (leafHash && leafHash.startsWith("#")) {
       let leafID = leafHash.slice(1);
+      currentState.leaf = leafID;
       let leafTarget = document.querySelector(`path[data-id=${leafID}]`);
       // if hash id corresponds to a leaf, select it
       if (leafTarget != undefined) {
@@ -176,6 +181,9 @@ class Leaf {
         Leaf.openLeafDetails(leafTarget, tagID);
       }
     }
+
+    // return an object indicating current state
+    return currentState;
   }
 
   static openLeafDetails(leafTarget, activeTag) {
@@ -261,8 +269,6 @@ class Leaf {
 
   static closeLeafDetails() {
     const panel = document.querySelector("#leaf-details");
-    panel.parentElement.classList.remove("show-details");
-    panel.parentElement.classList.add("closed");
 
     Leaf.setCurrentLeaf();
     Leaf.closeTag();

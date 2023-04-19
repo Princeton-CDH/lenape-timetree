@@ -4,6 +4,13 @@
     {{/* output page title before site title unless they are exactly the same */}}
     <title>{{ block "title" . }}{{ with .Params.Title }}{{ if ( ne . $.Site.Title ) }}{{ . }} | {{ end }}{{ end }}{{ .Site.Title }}{{ end }}</title>
     <meta name="description" content="{{ .Params.Description | default .Summary | default .Site.Params.description }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#61514b">
+    <meta name="msapplication-TileColor" content="#61514b">
+    <meta name="theme-color" content="#61514b">
     <!-- resource preloading -->
     <link rel="preload" as="font" type="font/woff2" href="/fonts/overlock/Overlock-Regular.woff2" crossorigin />
     <link rel="preload" as="font" type="font/woff2" href="/fonts/overlock/Overlock-Black.woff2" crossorigin />
