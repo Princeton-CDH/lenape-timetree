@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     {{- partial "head.html" . -}}
-    <body {{ if .IsHome }}class="home"{{ end }}>
+    <body class="{{ .Kind }}"> {{/* home, taxonomy, etc */}}
         {{- partial "header.html" . -}}
         <main>
         {{/* if the page title is not the site title, include title in h1 */}}
