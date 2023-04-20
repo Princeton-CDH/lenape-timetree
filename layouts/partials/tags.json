@@ -1,7 +1,6 @@
-{{/* output a dict of tags; lookup by slug to get display title */}}
-{{ $tags := dict }}
-{{ range $tag, $content := .Site.Taxonomies.tags }}
-	{{ $slug := .Page.RelPermalink | path.Base }}
-	{{ $tags = merge $tags (dict $slug .Page.Title) }}
-{{ end }}
-{{ $tags | jsonify (dict "indent" "  ") }}
+{{- $tags := dict -}} {{/* output a dict of tags; lookup by slug to get display title */}}
+{{- range $tag, $content := .Site.Taxonomies.tags -}}
+	{{- $slug := .Page.RelPermalink | path.Base -}}
+	{{- $tags = merge $tags (dict $slug .Page.Title) -}}
+{{- end -}}
+{{- $tags | jsonify (dict "indent" "  ") -}}
