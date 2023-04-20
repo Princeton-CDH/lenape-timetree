@@ -12,6 +12,9 @@ body > footer {
   }
 
   nav {
+    position: absolute;
+    top: 0;
+    left: 0;
     // use flex to space out footer links evenly
     display: flex;
 
@@ -69,6 +72,6 @@ body > footer {
     position: absolute;
     left: 0;
     top: 0;
-    width: 100%;
+    width: 70%; /* must match the tree */
   }
 }

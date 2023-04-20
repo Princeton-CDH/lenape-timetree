@@ -369,6 +369,7 @@ class TimeTree {
       );
 
     // determine placement for branches left to right
+    // NOTE: could this be construed as an axis of some kind
     this.branchCoords = {};
     let branchMargin = 100;
     // etermine how much space to give to each branch
@@ -379,6 +380,7 @@ class TimeTree {
         branchMargin + min_x + i * branchWidth + branchWidth / 2;
     }
 
+    // TODO: move to branches.js
     // draw a couple of lines to help gesture at tree-ness
     let trunkWidth = 65; // 65;   // 110 in figma but we're roughly half scale, should be 55
     // right side
@@ -886,7 +888,6 @@ class TimeTree {
       // draw branch path for leaves, empty path for everything else
       .attr("class", "branch")
       .attr("d", (b, i) => {
-        console.log(b);
         let currentBranchNodes = branchNodes.filter((d) => d.branch == b);
         // console.log(currentBranchNodes);
         // console.log(drawBranch(currentBranchNodes));
