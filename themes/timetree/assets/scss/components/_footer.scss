@@ -1,0 +1,74 @@
+$mobile_footer_height: 250px;
+$desktop_footer_height: 130px;
+
+body > footer {
+  // height: $mobile_footer_height;
+  position: relative;
+
+  @include for-desktop-up {
+    // height: $desktop_footer_height;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav {
+    // use flex to space out footer links evenly
+    display: flex;
+
+    // limit footer nav width on larger screens
+    @include for-desktop-up {
+      width: 70%; /* fixme: should match timetree container; use grid to enforce? */
+    }
+
+    > * {
+      flex-grow: 1;
+    }
+    // make links sufficiently large tap targets
+    a {
+      text-align: center;
+      display: block;
+      height: 48px;
+      font-size: 16px;
+
+      @include for-desktop-up {
+        font-size: 18px;
+
+        height: $desktop_footer_height;
+
+        // vary vertical height based on position
+        &:nth-child(1) {
+          padding: calc(0.4 * #{$desktop_footer_height});
+        }
+        &:nth-child(2) {
+          padding: calc(0.65 * #{$desktop_footer_height});
+        }
+        &:nth-child(3) {
+          padding: calc(0.2 * #{$desktop_footer_height});
+        }
+        &:nth-child(4) {
+          padding: calc(0.5 * #{$desktop_footer_height});
+        }
+        &:nth-child(5) {
+          padding: calc(0.3 * #{$desktop_footer_height});
+        }
+      }
+    }
+
+    a,
+    a:link,
+    a:hover,
+    a:visited {
+      text-decoration: none;
+      &[aria-current="page"] {
+        font-weight: 900;
+      }
+    }
+  }
+
+  svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}

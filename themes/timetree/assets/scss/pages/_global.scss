@@ -1,8 +1,7 @@
+@import "components/footer";
+
 $mobile_header_height: 98px;
 $desktop_header_height: 75px;
-
-$mobile_footer_height: 250px;
-$desktop_footer_height: 130px;
 
 body {
   /* use grid layout to keep the footer on the bottom */
@@ -14,6 +13,9 @@ body {
 
   @include for-desktop-up {
     grid-template-rows: $desktop_header_height auto $desktop_footer_height;
+    height: 100vh;
+    max-height: 100vh;
+    margin: 0;
   }
 
   main {
@@ -88,24 +90,6 @@ body > header {
   }
 }
 
-body > footer {
-  height: $mobile_footer_height;
-
-  @include for-desktop-up {
-    height: $desktop_footer_height;
-  }
-}
-
-a,
-a:link,
-a:hover,
-a:visited {
-  color: $body-fg-color;
-  font-weight: normal;
-  text-decoration: underline;
-  text-decoration-color: $highlight-color;
-}
-
 article {
   margin: 30px;
 
@@ -116,38 +100,4 @@ article {
 
 .tags {
   margin-top: 20px;
-}
-
-footer nav {
-  // use flex to space out footer links, for now
-  display: flex;
-
-  // limit footer nav width on larger screens
-  @include for-desktop-up {
-    width: 80%;
-  }
-
-  > * {
-    flex-grow: 1;
-  }
-  // make links sufficiently large tap targets
-  a {
-    display: inline-block;
-    height: 48px;
-    font-size: 16px;
-
-    @include for-desktop-up {
-      font-size: 18px;
-    }
-  }
-
-  a,
-  a:link,
-  a:hover,
-  a:visited {
-    text-decoration: none;
-    &[aria-current="page"] {
-      font-weight: 900;
-    }
-  }
 }

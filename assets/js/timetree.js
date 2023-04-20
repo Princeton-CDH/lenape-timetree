@@ -16,6 +16,7 @@ import { zoom, zoomIdentity, zoomTransform } from "d3-zoom";
 import { LeafLabel } from "./labels";
 import { Panel } from "./panel";
 import { Leaf, LeafPath, leafSize, randomNumBetween } from "./leaves";
+import { drawBranch } from "./branches";
 
 // combine d3 imports into a d3 object for convenience
 const d3 = {
@@ -65,7 +66,7 @@ const forceStrength = {
   centuryY: 7, // draw to Y coordinate for center of assigned century band
 
   // custom x force for branch
-  branchX: 0.05, // draw to X coordinate based on branch
+  branchX: 0.08, // draw to X coordinate based on branch
 
   // strength of link force by type of link
   leafToBranch: 3.85, // between leaf and branch-century node
@@ -195,7 +196,7 @@ class TimeTree {
     // create branch+century nodes as we go
     for (const branch in this.leavesByBranch) {
       // *in* for keys
-      let currentBranchNode;
+      // let currentBranchIndex; // = null;
       let currentBranchNodeCount = 0;
       let currentCentury;
       let previousBranchIndex = trunkNodeIndex;
@@ -206,12 +207,12 @@ class TimeTree {
         // - too many leaves on current node
         // - century has changed
         if (
-          currentBranchNode == undefined ||
+          branchIndex == undefined ||
           currentBranchNodeCount > 5 ||
           currentCentury != leaf.century
         ) {
           let branchId = `${branch}-century${leaf.century}-${index}`;
-          let currentCentury = leaf.century;
+          currentCentury = leaf.century;
           currentBranchNodeCount = 0;
           nodes.push({
             id: `${branch}-century${leaf.century}-${index}`,
@@ -231,9 +232,8 @@ class TimeTree {
             branch: branch,
           });
 
-          if (branchIndex != undefined) {
-            previousBranchIndex = branchIndex;
-          }
+          // store as previous branch for the next created branch
+          previousBranchIndex = branchIndex;
         }
         // add the current leaf as a node
         leaf.label = new LeafLabel(leaf.display_title || leaf.title);
@@ -315,7 +315,8 @@ class TimeTree {
     this.initZoom();
 
     // create a y-axis for plotting the leaves by date
-    let yAxisHeight = this.height * 0.6; // leafContainerHeight * this.centuries.length;
+    // let yAxisHeight = this.height * 0.6; // leafContainerHeight * this.centuries.length;
+    let yAxisHeight = 90 * 6;
     let axisMin = this.min_y + 5;
 
     // now generating min/max years in hugo json data
@@ -379,9 +380,12 @@ class TimeTree {
     }
 
     // draw a couple of lines to help gesture at tree-ness
-    let trunkWidth = 65;
+    let trunkWidth = 65; // 65;   // 110 in figma but we're roughly half scale, should be 55
     // right side
     let max_y = min_y + height;
+    this.trunkLeft = -trunkWidth - 27;
+    this.trunkRight = trunkWidth + 25;
+    // let max_y = height / 2;
     background
       .append("path")
       .attr(
@@ -416,10 +420,23 @@ class TimeTree {
     //   .attr("cx", this.min_x + this.width / 2)
     //   .attr("cy", this.min_y + this.height / 2);
 
+    // for debugging: mark the center bottom of the svg
+    this.svg
+      .append("circle")
+      .attr("r", 5)
+      .attr("fill", "red")
+      .attr("cx", 0)
+      .attr("cy", this.min_y + this.height);
+
     let simulation = d3
       .forceSimulation(this.network.nodes)
       .force("charge", d3.forceManyBody().strength(forceStrength.charge))
       // .force("manyBody", d3.forceManyBody().strength(forceStrength.manyBody))
+      .force(
+        "center",
+        d3.forceCenter(0, -this.height / 4).strength(forceStrength.center)
+      )
+      // .force("center", d3.forceCenter(this.width/2, this.height/2).strength(forceStrength.center))
       // .force("center", d3.forceCenter([this.width/2, this.height/2]).strength(forceStrength.center))
       // .alpha(0.1)
       // .alphaDecay(0.2)
@@ -551,6 +568,7 @@ class TimeTree {
     // timetree.updatePositions();
     // });
     simulation.tick();
+    // simulation.stop();
   }
 
   maxZoom = 4; // maximum zoom level
@@ -821,7 +839,75 @@ class TimeTree {
         .attr("x2", (d) => d.target.x)
         .attr("y2", (d) => d.target.y);
     }
+
+    // draw branches
+    let branchNodes = this.network.nodes.filter((d) => d.type == "branch");
+    // calculate starting coordinates for each branch
+    // tree width is 110, center of svg is 0,0
+    // top of tree is at ??
+    // (duplicated calculation from trunk drawing code)
+    // let trunkTop = this.min_y + this.leafConstraints["15"].bottom - 10;
+    let trunkTop = this.yScale(this.leafStats.minYear);
+    let trunkWidth = 110;
+    let leftBranchX = -trunkWidth / 2;
+    let secondBranchY = trunkWidth * 0.3;
+    let steps = (trunkTop - secondBranchY) * 0.3;
+
+    let branchStart = [
+      // leftmost branch
+      [this.trunkLeft, trunkTop], // left-most branch
+      // [leftBranchX, trunkTop],  // left-most branch
+      [leftBranchX + trunkWidth * 0.06, trunkTop - secondBranchY], // second is 6% of width
+      [leftBranchX + trunkWidth * 0.48, trunkTop - secondBranchY + steps], // third is 48% of width
+      [
+        leftBranchX + trunkWidth * 0.7,
+        trunkTop - secondBranchY + steps + steps,
+      ], // third is 70% of width
+    ];
+    // rightmost branch
+    branchStart.push([this.trunkRight, trunkTop]);
+
+    // debug branch starting coordinates
+    // this.svg.append("g")
+    //   .selectAll("circle")
+    //   .data(branchStart)
+    //   .join("circle")
+    //   .attr('r', 5)
+    //   .attr('fill', 'red')
+    //   .attr('cy', (d, i) => { return d[1] })
+    //   .attr('cx', d => {return d[0] });
+
+    let branchPaths = this.vizGroup
+      .insert("g", ".nodes") // insert before node group so it will render under
+      .attr("class", "branches")
+      .selectAll("path")
+      .data(Object.keys(branches))
+      .join("path")
+      // draw branch path for leaves, empty path for everything else
+      .attr("class", "branch")
+      .attr("d", (b, i) => {
+        console.log(b);
+        let currentBranchNodes = branchNodes.filter((d) => d.branch == b);
+        // console.log(currentBranchNodes);
+        // console.log(drawBranch(currentBranchNodes));
+        let startCoord = {
+          x: branchStart[i][0],
+          y: branchStart[i][1],
+        };
+        currentBranchNodes.unshift(startCoord);
+        return drawBranch(currentBranchNodes);
+      });
   }
+  /*
+    console.log(branchNodes);
+    for (const b in branches) {
+      console.log(b);
+      let currentBranchNodes = branchNodes.filter(d => d.branch == b);
+      console.log(currentBranchNodes);
+      console.log(drawBranch(currentBranchNodes));
+
+    };
+  } */
 }
 
 // this.nodes = nodes;

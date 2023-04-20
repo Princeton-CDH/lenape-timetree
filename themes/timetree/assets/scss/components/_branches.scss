@@ -1,0 +1,16 @@
+path.trunk {
+  fill: none;
+  stroke: $trunk-color;
+  stroke-width: 5px;
+  stroke-linecap: round;
+}
+
+.branches {
+  // drawn line for branches and roots
+  path {
+    fill: none;
+    stroke-width: 5px;
+    stroke: $branch-color;
+    stroke-linecap: round;
+  }
+}

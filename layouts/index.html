@@ -1,16 +1,16 @@
-{{ define "main" }}
+{{- define "main" -}}
 
 {{/* minimize js if production; adapted from https://github.com/gohugoio/hugo/issues/9132 */}}
-{{ $params := (dict "is_production" hugo.IsProduction ) }}
-{{ $sourceMap := cond hugo.IsProduction "" "inline" }}
-{{ $buildOptions := dict "sourceMap" $sourceMap "minify" hugo.IsProduction "target" "es2018" "params" $params }}
-{{ $js := resources.Get "js/main.js" | js.Build $buildOptions | fingerprint }}
+{{- $params := (dict "is_production" hugo.IsProduction ) -}}
+{{- $sourceMap := cond hugo.IsProduction "" "inline" -}}
+{{- $buildOptions := dict "sourceMap" $sourceMap "minify" hugo.IsProduction "target" "es2018" "params" $params -}}
+{{- $js := resources.Get "js/main.js" | js.Build $buildOptions | fingerprint -}}
 
 <div id="timetree">
   <button class="reset-zoom" aria-label="reset zoom to default"><i class="ph-arrows-in ph-fill" aria-hidden="true"></i></button>
   <data class="leaf-data" value='{{ partial "leaf_data.json" . }}'></data>
   <data class="tag-data" value='{{ partial "tags.json" . }}'></data>
-  <data class="env-data" value="{{ dict "env" hugo.Environment | jsonify }}"/>
+  <data class="env-data" value="{{ dict "env" hugo.Environment | jsonify }}"></data>
 </div>
 
 <aside>
