@@ -134,33 +134,69 @@ function drawBranches(nodes, container, branches, trunkTop) {
 }
 
 function roots() {
-  console.log("drawing roots");
-  const svg = d3.select("svg#roots");
-  // TODO: need to add viewbox / coords to svg; must match width of timetree svg
-  const navLinks = document.querySelectorAll("footer > nav > a");
-  console.log(navLinks.length);
+  // TODO: configure so point [0, 0] is the center *TOP* of the svg
   let width = 1200;
-  let sectionwidth = 1200 / navLinks.length + 1;
+  let height = 130;
+  // let min_x = -width / 2;   // why isn't this working?
+  let min_x = 0;
+  let min_y = 0;
 
-  let testcoords = [
-    { x: 510, y: 0 },
-    { x: 400, y: 30 },
-    { x: 325, y: 40 },
-    { x: sectionwidth - sectionwidth / 2, y: 100 },
-    { x: 0, y: 130 },
-  ];
-  let path = drawTreeSegment(testcoords);
-  svg.append("path").attr("class", "root").attr("d", path);
+  let center_x = min_x + width / 2;
 
-  testcoords = [
-    { x: 510, y: 0 },
-    { x: 525, y: 20 },
-    { x: 495, y: 40 },
-    { x: sectionwidth * 2 - sectionwidth / 2, y: 100 },
-    { x: sectionwidth * 2 - sectionwidth / 2 - 30, y: 150 },
-  ];
-  path = drawTreeSegment(testcoords);
-  svg.append("path").attr("class", "root").attr("d", path);
+  const svg = d3
+    .select("body > footer")
+    .append("svg")
+    .lower()
+    .attr("id", "roots")
+    .attr("viewbox", [min_x, min_y, width, height]);
+
+  // FIXME: something is wonky with the coordinates...
+  // should use negative starting x coordinate so we match
+  // the tree svg exactly, but that isn't working
+
+  // for debugging: mark the center of the svg
+  // svg
+  //   .append("circle")
+  //   .attr("r", 5)
+  //   .attr("fill", "red")
+  //   .attr("cx", min_x + width / 2)
+  //   // .attr("cx", width / 2)
+  //   // .attr("cx", 0)
+  //   .attr("cy", min_y + height / 2);
+
+  const navLinks = document.querySelectorAll("body > footer > nav > a");
+  let linkCount = navLinks.length;
+  // divide into equal sections based on the number of nav links
+  let sectionwidth = width / linkCount + 1;
+
+  let center_y = height / 2;
+
+  let currentURL = window.location.pathname;
+
+  navLinks.forEach((a, i) => {
+    console.log(a, i);
+
+    let left = i < linkCount / 2;
+
+    let startx = left ? trunk.bottomLeft : trunk.bottomRight;
+    let targetX = min_x + sectionwidth * i + sectionwidth / 2;
+
+    let rootCoords = [
+      [center_x + startx, min_y],
+      [center_x + startx + (left ? -8 : 8), min_y + 7],
+      [targetX, center_y],
+      [targetX + (left ? -25 : 25), height],
+    ].map((d) => {
+      return { x: d[0], y: d[1] };
+    });
+
+    let path = drawTreeSegment(rootCoords);
+    let href = a.getAttribute("href");
+    svg
+      .append("path")
+      .attr("class", `root ${currentURL == href ? "current" : ""}`)
+      .attr("d", path);
+  });
 
   // NOTE: html coords != svg coords, so bounding rects doesn't help
 }

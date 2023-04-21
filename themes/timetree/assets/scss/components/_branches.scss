@@ -6,6 +6,14 @@ path.root {
   stroke-linecap: round;
 }
 
+path.root {
+  opacity: 40%;
+
+  &.current {
+    opacity: 100%;
+  }
+}
+
 .branches {
   // drawn line for branches and roots
   path {
