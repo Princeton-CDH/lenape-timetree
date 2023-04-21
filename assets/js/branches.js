@@ -137,8 +137,7 @@ function roots() {
   // TODO: configure so point [0, 0] is the center *TOP* of the svg
   let width = 1200;
   let height = 130;
-  // let min_x = -width / 2;   // why isn't this working?
-  let min_x = 0;
+  let min_x = -width / 2;
   let min_y = 0;
 
   let center_x = min_x + width / 2;
@@ -148,11 +147,7 @@ function roots() {
     .append("svg")
     .lower()
     .attr("id", "roots")
-    .attr("viewbox", [min_x, min_y, width, height]);
-
-  // FIXME: something is wonky with the coordinates...
-  // should use negative starting x coordinate so we match
-  // the tree svg exactly, but that isn't working
+    .attr("viewBox", [min_x, min_y, width, height]);
 
   // for debugging: mark the center of the svg
   // svg
@@ -174,8 +169,7 @@ function roots() {
   let currentURL = window.location.pathname;
 
   navLinks.forEach((a, i) => {
-    console.log(a, i);
-
+    // determine if left or right, based half point of leaves
     let left = i < linkCount / 2;
 
     let startx = left ? trunk.bottomLeft : trunk.bottomRight;

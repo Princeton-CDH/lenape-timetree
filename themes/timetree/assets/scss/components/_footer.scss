@@ -9,12 +9,24 @@ body > footer {
     // height: $desktop_footer_height;
     margin: 0;
     padding: 0;
+
+    // needs to match the grid of the timetree and leaf details panel
+    display: grid;
+
+    grid-template-columns: auto 410px;
+    column-gap: 38px; // space between panel and timetree
+    padding-right: 40px; // needs to match right margin outside the panel
+    grid-template-areas: "nav" "logos";
+
+    // grid-template-columns: auto $desktop_panel_width; // 410px;
+    // column-gap: $column_gap; //  38px; // space between panel and timetree
   }
 
   nav {
-    position: absolute;
-    top: 0;
-    left: 0;
+    grid-area: nav;
+    // grid-row-start: 1;
+    // grid-column-start: 1;
+
     // use flex to space out footer links evenly
     display: flex;
 
@@ -74,13 +86,15 @@ body > footer {
   }
 
   svg {
-    width: 100%;
-    max-width: calc(100vw - 38px - 410px);
-    position: absolute;
-    left: 0;
-    top: 0;
+    grid-area: nav;
+    // grid-row-start: 1;
+    // grid-column-start: 1;
+
+    // width: 100%;
     overflow: visible;
-    // border: 1px solid yellow;  /* for debugging position/size */
+    width: calc(100vw - 38px - 410px);
+    max-width: calc(100vw - 38px - 410px);
+    // border: 1px solid yellow;  /* for debugging position/size *
     // width: 100%; /* must match the tree */
   }
 }

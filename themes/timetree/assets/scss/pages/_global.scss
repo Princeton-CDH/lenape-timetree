@@ -23,14 +23,17 @@ body {
   }
 }
 
-body > header,
-body > footer {
+body > header {
   padding: 0 14px;
-  background-color: $nav-bg-color;
 
   @include for-desktop-up {
     padding: 0 24px;
   }
+}
+
+body > header,
+body > footer {
+  background-color: $nav-bg-color;
 
   a,
   a:link,
