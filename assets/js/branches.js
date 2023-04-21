@@ -10,7 +10,7 @@ const d3 = {
   selectAll,
 };
 
-function drawBranch(points) {
+function drawTreeSegment(points) {
   const curve = d3.line().curve(d3.curveBumpY);
   return curve(points.map((d) => [d.x, d.y])); // [start, end]);
 }
@@ -20,45 +20,123 @@ function drawBranch(points) {
 // top/bottom coords should be fixed
 // - needed for both tree and roots
 
-function drawTrunk() {
-  // draw a couple of lines to help gesture at tree-ness
-  let trunkWidth = 65; // 65;   // 110 in figma but we're roughly half scale, should be 55
-  // right side
-  let max_y = min_y + height;
-  this.trunkLeft = -trunkWidth - 27;
-  this.trunkRight = trunkWidth + 25;
-  // let max_y = height / 2;
-  background
+const trunkWidth = 150; // 110;
+const trunkBaseWidth = trunkWidth * 0.9;
+
+const trunk = {
+  width: trunkWidth,
+  topLeft: -trunkWidth / 2,
+  topRight: trunkWidth / 2,
+  bottomLeft: -trunkBaseWidth / 2,
+  bottomRight: trunkBaseWidth / 2,
+};
+
+function drawTrunk(container, [min_x, min_y, width, height], trunkTop) {
+  // draw lines for the trunk,
+  // to make it easier to read as a tree
+
+  const max_y = min_y + height;
+
+  //  add points for unevenness at the thirds of the trunk
+  let onethird = (trunkTop - trunk.bottomLeft) / 4;
+
+  // generate points for left side
+  const leftSidePoints = [
+    [trunk.topLeft, trunkTop],
+    [trunk.topLeft * 0.9, trunkTop + onethird],
+    [trunk.topLeft * 0.8, trunkTop + onethird * 2],
+    [trunk.bottomLeft * 0.9, trunkTop + onethird * 3],
+    [trunk.bottomLeft, max_y],
+  ].map((d) => {
+    return { x: d[0], y: d[1] };
+  });
+
+  // draw the path for the left side
+  container
     .append("path")
-    .attr(
-      "d",
-      d3.line().curve(d3.curveNatural)([
-        [trunkWidth + 25, max_y],
-        [trunkWidth, max_y - 50],
-        [trunkWidth - 10, max_y - 190],
-        [trunkWidth + 7, min_y + yAxisHeight - 10],
-      ])
-    )
-    .attr("class", "trunk");
-  // left side
-  background
+    .attr("class", "trunk")
+    .attr("d", drawTreeSegment(leftSidePoints));
+
+  // generate points for right side
+  console.log(onethird);
+
+  const rightSidePoints = [
+    [trunk.topRight, trunkTop],
+    [trunk.topRight * 0.9, trunkTop + onethird],
+    [trunk.topRight * 0.95, trunkTop + onethird * 2],
+    [trunk.bottomRight * 0.9, trunkTop + onethird * 3],
+    [trunk.bottomRight, max_y],
+  ].map((d) => {
+    return { x: d[0], y: d[1] };
+  });
+
+  // draw the path for the right side
+  container
     .append("path")
-    .attr(
-      "d",
-      d3.line().curve(d3.curveNatural)([
-        [-trunkWidth - 32, max_y],
-        [-trunkWidth - 20, max_y - 50],
-        [-trunkWidth, max_y - 105],
-        [-trunkWidth - 27, min_y + yAxisHeight - 10],
-      ])
-    )
-    .attr("class", "trunk");
+    .attr("class", "trunk")
+    .attr("d", drawTreeSegment(rightSidePoints));
+}
+
+function drawBranches(nodes, container, branches, trunkTop) {
+  // draw branches
+
+  let branchNodes = nodes.filter((d) => d.type == "branch");
+  // calculate starting coordinates for each branch
+  // tree width is defined as a constant;
+  // assuming center of svg is 0,0
+  // top of tree is passed in from timetree code
+  let leftBranchX = -trunkWidth / 2;
+  // second branch starts up 1/3 of the trunk width
+  let secondBranchY = trunkWidth * 0.3;
+  // third and fourth stair step down in thirds
+  let steps = (trunkTop - secondBranchY) * 0.3;
+
+  // calculate starting coordinates for each of the five branches
+  let branchStart = [
+    // left-most branch
+    { x: trunk.topLeft, y: trunkTop },
+    // [leftBranchX, trunkTop],  // left-most branch
+    // second branch starts over 6% of tree width
+    { x: trunk.topLeft + trunkWidth * 0.06, y: trunkTop - secondBranchY },
+    // third is 48% of width
+    {
+      x: trunk.topLeft + trunkWidth * 0.48,
+      y: trunkTop - secondBranchY + steps,
+    },
+    // fourth is 70% of width
+    {
+      x: trunk.topLeft + trunkWidth * 0.7,
+      y: trunkTop - secondBranchY + steps + steps,
+    },
+    // right-most branch
+    { x: trunk.topRight, y: trunkTop },
+  ];
+
+  // insert branches before node group layer,
+  // so it will render as underneath the leaves
+  let branchPaths = container
+    .insert("g", ".nodes")
+    .attr("class", "branches")
+    .selectAll("path")
+    .data(Object.keys(branches)) // join to branch names passed in
+    .join("path")
+    // draw branch path for leaves, empty path for everything else
+    .attr("class", "branch")
+    .attr("d", (b, i) => {
+      // start at the calculated branch point for this branch,
+      // then use branch pseudo nodes as coordinates
+      let branchPoints = [
+        branchStart[i],
+        ...branchNodes.filter((d) => d.branch == b),
+      ];
+      return drawTreeSegment(branchPoints);
+    });
 }
 
 function roots() {
   console.log("drawing roots");
   const svg = d3.select("svg#roots");
-  // TODO: need to add viewbox / coords to svg!
+  // TODO: need to add viewbox / coords to svg; must match width of timetree svg
   const navLinks = document.querySelectorAll("footer > nav > a");
   console.log(navLinks.length);
   let width = 1200;
@@ -69,9 +147,9 @@ function roots() {
     { x: 400, y: 30 },
     { x: 325, y: 40 },
     { x: sectionwidth - sectionwidth / 2, y: 100 },
-    { x: 0, y: 300 },
+    { x: 0, y: 130 },
   ];
-  let path = drawBranch(testcoords);
+  let path = drawTreeSegment(testcoords);
   svg.append("path").attr("class", "root").attr("d", path);
 
   testcoords = [
@@ -79,19 +157,12 @@ function roots() {
     { x: 525, y: 20 },
     { x: 495, y: 40 },
     { x: sectionwidth * 2 - sectionwidth / 2, y: 100 },
-    { x: sectionwidth * 2, y: 300 },
+    { x: sectionwidth * 2 - sectionwidth / 2 - 30, y: 150 },
   ];
-  path = drawBranch(testcoords);
+  path = drawTreeSegment(testcoords);
   svg.append("path").attr("class", "root").attr("d", path);
 
-  // NOTE: html coords != svg coords
-
-  navLinks.forEach((a) => {
-    console.log(a);
-    console.log(a.getBoundingClientRect());
-  });
-  console.log(svg);
-  console.log(path);
+  // NOTE: html coords != svg coords, so bounding rects doesn't help
 }
 
-export { drawBranch, roots };
+export { drawTreeSegment, roots, drawTrunk, drawBranches };

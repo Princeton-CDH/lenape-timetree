@@ -16,7 +16,7 @@ import { zoom, zoomIdentity, zoomTransform } from "d3-zoom";
 import { LeafLabel } from "./labels";
 import { Panel } from "./panel";
 import { Leaf, LeafPath, leafSize, randomNumBetween } from "./leaves";
-import { drawBranch } from "./branches";
+import { drawTreeSegment, drawTrunk, drawBranches } from "./branches";
 
 // combine d3 imports into a d3 object for convenience
 const d3 = {
@@ -369,7 +369,7 @@ class TimeTree {
       );
 
     // determine placement for branches left to right
-    // NOTE: could this be construed as an axis of some kind
+    // NOTE: could this be construed as an axis of some kind?
     this.branchCoords = {};
     let branchMargin = 100;
     // etermine how much space to give to each branch
@@ -380,39 +380,12 @@ class TimeTree {
         branchMargin + min_x + i * branchWidth + branchWidth / 2;
     }
 
-    // TODO: move to branches.js
-    // draw a couple of lines to help gesture at tree-ness
-    let trunkWidth = 65; // 65;   // 110 in figma but we're roughly half scale, should be 55
-    // right side
-    let max_y = min_y + height;
-    this.trunkLeft = -trunkWidth - 27;
-    this.trunkRight = trunkWidth + 25;
-    // let max_y = height / 2;
-    background
-      .append("path")
-      .attr(
-        "d",
-        d3.line().curve(d3.curveNatural)([
-          [trunkWidth + 25, max_y],
-          [trunkWidth, max_y - 50],
-          [trunkWidth - 10, max_y - 190],
-          [trunkWidth + 7, min_y + yAxisHeight - 10],
-        ])
-      )
-      .attr("class", "trunk");
-    // left side
-    background
-      .append("path")
-      .attr(
-        "d",
-        d3.line().curve(d3.curveNatural)([
-          [-trunkWidth - 32, max_y],
-          [-trunkWidth - 20, max_y - 50],
-          [-trunkWidth, max_y - 105],
-          [-trunkWidth - 27, min_y + yAxisHeight - 10],
-        ])
-      )
-      .attr("class", "trunk");
+    this.trunkTop = this.yScale(this.leafStats.minYear);
+    drawTrunk(
+      background,
+      [this.min_x, this.min_y, this.width, this.height],
+      this.trunkTop
+    );
 
     // for debugging: mark the center of the svg
     // svg
@@ -420,15 +393,15 @@ class TimeTree {
     //   .attr("r", 5)
     //   .attr("fill", "red")
     //   .attr("cx", this.min_x + this.width / 2)
-    //   .attr("cy", this.min_y + this.height / 2);
+    //   .attr("cy", this.min_y + this.height / 2);*/
 
     // for debugging: mark the center bottom of the svg
-    this.svg
-      .append("circle")
-      .attr("r", 5)
-      .attr("fill", "red")
-      .attr("cx", 0)
-      .attr("cy", this.min_y + this.height);
+    // this.svg
+    //   .append("circle")
+    //   .attr("r", 5)
+    //   .attr("fill", "red")
+    //   .attr("cx", 0)
+    //   .attr("cy", this.min_y + this.height);
 
     let simulation = d3
       .forceSimulation(this.network.nodes)
@@ -438,7 +411,7 @@ class TimeTree {
         "center",
         d3.forceCenter(0, -this.height / 4).strength(forceStrength.center)
       )
-      // .force("center", d3.forceCenter(this.width/2, this.height/2).strength(forceStrength.center))
+      // .force("center", d3.forceCenter(0, this.min_y + this.height / 4).strength(forceStrength.center))
       // .force("center", d3.forceCenter([this.width/2, this.height/2]).strength(forceStrength.center))
       // .alpha(0.1)
       // .alphaDecay(0.2)
@@ -564,11 +537,7 @@ class TimeTree {
     }
 
     // only position once after simulation has run
-    // let timetree = this;
     simulation.on("tick", this.updatePositions.bind(this));
-    // (sim) => {
-    // timetree.updatePositions();
-    // });
     simulation.tick();
     // simulation.stop();
   }
@@ -811,14 +780,16 @@ class TimeTree {
   }
 
   updatePositions() {
-    // node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
-    // node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
-    // let rotation = randomNumBetween(125); // Math.random() * 90;
     // since nodes are paths and not circles, position using transform + translate
     // rotate leaves to vary the visual display of leaves
-    // (could also skew?)
     this.simulationNodes.attr("transform", (d, i, n) => {
-      let rotation = randomNumBetween(125); // Math.random() * 90;
+      // current datum (d), the current index (i), and the current group (nodes)
+      // generate a random rotation once and store it in the data
+      if (!d.rotation) {
+        // store rotation so we don't randomize every tick
+        d.rotation = randomNumBetween(125); // Math.random() * 90;
+      }
+      let rotation = d.rotation;
       if (d.type == "leaf") {
         // rotate negative or positive depending on side of the tree
         if (d.x > 0) {
@@ -829,8 +800,6 @@ class TimeTree {
       }
       // rotate relative to x, y, and move to x, y
       return `translate(${d.x} ${d.y})`;
-      // return `rotate(${rotation} ${d.x} ${d.y}) translate(${d.x} ${d.y})`;
-      // return `translate(${d.x} ${d.y})`;
     });
 
     // links are only displayed for debugging
@@ -842,83 +811,9 @@ class TimeTree {
         .attr("y2", (d) => d.target.y);
     }
 
-    // draw branches
-    let branchNodes = this.network.nodes.filter((d) => d.type == "branch");
-    // calculate starting coordinates for each branch
-    // tree width is 110, center of svg is 0,0
-    // top of tree is at ??
-    // (duplicated calculation from trunk drawing code)
-    // let trunkTop = this.min_y + this.leafConstraints["15"].bottom - 10;
-    let trunkTop = this.yScale(this.leafStats.minYear);
-    let trunkWidth = 110;
-    let leftBranchX = -trunkWidth / 2;
-    let secondBranchY = trunkWidth * 0.3;
-    let steps = (trunkTop - secondBranchY) * 0.3;
-
-    let branchStart = [
-      // leftmost branch
-      [this.trunkLeft, trunkTop], // left-most branch
-      // [leftBranchX, trunkTop],  // left-most branch
-      [leftBranchX + trunkWidth * 0.06, trunkTop - secondBranchY], // second is 6% of width
-      [leftBranchX + trunkWidth * 0.48, trunkTop - secondBranchY + steps], // third is 48% of width
-      [
-        leftBranchX + trunkWidth * 0.7,
-        trunkTop - secondBranchY + steps + steps,
-      ], // third is 70% of width
-    ];
-    // rightmost branch
-    branchStart.push([this.trunkRight, trunkTop]);
-
-    // debug branch starting coordinates
-    // this.svg.append("g")
-    //   .selectAll("circle")
-    //   .data(branchStart)
-    //   .join("circle")
-    //   .attr('r', 5)
-    //   .attr('fill', 'red')
-    //   .attr('cy', (d, i) => { return d[1] })
-    //   .attr('cx', d => {return d[0] });
-
-    let branchPaths = this.vizGroup
-      .insert("g", ".nodes") // insert before node group so it will render under
-      .attr("class", "branches")
-      .selectAll("path")
-      .data(Object.keys(branches))
-      .join("path")
-      // draw branch path for leaves, empty path for everything else
-      .attr("class", "branch")
-      .attr("d", (b, i) => {
-        let currentBranchNodes = branchNodes.filter((d) => d.branch == b);
-        // console.log(currentBranchNodes);
-        // console.log(drawBranch(currentBranchNodes));
-        let startCoord = {
-          x: branchStart[i][0],
-          y: branchStart[i][1],
-        };
-        currentBranchNodes.unshift(startCoord);
-        return drawBranch(currentBranchNodes);
-      });
+    // draw branches based on the network
+    drawBranches(this.network.nodes, this.vizGroup, branches, this.trunkTop);
   }
-  /*
-    console.log(branchNodes);
-    for (const b in branches) {
-      console.log(b);
-      let currentBranchNodes = branchNodes.filter(d => d.branch == b);
-      console.log(currentBranchNodes);
-      console.log(drawBranch(currentBranchNodes));
-
-    };
-  } */
 }
-
-// this.nodes = nodes;
-// this.links = links;
-// this.centuries = centuries;
-
-// this.mobileQuery = window.matchMedia("(max-width: 768px)");
-
-// // height doesn't vary
-// this.height = 800;
-// this.min_y = this.height / 2;
 
 export { TimeTree, forceStrength, getBranchStyle };
