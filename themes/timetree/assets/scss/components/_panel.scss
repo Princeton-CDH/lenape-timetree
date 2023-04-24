@@ -65,7 +65,7 @@ body.home main > aside {
   // close button
   > .close {
     position: absolute;
-    right: 10px; // make room for scrollbar
+    right: 8px; // make room for scrollbar
     top: $tag-height; // position below active tag
     padding: 16px 12px 0 0;
     width: 100%;
@@ -218,7 +218,7 @@ body.home main > aside {
   // Scrollbar styling advice from: https://www.digitalocean.com/community/tutorials/css-scrollbars
 
   ::-webkit-scrollbar {
-    width: 10px; /* width of the entire scrollbar */
+    width: 8px; /* width of the entire scrollbar */
   }
 
   ::-webkit-scrollbar-track {
