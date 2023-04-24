@@ -213,6 +213,18 @@ body.home main > aside {
         }
       }
     }
+
+    #panel-legend {
+      margin-top: 10px;
+      &:after {
+        clear: both;
+      }
+
+      .legend-icon {
+        float: left;
+        width: 50%;
+      }
+    }
   }
 }
 
