@@ -1,5 +1,5 @@
 $mobile_footer_height: 250px;
-$desktop_footer_height: 130px;
+$desktop_footer_height: 175px;
 
 body > footer {
   // height: $mobile_footer_height;
@@ -32,7 +32,7 @@ body > footer {
 
     // limit footer nav width on larger screens
     @include for-desktop-up {
-      width: 70%; /* fixme: should match timetree container; use grid to enforce? */
+      width: 100%;
     }
 
     > * {

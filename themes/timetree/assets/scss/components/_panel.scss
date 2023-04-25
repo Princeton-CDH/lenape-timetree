@@ -244,10 +244,10 @@ body.tag-active.home main > aside {
 
 // Hidden by default
 #leaferror {
-  visibility: hidden;
+  display: none;
 
   // visible when present in panel container for load error
   aside & {
-    visibility: visible;
+    display: block;
   }
 }

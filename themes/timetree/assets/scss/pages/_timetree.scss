@@ -17,20 +17,20 @@ body.home {
       display: grid;
       grid-template-columns: auto $desktop_panel_width; // 410px;
       column-gap: $column_gap; //  38px; // space between panel and timetree
-      padding: 30px 40px 0 0; // right margin outside the panel
+      padding: 0 40px 0 0; // right margin outside the panel
 
       // set height exactly so container
       // won't change for shorter/longer leaf details in panel
       height: 100%;
       max-height: 100%;
-      // height: calc(
-      // 100vh - #{$desktop_header_height} - #{$desktop_footer_height}
-      // );
+      height: calc(
+        100vh - #{$desktop_header_height} - #{$desktop_footer_height}
+      );
     }
 
     #timetree {
-      height: inherit;
-      max-height: inherit;
+      height: 100%;
+      max-height: 100%;
       font-size: 14px;
       line-height: 18px;
       margin-top: 30px;
@@ -44,9 +44,15 @@ body.home {
         // fix to the bottom no matter how we scale
         position: absolute;
         bottom: 0;
-        // height: 100%;
+        left: 0;
+        width: 100%;
         // max-width: 100%;
-        max-width: calc(100vw - #{$column_gap} - #{$desktop_panel_width});
+
+        @include for-desktop-up {
+          height: 100%;
+          bottom: 0;
+          max-width: calc(100vw - #{$column_gap} - #{$desktop_panel_width});
+        }
         overflow: hidden;
       }
 
