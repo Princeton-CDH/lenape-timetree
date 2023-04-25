@@ -46,7 +46,7 @@ class Panel {
     let leafVisible = container.classList.contains("show-details");
 
     // if leaf details are visible and close details is true,
-    // deselct the leaf currently displayed, close that also,
+    // deselect the leaf currently displayed, close that also,
     // unless closeDetails has been disabled;
     // (has a side effect of also removing any currently selected tag)
     if (leafVisible && closeDetails) {

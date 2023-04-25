@@ -119,8 +119,8 @@ class TimeTree {
     }
 
     // event handlers for adjusting zoom
-    // - reset zoom when the panel is closed
-    this.panel.el.addEventListener("panel-close", this.resetZoom.bind(this));
+    // - when the panel is closed, do *nothing*
+    // this.panel.el.addEventListener("panel-close", this.resetZoom.bind(this));
     // - when a tag is selected, zoom out to see all tagged leaves
     this.panel.el.parentElement.addEventListener(
       "tag-select",
