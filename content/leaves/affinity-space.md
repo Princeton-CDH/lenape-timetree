@@ -10,3 +10,6 @@ title: Indigenous Affinity Space
 ---
 
 Princeton establishes permanent affinity space for Indigenous Students.
+
+
+{{< figure src="images/university/indigenous-affinity-space.png" alt="bar chart of ivy league schools">}}
