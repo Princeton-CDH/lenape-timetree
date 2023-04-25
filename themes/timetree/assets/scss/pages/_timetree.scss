@@ -20,6 +20,7 @@ body.home {
       // desktop is two columns (tree | panel)
       display: grid;
       grid-template-columns: auto 32%;
+      grid-template-areas: "timetree panel";
       column-gap: 38px; // space between panel and timetree
       padding: 0 40px 0 0; // right margin outside the panel
 
@@ -39,6 +40,7 @@ body.home {
       position: relative;
       margin: 0;
       width: 100%;
+      grid-area: timetree;
 
       svg {
         height: 100%;
