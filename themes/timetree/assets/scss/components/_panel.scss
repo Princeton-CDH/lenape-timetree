@@ -227,11 +227,18 @@ body.tag-active.home main > aside {
 #panel-legend {
   column-count: 2;
   margin-top: 20px;
+  // width: 288px;
+  // @include for-desktop-up {
+  //   width: 378px;
+  // }
+  border: 1px solid green;
 
   li {
     color: red;
-    clear: left;
+    clear: both;
     display: inline-block;
+    margin-top: 16px;
+
     // height: 31px;
     // display: flex;
     // border: 1px solid red; // debug
