@@ -213,18 +213,6 @@ body.home main > aside {
         }
       }
     }
-
-    #panel-legend {
-      margin-top: 10px;
-      &:after {
-        clear: both;
-      }
-
-      .legend-icon {
-        float: left;
-        width: 50%;
-      }
-    }
   }
 }
 
@@ -233,5 +221,64 @@ body.tag-active.home main > aside {
   // panel should be exactly the height of the tag
   &.closed {
     height: $tag-height;
+  }
+}
+
+#panel-legend {
+  column-count: 2;
+  margin-top: 10px;
+
+  li {
+    color: red;
+    clear: left;
+  }
+
+  a {
+    margin-top: 20px;
+
+    font-weight: normal;
+    line-height: 27px;
+
+    text-decoration: none;
+
+    // use pseudo-element to add leaf icon as a mask
+    &::before {
+      float: left;
+      -webkit-mask-image: url(/img/icons/leaf.svg);
+      mask-image: url(/img/icons/leaf.svg);
+      -webkit-mask-size: contain;
+      mask-size: contain;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      background-color: currentColor;
+      display: inline-block;
+      content: " ";
+      width: 14px;
+      margin-right: 8px;
+      height: 31px;
+
+      @include for-desktop-up {
+        width: 20px;
+        height: 45px;
+      }
+    }
+
+    // color leaf based on branch
+    // TODO: consider making a branch to leaf color mapping in one place...
+    &.lands-waters::before {
+      color: map-get($leaf-color, "c");
+    }
+    &.communities::before {
+      color: map-get($leaf-color, "b");
+    }
+    &.university::before {
+      color: map-get($leaf-color, "e");
+    }
+    &.removals::before {
+      color: map-get($leaf-color, "a");
+    }
+    &.resistance-resurgence::before {
+      color: map-get($leaf-color, "d");
+    }
   }
 }
