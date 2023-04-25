@@ -226,24 +226,31 @@ body.tag-active.home main > aside {
 
 #panel-legend {
   column-count: 2;
-  margin-top: 10px;
+  margin-top: 20px;
 
   li {
     color: red;
     clear: left;
+    display: inline-block;
+    // height: 31px;
+    // display: flex;
+    border: 1px solid red;
+
+    // flex-direction: row;
+    // align-items: center;
   }
 
   a {
-    margin-top: 20px;
-
+    border: 1px solid yellow;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
     font-weight: normal;
-    line-height: 27px;
-
     text-decoration: none;
 
     // use pseudo-element to add leaf icon as a mask
     &::before {
-      float: left;
+      // float: left;
       -webkit-mask-image: url(/img/icons/leaf.svg);
       mask-image: url(/img/icons/leaf.svg);
       -webkit-mask-size: contain;
@@ -253,12 +260,13 @@ body.tag-active.home main > aside {
       background-color: currentColor;
       display: inline-block;
       content: " ";
-      width: 14px;
-      margin-right: 8px;
+      // width: 14px;
+      width: 22px;
+      // margin-right: 8px;   // This was added to width
       height: 31px;
 
       @include for-desktop-up {
-        width: 20px;
+        width: 28px; // 20 + 8
         height: 45px;
       }
     }
@@ -279,6 +287,7 @@ body.tag-active.home main > aside {
     }
     &.resistance-resurgence::before {
       color: map-get($leaf-color, "d");
+      margin-right: 8px; // This special case because text is wrapped
     }
   }
 }
