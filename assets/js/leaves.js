@@ -268,7 +268,6 @@ class Leaf {
     const panel = document.querySelector("#leaf-details");
 
     Leaf.setCurrentLeaf();
-    Leaf.closeTag();
     delete panel.dataset.showing;
   }
 
