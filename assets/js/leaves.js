@@ -198,7 +198,15 @@ class Leaf {
       return;
     }
 
-    fetch(leafTarget.dataset.url)
+    let url = leafTarget.dataset.url;
+
+    // If you need to test leaf load failure, uncomment this
+    // if (Math.random() < 0.5) {
+    //   url = url + "xxx";
+    // }
+    // console.log("fetching:", url);
+
+    fetch(url)
       .then((response) => {
         if (!response.ok) {
           return Promise.reject(response);
@@ -230,7 +238,6 @@ class Leaf {
         // clone error article and pass in to article
         let errorArticle = document.querySelector("#leaferror").cloneNode(true);
         panel.querySelector("article").replaceWith(errorArticle);
-        errorArticle.classList.add("showing");
       });
 
     // scroll to the top, in case previous leaf was scrolled
