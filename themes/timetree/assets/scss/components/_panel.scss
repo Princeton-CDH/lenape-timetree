@@ -225,57 +225,54 @@ body.tag-active.home main > aside {
 }
 
 #panel-legend {
-  column-count: 2;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 16px;
+  height: 194px;
   margin-top: 20px;
-  // width: 288px;
-  // @include for-desktop-up {
-  //   width: 378px;
-  // }
-  border: 1px solid green;
-
-  li {
-    color: red;
-    clear: both;
-    display: inline-block;
-    margin-top: 16px;
-
-    // height: 31px;
-    // display: flex;
-    // border: 1px solid red; // debug
-
-    // flex-direction: row;
-    // align-items: center;
+  width: 288px;
+  @include for-desktop-up {
+    width: 100%;
   }
 
-  a {
-    // border: 1px solid yellow; // debug
-    line-height: 21px;
+  li {
+    max-width: 49%;
+    height: 54px;
+    /* use flex to wrap text and align vertically */
     display: flex;
     align-items: center;
-    font-weight: normal;
-    text-decoration: none;
+    justify-content: center;
 
     // use pseudo-element to add leaf icon as a mask
     &::before {
-      // float: left;
+      height: 100%;
       -webkit-mask-image: url(/img/icons/leaf.svg);
       mask-image: url(/img/icons/leaf.svg);
-      -webkit-mask-size: contain;
-      mask-size: contain;
+      -webkit-mask-size: contain; //16px 36px;
+      mask-size: contain; // 16px 36px;
       -webkit-mask-repeat: no-repeat;
       mask-repeat: no-repeat;
+      mask-position: center;
+      -webkit-mask-position: center;
       background-color: currentColor;
       display: inline-block;
       content: " ";
-      // width: 14px;
-      width: 22px;
-      // margin-right: 8px;   // This was added to width
-      height: 31px;
+      min-width: 16px;
 
       @include for-desktop-up {
-        width: 28px; // 20 + 8
-        height: 45px;
+        -webkit-mask-size: 20px 44px;
+        mask-size: 20px 44px;
+        min-width: 20px;
       }
+    }
+
+    a {
+      line-height: 21px;
+      padding-left: 8px;
+      font-weight: normal;
+      text-decoration: none;
     }
 
     // color leaf based on branch
@@ -294,7 +291,6 @@ body.tag-active.home main > aside {
     }
     &.resistance-resurgence::before {
       color: map-get($leaf-color, "d");
-      margin-right: 8px; // This special case because text is wrapped
     }
   }
 }
