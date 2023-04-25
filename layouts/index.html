@@ -28,10 +28,16 @@
     <div>{{- .Content -}}</div>
   </article>
 
+  
+
   <div id="leaf-details">
     <article/>
   </div>
 </aside>
+
+<article id="leaferror">
+  <div>Error loading the details.</div>
+</article>
 
 {{/* include visual debug controls unless this is a production build */}}
 {{ if not hugo.IsProduction }}
@@ -58,4 +64,3 @@
 
 <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
 {{ end }} {{/* end main */}}
-

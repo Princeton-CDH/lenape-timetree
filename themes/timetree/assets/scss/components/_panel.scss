@@ -223,3 +223,13 @@ body.tag-active.home main > aside {
     height: $tag-height;
   }
 }
+
+// Hidden by default
+#leaferror {
+  visibility: hidden;
+
+  // visible when present in panel container for load error
+  aside & {
+    visibility: visible;
+  }
+}

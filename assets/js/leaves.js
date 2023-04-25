@@ -197,7 +197,22 @@ class Leaf {
     ) {
       return;
     }
-    fetch(leafTarget.dataset.url)
+
+    let url = leafTarget.dataset.url;
+
+    // If you need to test leaf load failure, uncomment this
+    // if (Math.random() < 0.5) {
+    //   url = url + "xxx";
+    // }
+    // console.log("fetching:", url);
+
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          return Promise.reject(response);
+        }
+        return response;
+      })
       .then((response) => response.text())
       .then((html) => {
         let parser = new DOMParser();
@@ -216,14 +231,21 @@ class Leaf {
         }
 
         panel.querySelector("article").replaceWith(article);
-        // scroll to the top, in case previous leaf was scrolled
-        panel.scrollTop = 0;
-        // make sure panel is active
-        panel.parentElement.classList.add("show-details");
-        panel.parentElement.classList.remove("closed");
         // store current leaf url in a data attribute so we can check for reload
         panel.dataset.showing = leafTarget.dataset.url;
+      })
+      .catch((response) => {
+        // clone error article and pass in to article
+        let errorArticle = document.querySelector("#leaferror").cloneNode(true);
+        panel.querySelector("article").replaceWith(errorArticle);
       });
+
+    // scroll to the top, in case previous leaf was scrolled
+    panel.scrollTop = 0;
+    // make sure panel is active
+
+    // @TODO: This should become unnecessary when zoom PR is merged
+    panel.parentElement.classList.add("show-details");
   }
 
   static highlightLeaf(event) {
