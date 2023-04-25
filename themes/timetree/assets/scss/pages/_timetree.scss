@@ -4,35 +4,35 @@
 
 body.home {
   main {
-    max-height: calc(
-      100vh - #{$mobile_header_height} - #{$mobile_footer_height}
-    );
+    // height: 100%;
+    // FIXME: mobile footer will be larger, scroll to view
+    max-height: 75vh; // this is a guess!
+    // max-height: calc(
+    // 100vh - #{$mobile_header_height} - #{$mobile_footer_height}
+    // );
 
     @include for-desktop-up {
       // desktop is two columns (tree | panel)
       display: grid;
-      grid-template-columns: auto 410px;
+      grid-template-columns: auto 32%;
       column-gap: 38px; // space between panel and timetree
-      padding: 30px 40px 0 0; // right margin outside the panel
+      padding: 0 40px 0 0; // right margin outside the panel
 
       // set height exactly so container
       // won't change for shorter/longer leaf details in panel
-      height: calc(
+      max-height: calc(
         100vh - #{$desktop_header_height} - #{$desktop_footer_height}
       );
     }
 
     #timetree {
-      height: inherit;
+      height: 100%;
       max-height: inherit;
       font-size: 14px;
       line-height: 18px;
-      margin-top: 30px;
       position: relative;
-
-      @include for-desktop-up {
-        margin-top: 0;
-      }
+      margin: 0;
+      width: 100%;
 
       svg {
         height: 100%;

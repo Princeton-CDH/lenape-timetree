@@ -136,4 +136,9 @@ body.taxonomy {
   aside.closed #current-tag {
     opacity: 100%;
   }
+
+  aside.closed {
+    bottom: auto;
+    top: calc(75vh - #{$mobile_header_height});
+  }
 }
