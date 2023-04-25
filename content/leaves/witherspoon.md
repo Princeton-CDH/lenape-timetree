@@ -15,4 +15,4 @@ As the sixth president of the College of NJ, John Witherspoon reflects on “exp
 
 
 
-{{< figure src="images/university/witherspoons-reflections.jpeg" alt="A man with a book and medium-length hair has a neutral facial expression.">}}
+{{< figure src="images/university/witherspoons_reflections.jpeg" alt="A man with a book and medium-length hair has a neutral facial expression.">}}
