@@ -234,14 +234,14 @@ body.tag-active.home main > aside {
     display: inline-block;
     // height: 31px;
     // display: flex;
-    border: 1px solid red;
+    // border: 1px solid red; // debug
 
     // flex-direction: row;
     // align-items: center;
   }
 
   a {
-    border: 1px solid yellow;
+    // border: 1px solid yellow; // debug
     line-height: 21px;
     display: flex;
     align-items: center;
