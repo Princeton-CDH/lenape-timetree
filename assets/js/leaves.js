@@ -38,6 +38,9 @@ function cointoss() {
   return Math.random() < 0.5;
 }
 
+const TagSelectEvent = new Event("tag-select");
+const TagDeselectEvent = new Event("tag-deselect");
+
 class Leaf {
   // constant for selection classname
   static selectedClass = "select";
@@ -57,6 +60,7 @@ class Leaf {
         event.stopPropagation();
         Leaf.setCurrentTag(element.dataset.tag);
         element.classList.add(Leaf.selectedClass);
+        asideContainer.dispatchEvent(TagSelectEvent);
       }
     });
 
@@ -64,6 +68,7 @@ class Leaf {
     const activeTagClose = document.querySelector("#current-tag .close");
     activeTagClose.addEventListener("click", (event) => {
       Leaf.setCurrentTag();
+      asideContainer.dispatchEvent(TagDeselectEvent);
     });
   }
 
@@ -134,14 +139,27 @@ class Leaf {
     });
   }
 
-  static updateSelection() {
+  static getCurrentState() {
     // get selection information from URL
     let url = new URL(window.location.href);
-    let tagID = url.searchParams.get("tag");
+    let tag = url.searchParams.get("tag");
     let leafHash = url.hash;
 
     // construct an object to track current state
     let currentState = {};
+    if (tag) {
+      currentState.tag = tag;
+    }
+
+    if (leafHash && leafHash.startsWith("#")) {
+      currentState.leaf = leafHash.slice(1);
+    }
+    return currentState;
+  }
+
+  static updateSelection() {
+    // get selection information from URL
+    let currentState = Leaf.getCurrentState();
 
     // deselect any current
     Leaf.deselectCurrent();
@@ -150,9 +168,8 @@ class Leaf {
     Array.from(document.querySelectorAll(".tags a")).forEach((el) => {
       el.classList.remove(Leaf.selectedClass);
     });
-    if (tagID) {
-      currentState.tag = tagID;
-      let leaves = document.getElementsByClassName(tagID);
+    if (currentState.tag) {
+      let leaves = document.getElementsByClassName(currentState.tag);
       for (let item of leaves) {
         item.classList.add(Leaf.highlightClass);
       }
@@ -162,23 +179,23 @@ class Leaf {
       let currentTag = document.querySelector("#current-tag span");
       // display the tag name based on the slug;
       // as fallback, display the tag id if there is no name found
-      currentTag.textContent = Leaf.tags[tagID] || tagID;
+      currentTag.textContent = Leaf.tags[currentState.tag] || currentState.tag;
     } else {
       document.querySelector("body").classList.remove("tag-active");
     }
 
     // if hash set, select leaf
     // (load leaf first so if there is a current tag it can be set to active)
-    if (leafHash && leafHash.startsWith("#")) {
-      let leafID = leafHash.slice(1);
-      currentState.leaf = leafID;
-      let leafTarget = document.querySelector(`path[data-id=${leafID}]`);
+    if (currentState.leaf) {
+      let leafTarget = document.querySelector(
+        `path[data-id="${currentState.leaf}"]`
+      );
       // if hash id corresponds to a leaf, select it
       if (leafTarget != undefined) {
         // actually make selection
         Leaf.setLeafLabelClass(leafTarget.dataset.url, Leaf.selectedClass);
         // open panel
-        Leaf.openLeafDetails(leafTarget, tagID);
+        Leaf.openLeafDetails(leafTarget, currentState.tag);
       }
     }
 
@@ -273,7 +290,6 @@ class Leaf {
     const panel = document.querySelector("#leaf-details");
 
     Leaf.setCurrentLeaf();
-    Leaf.closeTag();
     delete panel.dataset.showing;
   }
 
