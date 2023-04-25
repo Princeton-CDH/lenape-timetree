@@ -289,21 +289,9 @@ class TimeTree {
       .append("svg")
       .attr("viewBox", [min_x, min_y, width, height]);
 
-    // Add a clipPath: everything out of this area won't be drawn.
-    var clip = svg
-      .append("defs")
-      .append("SVG:clipPath")
-      .attr("id", "clip")
-      .append("SVG:rect")
-      .attr("width", width)
-      .attr("height", height)
-      .attr("x", min_y)
-      .attr("y", min_x);
-
     // create a group within the viz for the zoomable portion of the tree
     // don't draw anything outside of the clip path
     this.vizGroup = svg.insert("g", "#century-axis").attr("id", "#viz");
-    // .attr("clip-path", "url(#clip)");   // clip path isn't working; is it needed?
 
     // create a section for the background
     let background = this.vizGroup.append("g").attr("id", "background");
@@ -474,6 +462,16 @@ class TimeTree {
       // draw leaf path for leaves, empty path for everything else
       .attr("d", (d) => {
         return d.type == "leaf" ? new LeafPath().path : emptyPath;
+      })
+      // for accessibility purposes, leaves are buttons
+      .attr("role", (d) => {
+        return d.type == "leaf" ? "button" : null;
+      })
+      .attr("aria-label", (d) => {
+        return d.type == "leaf" ? d.label.text : null;
+      })
+      .attr("aria-description", (d) => {
+        return d.type == "leaf" ? `${d.display_date}, ${d.branch}` : null;
       })
       // make leaves keyboard focusable
       .attr("tabindex", (d) => (d.type == "leaf" ? 0 : null))
