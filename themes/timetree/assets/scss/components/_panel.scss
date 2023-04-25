@@ -1,5 +1,8 @@
 $tag-height: 40px;
 $desktop-panel-maxheight: calc(100% - 120px - 38px - 27px);
+// FIXME: the 100% here doesn't work for panel AND article within panel,
+// because they are proportional to different things.
+// Can we calculate based on 100vh ?
 
 body.home main > aside {
   // on mobile, panel is positioned absolutely at bottom of screen
@@ -10,6 +13,7 @@ body.home main > aside {
   width: 100%;
 
   height: calc(44vh + #{$tag-height});
+  max-height: calc(44vh + #{$tag-height});
 
   // aside container is a flexible column
   display: grid;
@@ -35,17 +39,26 @@ body.home main > aside {
   // allow closing the intro on mobile
   &.closed {
     height: 0;
+    overflow: hidden;
+
+    @include for-desktop-up {
+      height: auto;
+      overflow: scroll;
+    }
+
     #intro,
     article,
     > .close {
       height: 0;
     }
   }
-  &.show-panel {
+
+  &.show-details {
     #intro,
     article,
     > .close {
       height: auto;
+      overflow: scroll;
     }
   }
 
@@ -63,13 +76,49 @@ body.home main > aside {
     }
   }
 
+  // use before & after elements to add a gradient
+  // so text will fade out when scrolling
+  &:before,
+  &:after {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: $tag-height;
+    content: " ";
+    background: linear-gradient($nav-bg-color, transparent);
+  }
+
+  // don't display gradients when the panel is closed
+  @include for-mobile {
+    &.closed {
+      &:before,
+      &:after {
+        display: none;
+      }
+    }
+  }
+
+  &:before {
+    top: $tag-height;
+    background: linear-gradient($nav-bg-color, transparent);
+  }
+  &:after {
+    bottom: 0;
+    background: linear-gradient(transparent, $nav-bg-color);
+
+    // can't currently position correctly on desktop;
+    // suppress for now
+    @include for-desktop-up {
+      display: none;
+    }
+  }
+
   // close button
   > .close {
     position: absolute;
-    right: 8px; // make room for scrollbar
     top: $tag-height; // position below active tag
     padding: 16px 12px 0 0;
-    width: 100%;
+    width: 40px;
     text-align: right;
     cursor: pointer;
 
@@ -80,6 +129,7 @@ body.home main > aside {
     @include for-desktop-up {
       margin: 4px 4px;
       width: auto;
+      right: 8px; // make room for scrollbar
     }
 
     .ph-x {

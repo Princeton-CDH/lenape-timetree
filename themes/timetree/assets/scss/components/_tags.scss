@@ -137,8 +137,11 @@ body.taxonomy {
     opacity: 100%;
   }
 
+  // when a tag is active without a leaf, position the tag
+  // directly over the footer
   aside.closed {
     bottom: auto;
-    top: calc(75vh - #{$mobile_header_height});
+    // TODO: set variable for tree height on mobile
+    top: calc(65vh + #{$mobile_header_height} - #{$tag-height});
   }
 }

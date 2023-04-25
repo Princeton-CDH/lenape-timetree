@@ -10,7 +10,7 @@ class Panel {
     On mobile, the panel can be closed completely; there is an info
     button to redisplay the project introduction.
 
-    The class `closed`` is used to indicate the panel is closed
+    The class `closed` is used to indicate the panel is closed
     (hidden on mobile, display introduction on desktop); the class
     `show-details` is used to indicate whether leaf details are visible or not.
 
