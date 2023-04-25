@@ -11,6 +11,7 @@ body.home main > aside {
   left: 0;
   right: 0;
   width: 100%;
+  z-index: 1;
 
   height: calc(44vh + #{$tag-height});
   max-height: calc(44vh + #{$tag-height});
