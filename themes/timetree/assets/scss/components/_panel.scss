@@ -175,41 +175,7 @@ body.home main > aside {
 
         // use pseudo-element to add leaf icon as a mask
         &::before {
-          -webkit-mask-image: url(/img/icons/leaf.svg);
-          mask-image: url(/img/icons/leaf.svg);
-          -webkit-mask-size: contain;
-          mask-size: contain;
-          -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
-          background-color: currentColor;
-          display: inline-block;
-          content: " ";
-          width: 14px;
-          margin-right: 8px;
-          height: 31px;
-
-          @include for-desktop-up {
-            width: 20px;
-            height: 45px;
-          }
-        }
-
-        // color leaf based on branch
-        // TODO: consider making a branch to leaf color mapping in one place...
-        &.lands-waters::before {
-          color: map-get($leaf-color, "c");
-        }
-        &.communities::before {
-          color: map-get($leaf-color, "b");
-        }
-        &.university::before {
-          color: map-get($leaf-color, "e");
-        }
-        &.removals::before {
-          color: map-get($leaf-color, "a");
-        }
-        &.resistance-resurgence::before {
-          color: map-get($leaf-color, "d");
+          @include leaf-icon;
         }
       }
     }
@@ -225,6 +191,7 @@ body.tag-active.home main > aside {
 }
 
 #panel-legend {
+  /* use column flex to wrap labels in two columns */
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -233,6 +200,7 @@ body.tag-active.home main > aside {
   height: 194px;
   margin-top: 20px;
   width: 288px;
+
   @include for-desktop-up {
     width: 100%;
   }
@@ -240,30 +208,19 @@ body.tag-active.home main > aside {
   li {
     max-width: 49%;
     height: 54px;
-    /* use flex to wrap text and align vertically */
+    /* use flex to wrap text and center vertically */
     display: flex;
     align-items: center;
     justify-content: center;
 
     // use pseudo-element to add leaf icon as a mask
     &::before {
+      @include leaf-icon;
+
       height: 100%;
-      -webkit-mask-image: url(/img/icons/leaf.svg);
-      mask-image: url(/img/icons/leaf.svg);
-      -webkit-mask-size: contain; //16px 36px;
-      mask-size: contain; // 16px 36px;
-      -webkit-mask-repeat: no-repeat;
-      mask-repeat: no-repeat;
-      mask-position: center;
-      -webkit-mask-position: center;
-      background-color: currentColor;
-      display: inline-block;
-      content: " ";
       min-width: 16px;
 
       @include for-desktop-up {
-        -webkit-mask-size: 20px 44px;
-        mask-size: 20px 44px;
         min-width: 20px;
       }
     }
@@ -274,23 +231,29 @@ body.tag-active.home main > aside {
       font-weight: normal;
       text-decoration: none;
     }
+  }
+}
 
-    // color leaf based on branch
-    // TODO: consider making a branch to leaf color mapping in one place...
-    &.lands-waters::before {
-      color: map-get($leaf-color, "c");
-    }
-    &.communities::before {
-      color: map-get($leaf-color, "b");
-    }
-    &.university::before {
-      color: map-get($leaf-color, "e");
-    }
-    &.removals::before {
-      color: map-get($leaf-color, "a");
-    }
-    &.resistance-resurgence::before {
-      color: map-get($leaf-color, "d");
-    }
+// colors for leaf icons for branch indicator and legend
+// - branch legend in intro
+// - branch indicator in individual article when displayed in panel
+#panel-legend li,
+aside article header aside {
+  // color leaf based on branch
+  // TODO: consider making a branch to leaf color mapping in one place...
+  &.lands-waters::before {
+    color: map-get($leaf-color, "c");
+  }
+  &.communities::before {
+    color: map-get($leaf-color, "b");
+  }
+  &.university::before {
+    color: map-get($leaf-color, "e");
+  }
+  &.removals::before {
+    color: map-get($leaf-color, "a");
+  }
+  &.resistance-resurgence::before {
+    color: map-get($leaf-color, "d");
   }
 }
