@@ -65,7 +65,7 @@ body.home main > aside {
   // close button
   > .close {
     position: absolute;
-    right: 0;
+    right: 8px; // make room for scrollbar
     top: $tag-height; // position below active tag
     padding: 16px 12px 0 0;
     width: 100%;
@@ -180,6 +180,24 @@ body.home main > aside {
       }
     }
   }
+
+  // Scrollbar styling advice from: https://www.digitalocean.com/community/tutorials/css-scrollbars
+
+  ::-webkit-scrollbar {
+    width: 8px; /* width of the entire scrollbar */
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: $nav-bg-color; /* color of the tracking area */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: $scrollbar-color; /* color of the scroll thumb */
+    border-radius: 20px; /* roundness of the scroll thumb */
+  }
+
+  scrollbar-width: thin; /* "auto" or "thin" */
+  scrollbar-color: $scrollbar-color $nav-bg-color; /* scroll thumb and track */
 }
 
 // special case: tag is active but intro panel is closed
@@ -255,5 +273,15 @@ aside article header aside {
   }
   &.resistance-resurgence::before {
     color: map-get($leaf-color, "d");
+  }
+}
+
+// Error message for leaf load error; hidden by default
+#leaferror {
+  visibility: hidden;
+
+  // visible when present in panel container due to loading error
+  aside & {
+    visibility: visible;
   }
 }

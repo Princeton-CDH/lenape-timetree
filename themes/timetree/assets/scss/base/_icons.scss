@@ -4,6 +4,12 @@
    Rather than load the full set, download and define only the ones we are using
 */
 
+@mixin phosphoricon($path) {
+  $url: url("/img/icons/phosphor/" + $path);
+  -webkit-mask-image: $url;
+  mask-image: $url;
+}
+
 i[class^="ph-"] {
   display: inline-block;
   width: 1.25em;
@@ -17,13 +23,16 @@ i[class^="ph-"] {
 }
 
 .ph-info {
-  -webkit-mask-image: url(/img/icons/phosphor/info.svg);
-  mask-image: url(/img/icons/phosphor/info.svg);
+  @include phosphoricon("info.svg");
 }
-
 .ph-x {
-  -webkit-mask-image: url(/img/icons/phosphor/x.svg);
-  mask-image: url(/img/icons/phosphor/x.svg);
+  @include phosphoricon("x.svg");
+}
+.ph-arrows-in {
+  @include phosphoricon("arrows-in.svg");
+}
+.ph-arrows-in.ph-fill {
+  @include phosphoricon("arrows-in-fill.svg");
 }
 
 // leaf icon for branches;

@@ -28,6 +28,7 @@ body.home {
       font-size: 14px;
       line-height: 18px;
       margin-top: 30px;
+      position: relative;
 
       @include for-desktop-up {
         margin-top: 0;
@@ -36,6 +37,47 @@ body.home {
       svg {
         height: 100%;
         max-width: 100%;
+        overflow: hidden;
+      }
+
+      // on mobile at default zoom level, don't show labels
+      #labels {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+
+        // always show labels on desktop
+        @include for-desktop-up {
+          opacity: 100%;
+        }
+      }
+
+      button.reset-zoom {
+        z-index: 10;
+        background-color: $nav-bg-color;
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        right: 8px;
+        top: -22px;
+        padding: 8px;
+        text-align: center;
+        cursor: pointer;
+        // hidden by default
+        opacity: 0;
+        pointer-events: none;
+
+        & .ph-arrows-in {
+          width: 22px;
+          height: 22px;
+          display: inline-block;
+        }
+      }
+
+      // show labels and reset button when zoomed
+      &.zoomed #labels,
+      &.zoomed .reset-zoom {
+        opacity: 100%;
+        pointer-events: auto;
       }
 
       rect.century-container {
@@ -45,6 +87,38 @@ body.home {
       text.century-label {
         fill: $nearwhite;
         line-height: 18px;
+      }
+
+      // d3-axis version of century labels
+      #century-axis {
+        .tick {
+          text {
+            fill: $nearwhite;
+            // NOTE: because svg is ~ half scale when unzoomed on mobile,
+            // use desktop font size
+            line-height: 30px;
+            font-size: 16px;
+
+            // @include for-desktop-up {
+            // font-size: 16px;
+            // }
+          }
+
+          // svg elements don't have backgrounds,
+          // so we have to use a rectangle positioned within the tick
+          rect.tick-bg {
+            fill: $body-bg-color;
+            fill-opacity: 0.7;
+          }
+
+          &:hover {
+            font-weight: normal;
+          }
+        }
+        line,
+        path {
+          display: none;
+        }
       }
 
       circle.select,

@@ -7,7 +7,7 @@
 {{ $js := resources.Get "js/main.js" | js.Build $buildOptions | fingerprint }}
 
 <div id="timetree">
-
+  <button class="reset-zoom" aria-label="reset zoom to default"><i class="ph-arrows-in ph-fill" aria-hidden="true"></i></button>
   <data class="leaf-data" value='{{ partial "leaf_data.json" . }}'></data>
   <data class="tag-data" value='{{ partial "tags.json" . }}'></data>
   <data class="env-data" value="{{ dict "env" hugo.Environment | jsonify }}"/>
@@ -40,10 +40,16 @@
 
   </article>
 
+  
+
   <div id="leaf-details">
     <article/>
   </div>
 </aside>
+
+<article id="leaferror">
+  <div>Error loading the details.</div>
+</article>
 
 {{/* include visual debug controls unless this is a production build */}}
 {{ if not hugo.IsProduction }}
@@ -70,4 +76,3 @@
 
 <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
 {{ end }} {{/* end main */}}
-

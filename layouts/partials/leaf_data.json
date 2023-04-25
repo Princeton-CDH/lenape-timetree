@@ -1,6 +1,7 @@
 {{/* output data as JSON for use in viz */}}
 {{ $data := newScratch }}
 {{ $data.Set "output" dict }}
+{{ $data.Set "years" slice }}
 {{ range .Site.Sections }}
 	{{/* create new dict for this section */}}
 	{{ $data.Set "sectionOutput" slice }}
@@ -31,10 +32,19 @@
 			{{ $pageInfo = merge $pageInfo (dict "branch" . ) }}
 		{{ end }}
 
+		{{/* collect all sort dates into an array */}}
+		{{ $data.Add "years" .Params.sort_date }}
+
 		{{ $data.Add "sectionOutput" $pageInfo }}
 	{{ end }}
 
 	{{ $data.SetInMap "output" (lower .CurrentSection.Title) ($data.Get "sectionOutput") }}
+
+	{{/* add summary section with min/max year and number of leaves */}}
+	{{ $years := sort ($data.Get "years") }}
+	{{ $stats := dict "minYear" (index $years  0) "maxYear" (index $years (sub (len $years) 1)) }}	
+	{{ $stats := merge $stats (dict "numLeaves" (len $years))}}
+	{{ $data.SetInMap "output" "stats" $stats }}
 {{ end }}
 
 {{ $data.Get "output" | jsonify (dict "indent" "  ") }}
