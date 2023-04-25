@@ -198,13 +198,7 @@ class Leaf {
       return;
     }
 
-    let url = leafTarget.dataset.url;
-    if (Math.random() < 0.5) {
-      url = url + "xxx";
-    }
-
-    console.log("fetching:", url);
-    fetch(url)
+    fetch(leafTarget.dataset.url)
       .then((response) => {
         if (!response.ok) {
           return Promise.reject(response);
