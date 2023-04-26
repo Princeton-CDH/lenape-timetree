@@ -14,7 +14,7 @@ Around 1858, Presbyterian Reverend Dr. Sheldon Jackson graduates from the Prince
 
 
 {{< figure src="images/university/sheldon-jackson-f.jpeg" alt="A collection of photos showing individuals or groups of people are ordered in rows and columns.">}}
-
+                                  
 
 {{< figure src="images/university/sheldon-jackson-d.jpeg" alt="A group of serious young men and boys gather on the steps of a building.">}}
 
