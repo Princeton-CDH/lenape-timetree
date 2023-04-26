@@ -470,8 +470,9 @@ class TimeTree {
       .attr("aria-label", (d) => {
         return d.type == "leaf" ? d.label.text : null;
       })
-      .attr("aria-description", (d) => {
-        return d.type == "leaf" ? `${d.display_date}, ${d.branch}` : null;
+      // reference description by id; short descriptions generated in hugo template
+      .attr("aria-described-by", (d) => {
+        return d.type == "leaf" ? `desc-${d.id}` : null;
       })
       // make leaves keyboard focusable
       .attr("tabindex", (d) => (d.type == "leaf" ? 0 : null))
