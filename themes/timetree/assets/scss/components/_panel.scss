@@ -31,11 +31,15 @@ body.home main > aside {
     position: relative;
     grid-area: panel;
     margin-top: 80px; // panel is 120px from top; aside includes 40px for active tag
+    // side margins needed for box shadow to display
+    margin-right: 4px;
+    margin-left: 4px;
     justify-items: start; // on desktop, stick to top
 
     height: auto; // set based on content height
     max-height: $desktop-panel-maxheight;
-    max-width: 410px;
+    max-width: 410px; // + 8 for margins?
+    min-width: 320px;
   }
 
   // allow closing the intro on mobile
@@ -57,10 +61,12 @@ body.home main > aside {
 
   &.show-details {
     #intro,
-    article,
-    > .close {
+    article {
       height: auto;
       overflow: scroll;
+    }
+    > .close {
+      height: auto;
     }
   }
 
