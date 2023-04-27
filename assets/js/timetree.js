@@ -471,7 +471,7 @@ class TimeTree {
         return d.type == "leaf" ? d.label.text : null;
       })
       // reference description by id; short descriptions generated in hugo template
-      .attr("aria-described-by", (d) => {
+      .attr("aria-describedby", (d) => {
         return d.type == "leaf" ? `desc-${d.id}` : null;
       })
       // make leaves keyboard focusable
