@@ -294,9 +294,11 @@ body.home main > aside {
 
 // special case: tag is active but intro panel is closed
 body.tag-active.home main > aside {
-  // panel should be exactly the height of the tag
-  &.closed {
-    height: $tag-height;
+  @include for-mobile {
+    // panel should be exactly the height of the tag on mobile
+    &.closed {
+      height: $tag-height;
+    }
   }
 }
 

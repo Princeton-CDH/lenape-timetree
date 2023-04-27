@@ -139,13 +139,15 @@ body.taxonomy {
     opacity: 100%;
   }
 
-  // when a tag is active without a leaf, position the tag
-  // directly over the footer
-  aside.closed {
-    bottom: auto;
-    // TODO: set variable for tree height on mobile
-    top: calc(
-      #{$mobile_timetree_height} + #{$mobile_header_height} - #{$tag-height}
-    );
+  @include for-mobile {
+    // on mobile only, when a tag is active without a leaf, position the tag
+    // directly over the footer
+    aside.closed {
+      bottom: auto;
+      // TODO: set variable for tree height on mobile
+      top: calc(
+        #{$mobile_timetree_height} + #{$mobile_header_height} - #{$tag-height}
+      );
+    }
   }
 }
