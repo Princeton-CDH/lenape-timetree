@@ -38,24 +38,21 @@ body.home main > aside {
 
     height: auto; // set based on content height
     max-height: $desktop-panel-maxheight;
-    max-width: 410px; // + 8 for margins?
-    min-width: 320px;
+    max-width: 20.5rem; // + 8 for margins?
+    min-width: 16rem;
   }
 
   // allow closing the intro on mobile
-  &.closed {
-    height: 0;
-    overflow: hidden;
-
-    @include for-desktop-up {
-      height: auto;
-      overflow: scroll;
-    }
-
-    #intro,
-    article,
-    > .close {
+  @include for-mobile {
+    &.closed {
       height: 0;
+      overflow: hidden;
+
+      #intro,
+      article,
+      > .close {
+        height: 0;
+      }
     }
   }
 
