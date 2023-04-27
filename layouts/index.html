@@ -10,7 +10,7 @@
   <button class="reset-zoom" aria-label="reset zoom to default"><i class="ph-arrows-in ph-fill" aria-hidden="true"></i></button>
   <data class="leaf-data" value='{{ partial "leaf_data.json" . }}'></data>
   <data class="tag-data" value='{{ partial "tags.json" . }}'></data>
-  <data class="env-data" value="{{ dict "env" hugo.Environment | jsonify }}"/>
+  <data class="env-data" value="{{ dict "env" hugo.Environment "branches" .Site.Params.branches "visual_debug" .Site.Params.visual_debug | jsonify }}"/>
 </div>
 
 <aside>
@@ -25,7 +25,18 @@
     <header>
       <h1>{{ .Params.Title }}</h1>
     </header>
-    <div>{{- .Content -}}</div>
+    <div>
+      {{- .Content -}}
+    </div>
+
+    {{/* display legend listing each branch; names from site config */}}
+    <ol id="panel-legend">
+      {{- range .Site.Params.branches -}}
+        {{- $branchSlug := replace (replace .  "The" "") "+" "" | urlize -}}
+      <li class="{{ $branchSlug }}"><a href="#{{ $branchSlug }}">{{ . }}</a></li>
+      {{- end -}}
+    </div>
+
   </article>
 
   
@@ -50,8 +61,8 @@
 
 </div>
 
-{{/* include visual debug controls unless this is a production build */}}
-{{ if not hugo.IsProduction }}
+{{/* include visual debug controls if enabled in hugo site param */}}
+{{ if .Site.Params.visual_debug }}
 <div id="debug-controls">
 <h2>Visual debug</h2>
 
