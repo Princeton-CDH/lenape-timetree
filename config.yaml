@@ -3,6 +3,7 @@ languageCode: en-us
 title: Lunaapahkiing Princeton Timetree
 theme: timetree
 paginate: 20
+timeout: 60 # increase from default of 30s; builds failing on render
 
 params:
   description: >-
