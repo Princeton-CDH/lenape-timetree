@@ -46,9 +46,20 @@
   </div>
 </aside>
 
+
+<div class="extras">
 <article id="leaferror">
   <div>Error loading the details.</div>
 </article>
+
+<div id="a11y-descriptions">
+  {{/* provide short screenreader descriptions for leaves in the timetree, to parallel info provided visually by century axis and branch color/position */}}
+  {{ range where .Site.Pages "Section" "leaves" }}
+  <p id="desc-{{ .RelPermalink | path.Base  }}">{{ with .Params.display_date }}<time>{{ . }}</time>,{{ end }} {{ .Params.branch }}</p>
+  {{ end }}
+</div>
+
+</div>
 
 {{/* include visual debug controls if enabled in hugo site param */}}
 {{ if .Site.Params.visual_debug }}
