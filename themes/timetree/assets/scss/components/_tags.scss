@@ -4,6 +4,8 @@ $tag-color: (
   "active": #ffdacc,
 );
 
+$mobile_timetree_height: 65vh;
+
 .tags {
   /* use flex to avoid unwanted space between tags caused by
     whitespace between tags in the markup */
@@ -142,6 +144,8 @@ body.taxonomy {
   aside.closed {
     bottom: auto;
     // TODO: set variable for tree height on mobile
-    top: calc(65vh + #{$mobile_header_height} - #{$tag-height});
+    top: calc(
+      #{$mobile_timetree_height} + #{$mobile_header_height} - #{$tag-height}
+    );
   }
 }
