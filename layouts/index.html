@@ -6,13 +6,6 @@
 {{ $buildOptions := dict "sourceMap" $sourceMap "minify" hugo.IsProduction "target" "es2018" "params" $params }}
 {{ $js := resources.Get "js/main.js" | js.Build $buildOptions | fingerprint }}
 
-<div id="timetree">
-  <button class="reset-zoom" aria-label="reset zoom to default"><i class="ph-arrows-in ph-fill" aria-hidden="true"></i></button>
-  <data class="leaf-data" value='{{ partial "leaf_data.json" . }}'></data>
-  <data class="tag-data" value='{{ partial "tags.json" . }}'></data>
-  <data class="env-data" value="{{ dict "env" hugo.Environment "branches" .Site.Params.branches "visual_debug" .Site.Params.visual_debug | jsonify }}"/>
-</div>
-
 <aside>
   <button class="close" aria-label="close details"><i class="ph-x" aria-hidden="true"></i></button>
   <div class="tag" id="current-tag" aria-label="active tag">
@@ -39,12 +32,17 @@
 
   </article>
 
-  
-
   <div id="leaf-details">
     <article/>
   </div>
 </aside>
+
+<div id="timetree">
+  <button class="reset-zoom" aria-label="reset zoom to default"><i class="ph-arrows-in ph-fill" aria-hidden="true"></i></button>
+  <data class="leaf-data" value='{{ partial "leaf_data.json" . }}'></data>
+  <data class="tag-data" value='{{ partial "tags.json" . }}'></data>
+  <data class="env-data" value="{{ dict "env" hugo.Environment "branches" .Site.Params.branches "visual_debug" .Site.Params.visual_debug | jsonify }}"/>
+</div>
 
 
 <div class="extras">

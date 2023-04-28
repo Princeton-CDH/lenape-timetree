@@ -1,5 +1,8 @@
 $tag-height: 40px;
 $desktop-panel-maxheight: calc(100% - 120px - 38px - 27px);
+// FIXME: the 100% here doesn't work for panel AND article within panel,
+// because they are proportional to different things.
+// Can we calculate based on 100vh ?
 
 body.home main > aside {
   // on mobile, panel is positioned absolutely at bottom of screen
@@ -8,8 +11,10 @@ body.home main > aside {
   left: 0;
   right: 0;
   width: 100%;
+  z-index: 1;
 
   height: calc(44vh + #{$tag-height});
+  max-height: calc(44vh + #{$tag-height});
 
   // aside container is a flexible column
   display: grid;
@@ -24,25 +29,39 @@ body.home main > aside {
 
   @include for-desktop-up {
     position: relative;
+    grid-area: panel;
     margin-top: 80px; // panel is 120px from top; aside includes 40px for active tag
+    // side margins needed for box shadow to display
+    margin-right: 4px;
+    margin-left: 4px;
     justify-items: start; // on desktop, stick to top
 
     height: auto; // set based on content height
     max-height: $desktop-panel-maxheight;
+    max-width: 20.5rem; // + 8 for margins?
+    min-width: 16rem;
   }
 
   // allow closing the intro on mobile
-  &.closed {
-    height: 0;
-    #intro,
-    article,
-    > .close {
+  @include for-mobile {
+    &.closed {
       height: 0;
+      overflow: hidden;
+
+      #intro,
+      article,
+      > .close {
+        height: 0;
+      }
     }
   }
-  &.show-panel {
+
+  &.show-details {
     #intro,
-    article,
+    article {
+      height: auto;
+      overflow: scroll;
+    }
     > .close {
       height: auto;
     }
@@ -62,13 +81,49 @@ body.home main > aside {
     }
   }
 
+  // use before & after elements to add a gradient
+  // so text will fade out when scrolling
+  &:before,
+  &:after {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: $tag-height;
+    content: " ";
+    background: linear-gradient($nav-bg-color, transparent);
+  }
+
+  // don't display gradients when the panel is closed
+  @include for-mobile {
+    &.closed {
+      &:before,
+      &:after {
+        display: none;
+      }
+    }
+  }
+
+  &:before {
+    top: $tag-height;
+    background: linear-gradient($nav-bg-color, transparent);
+  }
+  &:after {
+    bottom: 0;
+    background: linear-gradient(transparent, $nav-bg-color);
+
+    // can't currently position lower fade correctly on desktop;
+    // suppress for now
+    @include for-desktop-up {
+      display: none;
+    }
+  }
+
   // close button
   > .close {
     position: absolute;
-    right: 8px; // make room for scrollbar
     top: $tag-height; // position below active tag
     padding: 16px 12px 0 0;
-    width: 100%;
+    width: 40px;
     text-align: right;
     cursor: pointer;
 
@@ -79,6 +134,7 @@ body.home main > aside {
     @include for-desktop-up {
       margin: 4px 4px;
       width: auto;
+      right: 8px; // make room for scrollbar
     }
 
     .ph-x {
@@ -109,8 +165,7 @@ body.home main > aside {
 
     @include for-desktop-up {
       min-height: 350px;
-      height: min-content;
-      max-height: calc(#{$desktop-panel-maxheight} - #{$tag-height});
+      max-height: fit-content;
     }
   }
 
@@ -202,9 +257,11 @@ body.home main > aside {
 
 // special case: tag is active but intro panel is closed
 body.tag-active.home main > aside {
-  // panel should be exactly the height of the tag
-  &.closed {
-    height: $tag-height;
+  @include for-mobile {
+    // panel should be exactly the height of the tag on mobile
+    &.closed {
+      height: $tag-height;
+    }
   }
 }
 
@@ -278,10 +335,10 @@ aside article header aside {
 
 // Error message for leaf load error; hidden by default
 #leaferror {
-  visibility: hidden;
+  display: none;
 
   // visible when present in panel container due to loading error
   aside & {
-    visibility: visible;
+    display: block;
   }
 }
