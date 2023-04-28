@@ -1,42 +1,42 @@
 {{/* get page or site resource matching filename specified as "src" in shortcode */}}
-{{ $src := .Get "src" }}
+{{- $src := .Get "src" -}}
 {{/* get page resource with wildcard or site resource relative to assets directory */}}
-{{ $page_img := .Page.Resources.GetMatch (printf "*%s*" $src) }}
-{{ $asset_img := resources.Get $src }}
+{{- $page_img := .Page.Resources.GetMatch (printf "*%s*" $src) -}}
+{{- $asset_img := resources.Get $src -}}
 {{/* remove any null resources and then take the first remaining */}}
-{{ $img_resources := slice $page_img $asset_img | complement (slice nil) }}
-{{ $img := index $img_resources 0 }}
-{{ $gif := eq (path.Ext $src) ".gif" }}
-{{ $svg := eq (path.Ext $src) ".svg" }}
+{{- $img_resources := slice $page_img $asset_img | complement (slice nil) -}}
+{{- $img := index $img_resources 0 -}}
+{{- $gif := eq (path.Ext $src) ".gif" -}}
+{{- $svg := eq (path.Ext $src) ".svg" -}}
 
-{{/* set image derivative sizes */}}
-{{ $tiny_w := default "500x" }}
-{{ $small_w := default "800x" }}
-{{ $medium_w := default "1200x" }}
-{{ $large_w := default "1500x" }}
-{{ $huge_w := default "1800x" }}
+{{/* set image derivative sizes for leaves.
+    largest possible is tablet in portrait mode: 720px; 1440 for 2x
+    desktop panel max width is ~ 380px; 560px for 2x
+    mobile max width is 288px; ~290, 580 fo2 2x
+
+*/}}
+{{ $tiny_w := default "290x" }}
+{{ $small_w := default "580x" }}
+{{ $medium_w := default "720x" }}
+{{ $large_w := default "1440x" }}
 
 {{/* generate derviatives for output in srcset */}}
 {{/* do not generate sizes larger than the original image */}}
-{{ if (not (or $svg $gif))  }}
-{{ .Scratch.Set "tiny" ($img.Resize $tiny_w) }}
-{{ .Scratch.Set "small" ($img.Resize $small_w) }}
-{{ if ge $img.Width 1200 }}{{ .Scratch.Set "medium" ($img.Resize $medium_w) }}{{ end }}
-{{ if ge $img.Width 1500 }}{{ .Scratch.Set "large" ($img.Resize $large_w) }}{{ end }}
-{{ if ge $img.Width 1800 }}{{ .Scratch.Set "huge" ($img.Resize $huge_w) }}{{ end }}
+{{- if (not (or $svg $gif))  -}}
+{{- .Scratch.Set "tiny" ($img.Resize $tiny_w) -}}
+{{- .Scratch.Set "small" ($img.Resize $small_w) -}}
+{{- if ge $img.Width 720 }}{{ .Scratch.Set "medium" ($img.Resize $medium_w) }}{{ end -}}
+{{- if ge $img.Width 1440 }}{{ .Scratch.Set "large" ($img.Resize $large_w) }}{{ end -}}
 {{ end }}
-
 <figure{{ with .Get "desc-id" }} aria-describedby="{{ . }}"{{ end }} {{ with .Get "class" }}class="{{ . }}"{{ end }}>
     {{- if (or $svg $gif) -}}
     <img loading="lazy" alt="{{ .Get `alt` }}"{{ with .Get `max-height` }} style="max-height: {{ . }}"{{ end }} src="{{ $img.RelPermalink }}"{{ if $svg }} role="img"{{ end }}>
     {{- else -}}
     <img loading="lazy" alt="{{ .Get `alt` }}" src="{{ $img.RelPermalink }}"
-     sizes="(max-width: 768px) 100vw, 80vw"
-     srcset="{{ (.Scratch.Get `tiny`).RelPermalink }} 500w,
-    {{ (.Scratch.Get `small`).RelPermalink }} 800w,
-    {{- with .Scratch.Get `medium` -}}{{ .RelPermalink }} 1200w, {{- end -}}
-    {{- with.Scratch.Get `large` -}}{{ .RelPermalink }} 1500w, {{- end -}}
-    {{- with .Scratch.Get `huge` -}}{{ .RelPermalink }} 1800w, {{- end -}}
+     srcset="{{ (.Scratch.Get `tiny`).RelPermalink }} 290w,
+    {{ (.Scratch.Get `small`).RelPermalink }} 580w,
+    {{ with .Scratch.Get `medium` -}}{{ .RelPermalink }} 720w, {{ end }}
+    {{ with.Scratch.Get `large` -}}{{ .RelPermalink }} 1440w, {{ end }}
     {{ $img.RelPermalink }} {{ $img.Width }}w" {{/* include original image in srcset */}}
      class="{{ if ge $img.Width $img.Height }}landscape{{ else }}portrait{{ end }}"
      {{ with .Get `max-height` }} style="max-height: {{ . }}"{{ end }}>

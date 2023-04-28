@@ -13,7 +13,7 @@ William Potter Ross graduates from College of NJ first in his class around 1842,
 
 
 
-{{< figure src="images/university/william-potter-ross.png" alt="An older man sits on a chair next to a shrub with his legs crossed.">}}
+{{< figure src="images/university/william-potter-ross.jpg" alt="An older man sits on a chair next to a shrub with his legs crossed.">}}
 
 
 [Alternate depiction: Painting of William Potter Ross from circa 1871 to 1875.](https://dpul.princeton.edu/catalog/4t64gn466)
