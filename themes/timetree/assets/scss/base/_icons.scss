@@ -34,3 +34,27 @@ i[class^="ph-"] {
 .ph-arrows-in.ph-fill {
   @include phosphoricon("arrows-in-fill.svg");
 }
+
+// leaf icon for branches;
+// currently assumes applied to a pseudo-element
+@mixin leaf-icon {
+  -webkit-mask-image: url(/img/icons/leaf.svg);
+  mask-image: url(/img/icons/leaf.svg);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-position: center;
+  background-color: currentColor;
+  display: inline-block;
+  content: " ";
+  width: 14px;
+  margin-right: 8px;
+  height: 31px;
+
+  @include for-desktop-up {
+    width: 20px;
+    height: 45px;
+  }
+}
