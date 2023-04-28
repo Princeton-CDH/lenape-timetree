@@ -111,7 +111,7 @@ body.home main > aside {
     bottom: 0;
     background: linear-gradient(transparent, $nav-bg-color);
 
-    // can't currently position correctly on desktop;
+    // can't currently position lower fade correctly on desktop;
     // suppress for now
     @include for-desktop-up {
       display: none;
@@ -165,7 +165,7 @@ body.home main > aside {
 
     @include for-desktop-up {
       min-height: 350px;
-      max-height: calc(#{$desktop-panel-maxheight} - #{$tag-height});
+      max-height: fit-content;
     }
   }
 
