@@ -10,3 +10,5 @@ title: Smallpox
 ---
 
 Siege of Fort Pitt: smallpox blankets scheme
+
+[Fort Pitt depiction.](https://commons.wikimedia.org/wiki/File:Plan_of_Fort_Pitt,_1759.jpg#/media/File:Plan_of_Fort_Pitt,_1759.jpg)
