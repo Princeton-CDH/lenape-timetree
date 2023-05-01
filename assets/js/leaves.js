@@ -263,6 +263,7 @@ class Leaf {
 
     // @TODO: This should become unnecessary when zoom PR is merged
     panel.parentElement.classList.add("show-details");
+    panel.parentElement.classList.remove("closed");
   }
 
   static highlightLeaf(event) {

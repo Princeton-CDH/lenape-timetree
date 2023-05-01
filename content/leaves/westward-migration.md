@@ -11,3 +11,8 @@ title: Westward Migration
 ---
 
 The Walking Purchase is a key event in the forced migration of southern Lunaape communities westward into the Ohio Country, shaping Lunaape/British relations for the decades to follow.
+
+
+{{< figure src="images/removals/westward-migration.jpeg" alt="A map of a territory with trees displayed in the corner" attr="[A 1765 engraving by Thomas Hutchins showing where American military forces marched in a section of the Ohio River Valley, where native tribes were living.]" attrlink="(https://www.loc.gov/resource/cph.3g04809/)">}}
+
+{{< figure src="images/removals/westward-migration-b.jpeg" alt="A house and two sheds are centered in front of a large hill with trees but behind water." >}}

@@ -8,6 +8,10 @@ body {
   min-height: 100vh;
   display: grid;
   grid-template-rows: $mobile_header_height auto $mobile_footer_height;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
   background-color: $nav-bg-color;
   color: $body-fg-color;
 
@@ -19,6 +23,7 @@ body {
   }
 
   main {
+    grid-area: main;
     background-color: $body-bg-color;
   }
 }
@@ -50,6 +55,7 @@ body > footer {
 
 body > header {
   height: $mobile_header_height;
+  grid-area: header;
 
   h1 {
     margin: 0;
@@ -91,6 +97,25 @@ body > header {
       height: 24px;
     }
   }
+}
+
+body > footer {
+  height: $mobile_footer_height;
+  grid-area: "footer";
+
+  @include for-desktop-up {
+    height: $desktop_footer_height;
+  }
+}
+
+a,
+a:link,
+a:hover,
+a:visited {
+  color: $body-fg-color;
+  font-weight: normal;
+  text-decoration: underline;
+  text-decoration-color: $highlight-color;
 }
 
 article {

@@ -10,7 +10,7 @@ class Panel {
     On mobile, the panel can be closed completely; there is an info
     button to redisplay the project introduction.
 
-    The class `closed`` is used to indicate the panel is closed
+    The class `closed` is used to indicate the panel is closed
     (hidden on mobile, display introduction on desktop); the class
     `show-details` is used to indicate whether leaf details are visible or not.
 
@@ -90,6 +90,11 @@ class Panel {
 
     // Also allow Escape key to close window
     // Along with (potentially) other keyboard commands
+
+    // TODO: move this to the timetree code
+    // check the document.activeElement for focus
+    // bind enter & space to leaf click when focused
+
     document.onkeydown = function (evt) {
       // Get event object
       evt = evt || window.event;
@@ -100,6 +105,7 @@ class Panel {
         case "Escape":
         case "Esc":
           // Closes the detail panel
+          // fixme: panel ref is broken here
           panel.close();
           break;
 

@@ -7,38 +7,42 @@ $desktop_panel_width: 410px; // container in the grid
 $column_gap: 38px;
 
 body.home {
+  /* On mobile, don't scroll past the first screen when the panel is open.
+     Temporary, needs to be enabled only when the panel is visible.
+  */
+  overflow: hidden;
+
   main {
-    max-height: calc(
-      100vh - #{$mobile_header_height} - #{$mobile_footer_height}
-    );
+    height: $mobile_timetree_height;
 
     @include for-desktop-up {
       // desktop is two columns (tree | panel)
       display: grid;
-      grid-template-columns: auto $desktop_panel_width; // 410px;
       column-gap: $column_gap; //  38px; // space between panel and timetree
+      grid-template-columns: auto 32%;
+      grid-template-areas: "timetree panel";
+      column-gap: $column_gap; // space between panel and timetree
       padding: 0 40px 0 0; // right margin outside the panel
 
       // set height exactly so container
       // won't change for shorter/longer leaf details in panel
+      // max-height: 100%;
       height: 100%;
       max-height: 100%;
-      height: calc(
-        100vh - #{$desktop_header_height} - #{$desktop_footer_height}
-      );
+      // max-height: calc(
+      // 100vh - #{$desktop_header_height} - #{$desktop_footer_height}
+      // );
     }
 
     #timetree {
       height: 100%;
-      max-height: 100%;
+      max-height: inherit;
       font-size: 14px;
       line-height: 18px;
-      margin-top: 30px;
       position: relative;
-
-      @include for-desktop-up {
-        margin-top: 0;
-      }
+      margin: 0;
+      width: 100%;
+      grid-area: timetree;
 
       svg {
         // fix to the bottom no matter how we scale
@@ -74,7 +78,7 @@ body.home {
         height: 40px;
         position: absolute;
         right: 8px;
-        top: -22px;
+        top: 8px;
         padding: 8px;
         text-align: center;
         cursor: pointer;
@@ -401,4 +405,9 @@ article.container article {
     background: #053a5f;
     height: 0.2rem;
   }
+}
+
+.extras {
+  // Hidden by default
+  display: none;
 }
