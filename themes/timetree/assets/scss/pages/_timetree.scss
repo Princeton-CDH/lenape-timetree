@@ -19,7 +19,8 @@ body.home {
       // desktop is two columns (tree | panel)
       display: grid;
       column-gap: $column_gap; //  38px; // space between panel and timetree
-      grid-template-columns: auto 32%;
+      // reserve 32% for the panel, but limit the size of the tree portion
+      grid-template-columns: calc(68% - 38px) auto;
       grid-template-areas: "timetree panel";
       column-gap: $column_gap; // space between panel and timetree
       padding: 0 40px 0 0; // right margin outside the panel

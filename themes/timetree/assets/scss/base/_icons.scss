@@ -34,6 +34,9 @@ i[class^="ph-"] {
 .ph-arrows-in.ph-fill {
   @include phosphoricon("arrows-in-fill.svg");
 }
+.ph-copyright.ph-bold {
+  @include phosphoricon("copyright-bold.svg");
+}
 
 // leaf icon for branches;
 // currently assumes applied to a pseudo-element
