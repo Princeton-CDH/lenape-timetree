@@ -10,7 +10,7 @@ body.home {
   /* On mobile, don't scroll past the first screen when the panel is open.
      Temporary, needs to be enabled only when the panel is visible.
   */
-  overflow: hidden;
+  // overflow: hidden;
 
   main {
     height: $mobile_timetree_height;

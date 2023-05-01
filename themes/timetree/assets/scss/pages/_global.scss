@@ -8,6 +8,7 @@ body {
   min-height: 100vh;
   display: grid;
   grid-template-rows: $mobile_header_height auto $mobile_footer_height $mobile_accessrights_height;
+  grid-template-rows: $mobile_header_height auto auto auto;
   grid-template-areas:
     "header"
     "main"
@@ -102,7 +103,7 @@ body > header {
 
 body > footer {
   height: $mobile_footer_height;
-  grid-area: "footer";
+  grid-area: footer;
 
   @include for-desktop-up {
     height: $desktop_footer_height;

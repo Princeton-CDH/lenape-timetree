@@ -1,4 +1,4 @@
-$mobile_footer_height: 250px;
+$mobile_footer_height: 500px;
 $desktop_footer_height: 106px;
 // access and copyright info below the main navigational footer
 $desktop_accessrights_height: 66px;
@@ -7,6 +7,8 @@ $mobile_accessrights_height: 242px;
 body > footer {
   // height: $mobile_footer_height;
   position: relative;
+
+  padding: 16px 60px 30px;
 
   @include for-desktop-up {
     // height: $desktop_footer_height;
@@ -27,16 +29,18 @@ body > footer {
 
   nav {
     grid-area: nav;
-    // grid-row-start: 1;
-    // grid-column-start: 1;
 
     // use flex to space out footer links evenly
     display: flex;
+    flex-direction: column;
+    gap: 8px;
 
     // limit footer nav width on larger screens
     @include for-desktop-up {
+      flex-direction: row;
       width: 100%;
       max-width: 100%;
+      gap: auto;
     }
 
     > * {
@@ -46,11 +50,12 @@ body > footer {
     a {
       text-align: center;
       display: block;
-      height: 48px;
       font-size: 16px;
+      height: 24px;
 
       @include for-desktop-up {
         font-size: 18px;
+        height: 48px;
 
         height: $desktop_footer_height;
 
@@ -90,35 +95,62 @@ body > footer {
   }
 
   svg {
-    grid-area: nav;
-    // grid-row-start: 1;
-    // grid-column-start: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
 
+    // grid-area: nav;   // doesn't work ?
     overflow: visible;
-    width: calc(100vw - 38px - 32vw - 40px);
-    max-width: calc(100vw - 38px - 32vw - 40px);
-    // border: 1px solid yellow;  /* for debugging position/size *
-    // width: 100%; /* must match the tree */
+
+    @include for-desktop-up {
+      position: relative;
+      grid-area: nav; // Chrome complains about this
+      width: calc(100vw - 38px - 32vw - 40px);
+      max-width: calc(100vw - 38px - 32vw - 40px);
+      // border: 1px solid yellow;  /* for debugging position/size *
+      // width: 100%; /* must match the tree */
+    }
   }
 
   #partner-logos {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: flex-end;
-    margin-right: -40px;
+    align-items: center;
+    padding: 0px;
+    gap: 20px;
+    margin: 48px auto 0;
+    width: 206px;
+
+    @include for-desktop-up {
+      margin-top: 0;
+      width: auto;
+      flex-direction: row;
+      margin-right: -40px; // compensate for right margin on container
+      padding-right: 16px;
+      gap: 16px;
+    }
 
     img {
-      margin: 28px 28px 20px 16px;
+      // margin: 28px 28px 20px 16px;
       max-width: 100%;
 
       &[src*="naisip"] {
         height: 50px;
       }
       &[src*="vizelab"] {
-        height: 58px;
+        height: 75px;
+
+        @include for-desktop-up {
+          height: 58px;
+        }
       }
       &[src*="cdh"] {
-        height: 55px;
+        height: 75px;
+
+        @include for-desktop-up {
+          height: 55px;
+        }
       }
     }
   }
@@ -126,15 +158,24 @@ body > footer {
 
 #access-rights {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-start;
-  padding: 4px 28px;
+  align-items: center;
+  padding: 8px 0 18px;
+  gap: 8px;
+
   width: 100vw;
   border-top: 1px solid $offwhite;
-  font-size: 0.9rem; // 18px
+  font-size: 0.8rem; // 16px
 
-  > * {
-    margin: 12px 20px 0 0;
+  @include for-desktop-up {
+    font-size: 0.9rem; // 18px
+    flex-direction: row;
+    padding: 4px 28px;
+
+    > * {
+      margin: 12px 20px 0 0;
+    }
   }
 
   a {
@@ -145,24 +186,35 @@ body > footer {
     text-transform: uppercase;
     text-decoration: solid underline $offwhite 1px;
     text-underline-offset: 12px;
+    @include for-mobile {
+      padding: 12px 20px;
+    }
   }
 
   #copyright {
     // width: 24.8rem; // 496px;
-    margin-left: 1.4rem;
     white-space: nowrap;
     i {
-      margin-right: 0.6rem;
       vertical-align: text-bottom;
+    }
+
+    @include for-desktop-up {
+      margin-left: 1.4rem;
+      i {
+        margin-right: 0.6rem;
+      }
     }
   }
 
   a[href*="license"] {
-    margin-left: 1rem;
     width: 72px;
     img {
       height: 24px;
       vertical-align: text-bottom;
+    }
+
+    @include for-desktop-up {
+      margin-left: 1rem;
     }
   }
 
@@ -173,12 +225,17 @@ body > footer {
 
   a[href^="https://princeton.edu"]
   {
-    padding: 0;
-    margin-left: auto; // auto margin = justify item flex-end
-    margin-right: 0;
     img {
       width: 150px;
       height: 42px;
+    }
+
+    padding: 16px 0 0;
+
+    @include for-desktop-up {
+      padding: 0;
+      margin-left: auto; // auto margin = justify item flex-end
+      margin-right: 0;
     }
   }
 }
