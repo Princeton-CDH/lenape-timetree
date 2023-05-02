@@ -26,6 +26,8 @@ class Panel {
   open(showDetails = true) {
     // open the panel; show leaf details by default
     // disable the info button
+    document.body.dataset.panelvisible = true;
+
     let container = this.el.parentElement;
     if (showDetails) {
       container.classList.add("show-details");
@@ -36,6 +38,9 @@ class Panel {
     container.classList.remove("closed");
     // disable the info button; inactive when the intro is visible
     this.infoButton.disabled = true;
+
+    // fixme: doesn't work ?
+    document.body.dataset.panelvisible = true;
   }
 
   close(closeDetails = true) {
@@ -58,6 +63,8 @@ class Panel {
     // if we are closing everything or no leaf is visible, close the panel
     if (closeDetails || !leafVisible) {
       container.classList.add("closed");
+      // update attribute on body to control overflow behavior
+      document.body.dataset.panelvisible = false;
     }
 
     // enable the info button;

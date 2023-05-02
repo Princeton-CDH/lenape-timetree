@@ -7,10 +7,10 @@ $desktop_panel_width: 410px; // container in the grid
 $column_gap: 38px;
 
 body.home {
-  /* On mobile, don't scroll past the first screen when the panel is open.
-     Temporary, needs to be enabled only when the panel is visible.
-  */
-  // overflow: hidden;
+  // On mobile, don't scroll past the first screen when the panel is open.
+  &[data-panelvisible="true"] {
+    overflow: hidden;
+  }
 
   main {
     height: $mobile_timetree_height;

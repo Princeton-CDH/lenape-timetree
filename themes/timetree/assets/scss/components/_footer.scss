@@ -5,8 +5,8 @@ $desktop_accessrights_height: 66px;
 $mobile_accessrights_height: 242px;
 
 body > footer {
-  // height: $mobile_footer_height;
   position: relative;
+  overflow: hidden; // hide svg roots if they overflow
 
   padding: 16px 60px 30px;
 

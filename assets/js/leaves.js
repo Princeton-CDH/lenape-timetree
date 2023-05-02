@@ -196,6 +196,9 @@ class Leaf {
         Leaf.setLeafLabelClass(leafTarget.dataset.url, Leaf.selectedClass);
         // open panel
         Leaf.openLeafDetails(leafTarget, currentState.tag);
+
+        // fixme: shouldn't need to be set here
+        document.body.dataset.panelvisible = true;
       }
     }
 

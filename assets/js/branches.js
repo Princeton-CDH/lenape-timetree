@@ -40,7 +40,7 @@ function drawTrunk(container, [min_x, min_y, width, height], trunkTop) {
 
   // extend trunk off the bottom edge of the svg,
   // so that trunk and roots stay connected when resizing
-  const trunkExtra = 200;
+  const trunkExtra = 300;
 
   //  add points for unevenness at the thirds of the trunk
   let onethird = (trunkTop - trunk.bottomLeft) / 4;
@@ -219,7 +219,6 @@ function roots() {
       },
       { x: secondaryRootStart[0] + (left ? -55 : 55), y: height },
     ];
-    console.log(secondaryRootCoords);
 
     svg
       .append("path")
