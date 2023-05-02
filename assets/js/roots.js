@@ -1,5 +1,5 @@
-import { roots } from "./branches";
+import { Roots } from "./branches";
 
 window.addEventListener("load", (event) => {
-  roots();
+  new Roots();
 });
