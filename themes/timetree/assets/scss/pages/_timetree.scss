@@ -1,41 +1,116 @@
 @import "components/leaves";
 @import "components/panel";
 @import "components/tags";
+@import "components/branches";
+
+$desktop_panel_width: 410px; // container in the grid
+$column_gap: 38px;
 
 body.home {
+  // On mobile, don't scroll past the first screen when the panel is open.
+  @include for-mobile {
+    overflow: hidden;
+    &[data-panelvisible="false"] {
+      overflow: scroll;
+    }
+  }
+
+  // allow svg overflow to be visible, but ensure
+  // header and footer are displayed above the svg
+  header,
+  footer,
+  #access-rights {
+    z-index: 1;
+  }
+
   main {
-    max-height: calc(
-      100vh - #{$mobile_header_height} - #{$mobile_footer_height}
-    );
+    height: $mobile_timetree_height;
 
     @include for-desktop-up {
       // desktop is two columns (tree | panel)
       display: grid;
-      grid-template-columns: auto 410px;
-      column-gap: 38px; // space between panel and timetree
-      padding: 30px 40px 0 0; // right margin outside the panel
+      column-gap: $column_gap; //  38px; // space between panel and timetree
+      // reserve 32% for the panel, but limit the size of the tree portion
+      grid-template-columns: calc(68% - 38px) auto;
+      grid-template-areas: "timetree panel";
+      column-gap: $column_gap; // space between panel and timetree
+      padding: 0 40px 0 0; // right margin outside the panel
 
       // set height exactly so container
       // won't change for shorter/longer leaf details in panel
-      height: calc(
-        100vh - #{$desktop_header_height} - #{$desktop_footer_height}
-      );
+      // max-height: 100%;
+      height: 100%;
+      max-height: 100%;
+      // max-height: calc(
+      // 100vh - #{$desktop_header_height} - #{$desktop_footer_height}
+      // );
     }
 
     #timetree {
-      height: inherit;
+      height: 100%;
       max-height: inherit;
       font-size: 14px;
       line-height: 18px;
-      margin-top: 30px;
-
-      @include for-desktop-up {
-        margin-top: 0;
-      }
+      position: relative;
+      margin: 0;
+      width: 100%;
+      grid-area: timetree;
 
       svg {
-        height: 100%;
-        max-width: 100%;
+        // fix to the bottom no matter how we scale
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        // max-width: 100%;
+
+        @include for-desktop-up {
+          height: 100%;
+          bottom: 0;
+          max-width: 100%;
+        }
+
+        overflow: visible;
+      }
+
+      // on mobile at default zoom level, don't show labels
+      #labels {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+
+        // always show labels on desktop
+        @include for-desktop-up {
+          opacity: 100%;
+        }
+      }
+
+      button.reset-zoom {
+        z-index: 10;
+        background-color: $nav-bg-color;
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        right: 8px;
+        top: 8px;
+        padding: 8px;
+        text-align: center;
+        cursor: pointer;
+        // hidden by default
+        opacity: 0;
+        pointer-events: none;
+
+        & .ph-arrows-in {
+          width: 22px;
+          height: 22px;
+          display: inline-block;
+        }
+      }
+
+      // show labels and reset button when zoomed
+      &.zoomed #labels,
+      &.zoomed .reset-zoom {
+        opacity: 100%;
+        pointer-events: auto;
       }
 
       rect.century-container {
@@ -45,6 +120,38 @@ body.home {
       text.century-label {
         fill: $nearwhite;
         line-height: 18px;
+      }
+
+      // d3-axis version of century labels
+      #century-axis {
+        .tick {
+          text {
+            fill: $nearwhite;
+            // NOTE: because svg is ~ half scale when unzoomed on mobile,
+            // use desktop font size
+            line-height: 30px;
+            font-size: 16px;
+
+            // @include for-desktop-up {
+            // font-size: 16px;
+            // }
+          }
+
+          // svg elements don't have backgrounds,
+          // so we have to use a rectangle positioned within the tick
+          rect.tick-bg {
+            fill: $body-bg-color;
+            fill-opacity: 0.7;
+          }
+
+          &:hover {
+            font-weight: normal;
+          }
+        }
+        line,
+        path {
+          display: none;
+        }
       }
 
       circle.select,
@@ -148,12 +255,6 @@ body.home {
         fill: $trunk-color;
         opacity: 0.7;
       }
-
-      path.trunk {
-        fill: transparent;
-        stroke: $trunk-color;
-        stroke-width: 3px;
-      }
     }
 
     text.leaf-label {
@@ -190,11 +291,6 @@ body.home {
   text.leaf-label:not(.select):not(.highlight) {
     opacity: 0.4;
     pointer-events: none;
-  }
-
-  // when a tag is active, display the current tag button
-  #current-tag {
-    opacity: 100%;
   }
 }
 
@@ -322,4 +418,9 @@ article.container article {
     background: #053a5f;
     height: 0.2rem;
   }
+}
+
+.extras {
+  // Hidden by default
+  display: none;
 }

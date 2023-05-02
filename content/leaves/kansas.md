@@ -9,3 +9,5 @@ title: Kansas
 ---
 
 Delaware Tribe moves from White River, Indiana, to Kansas (junction of Kansas and Missouri rivers)
+
+[Depiction of Delaware Indians between 1860 and 1865.](https://www.kansasmemory.org/item/216456)

@@ -1,34 +1,46 @@
+@import "components/footer";
+
 $mobile_header_height: 98px;
 $desktop_header_height: 75px;
-
-$mobile_footer_height: 250px;
-$desktop_footer_height: 130px;
 
 body {
   /* use grid layout to keep the footer on the bottom */
   min-height: 100vh;
   display: grid;
-  grid-template-rows: $mobile_header_height auto $mobile_footer_height;
+  grid-template-rows: $mobile_header_height auto $mobile_footer_height $mobile_accessrights_height;
+  grid-template-rows: $mobile_header_height auto auto auto;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer"
+    "accessrights";
   background-color: $nav-bg-color;
   color: $body-fg-color;
 
   @include for-desktop-up {
-    grid-template-rows: $desktop_header_height auto $desktop_footer_height;
+    grid-template-rows: $desktop_header_height auto $desktop_footer_height $desktop_accessrights_height;
+    height: 100vh;
+    max-height: 100vh;
+    margin: 0;
   }
 
   main {
+    grid-area: main;
     background-color: $body-bg-color;
+  }
+}
+
+body > header {
+  padding: 0 14px;
+
+  @include for-desktop-up {
+    padding: 0 24px;
   }
 }
 
 body > header,
 body > footer {
-  padding: 0 14px;
   background-color: $nav-bg-color;
-
-  @include for-desktop-up {
-    padding: 0 24px;
-  }
 
   a,
   a:link,
@@ -45,6 +57,7 @@ body > footer {
 
 body > header {
   height: $mobile_header_height;
+  grid-area: header;
 
   h1 {
     margin: 0;
@@ -62,10 +75,35 @@ body > header {
   @include for-desktop-up {
     height: $desktop_header_height;
   }
+
+  /* info button for mobile */
+  .info {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 25px 25px;
+    opacity: 1;
+    cursor: pointer;
+
+    @include for-desktop-up {
+      visibility: hidden;
+    }
+
+    &[disabled] {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    i {
+      width: 24px;
+      height: 24px;
+    }
+  }
 }
 
 body > footer {
   height: $mobile_footer_height;
+  grid-area: footer;
 
   @include for-desktop-up {
     height: $desktop_footer_height;
@@ -80,6 +118,7 @@ a:visited {
   font-weight: normal;
   text-decoration: underline;
   text-decoration-color: $highlight-color;
+  cursor: pointer;
 }
 
 article {
@@ -92,23 +131,4 @@ article {
 
 .tags {
   margin-top: 20px;
-}
-
-footer nav {
-  // use flex to space out footer links, for now
-  display: flex;
-
-  // limit footer nav width on larger screens
-  @include for-desktop-up {
-    width: 80%;
-  }
-
-  > * {
-    flex-grow: 1;
-  }
-  // make links sufficiently large tap targets
-  a {
-    display: inline-block;
-    height: 48px;
-  }
 }

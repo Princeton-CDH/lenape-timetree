@@ -9,3 +9,9 @@ title: College of NJ Opens
 ---
 
 ﻿In April 1747, the College of New Jersey holds its first classes in the parsonage of first president Jonathan Dickinson in Elizabethtown, NJ. Later that year, the College moves to Newark – home of second president, Aaron Burr. Meanwhile, Burr and the trustees seek out a permanent land base for the College.
+ 
+ 
+ {{< figure src="images/university/college-of-nj-opens.jpg" alt="image of charter document" attr="[Charter document for the College of New Jersey.]" attrlink="(https://findingaids.princeton.edu/catalog/AC120_c0159)">}}
+ 
+ 
+ 
