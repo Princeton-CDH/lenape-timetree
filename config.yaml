@@ -3,12 +3,22 @@ languageCode: en-us
 title: Lunaapahkiing Princeton Timetree
 theme: timetree
 paginate: 20
+timeout: 30s # increase to allow time for image processing
 
 params:
   description: >-
     An interactive timetree displaying interwoven histories of the
     Princeton University community and the Lenape peoples
     of Lunaapahkiing, “the land of the Lenape.” .
+  branches:
+    - "Lands + Waters"
+    - Communities
+    - The University
+    - Removals
+    - Resistance + Resurgence
+  visual_debug: false
+  version: 0.8
+  version_link: https://github.com/Princeton-CDH/lenape-timetree
 
 # disable categories taxonomy included by default
 taxonomies:
@@ -18,3 +28,23 @@ outputs:
   home:
     - HTML
     - JSON
+
+menu:
+  footer:
+    - name: Home
+      title: Home
+      pageRef: /
+      weight: 1
+    - name: About
+      pageRef: /about
+      weight: 2
+    - name: Tag Index
+      pageRef: /tags
+      weight: 3
+    - name: Resources
+      pageRef: /resources
+      weight: 4
+    - name: Contributors
+      pageRef: /contributors
+      title: Contributors
+      weight: 5
