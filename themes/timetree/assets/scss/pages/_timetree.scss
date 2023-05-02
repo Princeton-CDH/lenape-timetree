@@ -394,8 +394,9 @@ article.container article {
 
   position: absolute;
   right: 0;
+  z-index: 3;
   // position so it sits above the footer
-  bottom: $desktop_footer_height;
+  bottom: calc(#{$desktop_footer_height} + #{$desktop_accessrights_height});
   padding: $margin;
   height: 175px;
 
