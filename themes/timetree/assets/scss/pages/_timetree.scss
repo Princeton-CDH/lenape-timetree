@@ -1,12 +1,27 @@
 @import "components/leaves";
 @import "components/panel";
 @import "components/tags";
+@import "components/branches";
+
+$desktop_panel_width: 410px; // container in the grid
+$column_gap: 38px;
 
 body.home {
-  /* On mobile, don't scroll past the first screen when the panel is open.
-     Temporary, needs to be enabled only when the panel is visible.
-  */
-  overflow: hidden;
+  // On mobile, don't scroll past the first screen when the panel is open.
+  @include for-mobile {
+    overflow: hidden;
+    &[data-panelvisible="false"] {
+      overflow: scroll;
+    }
+  }
+
+  // allow svg overflow to be visible, but ensure
+  // header and footer are displayed above the svg
+  header,
+  footer,
+  #access-rights {
+    z-index: 1;
+  }
 
   main {
     height: $mobile_timetree_height;
@@ -14,17 +29,21 @@ body.home {
     @include for-desktop-up {
       // desktop is two columns (tree | panel)
       display: grid;
-      grid-template-columns: auto 32%;
+      column-gap: $column_gap; //  38px; // space between panel and timetree
+      // reserve 32% for the panel, but limit the size of the tree portion
+      grid-template-columns: calc(68% - 38px) auto;
       grid-template-areas: "timetree panel";
-      column-gap: 38px; // space between panel and timetree
+      column-gap: $column_gap; // space between panel and timetree
       padding: 0 40px 0 0; // right margin outside the panel
 
       // set height exactly so container
       // won't change for shorter/longer leaf details in panel
+      // max-height: 100%;
       height: 100%;
-      max-height: calc(
-        100vh - #{$desktop_header_height} - #{$desktop_footer_height}
-      );
+      max-height: 100%;
+      // max-height: calc(
+      // 100vh - #{$desktop_header_height} - #{$desktop_footer_height}
+      // );
     }
 
     #timetree {
@@ -38,9 +57,20 @@ body.home {
       grid-area: timetree;
 
       svg {
-        height: 100%;
-        max-width: 100%;
-        overflow: hidden;
+        // fix to the bottom no matter how we scale
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        // max-width: 100%;
+
+        @include for-desktop-up {
+          height: 100%;
+          bottom: 0;
+          max-width: 100%;
+        }
+
+        overflow: visible;
       }
 
       // on mobile at default zoom level, don't show labels
@@ -224,12 +254,6 @@ body.home {
       circle.trunk {
         fill: $trunk-color;
         opacity: 0.7;
-      }
-
-      path.trunk {
-        fill: transparent;
-        stroke: $trunk-color;
-        stroke-width: 3px;
       }
     }
 

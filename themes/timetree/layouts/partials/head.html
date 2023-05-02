@@ -15,8 +15,17 @@
     <link rel="preload" as="font" type="font/woff2" href="/fonts/overlock/Overlock-Regular.woff2" crossorigin />
     <link rel="preload" as="font" type="font/woff2" href="/fonts/overlock/Overlock-Black.woff2" crossorigin />
 
-    {{ $sass := resources.Get "scss/main.scss" }}
-    {{ $styleOptions := (dict "targetPath" "main.css" "outputStyle" "compressed" "enableSourceMap" (not hugo.IsProduction) "includePaths" (slice "node_modules"))  }}
-    {{ $style := $sass | resources.ToCSS $styleOptions }}
+    {{- $sass := resources.Get "scss/main.scss" -}}
+    {{- $styleOptions := (dict "targetPath" "main.css" "outputStyle" "compressed" "enableSourceMap" (not hugo.IsProduction) "includePaths" (slice "node_modules"))  -}}
+    {{- $style := $sass | resources.ToCSS $styleOptions -}}
     <link rel="stylesheet" href="{{ $style.RelPermalink }}" >
+
+    {{/* minimize js if production; adapted from https://github.com/gohugoio/hugo/issues/9132 */}}
+    {{- $params := (dict "is_production" hugo.IsProduction ) -}}
+    {{- $sourceMap := cond hugo.IsProduction "" "inline" -}}
+    {{- $buildOptions := dict "sourceMap" $sourceMap "minify" hugo.IsProduction "target" "es2018" "params" $params -}}
+    {{- $js := resources.Get "js/roots.js" | js.Build $buildOptions | fingerprint -}}
+    <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+
+
 </head>
