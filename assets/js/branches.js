@@ -1,5 +1,6 @@
 import { line, curveNatural, curveBumpY } from "d3-shape";
 import { select, selectAll } from "d3-selection";
+import { randomNumBetween } from "./leaves";
 
 // combine into d3 object for convenience
 const d3 = {
@@ -176,6 +177,7 @@ function roots() {
 
   let currentURL = window.location.pathname;
 
+  // draw one root for each footer nav link
   navLinks.forEach((a, i) => {
     // determine if left or right, based half point of leaves
     let left = i < linkCount / 2;
@@ -183,9 +185,18 @@ function roots() {
     let startx = left ? trunk.bottomLeft : trunk.bottomRight;
     let targetX = min_x + sectionwidth * i + sectionwidth / 2;
 
+    // create a branch off point for secondary root line
+    let secondaryRootStart = [
+      // start part way to the target x coord
+      ((targetX - startx) / 3) * 2 + (left ? -45 : 45),
+      // and somewhere between a third and a half of the svg height
+      randomNumBetween(height / 3, height / 2),
+    ];
+
     let rootCoords = [
       [center_x + startx, min_y],
       [center_x + startx + (left ? -8 : 8), min_y + 7],
+      secondaryRootStart,
       [targetX, center_y],
       [targetX + (left ? -25 : 25), height],
     ].map((d) => {
@@ -193,11 +204,27 @@ function roots() {
     });
 
     let path = drawTreeSegment(rootCoords);
-    let href = a.getAttribute("href");
+    let current = a.getAttribute("aria-current") == "page";
+    // set root as current if nav link page is for the current page
     svg
       .append("path")
-      .attr("class", `root ${currentURL == href ? "current" : ""}`)
+      .attr("class", `root ${current ? "current" : ""}`)
       .attr("d", path);
+
+    let secondaryRootCoords = [
+      rootCoords[2], // = secondary root start
+      {
+        x: secondaryRootStart[0] + (left ? -43 : 43),
+        y: secondaryRootStart[1] + 52,
+      },
+      { x: secondaryRootStart[0] + (left ? -55 : 55), y: height },
+    ];
+    console.log(secondaryRootCoords);
+
+    svg
+      .append("path")
+      .attr("class", "root")
+      .attr("d", drawTreeSegment(secondaryRootCoords));
   });
 
   // NOTE: html coords != svg coords, so bounding rects doesn't help
