@@ -132,14 +132,15 @@ body > footer {
     }
 
     img {
-      // margin: 28px 28px 20px 16px;
       max-width: 100%;
 
       &[src*="naisip"] {
         height: 50px;
+        aspect-ratio: 102/25;
       }
       &[src*="vizelab"] {
         height: 75px;
+        aspect-ratio: 38/25;
 
         @include for-desktop-up {
           height: 58px;
@@ -147,6 +148,7 @@ body > footer {
       }
       &[src*="cdh"] {
         height: 75px;
+        aspect-ratio: 4/3;
 
         @include for-desktop-up {
           height: 55px;
@@ -207,8 +209,8 @@ body > footer {
   }
 
   a[href*="license"] {
-    width: 73px;
     img {
+      width: 73px;
       height: 24px;
       vertical-align: text-bottom;
     }
@@ -228,6 +230,7 @@ body > footer {
     img {
       width: 150px;
       height: 42px;
+      aspect-ratio: 4/3;
     }
 
     padding: 16px 0 0;

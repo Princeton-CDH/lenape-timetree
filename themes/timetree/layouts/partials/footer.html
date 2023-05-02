@@ -13,17 +13,13 @@
         <a href="https://indigenous.princeton.edu/">
             {{- with $img := resources.Get "img/logos/naisip.png" -}}
                 {{- $sized_img := $img.Resize "x50" -}}
-            <img src="{{ $sized_img.RelPermalink }}" alt="Native American and Indigenous Studies Initiative at Princeton"
-            width="{{ $sized_img.Width }}"
-            height="{{ $sized_img.Height }}"/>
+            <img src="{{ $sized_img.RelPermalink }}" alt="Native American and Indigenous Studies Initiative at Princeton" />
             {{- end -}}
         </a>
         <a href="https://anthropology.princeton.edu/research-programs/vize-lab">
             {{- with $img := resources.Get "img/logos/vizelab.png" -}}
                 {{- $sized_img := $img.Resize "x75" -}} {{/* 75w on mobile, smaller on desktop */}}
-                 <img src="{{ $sized_img.RelPermalink }}" alt="VizE Lab, Anthropology"
-            width="{{ $sized_img.Width }}"
-            height="{{ $sized_img.Height }}"/>
+                 <img src="{{ $sized_img.RelPermalink }}" alt="VizE Lab, Anthropology" />
             {{- end -}}
         </a>
         <a href="https://cdh.princeton.edu">
