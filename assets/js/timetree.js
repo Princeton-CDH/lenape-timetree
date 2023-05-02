@@ -598,6 +598,7 @@ class TimeTree extends BaseSVG {
       event.stopPropagation();
       Leaf.setCurrentLeaf(event);
     }
+    // TODO: on mobile, this should also scroll to the top of the page
     this.panel.closeIntro(); // close so info button will be active on mobile
     // zoom in on the data point for the selected leaf
     this.zoomToDatum(d);

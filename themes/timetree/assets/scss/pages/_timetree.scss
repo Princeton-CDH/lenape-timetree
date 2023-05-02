@@ -8,8 +8,19 @@ $column_gap: 38px;
 
 body.home {
   // On mobile, don't scroll past the first screen when the panel is open.
-  &[data-panelvisible="true"] {
+  @include for-mobile {
     overflow: hidden;
+    &[data-panelvisible="false"] {
+      overflow: scroll;
+    }
+  }
+
+  // allow svg overflow to be visible, but ensure
+  // header and footer are displayed above the svg
+  header,
+  footer,
+  #access-rights {
+    z-index: 1;
   }
 
   main {
@@ -58,7 +69,8 @@ body.home {
           bottom: 0;
           max-width: 100%;
         }
-        overflow: hidden;
+
+        overflow: visible;
       }
 
       // on mobile at default zoom level, don't show labels
