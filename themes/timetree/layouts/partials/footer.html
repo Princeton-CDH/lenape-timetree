@@ -9,4 +9,21 @@
         </a>
         {{- end }}
     </nav>
+    <section id="partner-logos" aria-label="project partners">
+        <a href="https://indigenous.princeton.edu/">
+            {{- with $img := resources.Get "img/logos/naisip.png" -}}
+                {{- $sized_img := $img.Resize "x50" -}}
+            <img src="{{ $sized_img.RelPermalink }}" alt="Native American and Indigenous Studies Initiative at Princeton" />
+            {{- end -}}
+        </a>
+        <a href="https://anthropology.princeton.edu/research-programs/vize-lab">
+            {{- with $img := resources.Get "img/logos/vizelab.png" -}}
+                {{- $sized_img := $img.Resize "x75" -}} {{/* 75w on mobile, smaller on desktop */}}
+                 <img src="{{ $sized_img.RelPermalink }}" alt="VizE Lab, Anthropology" />
+            {{- end -}}
+        </a>
+        <a href="https://cdh.princeton.edu">
+            <img src="/img/logos/cdh.svg" alt="The Center for Digital Humanities @ Princeton"/>
+        </a>
+    </section>
 </footer>

@@ -3,12 +3,12 @@
     {{- partial "head.html" . -}}
     <body class="{{ .Kind }}"> {{/* home, taxonomy, etc */}}
         {{- partial "header.html" . -}}
-        {{- partial "footer.html" . -}}        
+        {{- partial "footer.html" . -}}  {{/* earlier in dom for access to nav */}}
         <main>
         {{/* if the page title is not the site title, include title in h1 */}}
         {{ if ne .Title .Site.Title }}<h1>{{ .Title }}</h1>{{ end }}
 
         {{- block "main" . }}{{- end }}
         </main>
-    </body>
+    {{- partial "access_rights.html" . -}}  
 </html>
