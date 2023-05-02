@@ -6,7 +6,7 @@ $mobile_accessrights_height: 242px;
 
 body > footer {
   position: relative;
-  overflow: hidden; // hide svg roots if they overflow
+  overflow: visible; // make sure logos are not truncated
 
   // apply margins/padding to containers,
   // because roots svg needs to be full width
@@ -127,10 +127,10 @@ body > footer {
     width: 206px;
 
     @include for-desktop-up {
-      margin-top: 0;
+      // compensate for right margin on container
+      margin: 0 -40px 0;
       width: auto;
       flex-direction: row;
-      margin-right: -40px; // compensate for right margin on container
       padding-right: 16px;
       gap: 16px;
     }
