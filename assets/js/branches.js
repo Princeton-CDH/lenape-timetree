@@ -37,6 +37,10 @@ function drawTrunk(container, [min_x, min_y, width, height], trunkTop) {
 
   const max_y = min_y + height;
 
+  // extend trunk off the bottom edge of the svg,
+  // so that trunk and roots stay connected when resizing
+  const trunkExtra = 200;
+
   //  add points for unevenness at the thirds of the trunk
   let onethird = (trunkTop - trunk.bottomLeft) / 4;
 
@@ -47,6 +51,7 @@ function drawTrunk(container, [min_x, min_y, width, height], trunkTop) {
     [trunk.topLeft * 0.8, trunkTop + onethird * 2],
     [trunk.bottomLeft * 0.9, trunkTop + onethird * 3],
     [trunk.bottomLeft, max_y],
+    [trunk.bottomLeft, max_y + trunkExtra],
   ].map((d) => {
     return { x: d[0], y: d[1] };
   });
@@ -58,7 +63,6 @@ function drawTrunk(container, [min_x, min_y, width, height], trunkTop) {
     .attr("d", drawTreeSegment(leftSidePoints));
 
   // generate points for right side
-  console.log(onethird);
 
   const rightSidePoints = [
     [trunk.topRight, trunkTop],
@@ -66,6 +70,7 @@ function drawTrunk(container, [min_x, min_y, width, height], trunkTop) {
     [trunk.topRight * 0.95, trunkTop + onethird * 2],
     [trunk.bottomRight * 0.9, trunkTop + onethird * 3],
     [trunk.bottomRight, max_y],
+    [trunk.bottomRight, max_y + trunkExtra], // extend off the edge of the svg, for resizing
   ].map((d) => {
     return { x: d[0], y: d[1] };
   });
@@ -134,11 +139,14 @@ function drawBranches(nodes, container, branches, trunkTop) {
 }
 
 function roots() {
-  // TODO: configure so point [0, 0] is the center *TOP* of the svg
+  // configure so point [0, 0] is the center top of the svg
   let width = 1200;
   let height = 130;
   let min_x = -width / 2;
   let min_y = 0;
+
+  // TODO: use a graphic for mobile,
+  // since it is decorative and not functional ?
 
   let center_x = min_x + width / 2;
 

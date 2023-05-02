@@ -29,6 +29,7 @@ body > footer {
 
   nav {
     grid-area: nav;
+    z-index: 2; // display on top of the svg with roots
 
     // use flex to space out footer links evenly
     display: flex;
@@ -95,20 +96,15 @@ body > footer {
   }
 
   svg {
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    // grid-area: nav;   // doesn't work ?
-    overflow: visible;
+    grid-area: nav;
+    pointer-events: none;
+    overflow: hidden;
 
     @include for-desktop-up {
       position: relative;
       grid-area: nav; // Chrome complains about this
-      width: calc(100vw - 38px - 32vw - 40px);
-      max-width: calc(100vw - 38px - 32vw - 40px);
+      width: 100%; /* must match the tree */
       // border: 1px solid yellow;  /* for debugging position/size *
-      // width: 100%; /* must match the tree */
     }
   }
 
