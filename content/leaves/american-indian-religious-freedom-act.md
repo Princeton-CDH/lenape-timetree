@@ -12,3 +12,6 @@ Enacted in 1978, The American Indian Religious Freedom Act protects American Ind
 
 
 {{< figure src="images/resistance-resurgence/american-indian-religious-freedom-act-a.jpg" alt="A dense, typed congressional document has sections by sentence." >}}
+
+[Read the remainder of the American Indian Religious Freedom Act.](https://www.govinfo.gov/content/pkg/COMPS-5293/pdf/COMPS-5293.pdf)
+
