@@ -3,7 +3,7 @@ languageCode: en-us
 title: Lunaapahkiing Princeton Timetree
 theme: timetree
 paginate: 20
-timeout: 30s # increase to allow time for image processing
+timeout: 45s # increase to allow time for image processing
 
 params:
   description: >-
@@ -44,7 +44,7 @@ menu:
     - name: Resources
       pageRef: /resources
       weight: 4
-    - name: Contributors
-      pageRef: /contributors
-      title: Contributors
+    - name: Credits
+      pageRef: /credits
+      title: Credits
       weight: 5

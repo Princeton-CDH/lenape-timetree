@@ -1,3 +1,44 @@
 ---
-title: About 
+title: About
 ---
+This timetree visualizes the intertwined relations between the peoples of Lunaapahkiing, “the land of the Lenape” and of Princeton University, established on its present unceded Native land in 1756. The tree reveals centuries of Native and settler relations entangled in deception and dispossession as well as affinity and alliance. The timetree also highlights Native American faculty and students who have belonged to the University since it was established here in “Prince Town.” And it recognizes the continuing agency of Lenape peoples (or Lunaapeew) as caretakers of their languages, lands, and cultural futures.
+
+
+## Interacting with the Timetree
+
+Rather than construct a singular narrative for our campus, we have used the open-ended and non-linear structure of a timetree. We want to enable readers to create their own interpretations of events and historical relationships based on their interactions with the timetree. You can view leaves along the multicolored branches to trace broad historical processes over time:  Lands + Waters, Communities, The University, Removals, and Resistance + Resurgence. By selecting specific leaves in any order, you can read about historical moments in the history of Lunaapahkiing Princeton. And by clicking on the tags within leaves according to your interest, you can illuminate related leaves across the timetree and visualize patterns across time and branch themes.
+
+## Visualizing Lunaapahkiing - Princeton History
+
+The land on which Princeton University now sits is part of the unceded territory and ancestral homeland of the Delaware Lenape people, or Lunaapeew. This is Lunaapahkiing, the land of the Lunaapeew. By creating this timetree, we have endeavored to pay respect to the Lunaapeew and their continued relationships with this land as elders, caretakers, and generations to come.
+
+Princeton University’s official website boasts a page called “Our History.” Featured on this page is a comprehensive timeline of Princeton’s history, from when the town of Princeton was “settled” by Europeans to 2022. Although the amount of information presented here is extensive, the timeline lacks crucial information regarding the Indigenous history of the land on which Princeton University stands. In fact, there are only two references to Indigenous people, one of William Potter Ross, a Princeton graduate and Principal Chief of the Cherokee Nation, and the other of Kevin Gover, a citizen of the Pawnee and Comanche Nations who received Princeton’s first honorary degree conferred upon a Native American. There are no references to the Lenape Delaware people whose traditional land spans all of what is now New Jersey and more. This timetree is intended to begin reversing the virtual absence of Indigenous peoples in the University’s history. It reasserts the University’s acknowledgement that it sits on unceded lands – Lunaapahkiing. Yet the leaves of the timetree also demonstrate that since its founding Princeton University has prospered every day from its embeddedness in the settler-colonial United States as well as from a multivalent relations with Indigenous peoples.
+
+## Why a Tree?
+
+The Lunaapahkiing - Princeton Timetree presents an alternative non-linear and multidirectional timeline of Princeton’s history that acknowledges the Indigenous people who have lived (and are living) on this land for thousands of years before the arrival of European settler colonists. We hope this timetree can serve as a form of resistance to various aspects of settler colonial history-telling. To challenge one-dimensional stories and homogenous accounts of Indigenous peoples, this alternative timeline contains many Indigenous perspectives. To challenge linear, progressivist histories, it doesn’t follow a strict chronology. Rather than  place historical data along a linear timeline it is plotted on a “timetree,” a term coined by Rebecca Koeser (CDH). The timetree enables readers to visualize constellations of historical relationships between leaves spanning time and thematic branches.
+
+The timetree is inspired by the oldest trees on our campus –   the sycamore trees in front of Maclean House which are known as the “Stamp Act Sycamores,” or the “Liberty Trees.” Legend has it that they were planted to celebrate the repeal of the Stamp Act in 1766, a critical moment in the colonies’ path to revolution and settler independence. (The trees were actually planted half a year before the Stamp Act was repealed, but the legend prevails.) Thinking of  these sycamore trees as for their  colonial connotations, we also want to assert the tree as variously meaningful outside and beyond its colonial significance. For example, chips of the sycamore heartwood have long been used by the Lunaapeew to make tea. This tea is “the next best thing to water,” according to Lunaape cultural expert Nora Thompson Dean.
+
+The campus sycamore trees have also witnessed, and have been marked by, over two and a half centuries of history – much of that history can be said to contradict the “liberty” that trees initially celebrated. For instance, in 1766, six enslaved people were auctioned off at Maclean House following the death of Samuel Finley, the fifth President of Princeton. These sycamore trees hold many histories.
+
+And there is more history waiting to be remembered. While our intent is to inform and engage readers, it is important to note that the information presented here is neither fixed nor final. We intend the timetree to initiate new conversations. Nor is it authoritative. There is always more research to be done: more branches and leaves to be added as the sycamore trees continue to observe the history unfolding in Lunaapahkiing - Princeton.
+
+Finally, to challenge representations of Indigenous history as a remnant of the past, this alternative timeline shows that Indigenous history is alive. Most of all, we hope that through this timeline viewers can understand that history doesn’t necessarily mean “the past,” but rather that it involves the past, the present, and care for the future.
+
+
+## Roots of the Timetree
+
+Our work stems directly from an assignment by undergraduate student Jiyoun Roh ‘23 for Professor Sarah Rivett’s “Introduction to Indigenous Literatures” course. Her inspiring project imagines a tree drawing with corresponding historical and cultural information attached to leaves that add up to an alternative timeline of Princeton University and the surrounding region from the vantage of Lunaape history.
+
+## Notes on Language Use
+
+We prefer to identify Delaware Lenape peoples and places with terms they would use themselves. However, these terms do vary across languages and regions, and they are enmeshed in a range of settler colonial institutions and historical choices. For example, two terms that continue to be used, and to some extent, by Native peoples themselves, are: "Delaware" and "Lenape." "Delaware" continues to be used in the same way that "Indian" does, especially in legal contexts,because those are the settler colonial terms that were officially imposed and continue to be relevant in treaties, legislation, and government documentation.
+
+Some nations use a spelling of "Lenape" that reflects the orthography of the language, "Lunaape," which is the preferred spelling here. "Lunaape" can be used as a noun to refer to the language ("We study Lunaape in class") and can also be used as an adjective. Instead of "Lunaape people," we use "Lunaapeew." These are Munsee language spellings. Unami transliteration differs by using "Lënape" instead of "Lunaape." Since the people in the Lunaape communities that were located in the Princeton area were Munsee speakers, as are their descendants among the Stockbridge-Munsee, we are using Munsee spellings. The two Lunaape Nations in Canada are the Munsee Delaware Nation and Eelunaapeewi Lahkeewiit / Delaware Nation at Moraviantown.
+
+We are grateful to Professor Suzanne Akbarri, Institute for Advanced Study in Princeton, for her guidance on this explanation.
+
+## Notes on Sources
+
+Sources for the timetree are drawn from originally written historical documents, the Princeton University Archives in the Mudd Library, the Daily Princetonian, as well as interviews with certain Princeton faculty, staff and alumni. Finally, we have drawn on a number of key secondary sources and individual perspectives from Native scholars, some of whom are listed in our Readings and Inspirations page. Scholars from the Institute for Advanced Study in Princeton, Suzanne Conklin Akbari, Melissa Moreton, and Caitlin Rizzo, have been particularly generous in sharing their time and expertise, as have Anu Vedantham, Gabriel Swift, and Alfred Bush from the Princeton University Library and Sarah Rivett and Tessa Desmond from the Effron Center for the Study of America. Ian McCallum from the Munsee Delaware Nation as well as numerous other Lunaape contributors to the annual Munsee Language & History Symposium at Princeton have also offered essential advice on sources and the organization of the Timetree.

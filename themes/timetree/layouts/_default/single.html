@@ -2,9 +2,6 @@
   {{ $section := .Site.GetPage "section" .Section }}
   <article>
     <header>
-      <aside>
-        {{ with .CurrentSection.Title }}{{. | upper }}{{ end }}
-      </aside>
       <h1>{{- .Title -}}</h1>
 
       {{ with .Params.author | default .Site.Params.author }}
@@ -20,25 +17,6 @@
       {{ end }}
 
     </header>
-
-      {{ if not .Date.IsZero }}
-      <time class="f6 mv4 dib tracked" {{ printf `datetime="%s"` (.Date.Format "2006-01-02T15:04:05Z07:00") | safeHTMLAttr }}>
-        {{- .Date | time.Format (default "January 2, 2006" .Site.Params.date_format) -}}
-      </time>
-      {{end}}
-
-      {{- .Content -}}
-      {{/*- partial "tags.html" . -*/}}
-
-      <footer>
-        {{ with .Params.display_date }}
-          <div>{{ . }}</div>
-        {{ end}}
-        {{- partial "tags.html" . -}}
-        {{ with .Params.branch }}
-        <div>Branch: {{ . }}</div>
-        {{ end }}
-      </footer>
-
+    {{- .Content -}}
   </article>
 {{ end }}
