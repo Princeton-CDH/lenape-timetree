@@ -44,7 +44,7 @@ menu:
     - name: Resources
       pageRef: /resources
       weight: 4
-    - name: Contributors
-      pageRef: /contributors
-      title: Contributors
+    - name: Credits
+      pageRef: /credits
+      title: Credits
       weight: 5

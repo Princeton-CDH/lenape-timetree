@@ -2,7 +2,7 @@
 title: Resources 
 ---
 
-## References, Sources of Inspiration, and Further Reading
+## References, Sources of Inspiration, and Further Reading {#references .references} 
 
 Armstrong, April C. [“George Morgan White Eyes, Racial Theory at Princeton and Student ](https://blogs.princeton.edu/mudd/2020/09/george-morgan-white-eyes-racial-theories-at-princeton-and-federal-student-aid-in-the-eighteenth-century/)
 
@@ -12,19 +12,17 @@ Armstrong, April C. [“Can Nathaniel FitzRandolph’s Descendants Attend Prince
 
 Bush, Alfred L. “A Few Incidents from My Life Among the Indians on the Princeton Campus.” The Princeton University Library Chronicle, Vol. 78, No. 1. 2020.
 
-Bush, Alfred L. “Otterskins, Eagle Feathers, and Native American Alumni at Princeton.” he Princeton University Library Chronicle, Vol. 67, No. 2. 2006).
+Bush, Alfred L. “Otterskins, Eagle Feathers, and Native American Alumni at Princeton.” The Princeton University Library Chronicle, Vol. 67, No. 2. 2006).
 
 Campanella, Thomas J. _Brooklyn: The Once and Future City_. 
 
-[“Council, Civil Rights Commission Vote for Indigenous Peoples Day.”](http://www.towntopics.com/wordpress/2019/09/11/council-civil-rights-commission-vote-for-indigenous-peoples-day/) Letter to the Editor. 
-
-_Town Topics_. 
+[“Council, Civil Rights Commission Vote for Indigenous Peoples Day.”](http://www.towntopics.com/wordpress/2019/09/11/council-civil-rights-commission-vote-for-indigenous-peoples-day/) Letter to the Editor. _Town Topics_. 
 
 Deloria, Philip. [“Lenape: Imagining the Indigenous States of America with Philip Deloria.”](https://www.youtube.com/watch?v=AGhB5_oJA2s)
 
 Dowd, Gregory. _The Indians of New Jersey_. 
 
-Dunbar-Ortiz, Roxanne. _An Indigenous Peoples’ History of the United States.  _Beacon Press 2015.
+Dunbar-Ortiz, Roxanne. _An Indigenous Peoples’ History of the United States.  _Beacon Press_ 2015.
 
 Dyson, George. [“The Tavern and the Meeting House.”](https://www.ias.edu/ideas/2009/george-dyson-tavern-and-meeting-house)
 
@@ -38,17 +36,13 @@ Sandy Grande. _Red Pedagogy: Native American Social and Political Thought._ Rowm
 
 Hämäläinen, Pekka. _Indigenous Continent: The Epic Contest for North America._ 2022.
 
-Hill, George A, Jr. “Delaware Ethnobotany.” 1971. 2<sup>nd</sup> Edition 2015, re-edited with Jim 
+Hill, George A, Jr. “Delaware Ethnobotany.” 1971. 2<sup>nd</sup> Edition 2015, re-edited with Jim Rementer.
 
-Rementer.
-
-[“Indigenous Foodways.”](https://www.publichistoryproject.org/research/indigenous-foodways/) _The Public History Project_.” 
+[“Indigenous Foodways.”](https://www.publichistoryproject.org/research/indigenous-foodways/) _The Public History Project_.
 
 Juet, Robert. [“Juet’s Journal of Hudson’s 1609 Voyage.”](http://halfmoon.mus.ny.us/Juets-journal.pdf)
 
-Kerber, Jordan E, ed. _Cross-Cultural Collaboration: Native Peoples and Archaeology in the _
-
-_Northeastern United States. _
+Kerber, Jordan E, ed. _Cross-Cultural Collaboration: Native Peoples and Archaeology in the Northeastern United States._
 
 Kraybill, Diya. [“Humanities Council Awards Grant to Launch Native American & Indigenous Studies Working Group.”](https://www.dailyprincetonian.com/article/2020/12/working-group-grant-native-american-indigenous-studies-princeton) _The Daily Princetonian_. 
 
@@ -76,7 +70,7 @@ Peters, Chief Mark. [“The Treaty of Easton, Signed by the Munsee Chief, Egohoh
 
 [October 1758.”](https://www.publichistoryproject.org/2021/09/02/the-treaty-of-easton-signed-by-the-munsee-chief-egohohowen-on-october-1758/) 
 
-Pierce, Tina Marie. _The Nanticoke Lenni-Lenape Indians: Restoration of a Tribal Identity. _
+Pierce, Tina Marie. _The Nanticoke Lenni-Lenape Indians: Restoration of a Tribal Identity._
 
 [“Removal History of the Delaware Tribe.”](http://delawaretribe.org/services-and-programs/historic-preservation/removal-history-of-the-delaware-tribe/) _Official Website of the Delaware Tribe of Indians_. 
 
@@ -102,16 +96,14 @@ TallBear, Kim, “Caretaking Relations: Not American Dreaming.” Kalfou, Volume
 
 [“Tour of NYC Indigenous Presence.”](https://www.urbanarchive.org/stories/5Cyr9Lj1bki) _Urban Archive_. 
 
-Tuck, Eve and Yang, K. Wayne, “Decolonization is Not a Metaphor.” _Decolonization: Indigeneity, Education & Society. _Vol. 1, No. 1, 2012.
+Tuck, Eve and Yang, K. Wayne, “Decolonization is Not a Metaphor.” _Decolonization: Indigeneity, Education & Society_. Vol. 1, No. 1, 2012.
 
 Walling, Richard S. [“Locating a Lenape Landscape: Tatamy’s Swamp.”](https://www.westwindsorhistory.com/uploads/1/2/3/1/123111196/locating_a_lenape_landscape_-_tatamys_swamp.pdf) 
 
-Zotigh, Dennis. [“A Brief Balance of Power – The 1778 Treaty with the Delaware Nation.”](https://www.smithsonianmag.com/blogs/national-museum-american-indian/2018/05/22/1778-delaware-treaty/) 
-
-_Smithsonian Magazine_. 
+Zotigh, Dennis. [“A Brief Balance of Power – The 1778 Treaty with the Delaware Nation.”](https://www.smithsonianmag.com/blogs/national-museum-american-indian/2018/05/22/1778-delaware-treaty/) _Smithsonian Magazine_. 
 
 
-## Treaties, Laws and Letters
+## Treaties, Laws and Letters {#treaties-laws-letters .references} 
 
 [Land deed: From Matappeas, Tawapung, and Seapoekne, Monmouth County, NJ, 1674](https://dpul.princeton.edu/lenape/catalog/70795j14c)
 
@@ -151,10 +143,10 @@ _Smithsonian Magazine_.
 
 [The American Indian Religious Freedom Act, August 11, 1978](https://www.govinfo.gov/content/pkg/COMPS-5293/pdf/COMPS-5293.pdf)
 
-## Other Web Resources
+## Other online resources
 
-1. [https://findingaids.princeton.edu/catalog/C0140_c03353](https://findingaids.princeton.edu/catalog/C0140_c03353)
-2. Maps: [1674 Tinton Falls Lenape Deed & Plots R. Geffken.docx](https://docs.google.com/document/d/1Zfupi_CkFPYnzwUVxfffWwXpN4xu2hsC/edit?usp=sharing&ouid=100693204366909656015&rtpof=true&sd=true)
-3. Suzanne’s Transcription: [Tinton Falls deed transcription Aug 1674_SA.docx](https://docs.google.com/document/d/16bePo4rzBqX8bRdxsncMmeGeCmkmn6uT/edit?usp=sharing&ouid=100693204366909656015&rtpof=true&sd=true)
-4. Claire Garland research link: [https://njs.libraries.rutgers.edu/index.php/njs/article/view/312](https://njs.libraries.rutgers.edu/index.php/njs/article/view/312) 
+* [https://findingaids.princeton.edu/catalog/C0140_c03353](https://findingaids.princeton.edu/catalog/C0140_c03353)
+* Maps: [1674 Tinton Falls Lenape Deed & Plots R. Geffken.docx](https://docs.google.com/document/d/1Zfupi_CkFPYnzwUVxfffWwXpN4xu2hsC/edit?usp=sharing&ouid=100693204366909656015&rtpof=true&sd=true)
+* Suzanne’s Transcription: [Tinton Falls deed transcription Aug 1674_SA.docx](https://docs.google.com/document/d/16bePo4rzBqX8bRdxsncMmeGeCmkmn6uT/edit?usp=sharing&ouid=100693204366909656015&rtpof=true&sd=true)
+* Claire Garland research link: [https://njs.libraries.rutgers.edu/index.php/njs/article/view/312](https://njs.libraries.rutgers.edu/index.php/njs/article/view/312) 
 
