@@ -70,6 +70,9 @@ class Leaf {
       Leaf.setCurrentTag();
       asideContainer.dispatchEvent(TagDeselectEvent);
     });
+
+    // listen for hash change; update selected leaf on change
+    window.addEventListener("hashchange", this.updateSelection.bind(this));
   }
 
   static setCurrentLeaf(event) {
