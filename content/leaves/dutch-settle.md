@@ -13,4 +13,4 @@ title: New Settlements
 
 Dutch explorers establish trade with Lunaapeew in the early 1610s and then build settlements on both sides of Lenapewihittuck (the Delaware) in the 1620s. Lunaape homelands are increasingly populated with Dutch, Swedish, Finnish, and English settlers. They use Lunaape trails to explore the land and transport resources. They also transport diseases – like smallpox, measles, and influenza – which would devastate many Indigenous nations.
 
-{{< figure src="images/lands-waters/dutch-settlements.jpg" alt="dutch map of settlement" attr="[Map of New Netherland and Manhattan by Johannes Vingboons in 1639.]" attrlink="https://www.loc.gov/item/2003623407/">}}
+{{< figure src="images/lands-waters/dutch-settlements.jpg" alt="dutch map of settlement" caption="Map of New Netherland and Manhattan by Johannes Vingboons in 1639." attr="Library of Congress" attrlink="https://www.loc.gov/item/2003623407/">}}
