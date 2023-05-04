@@ -24,30 +24,32 @@ Researchers
 Content Assistant
 : Ivan Melchor
 
+Language Advisor
+: Suzanne Conklin Akbari, Institute for Advanced Study, Princeton, NJ
+
 Munsee Collaborators
 : Karen Mosko, Lunaape Language Teacher
 : Ian McCallum, Lunaape Language Teacher
-
-Language Advisor
-: Susan Conklin Akbari, Institute for Advanced Study, Princeton, NJ
 
 Project Advisor
 : Natalia Ermolaev
 
 Additional Contributions:
+: Alfred L. Bush, Princeton University Library, Princeton, NJ
 : Lola Constantino, Princeton ‘23
-: Ben Johnston, Princeton University
-: Sara Malone, Princeton University
-: Jill Moraca, Web Development Services
+: Tessa Desmond, Princeton University, Princeton, NJ
+: Ryan Heuser, Center for Digital Humanities, Princeton, NJ
+: John Jameson, OIT, Digital Accessibility, Princeton University
+: Ben Johnston, The McGraw Center, Princeton University
+: Sarah Malone, Effron Center for the Study of America, Princeton University
+: Jill Moraca, Web Development Services, Princeton University
 : Melissa Moreton, Institute for Advanced Study, Princeton, NJ
 : Caitlin Rizzo, Institute for Advanced Study, Princeton, NJ
-: Anu Vedantham, Princeton University Library, Princeton, NJ
 : Gabriel Swift, Princeton University Library, Princeton, NJ
-: Tessa Desmond, Princeton University, Princeton, NJ
-: Alfred L. Bush, Princeton University Library, Princeton, NJ
+: Anu Vedantham, Princeton University Library, Princeton, NJ
 
 Funders
-: Center for Digital Humanities Collaborative Research Grant awarded to Jeffrey Himpele
+: Center for Digital Humanities Research Partnership Grant awarded to Jeffrey Himpele
 : 250th Anniversary Fund for Curricular Innovation (Office of the Dean of the College), awarded to Sarah Rivett
 
 Sponsor
