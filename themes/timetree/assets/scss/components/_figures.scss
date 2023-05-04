@@ -1,0 +1,48 @@
+/* styles for images and figures */
+
+figure {
+  margin: 0.6rem 0 0.8rem;
+  text-align: center;
+
+  @include for-desktop-up {
+    margin: 0.6rem 0 1rem;
+  }
+}
+
+figcaption {
+  font-size: 0.8rem;
+  font-size: 1.1rem;
+  text-align: left;
+
+  @include for-desktop-up {
+    font-size: 0.9rem;
+    line-height: 1.35rem;
+  }
+}
+
+img {
+  margin: 0;
+
+  &.portrait {
+    min-width: 250px;
+    max-width: 100%;
+    max-height: 450px;
+
+    @include for-desktop-up {
+      padding: 0 8px;
+    }
+
+    @include for-tablet-only {
+      max-height: 900px;
+      max-width: 690px;
+    }
+  }
+
+  &.landscape {
+    max-width: 100%;
+
+    @include for-tablet-only {
+      padding: 0 8px;
+    }
+  }
+}
