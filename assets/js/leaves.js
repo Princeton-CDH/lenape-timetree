@@ -190,9 +190,11 @@ class Leaf {
     // if hash set, select leaf
     // (load leaf first so if there is a current tag it can be set to active)
     if (currentState.leaf) {
-      let leafTarget = document.querySelector(
-        `path[data-id="${currentState.leaf}"]`
-      );
+      let leafTarget =
+        document.querySelector(`path[data-id="${currentState.leaf}"]`) ||
+        document.querySelector(`image[data-id="${currentState.leaf}"]`);
+      // if path is not found, look for an image (= dedication)
+
       // if hash id corresponds to a leaf, select it
       if (leafTarget != undefined) {
         // actually make selection

@@ -24,6 +24,8 @@ body.home {
   }
 
   main {
+    // height: 150vw;
+
     height: $mobile_timetree_height;
 
     @include for-desktop-up {

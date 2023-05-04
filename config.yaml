@@ -48,3 +48,9 @@ menu:
       pageRef: /credits
       title: Credits
       weight: 5
+
+# allow html markup in content
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
