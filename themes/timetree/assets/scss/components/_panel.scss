@@ -274,6 +274,7 @@ body.tag-active.home main > aside {
   gap: 16px;
   height: 194px;
   margin-top: 20px;
+  margin-left: 0;
   width: 288px;
 
   @include for-desktop-up {

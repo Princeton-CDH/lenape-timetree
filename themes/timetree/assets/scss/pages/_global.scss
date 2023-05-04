@@ -1,4 +1,5 @@
 @import "components/footer";
+@import "components/figures";
 
 $mobile_header_height: 98px;
 $desktop_header_height: 75px;
@@ -117,16 +118,108 @@ a:visited {
   color: $body-fg-color;
   font-weight: normal;
   text-decoration: underline;
-  text-decoration-color: $highlight-color;
+  text-decoration-color: $trunk-color;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 4px;
   cursor: pointer;
+  @include for-desktop-up {
+    text-underline-offset: 6px;
+  }
 }
 
-article {
-  margin: 30px;
+// margins for content pages
+body.page {
+  main {
+    padding: 0.6rem 0.8rem 2rem;
 
-  h1 {
-    margin-bottom: 15px;
+    @include for-desktop-up {
+      padding: 0.8rem 0 2rem;
+
+      article {
+        max-width: 42.2rem;
+        margin: 0 auto;
+      }
+    }
   }
+}
+
+p {
+  margin-bottom: 0.6rem;
+}
+
+// h2 immediately after a paragraph or list needs more space
+p + h2,
+ul + h2,
+ol + h2 {
+  margin-top: 0.4rem;
+}
+
+ul,
+ol {
+  list-style-type: disc;
+  margin-left: 1.2rem;
+  margin-bottom: 0.6rem;
+  margin-top: 0.2rem;
+
+  @include for-desktop-up {
+    margin-top: 0.4rem;
+  }
+
+  li::marker {
+    color: $trunk-color;
+    font-size: 1.5em;
+    line-height: 1.35rem;
+
+    @include for-desktop-up {
+      line-height: 1.5rem;
+    }
+  }
+}
+
+ol {
+  list-style-type: decimal;
+
+  li::marker {
+    color: $trunk-color;
+    font-size: 1em;
+  }
+}
+
+em {
+  font-style: italic;
+}
+
+dl {
+  margin-bottom: 1rem;
+
+  dt {
+    font-weight: 900;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    margin-bottom: 0.1rem;
+
+    @include for-desktop-up {
+      font-size: 1.1rem;
+      line-height: 1.65rem;
+    }
+  }
+
+  dd + dt {
+    margin-top: 0.6rem;
+  }
+}
+
+/* special case: hanging indent for references on resource page.
+   Style via class on h2. */
+.references ~ p {
+  padding-left: 1.5rem;
+  text-indent: -1.5rem;
+}
+
+/* turn off for paragraphs not immediately after an h2 with reference class */
+h2:not(.references) ~ p {
+  padding-left: 0;
+  text-indent: 0;
 }
 
 .tags {
