@@ -143,6 +143,20 @@ body.page {
   }
 }
 
+// visual design for content pages and tag index page
+body.page,
+body.taxonomy {
+  main {
+    background-image: url("/img/sycamore-mobile.png");
+    background-repeat: no-repeat;
+    background-position: top right;
+
+    @include for-desktop-up {
+      background-image: url("/img/sycamore-desktop.png");
+    }
+  }
+}
+
 p {
   margin-bottom: 0.6rem;
 }
