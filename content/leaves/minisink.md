@@ -12,4 +12,4 @@ The Munsee Lunaapeew live along the Upper Delaware, in a region called Minisink,
 
 {{< figure src="images/lands-waters/minisink-a.jpg" alt="excerpt from paper" caption="Princeton Recollector article from 1985 describing the Unami." attr="Princeton Recollector" attrlink="https://theprince.princeton.edu/princetonperiodicals/?a=d&d=princetonrecollector19851201.2.17&srpos=2&e=-------en-20--1--txt-txIN-lenape------">}}
 
-{{< figure src="images/lands-waters/minisink-b.jpg" alt="writing with illustration of fish" caption="Princeton Recollector article from 1985 describing why the Minisink Trail has its name." attr="Princeton Recollector" attrlink="https://theprince.princeton.edu/princetonperiodicals/?a=d&d=princetonrecollector19851201.2.17&srpos=2&e=-------en-20--1--txt-txIN-lenape------">}}
+{{< figure src="images/lands-waters/minisink-b.jpg" alt="writing with illustration of fish" caption="Princeton Recollector article from 1985 describing why the Minisink Trail has its name." attr="Princeton University Library" attrlink="https://theprince.princeton.edu/princetonperiodicals/?a=d&d=princetonrecollector19851201.2.17&srpos=2&e=-------en-20--1--txt-txIN-lenape------">}}
