@@ -147,8 +147,10 @@ p {
   margin-bottom: 0.6rem;
 }
 
-// h2 immediately after a paragraph needs more space
-p + h2 {
+// h2 immediately after a paragraph or list needs more space
+p + h2,
+ul + h2,
+ol + h2 {
   margin-top: 0.4rem;
 }
 
