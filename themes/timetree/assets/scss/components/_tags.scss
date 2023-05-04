@@ -92,10 +92,10 @@ $mobile_timetree_height: 65vh;
 // tag index page
 body.taxonomy {
   h1 {
-    margin: 40px 22px 20px;
+    padding: 2rem 0 1rem 0;
 
     @include for-desktop-up {
-      margin: 50px 60px 20px;
+      padding: 2.5rem 0 1rem 0;
     }
   }
 }
@@ -113,11 +113,25 @@ body.taxonomy {
     max-width: calc(#{$breakpoint-xl} - 120px);
   }
 
+  p {
+    // span columns; limit width on desktop for readability.
+    column-span: all;
+
+    @include for-desktop-up {
+      max-width: 42.2rem;
+    }
+  }
+
   .tags {
     margin-top: 0;
 
     a {
       margin: 8px 0 8px;
+    }
+
+    ul {
+      list-style-type: none;
+      margin-left: 0;
     }
   }
 

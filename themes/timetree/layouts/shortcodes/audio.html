@@ -2,5 +2,5 @@
   <audio controls preload="{{ .Get "preload" | default "metadata" }}">
     {{ with .Get "src" }}<source src="{{ . | relURL }}" type="audio/mpeg">{{ end }}
   </audio>
-  {{ with .Get "caption" }}<figcaption>{{ . }}</figcaption>{{ end }}
+  {{ with .Get "caption" }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
 </figure>
