@@ -41,13 +41,21 @@ $leaf-outline-color: (
   "e": #582b1a,
 );
 // leaf glow color
+// $leaf-glow-color: (
+//   "a": #fae8d1,
+//   "b": #f9e0b2,
+//   "c": #e1e6c9,
+//   "d": #d0e1c9,
+//   "e": #e0b3a2,
+// );
 $leaf-glow-color: (
-  "a": #fae8d1,
-  "b": #f9e0b2,
-  "c": #e1e6c9,
-  "d": #d0e1c9,
-  "e": #e0b3a2,
+  "a": rgba(255, 220, 174, 0.5),
+  "b": rgba(254, 205, 112, 0.5),
+  "c": rgba(206, 216, 158, 0.5),
+  "d": rgba(173, 207, 159, 0.5),
+  "e": rgba(204, 115, 81, 0.5),
 );
+
 // "a": rgba(255, 220, 174, 0.5),   // #FAE8D1
 // "b": rgba(254, 205, 112, 0.5),   // #F9E0B2
 // "c": rgba(206, 216, 158, 0.5),   // #E1E6C9

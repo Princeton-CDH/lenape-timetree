@@ -295,6 +295,7 @@ class TimeTree extends BaseSVG {
       .attr("href", "/img/plaque.svg#dedication")
       .attr("aria-label", "dedication")
       .attr("aria-role", "button")
+      .attr("tabindex", 0)
       .attr("id", "dedication")
       .attr("data-id", "dedication")
       .attr("data-url", "/dedication/")
