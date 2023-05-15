@@ -1,0 +1,64 @@
+body[class="404"] {
+  /* can't use .404 notation for numeric classname */
+
+  @include for-mobile {
+    main {
+      // on mobile, match content page margins except for bottom
+      padding: 0.6rem 0.8rem 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      // may need slight negative margin on bottom
+      // to avoid separation between tree and roots
+
+      div {
+        margin-bottom: 1.4rem;
+      }
+    }
+
+    /* size the roots to match the tree?
+
+	or adjust the tree?
+	~ width: 120% and margin-left: -15% 
+	  unset max-inline-size 
+
+		footer svg#roots {
+			width: 82%;
+			margin-left: 13%;
+		}*/
+  }
+
+  // for desktop, match the basic layout of the timeree
+  @include for-desktop-up {
+    main {
+      // desktop is two columns (tree | panel)
+      display: grid;
+      column-gap: $column_gap; //  38px; // space between panel and timetree
+      // reserve 32% for the panel, but limit the size of the tree portion
+      grid-template-columns: calc(68% - 38px) auto;
+      grid-template-areas: "timetree panel";
+      column-gap: $column_gap; // space between panel and timetree
+      padding: 0 40px 0 0; // right margin outside the panel
+
+      > div {
+        grid-area: panel;
+        margin-top: 114px;
+      }
+
+      > figure {
+        grid-area: timetree;
+        position: relative;
+        height: 100%;
+
+        img {
+          // fix to the bottom no matter how the page scales
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+        }
+      }
+    }
+  }
+}
