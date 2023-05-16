@@ -309,7 +309,9 @@ body.home {
 // (lower opacity, non-interactive)
 .tag-active {
   path.leaf:not(.select):not(.highlight),
-  text.leaf-label:not(.select):not(.highlight) {
+  text.leaf-label:not(.select):not(.highlight),
+  .trunk,
+  path.branch {
     opacity: 0.4;
     pointer-events: none;
   }
