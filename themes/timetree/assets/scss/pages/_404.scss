@@ -44,12 +44,14 @@ body[class="404"] {
       > div {
         grid-area: panel;
         margin-top: 114px;
+        max-width: 20.5rem; // should match panel on homepage
       }
 
       > figure {
         grid-area: timetree;
         position: relative;
         height: 100%;
+        margin-bottom: 0;
 
         img {
           // fix to the bottom no matter how the page scales
