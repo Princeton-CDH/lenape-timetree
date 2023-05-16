@@ -94,13 +94,14 @@ class TimeTree extends BaseSVG {
     this.network = this.generateNetwork();
 
     this.panel = new Panel();
-    Leaf.bindHandlers();
+    this.leafmanager = new Leaf(this.panel);
+
     this.drawTimeTree();
     // make tag list available on leaf object
     // (currently needed to update active tag button)
     Leaf.tags = tags;
     // update selection to reflect active tag and/or leaf hash in url on page load
-    let status = Leaf.updateSelection();
+    let status = this.leafmanager.updateSelection();
 
     // special case: if a tag is selected without a leaf on page load,
     // hide the intro panel
@@ -595,7 +596,7 @@ class TimeTree extends BaseSVG {
     if (event) {
       event.preventDefault();
       event.stopPropagation();
-      Leaf.setCurrentLeaf(event);
+      this.leafmanager.setCurrentLeaf(event);
     }
     // TODO: on mobile, this should also scroll to the top of the page
     this.panel.closeIntro(); // close so info button will be active on mobile

@@ -49,6 +49,13 @@ class Leaf {
   static selectedClass = "select";
   static highlightClass = "highlight";
 
+  constructor(panel) {
+    // get a reference to the panel object
+    this.panel = panel;
+    this.container = document.querySelector("aside");
+    this.bindHandlers();
+  }
+
   static isTag(element) {
     // check if an element is a tag
     return (
@@ -56,35 +63,47 @@ class Leaf {
     );
   }
 
-  static bindHandlers() {
-    // bind a delegated click handler to override tag link behavior
-    const asideContainer = document.querySelector("aside");
-    asideContainer.addEventListener("click", (event) => {
+  bindHandlers() {
+    // bind a delegated click handler to override tag link behavior;
+    // delegated so it applies to tags in leaf details loaded after bound
+    this.container.addEventListener("click", (event) => {
       let element = event.target;
       // if click target is a link in the tags section, select leaves for that tag
       if (Leaf.isTag(element)) {
         event.preventDefault();
         event.stopPropagation();
-        Leaf.setCurrentTag(element.dataset.tag);
+        this.setCurrentTag(element.dataset.tag);
         element.classList.add(Leaf.selectedClass);
-        asideContainer.dispatchEvent(TagSelectEvent);
+        this.container.dispatchEvent(TagSelectEvent);
       }
     });
 
     // bind handler to current tag x button to deactivate tag
     const activeTagClose = document.querySelector("#current-tag .close");
-    activeTagClose.addEventListener("click", (event) => {
-      Leaf.setCurrentTag();
-      asideContainer.dispatchEvent(TagDeselectEvent);
-    });
+    if (activeTagClose) {
+      activeTagClose.addEventListener("click", (event) => {
+        this.setCurrentTag();
+        this.container.dispatchEvent(TagDeselectEvent);
+      });
+    }
 
     // listen for hash change; update selected leaf on change
     window.addEventListener("hashchange", this.updateSelection.bind(this));
+
+    // deselect current leaf when the panel is closed
+    if (this.panel && this.panel.el) {
+      // should only be undefined in tests
+      this.panel.el.addEventListener(
+        "panel-close",
+        this.setCurrentLeaf.bind(this)
+      );
+    }
   }
 
-  static setCurrentLeaf(event) {
+  setCurrentLeaf(event) {
     // Are we deselecting a leaf?
-    if (event == undefined) {
+    // deselect if called with no argument or on panel-close evenp
+    if (event == undefined || event.type == "panel-close") {
       // remove hash
       let urlNoHash = window.location.pathname + window.location.search;
       history.replaceState(null, "", urlNoHash);
@@ -98,29 +117,28 @@ class Leaf {
       history.replaceState(null, "", `#${leafID}`);
     }
     // regardless, update selection
-    Leaf.updateSelection();
+    this.updateSelection();
   }
 
-  static setCurrentTag(tag) {
+  setCurrentTag(tag) {
     // parse the curent url
     let url = new URL(window.location.href);
     // add/remove active tag indicator to container
     // so css can be used to disable untagged leaves
-    let container = document.querySelector("body");
 
     // if no tag passed in, remove tag param
     if (tag == undefined) {
       url.searchParams.delete("tag");
-      container.classList.remove("tag-active");
+      this.container.classList.remove("tag-active");
     } else {
       // if tag passed in, set it in url params
       url.searchParams.set("tag", tag);
-      container.classList.add("tag-active");
+      this.container.classList.add("tag-active");
     }
     // update url in history
     history.replaceState(null, "", url.toString());
     // update selection
-    Leaf.updateSelection();
+    this.updateSelection();
   }
 
   static getLeafTarget(target) {
@@ -160,7 +178,7 @@ class Leaf {
     return currentState;
   }
 
-  static updateSelection() {
+  updateSelection() {
     // get selection information from URL
     let currentState = Leaf.getCurrentState();
 
@@ -205,7 +223,7 @@ class Leaf {
         // actually make selection
         Leaf.setLeafLabelClass(leafTarget.dataset.url, Leaf.selectedClass);
         // open panel
-        Leaf.openLeafDetails(leafTarget, currentState.tag);
+        this.openLeafDetails(leafTarget, currentState.tag);
 
         // fixme: shouldn't need to be set here
         document.body.dataset.panelvisible = true;
@@ -216,67 +234,18 @@ class Leaf {
     return currentState;
   }
 
-  static openLeafDetails(leafTarget, activeTag) {
-    // load leaf details and display in the panel
-    const panel = document.querySelector("#leaf-details");
-
-    // if details for this leaf have already been loaded, do nothing
-    if (
-      panel.dataset.showing &&
-      panel.dataset.showing == leafTarget.dataset.url
-    ) {
-      return;
-    }
-
-    let url = leafTarget.dataset.url;
-
-    // If you need to test leaf load failure, uncomment this
-    // if (Math.random() < 0.5) {
-    //   url = url + "xxx";
-    // }
-    // console.log("fetching:", url);
-
-    fetch(url)
-      .then((response) => {
-        if (!response.ok) {
-          return Promise.reject(response);
+  openLeafDetails(leafTarget, activeTag) {
+    this.panel.loadURL(leafTarget.dataset.url, (article) => {
+      // if an active tag is specifed, mark as selected
+      if (activeTag != undefined) {
+        let articleTag = article.querySelector(
+          `.tags a[data-tag=${activeTag}]`
+        );
+        if (articleTag) {
+          articleTag.classList.add(Leaf.selectedClass);
         }
-        return response;
-      })
-      .then((response) => response.text())
-      .then((html) => {
-        let parser = new DOMParser();
-        const doc = parser.parseFromString(html, "text/html");
-        // Get the article content and insert into panel
-        const article = doc.querySelector("article");
-
-        // if an active tag is specifed, mark as selected
-        if (activeTag != undefined) {
-          let articleTag = article.querySelector(
-            `.tags a[data-tag=${activeTag}]`
-          );
-          if (articleTag) {
-            articleTag.classList.add(Leaf.selectedClass);
-          }
-        }
-
-        panel.querySelector("article").replaceWith(article);
-        // store current leaf url in a data attribute so we can check for reload
-        panel.dataset.showing = leafTarget.dataset.url;
-      })
-      .catch((response) => {
-        // clone error article and pass in to article
-        let errorArticle = document.querySelector("#leaferror").cloneNode(true);
-        panel.querySelector("article").replaceWith(errorArticle);
-      });
-
-    // scroll to the top, in case previous leaf was scrolled
-    panel.scrollTop = 0;
-    // TODO: on mobile, we need to scroll the body to zero also
-
-    // @TODO: This should become unnecessary when zoom PR is merged
-    panel.parentElement.classList.add("show-details");
-    panel.parentElement.classList.remove("closed");
+      }
+    });
   }
 
   static highlightLeaf(event) {
@@ -292,13 +261,6 @@ class Leaf {
   static setLeafLabelClass(leafURL, classname, add = true) {
     // set a class on leaf and corresponding label based on data url
     d3.selectAll(`[data-url="${leafURL}"]`).classed(classname, add);
-  }
-
-  static closeLeafDetails() {
-    const panel = document.querySelector("#leaf-details");
-
-    Leaf.setCurrentLeaf();
-    delete panel.dataset.showing;
   }
 
   static closeTag() {

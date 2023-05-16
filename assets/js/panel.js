@@ -19,6 +19,7 @@ class Panel {
   constructor() {
     // get a reference to the panel element
     this.el = document.querySelector("#leaf-details");
+    this.container = this.el.parentElement;
     this.infoButton = document.querySelector("header .info");
     this.bindHandlers();
   }
@@ -28,16 +29,18 @@ class Panel {
     // disable the info button
     document.body.dataset.panelvisible = true;
 
-    let container = this.el.parentElement;
     if (showDetails) {
-      container.classList.add("show-details");
+      this.container.classList.add("show-details");
     } else {
       // when show details is not true, ensure leaf details are hidden
-      container.classList.remove("show-details");
+      this.container.classList.remove("show-details");
     }
-    container.classList.remove("closed");
+    this.container.classList.remove("closed");
     // disable the info button; inactive when the intro is visible
     this.infoButton.disabled = true;
+
+    // on mobile, ensure the body is scrolled to the top
+    document.body.scrollTop = 0;
 
     // fixme: doesn't work ?
     document.body.dataset.panelvisible = true;
@@ -46,23 +49,25 @@ class Panel {
   close(closeDetails = true) {
     // close the intro and enable the info button
     // by default, closes panel entireuly
-    let container = this.el.parentElement;
+
     // determine if leaf details are currently displayed
-    let leafVisible = container.classList.contains("show-details");
+    // use dataset.showing ?
+    let leafVisible = this.container.classList.contains("show-details");
 
     // if leaf details are visible and close details is true,
     // deselect the leaf currently displayed, close that also,
     // unless closeDetails has been disabled;
     // (has a side effect of also removing any currently selected tag)
     if (leafVisible && closeDetails) {
-      container.classList.remove("show-details");
-      Leaf.closeLeafDetails();
+      this.container.classList.remove("show-details");
+      // clear out stored value for loaded url
+      delete this.el.dataset.showing;
       this.el.dispatchEvent(PanelCloseEvent);
     }
 
     // if we are closing everything or no leaf is visible, close the panel
     if (closeDetails || !leafVisible) {
-      container.classList.add("closed");
+      this.container.classList.add("closed");
       // update attribute on body to control overflow behavior
       document.body.dataset.panelvisible = false;
     }
@@ -73,8 +78,9 @@ class Panel {
   }
 
   showIntro() {
-    // showing the intro implies closing leaf details (if a leaf is selected)
-    Leaf.closeLeafDetails();
+    // dispatch panel-close event;
+    // handler in leaf code will close leaf details
+    // (showing the intro implies closing leaf details if a leaf is selected)
     this.el.dispatchEvent(PanelCloseEvent);
     // open the panel without showing leaf details section
     this.open(false);
@@ -83,6 +89,54 @@ class Panel {
   closeIntro() {
     // close the panel without closing leaf details
     this.close(false);
+  }
+
+  loadURL(url, callback) {
+    // load specified url; display article contents in the panel
+    // takes an optional callback; if defined, will be applied to
+    // the url contents before inserting
+
+    // if the requested url is already showing, do nothing
+    if (this.el.dataset.showing && this.el.dataset.showing == url) {
+      return;
+    }
+    // If you need to test load failure, uncomment this
+    // if (Math.random() < 0.5) {
+    //   url = url + "xxx";
+    // }
+    // console.log("fetching:", url);
+
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          return Promise.reject(response);
+        }
+        return response;
+      })
+      .then((response) => response.text())
+      .then((html) => {
+        let parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+        // Get the article content and insert into panel
+        const article = doc.querySelector("article");
+        if (callback != undefined) {
+          callback(article);
+        }
+        this.el.querySelector("article").replaceWith(article);
+        // store loaded url in data attribute for reload check
+        this.el.dataset.showing = url;
+      })
+      .catch((response) => {
+        // if the request failed, display error article
+        let errorArticle = document.querySelector("#loaderror").cloneNode(true);
+        this.el.querySelector("article").replaceWith(errorArticle);
+      });
+
+    // scroll to the top, in case previous leaf was scrolled
+    this.el.scrollTop = 0;
+
+    // ensure the panel is open with details shown
+    this.open();
   }
 
   bindHandlers() {
