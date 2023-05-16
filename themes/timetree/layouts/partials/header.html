@@ -2,9 +2,10 @@
     {{/* when the page title is the sitle title, wrap project title in an h1 */}}
     {{- if eq .Title .Site.Title }}<h1>{{ else }}<a href="{{ relURL "" }}">{{ end -}}
     <picture>
-      <source srcset="/img/site-title-desktop.svg" media="(min-width: 769px)" width="575" height="41"/>
-      <img src="/img/site-title-mobile.svg" alt="{{ .Site.Title }}" width="184" height="68"/>
+      <source srcset="/img/site-title-desktop.svg" media="(min-width: 769px)" width="727" height="40"/>
+      <img src="/img/site-title-mobile.svg" alt="{{ .Site.Title }}" width="257" height="83"/>
     </picture>
     {{- if eq .Title .Site.Title }}</h1>{{ else }}</a>{{ end -}}
+    {{ with .Site.Params.tagline }}<p class="tagline">{{ . }}</p>{{ end }}
     <button class="info" aria-label="show intro" disabled><i class="ph-info" aria-hidden="true"></i></button>
 </header>

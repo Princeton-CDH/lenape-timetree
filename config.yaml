@@ -10,6 +10,7 @@ params:
     An interactive timetree displaying interwoven histories of the
     Princeton University community and the Lenape peoples
     of Lunaapahkiing, “the land of the Lenape.” .
+  tagline: Relations, Removals, Resurgence
   branches:
     - "Lands + Waters"
     - Communities
@@ -48,3 +49,9 @@ menu:
       pageRef: /credits
       title: Credits
       weight: 5
+
+markup:
+  goldmark:
+    parser:
+    renderer:
+      unsafe: true

@@ -334,6 +334,15 @@ aside article header aside {
   }
 }
 
+#intro [lang="umu"] strong {
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.3rem;
+  line-height: 1.95rem;
+  display: inline-block;
+  margin-bottom: 0.2rem;
+}
+
 // Error message for leaf load error; hidden by default
 #leaferror {
   display: none;
