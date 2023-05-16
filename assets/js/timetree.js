@@ -291,12 +291,12 @@ class TimeTree extends BaseSVG {
     // load graphic for plaque
     // position and make it look like a leaf for interaction
     this.vizGroup
-      .append("image")
-      .attr("href", "/img/plaque.svg#dedication")
+      .append("use") // embed with use so we have access to groups within
+      .attr("href", "/img/plaque.svg#main")
       .attr("aria-label", "dedication")
       .attr("role", "button")
       .attr("tabindex", 0)
-      .attr("id", "dedication")
+      .attr("id", "plaque")
       .attr("data-id", "dedication")
       .attr("data-url", "/dedication/")
       .attr("transform", `translate(-70,220) scale(1.35)`)
