@@ -7,41 +7,44 @@ const d3 = {
   selectAll,
 };
 
-let timetreeKeys = {
-  // assumes access to panel object via timetree
+// mixin extends syntax from
+// https://blog.bitsrc.io/inheritance-abstract-classes-and-class-mixin-in-javascript-c636ac00f5a9
 
-  bindKeypressHandler() {
-    document.onkeydown = function (evt) {
-      // Get event object
-      evt = evt || window.event;
+const TimeTreeKeysMixin = (Base) =>
+  class extends Base {
+    bindKeypressHandler(panel) {
+      // panel object must be passed in
 
-      // Keypress switch logic
-      switch (evt.key) {
-        // Escape key closes the panel
-        case "Escape":
-        case "Esc":
-          // Closes the detail panel
-          this.panel.close();
-          break;
+      document.onkeydown = function (evt) {
+        // Get event object
+        evt = evt || window.event;
 
-        // enter or space key activate button-like elements
-        case "Enter":
-        case " ":
-          // if target element has role=button (i.e. leaves in the tree),
-          // trigger click behavior when activated
-          if (evt.target.getAttribute("role", "button")) {
-            d3.select(evt.target).dispatch("click");
-          }
-          break;
+        // Keypress switch logic
+        switch (evt.key) {
+          // Escape key closes the panel
+          case "Escape":
+          case "Esc":
+            panel.close();
+            break;
 
-        // ... Add other cases here for more keyboard commands ...
+          // Enter or space key activates focused element with button role
+          case "Enter":
+          case " ":
+            // if target element has role=button (i.e. leaves in the tree),
+            // trigger click behavior
+            if (evt.target.getAttribute("role", "button")) {
+              d3.select(evt.target).dispatch("click");
+            }
+            break;
 
-        // Otherwise
-        default:
-          return; // Do nothing
-      }
-    };
-  },
-};
+          // ... Add other cases here for more keyboard commands ...
 
-export { timetreeKeys };
+          // Otherwise
+          default:
+            return; // Do nothing
+        }
+      };
+    }
+  };
+
+export { TimeTreeKeysMixin };
