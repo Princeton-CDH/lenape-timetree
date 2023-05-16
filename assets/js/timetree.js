@@ -65,10 +65,10 @@ const forceStrength = {
   center: 0.01, // how strongly drawn to the center of the svg
 
   // custom y force for century
-  centuryY: 7, // draw to Y coordinate for center of assigned century band
+  centuryY: 8, // draw to Y coordinate for center of assigned century band
 
   // custom x force for branch
-  branchX: 0.08, // draw to X coordinate based on branch
+  branchX: 0.09, // draw to X coordinate based on branch
 
   // strength of link force by type of link
   leafToBranch: 3.85, // between leaf and branch-century node
