@@ -587,8 +587,10 @@ class TimeTree extends BaseSVG {
     if (transform.k >= 1.2) {
       // enable once we get past 1.2 zoom level
       container.classList.add("zoomed");
+      d3.select(".reset-zoom").attr("disabled", null);
     } else {
       container.classList.remove("zoomed");
+      d3.select(".reset-zoom").attr("disabled", true);
     }
   }
 

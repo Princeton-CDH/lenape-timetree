@@ -1,4 +1,12 @@
+import { select, selectAll } from "d3-selection";
+
 import { Leaf } from "./leaves";
+
+// combine into d3 object for convenience
+const d3 = {
+  select,
+  selectAll,
+};
 
 const PanelCloseEvent = new Event("panel-close");
 
@@ -25,22 +33,23 @@ class Panel {
   }
 
   open(showDetails = true) {
+    // on mobile, ensure the body is scrolled to the top before opening
+    window.scrollTo(0, 0);
+
     // open the panel; show leaf details by default
     // disable the info button
     document.body.dataset.panelvisible = true;
 
-    if (showDetails) {
-      this.container.classList.add("show-details");
-    } else {
-      // when show details is not true, ensure leaf details are hidden
-      this.container.classList.remove("show-details");
-    }
-    this.container.classList.remove("closed");
+    // when show details is not true, ensure leaf details are hidden
+    d3.select(this.container)
+      .classed("show-details", showDetails)
+      .classed("closed", false);
+
     // disable the info button; inactive when the intro is visible
     this.infoButton.disabled = true;
 
-    // on mobile, ensure the body is scrolled to the top
-    document.body.scrollTop = 0;
+    // transfer focus to the panel
+    this.container.querySelector("#panel").focus();
 
     // fixme: doesn't work ?
     document.body.dataset.panelvisible = true;

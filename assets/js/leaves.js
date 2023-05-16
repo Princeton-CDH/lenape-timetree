@@ -87,16 +87,37 @@ class Leaf {
       });
     }
 
+    // bind a delegated focus-out handler for focus management within the panel
+    this.container.addEventListener("focusout", (event) => {
+      // if any tab would tab out of the container, transfer focus to close button
+      if (
+        event.relatedTarget &&
+        !this.container.contains(event.relatedTarget)
+      ) {
+        this.container.querySelector("button.close").focus();
+      }
+    });
+
     // listen for hash change; update selected leaf on change
     window.addEventListener("hashchange", this.updateSelection.bind(this));
 
     // deselect current leaf when the panel is closed
     if (this.panel && this.panel.el) {
       // should only be undefined in tests
-      this.panel.el.addEventListener("panel-close", (event) => {
-        this.currentLeaf = event;
-      });
+      this.panel.el.addEventListener(
+        "panel-close",
+        this.handleClosePanel.bind(this)
+      );
     }
+  }
+
+  handleClosePanel(event) {
+    // if a leaf is selected, transfer focus back to the leaf before closing
+    if (this.currentLeaf != undefined) {
+      document.querySelector(`path[data-id="${this.currentLeaf}"]`).focus();
+    }
+    // then clear current leaf
+    this.currentLeaf = event;
   }
 
   set currentLeaf(event) {
@@ -177,6 +198,14 @@ class Leaf {
     return currentState;
   }
 
+  get currentLeaf() {
+    return this.currentState.leaf;
+  }
+
+  get currentTag() {
+    return this.currentState.tag;
+  }
+
   updateSelection() {
     // get selection information from URL
     let currentState = this.currentState;
@@ -202,9 +231,17 @@ class Leaf {
       // display the tag name based on the slug;
       // as fallback, display the tag id if there is no name found
       currentTag.textContent = Leaf.tags[currentState.tag] || currentState.tag;
+
+      // enable tag close button
+      document.querySelector("#current-tag button").removeAttribute("disabled");
     } else {
       // otherwise, remove active tag
       document.querySelector("body").classList.remove("tag-active");
+      // disable active tag close button
+      document
+        .querySelector("#current-tag button")
+        .setAttribute("disabled", "true");
+
       // re-enable all active leaves
       d3.selectAll("path[aria-disabled=true]")
         .attr("tabindex", 0)
@@ -260,11 +297,6 @@ class Leaf {
   static setLeafLabelClass(leafURL, classname, add = true) {
     // set a class on leaf and corresponding label based on data url
     d3.selectAll(`[data-url="${leafURL}"]`).classed(classname, add);
-  }
-
-  static closeTag() {
-    // unset current tag and then call updateSelection
-    Leaf.setCurrentTag();
   }
 }
 
