@@ -72,7 +72,7 @@ class Leaf {
       if (Leaf.isTag(element)) {
         event.preventDefault();
         event.stopPropagation();
-        this.setCurrentTag(element.dataset.tag);
+        this.currentTag = element.dataset.tag;
         element.classList.add(Leaf.selectedClass);
         this.container.dispatchEvent(TagSelectEvent);
       }
@@ -82,7 +82,7 @@ class Leaf {
     const activeTagClose = document.querySelector("#current-tag .close");
     if (activeTagClose) {
       activeTagClose.addEventListener("click", (event) => {
-        this.setCurrentTag();
+        this.currentTag = null;
         this.container.dispatchEvent(TagDeselectEvent);
       });
     }
@@ -93,17 +93,16 @@ class Leaf {
     // deselect current leaf when the panel is closed
     if (this.panel && this.panel.el) {
       // should only be undefined in tests
-      this.panel.el.addEventListener(
-        "panel-close",
-        this.setCurrentLeaf.bind(this)
-      );
+      this.panel.el.addEventListener("panel-close", (event) => {
+        this.currentLeaf = event;
+      });
     }
   }
 
-  setCurrentLeaf(event) {
+  set currentLeaf(event) {
     // Are we deselecting a leaf?
     // deselect if called with no argument or on panel-close evenp
-    if (event == undefined || event.type == "panel-close") {
+    if (event == undefined || event == null || event.type == "panel-close") {
       // remove hash
       let urlNoHash = window.location.pathname + window.location.search;
       history.replaceState(null, "", urlNoHash);
@@ -120,14 +119,14 @@ class Leaf {
     this.updateSelection();
   }
 
-  setCurrentTag(tag) {
+  set currentTag(tag) {
     // parse the curent url
     let url = new URL(window.location.href);
     // add/remove active tag indicator to container
     // so css can be used to disable untagged leaves
 
-    // if no tag passed in, remove tag param
-    if (tag == undefined) {
+    // if no tag passed in, remove active tag param
+    if (tag == undefined || tag == null) {
       url.searchParams.delete("tag");
       this.container.classList.remove("tag-active");
     } else {
@@ -160,7 +159,7 @@ class Leaf {
     d3.selectAll(`.${Leaf.highlightClass}`).classed(Leaf.highlightClass, false);
   }
 
-  static getCurrentState() {
+  get currentState() {
     // get selection information from URL
     let url = new URL(window.location.href);
     let tag = url.searchParams.get("tag");
@@ -180,7 +179,7 @@ class Leaf {
 
   updateSelection() {
     // get selection information from URL
-    let currentState = Leaf.getCurrentState();
+    let currentState = this.currentState;
 
     // deselect any current
     Leaf.deselectCurrent();

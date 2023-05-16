@@ -71,7 +71,8 @@ describe("Leaf", () => {
 
     test("updates window location", () => {
       window.location.replace("#lenape");
-      new Leaf().setCurrentLeaf();
+      let leaf = new Leaf();
+      leaf.currentLeaf = null;
       expect(window.location.hash).toEqual(""); // does not include #
     });
   });
@@ -91,7 +92,8 @@ describe("Leaf", () => {
       '  <text class="food access">label</text> />' +
       "</svg></div>" +
       "<div id='current-tag'><span/></div><aside/>";
-    new Leaf().setCurrentTag("battles");
+    let leaf = new Leaf();
+    leaf.currentTag = "battles";
     // expect 3 paths and one label to be highlighted
     expect(document.getElementsByClassName(Leaf.highlightClass).length).toEqual(
       4
@@ -125,7 +127,8 @@ describe("Leaf", () => {
       let targetLeaf = document.querySelector("path[data-id=munsee]");
 
       let panel = new Panel();
-      new Leaf(panel).setCurrentLeaf({ target: targetLeaf });
+      let leaf = new Leaf(panel);
+      leaf.currentLeaf = { target: targetLeaf };
       let selected = document.getElementsByClassName(Leaf.selectedClass);
 
       // expect path and text to be selected
@@ -134,7 +137,8 @@ describe("Leaf", () => {
 
     test("treats click on tspan as click on parent text element", () => {
       let targetTspan = document.querySelector("text[data-id=munsee] tspan");
-      new Leaf(new Panel()).setCurrentLeaf({ target: targetTspan });
+      let leaf = new Leaf(new Panel());
+      leaf.currentLeaf = { target: targetTspan };
       // expect path and text to be selected
       expect(
         document.getElementsByClassName(Leaf.selectedClass).length
@@ -143,14 +147,16 @@ describe("Leaf", () => {
 
     test("updates window location", () => {
       let targetLeaf = document.querySelector("path[data-id=munsee]");
-      new Leaf(new Panel()).setCurrentLeaf({ target: targetLeaf });
+      let leaf = new Leaf(new Panel());
+      leaf.currentLeaf = { target: targetLeaf };
       expect(window.location.hash).toEqual("#munsee");
     });
 
     test("fetches content for leaf details", () => {
       let targetLeaf = document.querySelector("path[data-id=munsee]");
       let panel = new Panel();
-      new Leaf(panel).setCurrentLeaf({ target: targetLeaf });
+      let leaf = new Leaf(panel);
+      leaf.currentLeaf = { target: targetLeaf };
       expect(panel.loadURL).toHaveBeenCalledTimes(1);
       // second parameter is a callback; match anything
       expect(panel.loadURL).toHaveBeenCalledWith(
@@ -168,7 +174,7 @@ describe("Leaf", () => {
 
     beforeEach(() => {
       jest
-        .spyOn(Leaf.prototype, "setCurrentLeaf")
+        .spyOn(Leaf.prototype, "currentLeaf", "set")
         .mockImplementation(mockLeafSelect);
       document.body.innerHTML =
         "<div><svg>" +
