@@ -290,7 +290,7 @@ class TimeTree extends BaseSVG {
 
     // load graphic for plaque
     // position and make it look like a leaf for interaction
-    this.background
+    this.vizGroup
       .append("image")
       .attr("href", "/img/plaque.svg#dedication")
       .attr("aria-label", "dedication")
@@ -299,7 +299,7 @@ class TimeTree extends BaseSVG {
       .attr("id", "dedication")
       .attr("data-id", "dedication")
       .attr("data-url", "/dedication/")
-      .attr("transform", `translate(-60,220) scale(1.2)`)
+      .attr("transform", `translate(-70,220) scale(1.35)`)
       .on("click", this.selectLeaf.bind(this));
 
     // enable zooming
