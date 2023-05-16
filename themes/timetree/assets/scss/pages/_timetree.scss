@@ -199,8 +199,10 @@ body.home {
           stroke-width: 0;
         }
 
-        &:focus-visible {
+        &:focus-visible,
+        &.highlight:focus-visible {
           stroke: $focus-color;
+          stroke-width: 3px;
           outline: none; // disable browser default focus outline box
         }
 
