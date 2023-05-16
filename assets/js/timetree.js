@@ -95,7 +95,9 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
     this.network = this.generateNetwork();
 
     this.panel = new Panel();
-    this.leafmanager = new Leaf(this.panel);
+    // pass in panel reference and list of ids to ignore on hash change
+    // (i.e., slugs for branches)
+    this.leafmanager = new Leaf(this.panel, Object.values(branches));
 
     this.drawTimeTree();
     // make tag list available on leaf object
@@ -209,6 +211,7 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
       let currentCentury;
       let previousBranchIndex = trunkNodeIndex;
       let branchIndex;
+      console.log(branch);
       this.leavesByBranch[branch].forEach((leaf, index) => {
         // check if we need to make a new branch node:
         // - no node exists
@@ -222,13 +225,24 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
           let branchId = `${branch}-century${leaf.century}-${index}`;
           currentCentury = leaf.century;
           currentBranchNodeCount = 0;
+
+          let type = "branch";
+          let id = `${branch}-century${leaf.century}-${index}`;
+          let title = `${branch} ${leaf.century}century (${index})`;
+
+          // first node for each branch will be used to create a heading
+          if (branchIndex == undefined) {
+            type = "branch-start";
+            title = branch; // branch name
+            id = branches[branch]; // slug for this branch
+          }
           nodes.push({
-            id: `${branch}-century${leaf.century}-${index}`,
-            title: `${branch} ${leaf.century}century (${index})`,
-            type: "branch",
+            id: id,
+            title: title,
+            type: type,
             branch: branch,
             century: leaf.century,
-            sort_date: leaf.century * 100 + 50,
+            sort_date: leaf.century * 100, //  + 50,
           });
           // add to links
           branchIndex = nodes.length - 1;
@@ -452,18 +466,41 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
       })
       // for accessibility purposes, leaves are buttons
       .attr("role", (d) => {
-        return d.type == "leaf" ? "button" : null;
+        if (d.type == "leaf") {
+          return "button";
+        } else if (d.type == "branch-start") {
+          return "heading";
+        }
+      })
+      .attr("aria-level", (d) => {
+        return d.type == "branch-start" ? 2 : null;
+      })
+      .attr("id", (d) => {
+        return d.type == "branch-start " ? d.id : null;
       })
       .attr("aria-label", (d) => {
-        return d.type == "leaf" ? d.label.text : null;
+        if (d.type == "leaf") {
+          return d.label.text;
+        } else if (d.type == "branch-start") {
+          return d.text;
+        }
       })
       // reference description by id; short descriptions generated in hugo template
       .attr("aria-describedby", (d) => {
         return d.type == "leaf" ? `desc-${d.id}` : null;
       })
-      // make leaves keyboard focusable
-      .attr("tabindex", (d) => (d.type == "leaf" ? 0 : null))
+      // make leaves and branch-start keyboard focusable
+      .attr("tabindex", (d) => {
+        if (d.type == "leaf") {
+          return 0;
+        } else if (d.type == "branch-start") {
+          return -1; // only focusable from link in legend
+        }
+      })
       .attr("stroke-linejoin", "bevel")
+      .attr("id", (d) => {
+        return d.type == "branch-start" ? d.id : null;
+      })
       .attr("data-id", (d) => d.id)
       .attr("data-url", (d) => d.url || d.id)
       .attr("data-sort-date", (d) => d.sort_date)

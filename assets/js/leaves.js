@@ -49,11 +49,14 @@ class Leaf {
   static selectedClass = "select";
   static highlightClass = "highlight";
 
-  constructor(panel) {
-    // get a reference to the panel object
+  constructor(panel, ignore_ids) {
+    // store a reference to the panel object
     this.panel = panel;
     this.container = document.querySelector("aside");
     this.bindHandlers();
+    // list of ids to ignore when loading leaf details
+    // (known non-leaf elements, including branch start targets)
+    this.ignore_ids = ignore_ids;
   }
 
   static isTag(element) {
@@ -248,9 +251,9 @@ class Leaf {
         .attr("aria-disabled", null);
     }
 
-    // if hash set, select leaf
+    // if hash set, select leaf; unless it is in the list of ignored ids
     // (load leaf first so if there is a current tag it can be set to active)
-    if (currentState.leaf) {
+    if (currentState.leaf && !this.ignore_ids.includes(currentState.leaf)) {
       let leafTarget = document.querySelector(
         `path[data-id="${currentState.leaf}"]`
       );

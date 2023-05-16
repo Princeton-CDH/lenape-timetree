@@ -245,6 +245,12 @@ body.home {
         @include leaf-styles("d");
       }
 
+      // add visible indicator for branch-start focus target
+      .branch-start:focus,
+      .branch-start:focus-visible {
+        outline: 5px solid $focus-color;
+      }
+
       // hide nodes used for layout but not meant to be displayed
       g.nodes path.leaf-label,
       g.nodes path.branch,
