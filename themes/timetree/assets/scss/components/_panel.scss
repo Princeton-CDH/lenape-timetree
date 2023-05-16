@@ -27,6 +27,14 @@ body.home main > aside {
 
   color: $nearwhite;
 
+  // hidden anchor element for focus management
+  #panel {
+    &:focus,
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
   @include for-desktop-up {
     position: relative;
     grid-area: panel;

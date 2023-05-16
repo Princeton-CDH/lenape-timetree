@@ -155,37 +155,6 @@ class Panel {
       .addEventListener("click", this.close.bind(this));
 
     this.infoButton.addEventListener("click", this.showIntro.bind(this));
-
-    // bind keyboard handler
-
-    // Also allow Escape key to close window
-    // Along with (potentially) other keyboard commands
-
-    // TODO: move this to the timetree code
-    // check the document.activeElement for focus
-    // bind enter & space to leaf click when focused
-
-    document.onkeydown = function (evt) {
-      // Get event object
-      evt = evt || window.event;
-
-      // Keypress switch logic
-      switch (evt.key) {
-        // Escape key
-        case "Escape":
-        case "Esc":
-          // Closes the detail panel
-          // fixme: panel ref is broken here
-          panel.close();
-          break;
-
-        // ... Add other cases here for more keyboard commands ...
-
-        // Otherwise
-        default:
-          return; // Do nothing
-      }
-    };
   }
 }
 

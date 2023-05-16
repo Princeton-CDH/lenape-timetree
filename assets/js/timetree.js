@@ -18,6 +18,7 @@ import { Panel } from "./panel";
 import { Leaf, LeafPath, leafSize, randomNumBetween } from "./leaves";
 import { drawTreeSegment, drawTrunk, drawBranches } from "./branches";
 import { BaseSVG } from "./utils";
+import { timetreeKeys } from "./keys";
 
 // combine d3 imports into a d3 object for convenience
 const d3 = {
@@ -135,6 +136,9 @@ class TimeTree extends BaseSVG {
       "tag-deselect",
       this.zoomToSelectedLeaf.bind(this)
     );
+
+    // code in timetree keys mixin
+    this.bindKeypressHandler();
   }
 
   checkLeafData() {
@@ -807,5 +811,8 @@ class TimeTree extends BaseSVG {
     drawBranches(this.network.nodes, this.vizGroup, branches, this.trunkTop);
   }
 }
+
+// apply timetree keys mixin
+Object.assign(TimeTree.prototype, timetreeKeys);
 
 export { TimeTree, forceStrength, getBranchStyle };
