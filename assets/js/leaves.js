@@ -1,12 +1,15 @@
-// logic to generate a path for drawing leaves
+// logic to generate a path for drawing leaves,
+// and for managing leaf details and tag behavior in the timetree
 
-import { line, curveNatural, curveBumpY } from "d3-shape";
+import { select, selectAll } from "d3-selection";
+import { line, curveNatural } from "d3-shape";
 
 // combine into d3 object for convenience
 const d3 = {
   line,
   curveNatural,
-  curveBumpY,
+  select,
+  selectAll,
 };
 
 // configuration for leaf sizes
@@ -46,16 +49,20 @@ class Leaf {
   static selectedClass = "select";
   static highlightClass = "highlight";
 
+  static isTag(element) {
+    // check if an element is a tag
+    return (
+      element.tagName == "A" && element.parentElement.classList.contains("tags")
+    );
+  }
+
   static bindHandlers() {
     // bind a delegated click handler to override tag link behavior
     const asideContainer = document.querySelector("aside");
     asideContainer.addEventListener("click", (event) => {
       let element = event.target;
       // if click target is a link in the tags section, select leaves for that tag
-      if (
-        element.tagName == "A" &&
-        element.parentElement.classList.contains("tags")
-      ) {
+      if (Leaf.isTag(element)) {
         event.preventDefault();
         event.stopPropagation();
         Leaf.setCurrentTag(element.dataset.tag);
@@ -130,16 +137,9 @@ class Leaf {
   }
 
   static deselectCurrent() {
-    let selected = document.getElementsByClassName(Leaf.selectedClass);
-    // convert to array rather than iterating, since htmlcollection is live
-    // and changes as updated
-    Array.from(selected).forEach((item) => {
-      item.classList.remove(Leaf.selectedClass);
-    });
-    let highlighted = document.getElementsByClassName(Leaf.highlightClass);
-    Array.from(highlighted).forEach((item) => {
-      item.classList.remove(Leaf.highlightClass);
-    });
+    // deselect all selected and highlighted leaves and their labels
+    d3.selectAll(`.${Leaf.selectedClass}`).classed(Leaf.selectedClass, false);
+    d3.selectAll(`.${Leaf.highlightClass}`).classed(Leaf.highlightClass, false);
   }
 
   static getCurrentState() {
@@ -167,16 +167,18 @@ class Leaf {
     // deselect any current
     Leaf.deselectCurrent();
 
-    // deselect any previously active tags
-    Array.from(document.querySelectorAll(".tags a")).forEach((el) => {
-      el.classList.remove(Leaf.selectedClass);
-    });
+    // undo selection for any previously active tags
+    d3.selectAll(".tags a").classed(Leaf.selectedClass, false);
+    // if a tag is active
     if (currentState.tag) {
-      let leaves = document.getElementsByClassName(currentState.tag);
-      for (let item of leaves) {
-        item.classList.add(Leaf.highlightClass);
-      }
-      // add indicator to container to disable untagged leaves
+      d3.selectAll(`.${currentState.tag}`).classed(Leaf.highlightClass, true);
+
+      // disable all leaves, for both mouse and keyboard users
+      d3.selectAll(`path:not(.${currentState.tag}`)
+        .attr("tabindex", -1)
+        .attr("aria-disabled", true);
+
+      // add indicator to container to dim the untagged portions of the tree
       document.querySelector("body").classList.add("tag-active");
 
       let currentTag = document.querySelector("#current-tag span");
@@ -184,7 +186,12 @@ class Leaf {
       // as fallback, display the tag id if there is no name found
       currentTag.textContent = Leaf.tags[currentState.tag] || currentState.tag;
     } else {
+      // otherwise, remove active tag
       document.querySelector("body").classList.remove("tag-active");
+      // re-enable all active leaves
+      d3.selectAll("path[aria-disabled=true]")
+        .attr("tabindex", 0)
+        .attr("aria-disabled", null);
     }
 
     // if hash set, select leaf
@@ -265,7 +272,7 @@ class Leaf {
 
     // scroll to the top, in case previous leaf was scrolled
     panel.scrollTop = 0;
-    // make sure panel is active
+    // TODO: on mobile, we need to scroll the body to zero also
 
     // @TODO: This should become unnecessary when zoom PR is merged
     panel.parentElement.classList.add("show-details");
@@ -283,14 +290,8 @@ class Leaf {
   }
 
   static setLeafLabelClass(leafURL, classname, add = true) {
-    let leafAndLabel = document.querySelectorAll(`[data-url="${leafURL}"]`);
-    for (let item of leafAndLabel) {
-      if (add) {
-        item.classList.add(classname);
-      } else {
-        item.classList.remove(classname);
-      }
-    }
+    // set a class on leaf and corresponding label based on data url
+    d3.selectAll(`[data-url="${leafURL}"]`).classed(classname, add);
   }
 
   static closeLeafDetails() {
