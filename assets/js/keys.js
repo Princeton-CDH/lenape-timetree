@@ -12,8 +12,9 @@ const d3 = {
 
 const TimeTreeKeysMixin = (Base) =>
   class extends Base {
-    bindKeypressHandler(panel) {
-      // panel object must be passed in
+    bindKeypressHandler() {
+      // make panel object available in event handler context
+      let panel = this.panel;
 
       document.onkeydown = function (evt) {
         // Get event object

@@ -139,9 +139,8 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
       this.zoomToSelectedLeaf.bind(this)
     );
 
-    // keypress code in timetree keys mixin;
-    // requires panel object to close info panel on escape
-    this.bindKeypressHandler(this.panel);
+    // bind key handling logic; code in timetree keys mixin
+    this.bindKeypressHandler();
   }
 
   checkLeafData() {
