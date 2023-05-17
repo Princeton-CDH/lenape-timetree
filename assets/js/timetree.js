@@ -291,7 +291,7 @@ class TimeTree extends BaseSVG {
     // load graphic for plaque without strings
     // position and make it look like a leaf for interaction
     this.vizGroup
-      .append("use")
+      .append("image")
       .attr("href", "/img/plaque-nostrings.svg#main")
       .attr("aria-label", "dedication")
       .attr("role", "button")
