@@ -56,7 +56,7 @@ class Leaf {
     this.bindHandlers();
     // list of ids to ignore when loading leaf details
     // (known non-leaf elements, including branch start targets)
-    this.ignore_ids = ignore_ids;
+    this.ignore_ids = ignore_ids || [];
   }
 
   static isTag(element) {
@@ -236,14 +236,19 @@ class Leaf {
       currentTag.textContent = Leaf.tags[currentState.tag] || currentState.tag;
 
       // enable tag close button
-      document.querySelector("#current-tag button").removeAttribute("disabled");
+      let closeTag = document.querySelector("#current-tag button");
+      if (closeTag) {
+        closeTag.removeAttribute("disabled");
+      }
     } else {
       // otherwise, remove active tag
       document.querySelector("body").classList.remove("tag-active");
       // disable active tag close button
-      document
-        .querySelector("#current-tag button")
-        .setAttribute("disabled", "true");
+      let tagClose = document.querySelector("#current-tag button");
+      if (tagClose) {
+        // not included in all unit test fixtures
+        tagClose.setAttribute("disabled", "true");
+      }
 
       // re-enable all active leaves
       d3.selectAll("path[aria-disabled=true]")
