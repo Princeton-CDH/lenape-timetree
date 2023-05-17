@@ -204,6 +204,20 @@ ol {
   }
 }
 
+blockquote {
+  border-left: 3px solid $trunk-color;
+  padding-left: 1.2em;
+
+  cite {
+    display: block;
+    text-align: right;
+    padding-right: 2em;
+    &::before {
+      content: "— ";
+    }
+  }
+}
+
 em {
   font-style: italic;
 }
