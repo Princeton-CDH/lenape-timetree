@@ -288,6 +288,25 @@ class TimeTree extends BaseSVG {
     this.svg = svg;
     this.background = background;
 
+    // load graphic for plaque without strings
+    // position and make it look like a leaf for interaction
+    this.vizGroup
+      .append("image")
+      .attr("href", "/img/plaque-nostrings.svg#main")
+      .attr("aria-label", "dedication")
+      .attr("role", "button")
+      .attr("tabindex", 0)
+      .attr("id", "dedication")
+      .attr("data-id", "dedication")
+      .attr("data-url", "/dedication/")
+      .attr("transform", `translate(-70,220) scale(1.35)`)
+      .on("click", this.selectLeaf.bind(this));
+    // add strings separately, for decoration only
+    this.vizGroup
+      .append("use")
+      .attr("href", "/img/plaque-strings.svg#main")
+      .attr("transform", `translate(-70,220) scale(1.35)`);
+
     // enable zooming
     this.initZoom();
 
@@ -600,7 +619,9 @@ class TimeTree extends BaseSVG {
     // TODO: on mobile, this should also scroll to the top of the page
     this.panel.closeIntro(); // close so info button will be active on mobile
     // zoom in on the data point for the selected leaf
-    this.zoomToDatum(d);
+    if (event.target.id != "dedication") {
+      this.zoomToDatum(d);
+    }
   }
 
   zoomToDatum(d, scale) {

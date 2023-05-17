@@ -49,13 +49,4 @@ $leaf-glow-color: (
   "e": rgba(216, 148, 121, 0.5),
 );
 
-// re-ordered / renamed color set by RSK & GD to adjust adjacency within the tree
-// $leaf-color-a: #ced89e;
-// $leaf-color-b: #fecd70;
-// $leaf-color-c: #cc7351;
-// $leaf-color-d: #adcf9f;
-// $leaf-color-e: #ffdcae;
-
-$focus-color: #003277; // probably changing to black, but use for now
-
-$highlight-color: map-get($leaf-color, "b"); // temporary
+$focus-color: #000000;
