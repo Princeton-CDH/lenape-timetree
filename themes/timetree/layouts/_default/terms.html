@@ -8,8 +8,9 @@
       <section class="tags">
         <ul>
           {{ range .Data.Terms.Alphabetical }}
-          {{/* use the last portion of the permalink to get the slug for the tag */}}
-          <li><a href="{{ relURL "" }}?tag={{ .Page.RelPermalink | path.Base }}">{{ .Page.Title }}
+          <li>
+            {{- $tagSlug := partial "getTagSlug.html" .Term -}}
+            <a href="{{ relURL "" }}?tag={{ $tagSlug }}">{{ .Page.Title }}
             <span class="count">({{ .Count }})</span></a>
            </li>
           {{ end }}
