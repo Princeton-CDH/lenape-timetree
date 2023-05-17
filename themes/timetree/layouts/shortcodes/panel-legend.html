@@ -1,0 +1,8 @@
+{{/* display legend listing each branch; names from site config */}}
+<ol id="panel-legend">
+  {{- range .Site.Params.branches -}}
+    {{- $branchSlug := replace (replace .  "The" "") "+" "" | urlize -}}
+  <li class="{{ $branchSlug }}"><a href="#{{ $branchSlug }}">{{ . }}</a></li>
+  {{- end -}}
+</ol>
+
