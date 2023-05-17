@@ -221,9 +221,9 @@ body.home {
         }
 
         &.select {
-          filter: drop-shadow(-6px -8px 16px #75645d)
-            drop-shadow(6px 14px 16px #75645d)
-            drop-shadow(-9px 4px 16px #75645d) drop-shadow(9px 0px 16px #75645d);
+          filter: drop-shadow(-6px -8px 8px #75645d)
+            drop-shadow(6px 14px 8px #75645d) drop-shadow(-9px 4px 8px #75645d)
+            drop-shadow(9px 0px 8px #75645d);
         }
 
         &:focus-visible {
