@@ -50,8 +50,8 @@ menu:
       title: Credits
       weight: 5
 
+# allow html markup in content
 markup:
   goldmark:
-    parser:
     renderer:
       unsafe: true
