@@ -222,8 +222,8 @@ class Leaf {
     if (currentState.tag) {
       d3.selectAll(`.${currentState.tag}`).classed(Leaf.highlightClass, true);
 
-      // disable all leaves, for both mouse and keyboard users
-      d3.selectAll(`path:not(.${currentState.tag}`)
+      // disable all leaves and dedication for both mouse and keyboard users
+      d3.selectAll(`svg [tabindex]:not(.${currentState.tag}`)
         .attr("tabindex", -1)
         .attr("aria-disabled", true);
 
@@ -250,8 +250,8 @@ class Leaf {
         tagClose.setAttribute("disabled", "true");
       }
 
-      // re-enable all active leaves
-      d3.selectAll("path[aria-disabled=true]")
+      // re-enable all active leaves and dedication
+      d3.selectAll("svg [tabindex][aria-disabled=true]")
         .attr("tabindex", 0)
         .attr("aria-disabled", null);
     }
