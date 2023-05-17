@@ -288,11 +288,11 @@ class TimeTree extends BaseSVG {
     this.svg = svg;
     this.background = background;
 
-    // load graphic for plaque
+    // load graphic for plaque without strings
     // position and make it look like a leaf for interaction
     this.vizGroup
-      .append("image")
-      .attr("href", "/img/plaque.svg#main")
+      .append("use")
+      .attr("href", "/img/plaque-nostrings.svg#main")
       .attr("aria-label", "dedication")
       .attr("role", "button")
       .attr("tabindex", 0)
@@ -301,6 +301,11 @@ class TimeTree extends BaseSVG {
       .attr("data-url", "/dedication/")
       .attr("transform", `translate(-70,220) scale(1.35)`)
       .on("click", this.selectLeaf.bind(this));
+    // add strings separately, for decoration only
+    this.vizGroup
+      .append("use")
+      .attr("href", "/img/plaque-strings.svg#main")
+      .attr("transform", `translate(-70,220) scale(1.35)`);
 
     // enable zooming
     this.initZoom();
@@ -607,7 +612,6 @@ class TimeTree extends BaseSVG {
 
   selectLeaf(event, d) {
     if (event) {
-      console.log("selectLeaf " + event.target);
       event.preventDefault();
       event.stopPropagation();
       Leaf.setCurrentLeaf(event);
