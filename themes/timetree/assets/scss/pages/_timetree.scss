@@ -287,7 +287,7 @@ body.home {
       // NOTE: previously had two shadows offset +/2px with 2px blur,
       // but there's a Safari bug with multiple text shadows
       // text-shadow: $nav-bg-color 2px 2px 2px, $nav-bg-color -2px -2px 2px;
-      text-shadow: $nav-bg-color 0px 0px 4px;
+      text-shadow: $nav-bg-color -4px 2px 4px;
       // Hand cursor for leaf labels
       cursor: pointer;
     }

@@ -1,7 +1,8 @@
 <div class="tags">
-  {{ range .Params.tags }}
-     <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" data-tag="{{ urlize . }}">
+  {{- range .Params.tags -}}
+  {{- $tagSlug := partial "getTagSlug.html" . -}}
+     <a href="{{ "/tags/" | relLangURL }}{{ $tagSlug }}" data-tag="{{ $tagSlug }}">
        {{- . -}}
      </a>
-  {{ end }}
+  {{- end -}}
 </div>
