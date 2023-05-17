@@ -1,6 +1,6 @@
 {{- $tags := dict -}} {{/* output a dict of tags; lookup by slug to get display title */}}
 {{- range $tag, $content := .Site.Taxonomies.tags -}}
-	{{- $slug := .Page.RelPermalink | path.Base -}}
+	{{- $slug := partial "getTagSlug.html" $tag -}}
 	{{- $tags = merge $tags (dict $slug .Page.Title) -}}
 {{- end -}}
 {{- $tags | jsonify (dict "indent" "  ") -}}
