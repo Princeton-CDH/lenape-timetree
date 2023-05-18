@@ -1,6 +1,8 @@
 ---
 title: Lunaapahkiing Princeton Timetree
-description: An interactive visualization of the interwoven histories of Lunaapahkiing, “the land of the Delaware Lenape,” and the unceded lands of the Princeton University campus.
+description: |
+  Relations, Removals, Resurgence.
+  An interactive visualization of the interwoven histories of Lunaapahkiing, “the land of the Delaware Lenape,” and the unceded lands of the Princeton University campus.
 ---
 
 <span lang="umu">**Wiingu-neew**</span> (happy to see you)[^1]
