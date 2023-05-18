@@ -56,3 +56,8 @@ markup:
   goldmark:
     renderer:
       unsafe: true
+
+privacy:
+  googleAnalytics:
+    anonymizeIP: true
+    respectDoNotTrack: true
