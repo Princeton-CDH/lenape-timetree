@@ -115,9 +115,11 @@ class Leaf {
   }
 
   handleClosePanel(event) {
-    // if a leaf is selected, transfer focus back to the leaf before closing
+    // if a leaf is selected, transfer focus back to leaf or dedication before closing
     if (this.currentLeaf != undefined) {
-      document.querySelector(`path[data-id="${this.currentLeaf}"]`).focus();
+      document
+        .querySelector(`[tabindex][data-id="${this.currentLeaf}"]`)
+        .focus();
     }
     // then clear current leaf
     this.currentLeaf = event;
