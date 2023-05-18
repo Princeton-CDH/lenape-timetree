@@ -29,7 +29,10 @@ body.home main > aside {
 
   // hidden anchor element for focus management
   #panel {
-    &:focus,
+    opacity: 0; // visually hidden; announce for screen reader only
+    position: absolute;
+    top: 0;
+
     &:focus-visible {
       outline: none;
     }
