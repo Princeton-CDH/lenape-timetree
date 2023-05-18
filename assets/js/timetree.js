@@ -95,14 +95,12 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
     this.network = this.generateNetwork();
 
     this.panel = new Panel();
-    // pass in panel reference and list of ids to ignore on hash change
-    // (i.e., slugs for branches)
-    this.leafmanager = new Leaf(this.panel, Object.values(branches));
+    // pass in panel reference, list of ids to ignore on hash change
+    // (i.e., slugs for branches), and tag list
+    this.leafmanager = new Leaf(this.panel, Object.values(branches), tags);
 
     this.drawTimeTree();
-    // make tag list available on leaf object
-    // (currently needed to update active tag button)
-    Leaf.tags = tags;
+
     // update selection to reflect active tag and/or leaf hash in url on page load
     let status = this.leafmanager.updateSelection();
 
@@ -210,7 +208,6 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
       let currentCentury;
       let previousBranchIndex = trunkNodeIndex;
       let branchIndex;
-      console.log(branch);
       this.leavesByBranch[branch].forEach((leaf, index) => {
         // check if we need to make a new branch node:
         // - no node exists

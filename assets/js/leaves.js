@@ -49,7 +49,7 @@ class Leaf {
   static selectedClass = "select";
   static highlightClass = "highlight";
 
-  constructor(panel, ignore_ids) {
+  constructor(panel, ignore_ids, tags) {
     // store a reference to the panel object
     this.panel = panel;
     this.container = document.querySelector("aside");
@@ -57,6 +57,7 @@ class Leaf {
     // list of ids to ignore when loading leaf details
     // (known non-leaf elements, including branch start targets)
     this.ignore_ids = ignore_ids || [];
+    this.tags = tags || [];
   }
 
   static isTag(element) {
@@ -235,7 +236,7 @@ class Leaf {
       let currentTag = document.querySelector("#current-tag span");
       // display the tag name based on the slug;
       // as fallback, display the tag id if there is no name found
-      currentTag.textContent = Leaf.tags[currentState.tag] || currentState.tag;
+      currentTag.textContent = this.tags[currentState.tag] || currentState.tag;
 
       // enable tag close button
       let closeTag = document.querySelector("#current-tag button");
