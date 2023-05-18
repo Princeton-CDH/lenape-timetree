@@ -4,6 +4,8 @@ title: Lunaapahkiing Princeton Timetree
 theme: timetree
 paginate: 20
 timeout: 45s # increase to allow time for image processing
+googleAnalytics: G-E02J9KBNN6
+enableRobotsTXT: true
 
 params:
   description: >-
