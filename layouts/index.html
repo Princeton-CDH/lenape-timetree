@@ -39,6 +39,13 @@
   <data class="leaf-data" value='{{ partial "leaf_data.json" . }}'></data>
   <data class="tag-data" value='{{ partial "tags.json" . }}'></data>
   <data class="env-data" value="{{ dict "env" hugo.Environment "branches" .Site.Params.branches "visual_debug" .Site.Params.visual_debug | jsonify }}"/>
+  <noscript>
+    <div id="noscript">
+    This is an interactive visualization; please turn on Javascript to explore the Lunaapahkiing Princeton Timetree.
+      <img src="/img/timetree.svg"/>
+    </div>
+
+  </noscript>
 </div>
 
 
