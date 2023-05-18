@@ -697,7 +697,7 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
     // zoom in selected leaf on page load or when a tag is closed
     if (this.isMobile()) {
       // - determine which leaf is currently selected
-      let state = this.leafmanager.currentState();
+      let state = this.leafmanager.currentState;
       // if a leaf is currently selected, find datum for the leaf id
       if (state.leaf) {
         let nodes = this.network.nodes.filter((d) => d.id == state.leaf);
@@ -714,7 +714,7 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
   zoomToTagged() {
     // zoom out the amount needed to show all leaves with the current tag
     if (this.isMobile()) {
-      let state = this.leafmanager.currentState();
+      let state = this.leafmanager.currentState;
       // get data points for all leaves with this tag
       let nodes = this.network.nodes.filter(
         (d) => d.tags != undefined && d.tags.includes(state.tag)
