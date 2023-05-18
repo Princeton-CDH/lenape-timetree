@@ -37,6 +37,12 @@ i[class^="ph-"] {
 .ph-copyright.ph-bold {
   @include phosphoricon("copyright-bold.svg");
 }
+.ph-plus.ph-bold {
+  @include phosphoricon("plus-bold.svg");
+}
+.ph-minus.ph-bold {
+  @include phosphoricon("minus-bold.svg");
+}
 
 // leaf icon for branches;
 // currently assumes applied to a pseudo-element

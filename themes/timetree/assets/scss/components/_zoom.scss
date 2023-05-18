@@ -1,0 +1,62 @@
+body.home {
+  svg {
+    // on mobile at default zoom level, don't show labels
+    #labels {
+      opacity: 0;
+      transition: opacity 0.5s ease;
+
+      // always show labels on desktop
+      @include for-desktop-up {
+        opacity: 100%;
+      }
+    }
+  }
+
+  // show labels and reset button when zoomed
+  &.zoomed #labels,
+  &.zoomed .reset-zoom {
+    opacity: 100%;
+    pointer-events: auto;
+  }
+
+  #zoom-controls {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    button {
+      background-color: $nav-bg-color;
+      width: 40px;
+      height: 40px;
+      padding: 8px;
+      text-align: center;
+      cursor: pointer;
+      padding: 8px;
+      transition: opacity 0.5s ease;
+
+      i {
+        width: 22px;
+        height: 22px;
+        display: inline-block;
+      }
+
+      &[disabled="true"] {
+        i {
+          opacity: 0.2;
+        }
+      }
+    }
+
+    @include for-mobile {
+      button.reset-zoom[disabled="true"] {
+        // hidden by default on mobile
+        opacity: 0;
+        pointer-events: none;
+      }
+    }
+  }
+}
