@@ -76,13 +76,13 @@ are the same, only include the caption and source on the last image.
 
 #### Image sizes
 
-Portrait images
-Recommended min height 1800px
-Absolute min height 864px
+Portrait images:
+- Recommended min height: 1800px
+- Absolute min height: 864px
 
-Landscape images
-Recommended min width 1440px
-Absolute min width 700px
+Landscape images: 
+- Recommended min width: 1440px
+- Absolute min width: 700px
 
 NOTE: When cropping a portrait image your image may become too narrow with respect to the recommended min height (1800px), therefore try to stick to a portrait 16:9 ratio.
 
@@ -94,5 +94,5 @@ directory and then referenced by filename. Add a caption to display with the aud
 player; note that the caption will be displayed _before_ the player. Example:
 
 ```
-{{<audio src="/audio/lunaapahkiing-pronunciation-mosko.mp3" caption="Listen to a pronunciation of *Lunaapahkiing* by Karen Mosko (Lunaape Language Teacher, Munsee Delaware Nation)" >}}
+{{<audio src="/audio/lunaapahkiing-pronunciation-mosko.mp3" caption="Listen to ... " >}}
 ```
