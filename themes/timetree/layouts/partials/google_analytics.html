@@ -1,0 +1,30 @@
+{{- $pc := .Site.Config.Privacy.GoogleAnalytics -}}
+{{- $baseurl := urls.Parse .Site.BaseURL -}}
+{{- if not $pc.Disable }}{{ with .Site.GoogleAnalytics -}}
+{{ if hasPrefix . "G-"}}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ . }}"></script>
+<script>
+{{ template "__ga_js_set_doNotTrack" $ }}
+if (!doNotTrack) {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ . }}', {
+        anonymize_ip: {{- $pc.AnonymizeIP -}},
+        cookie_domain: '{{ $baseurl.Hostname }}',
+        cookie_flags: 'SameSite=None;Secure',
+    });
+}
+</script>
+{{- end -}}
+{{- end }}{{ end -}}
+
+{{- define "__ga_js_set_doNotTrack" -}}{{/* This is also used in the async version. */}}
+{{- $pc := .Site.Config.Privacy.GoogleAnalytics -}}
+{{- if not $pc.RespectDoNotTrack -}}
+var doNotTrack = false;
+{{- else -}}
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+{{- end -}}
+{{- end -}}

@@ -26,5 +26,5 @@
     {{- $buildOptions := dict "sourceMap" $sourceMap "minify" hugo.IsProduction "target" "es2018" "params" $params -}}
     {{- $js := resources.Get "js/roots.js" | js.Build $buildOptions | fingerprint -}}
     <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
-    {{ template "_internal/google_analytics_async.html" . }}
+    {{ partial "partials/google_analytics.html" . }}
 </head>
