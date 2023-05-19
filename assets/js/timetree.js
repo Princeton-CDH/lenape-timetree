@@ -618,9 +618,14 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
     this.svg.call(this.zoom);
 
     // bind zoom behaviors to zoom control buttons
-    d3.select(".reset-zoom").on("click", this.resetZoom.bind(this));
-    d3.select(".zoom-in").on("click", this.zoomIn.bind(this));
-    d3.select(".zoom-out").on("click", this.zoomOut.bind(this));
+    this.zoomControls = {
+      reset: d3.select(".reset-zoom"),
+      in: d3.select(".zoom-in"),
+      out: d3.select(".zoom-out"),
+    };
+    this.zoomControls.reset.on("click", this.resetZoom.bind(this));
+    this.zoomControls.in.on("click", this.zoomIn.bind(this));
+    this.zoomControls.out.on("click", this.zoomOut.bind(this));
   }
 
   resetZoom() {
@@ -664,18 +669,20 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
     if (transform.k >= 1.2) {
       // enable once we get past 1.2 zoom level
       container.classList.add("zoomed");
-      d3.select(".reset-zoom").attr("disabled", null);
-      d3.select(".zoom-out").attr("disabled", null);
+      // reset and zoom out buttons are both enabled
+      this.zoomControls.reset.attr("disabled", null);
+      this.zoomControls.out.attr("disabled", null);
     } else {
       container.classList.remove("zoomed");
-      d3.select(".reset-zoom").attr("disabled", true);
-      d3.select(".zoom-out").attr("disabled", true);
+      // if not zoomed in, reset and zoom out are disabled
+      this.zoomControls.reset.attr("disabled", true);
+      this.zoomControls.out.attr("disabled", true);
     }
-    if (transform.k == this.maxZoom) {
-      d3.select(".zoom-in").attr("disabled", true);
-    } else {
-      d3.select(".zoom-in").attr("disabled", null);
-    }
+    // disable zoom-in button when we are maximum zoom
+    this.zoomControls.in.attr(
+      "disabled",
+      transform.k == this.maxZoom ? true : null
+    );
   }
 
   selectLeaf(event, d) {
