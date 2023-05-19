@@ -201,7 +201,9 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
 
     // add leaves to nodes by branch, in sequence;
     // create branch+century nodes as we go
-    for (const branch in this.leavesByBranch) {
+    // make sure we follow canonical branch order,
+    // so logical dom order matches visual branch order
+    for (const branch in branches) {
       // *in* for keys
       // let currentBranchIndex; // = null;
       let currentBranchNodeCount = 0;
