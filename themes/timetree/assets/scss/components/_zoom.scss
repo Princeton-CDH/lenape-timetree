@@ -45,6 +45,7 @@ body.home {
       }
 
       &[disabled="true"] {
+        pointer-events: none;
         i {
           opacity: 0.2;
         }
@@ -53,9 +54,8 @@ body.home {
 
     @include for-mobile {
       button.reset-zoom[disabled="true"] {
-        // hidden by default on mobile
+        // hidden when disabled on mobile
         opacity: 0;
-        pointer-events: none;
       }
     }
   }

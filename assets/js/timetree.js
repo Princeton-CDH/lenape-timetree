@@ -617,12 +617,22 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
     // bind zooming behavior to d3 svg selection
     this.svg.call(this.zoom);
 
-    // bind zoom reset behavior to reset button
+    // bind zoom behaviors to zoom control buttons
     d3.select(".reset-zoom").on("click", this.resetZoom.bind(this));
+    d3.select(".zoom-in").on("click", this.zoomIn.bind(this));
+    d3.select(".zoom-out").on("click", this.zoomOut.bind(this));
   }
 
   resetZoom() {
     this.svg.call(this.zoom.transform, d3.zoomIdentity);
+  }
+
+  zoomIn() {
+    this.zoom.scaleBy(this.svg, 1.2);
+  }
+
+  zoomOut() {
+    this.zoom.scaleBy(this.svg, 0.8);
   }
 
   zoomed(event) {
@@ -655,9 +665,16 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
       // enable once we get past 1.2 zoom level
       container.classList.add("zoomed");
       d3.select(".reset-zoom").attr("disabled", null);
+      d3.select(".zoom-out").attr("disabled", null);
     } else {
       container.classList.remove("zoomed");
       d3.select(".reset-zoom").attr("disabled", true);
+      d3.select(".zoom-out").attr("disabled", true);
+    }
+    if (transform.k == this.maxZoom) {
+      d3.select(".zoom-in").attr("disabled", true);
+    } else {
+      d3.select(".zoom-in").attr("disabled", null);
     }
   }
 
