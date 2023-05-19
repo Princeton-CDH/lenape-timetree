@@ -12,6 +12,7 @@ import {
 } from "d3-force";
 import { line, curveNatural } from "d3-shape";
 import { zoom, zoomIdentity, zoomTransform } from "d3-zoom";
+import { drag } from "d3-drag";
 
 import { LeafLabel } from "./labels";
 import { Panel } from "./panel";
@@ -38,6 +39,7 @@ const d3 = {
   zoomIdentity,
   zoomTransform,
   scaleLinear,
+  drag,
 };
 
 // branches are defined and should be displayed in this order
@@ -617,6 +619,15 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
     // bind zooming behavior to d3 svg selection
     this.svg.call(this.zoom);
 
+    // bind drag behaviors for desktop
+    this.svg.call(
+      d3
+        .drag()
+        .on("start", this.dragstarted.bind(this))
+        .on("drag", this.dragged.bind(this))
+        .on("end", this.dragended.bind(this))
+    );
+
     // bind zoom behaviors to zoom control buttons
     this.zoomControls = {
       reset: d3.select(".reset-zoom"),
@@ -683,6 +694,19 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
       "disabled",
       transform.k == this.maxZoom ? true : null
     );
+  }
+
+  dragstarted() {
+    this.svg.attr("cursor", "grabbing");
+  }
+
+  dragged(event) {
+    // apply zoom translation based on the delta from the drag event
+    this.zoom.translateBy(this.svg, event.dx, event.dy);
+  }
+
+  dragended() {
+    this.svg.attr("cursor", "grab");
   }
 
   selectLeaf(event, d) {
