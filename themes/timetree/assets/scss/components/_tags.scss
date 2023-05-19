@@ -83,18 +83,11 @@ $mobile_timetree_height: calc(100vw + 20px);
     cursor: pointer;
     padding: 12px;
     border-left: 2px solid $body-bg-color;
-    outline: none;
 
     i {
       width: 20px;
       height: 20px;
     }
-  }
-
-  // when the close button is focused, outline the whole container,
-  // not just the x
-  &:focus-within {
-    outline: 3px solid $focus-color;
   }
 }
 
