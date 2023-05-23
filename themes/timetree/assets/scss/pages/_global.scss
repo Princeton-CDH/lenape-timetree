@@ -1,7 +1,7 @@
 @import "components/footer";
 @import "components/figures";
 
-$mobile_header_height: 157px;
+$mobile_header_height: 160px;
 $desktop_header_height: 118px; // figma says 125 but that is too much space after tagline
 
 body {
@@ -75,13 +75,14 @@ body > header {
     font-size: 1.1rem;
     line-height: 1.3rem;
     font-weight: 400;
+    margin-bottom: 1.1rem;
     @include for-desktop-up {
       margin-bottom: 1.1rem;
     }
   }
 
   img {
-    margin: 15px 0 16px; /* header already has 20px horizontal padding */
+    margin: 22px 0 8px;
 
     @include for-desktop-up {
       margin: 22px 0 8px; /* horizontal padding set on header */
