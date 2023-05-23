@@ -9,9 +9,11 @@ enableRobotsTXT: true
 
 params:
   description: >-
+    Relations, Removals, Resurgence.
     An interactive timetree displaying interwoven histories of the
     Princeton University community and the Lenape peoples
-    of Lunaapahkiing, “the land of the Lenape.” .
+    of Lunaapahkiing, “the land of the Lenape.”
+  tagline: Relations, Removals, Resurgence
   branches:
     - "Lands + Waters"
     - Communities

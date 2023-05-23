@@ -334,6 +334,23 @@ aside article header aside {
   }
 }
 
+/* special handling for welcome in munsue at the top of the intro*/
+#intro [lang="umu"] strong {
+  font-style: italic;
+  font-weight: 900;
+  font-size: 1.2rem;
+  line-height: 1.8rem;
+  display: inline-block;
+  margin-bottom: 0.2rem;
+  margin-right: 0.2rem;
+
+  @include for-desktop-up {
+    font-size: 1.3rem;
+    line-height: 1.95rem;
+    margin-right: 0.4rem;
+  }
+}
+
 // Error message for leaf load error; hidden by default
 #leaferror {
   display: none;

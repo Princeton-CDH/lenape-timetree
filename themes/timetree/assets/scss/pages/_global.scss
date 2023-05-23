@@ -1,8 +1,8 @@
 @import "components/footer";
 @import "components/figures";
 
-$mobile_header_height: 98px;
-$desktop_header_height: 75px;
+$mobile_header_height: 157px;
+$desktop_header_height: 118px; // figma says 125 but that is too much space after tagline
 
 body {
   /* use grid layout to keep the footer on the bottom */
@@ -60,21 +60,32 @@ body > header {
   height: $mobile_header_height;
   grid-area: header;
 
+  @include for-desktop-up {
+    height: $desktop_header_height;
+  }
+
   h1 {
     margin: 0;
     padding: 0;
+    line-height: 0; // don't add space for line height
+  }
+
+  .tagline {
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.3rem;
+    font-weight: 400;
+    @include for-desktop-up {
+      margin-bottom: 1.1rem;
+    }
   }
 
   img {
     margin: 15px 0 16px; /* header already has 20px horizontal padding */
 
     @include for-desktop-up {
-      margin: 20px 0 15px; /* horizontal padding set on header */
+      margin: 22px 0 8px; /* horizontal padding set on header */
     }
-  }
-
-  @include for-desktop-up {
-    height: $desktop_header_height;
   }
 
   /* info button for mobile */
@@ -217,6 +228,15 @@ em {
   font-style: italic;
 }
 
+strong {
+  font-weight: bold;
+}
+
+sup {
+  vertical-align: super;
+  font-size: smaller;
+}
+
 dl {
   margin-bottom: 1rem;
 
@@ -235,6 +255,10 @@ dl {
   dd + dt {
     margin-top: 0.6rem;
   }
+}
+
+.footnotes {
+  margin: 2.5rem 0 3rem;
 }
 
 /* special case: hanging indent for references on resource page.

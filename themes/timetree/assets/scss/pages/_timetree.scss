@@ -301,9 +301,10 @@ body.home {
       fill: lightgray;
     }
 
-    text:hover,
-    text.select,
-    text.hover {
+    // apply hover style to text only within the viz, not to century axis labels
+    #viz text,
+    #viz text.select,
+    #viz text.hover {
       font-weight: 900;
     }
   }
