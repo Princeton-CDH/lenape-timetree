@@ -32,6 +32,7 @@ body.home main > aside {
     opacity: 0; // visually hidden; announce for screen reader only
     position: absolute;
     top: 0;
+    pointer-events: none; // don't block clicks on active tag button
 
     &:focus-visible {
       outline: none;

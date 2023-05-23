@@ -91,7 +91,8 @@ class Leaf {
       });
     }
 
-    // bind a delegated focus-out handler for focus management within the panel
+    // bind focus-out handler for focus management within the panel;
+    // for keyboard users, treat the panel like a modal
     this.container.addEventListener("focusout", (event) => {
       // if any tab would tab out of the container, transfer focus to close button
       if (
@@ -99,6 +100,20 @@ class Leaf {
         !this.container.contains(event.relatedTarget)
       ) {
         this.container.querySelector("button.close").focus();
+      }
+    });
+    // focus-management for the full page / timetree
+    let body = document.querySelector("body");
+    body.addEventListener("focusout", (event) => {
+      //  when a tag is active, treat the tree like a modal
+      // and contain tabs within the tree
+      let main = body.querySelector("main");
+      if (body.classList.contains("tag-active")) {
+        // if tab moves us out of the main container (tree+panel),
+        // transfer focus to the tag close button
+        if (event.relatedTarget && !main.contains(event.relatedTarget)) {
+          activeTagClose.focus();
+        }
       }
     });
 
