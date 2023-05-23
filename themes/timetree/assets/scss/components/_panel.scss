@@ -328,6 +328,7 @@ body.tag-active.home main > aside {
       padding-left: 8px;
       font-weight: normal;
       text-decoration: none;
+      cursor: default; // don't indicate to sighted users that this is a link
     }
   }
 }

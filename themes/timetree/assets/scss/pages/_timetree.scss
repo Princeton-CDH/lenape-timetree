@@ -271,10 +271,10 @@ body.home {
         @include leaf-styles("d");
       }
 
-      // add visible indicator for branch-start focus target
+      // NOTE: do we need visible indicator for branch-start focus target?
       .branch-start:focus,
       .branch-start:focus-visible {
-        outline: 5px solid $focus-color;
+        // outline: 5px solid $focus-color;
       }
 
       // hide nodes used for layout but not meant to be displayed
