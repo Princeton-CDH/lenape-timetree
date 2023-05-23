@@ -28,6 +28,11 @@ body.home {
     flex-direction: column;
     gap: 8px;
 
+    // align vertically with the panel so it looks better when zoomed in
+    @include for-desktop-up {
+      top: 120px;
+    }
+
     button {
       background-color: $nav-bg-color;
       width: 40px;
