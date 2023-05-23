@@ -10,13 +10,24 @@ figure {
 }
 
 figcaption {
-  font-size: 0.8rem;
-  font-size: 1.1rem;
+  font-size: 0.7rem;
+  line-height: 0.95rem;
   text-align: left;
 
   @include for-desktop-up {
-    font-size: 0.9rem;
-    line-height: 1.35rem;
+    font-size: 0.8rem;
+    line-height: 1.1rem;
+  }
+}
+
+// for audio, add margins so caption is a more aligned with audio player
+figure.audio {
+  audio {
+    margin: 8px 0;
+  }
+
+  figcaption {
+    margin: 0 1.5rem;
   }
 }
 
@@ -45,4 +56,8 @@ img {
       padding: 0 8px;
     }
   }
+}
+
+.attribution {
+  padding-left: 0.5em;
 }
