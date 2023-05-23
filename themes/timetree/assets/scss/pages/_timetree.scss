@@ -454,7 +454,8 @@ article.container article {
   display: none;
 }
 
-body.home #noscript {
+body.home #noscript,
+.view-on-tree {
   margin: 0.6rem 0.8rem 2rem;
   font-size: 0.9rem;
   line-height: 1.35rem;
@@ -473,5 +474,13 @@ body.home #noscript {
     @include for-desktop-up {
       max-width: 13rem;
     }
+  }
+}
+
+.view-on-tree {
+  text-align: center;
+  margin-top: 1.6rem;
+  img {
+    margin: 0.8rem auto;
   }
 }

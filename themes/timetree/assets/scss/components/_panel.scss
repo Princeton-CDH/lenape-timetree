@@ -314,7 +314,7 @@ body.tag-active.home main > aside {
 // - branch legend in intro
 // - branch indicator in individual article when displayed in panel
 #panel-legend li,
-aside article header aside {
+article header aside {
   // color leaf based on branch
   // TODO: consider making a branch to leaf color mapping in one place...
   &.lands-waters::before {
