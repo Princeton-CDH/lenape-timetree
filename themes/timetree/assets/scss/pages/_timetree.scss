@@ -285,9 +285,10 @@ body.home {
     text.leaf-label {
       fill: $body-fg-color;
       // NOTE: previously had two shadows offset +/2px with 2px blur,
-      // but there's a Safari bug with multiple text shadows
+      // but there's a Safari bug with multiple text shadows on tspan
+      // see https://bugs.webkit.org/show_bug.cgi?id=111216
+      text-shadow: $nearblack 2px 2px 2px;
       // text-shadow: $nav-bg-color 2px 2px 2px, $nav-bg-color -2px -2px 2px;
-      text-shadow: $nav-bg-color -4px 2px 4px;
       // Hand cursor for leaf labels
       cursor: pointer;
     }
