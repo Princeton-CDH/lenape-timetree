@@ -758,6 +758,13 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
 
     // programmatic zoom skips filters; check if mobile before auto-zooming
     if (this.isMobile()) {
+      // for leaves lower on the tree, centering on the leaf coordinates
+      // displays the leaf under the info panel; focus below the leaf
+      // as long as we are not too close to the top
+      let adjusted_y = d.y;
+      if (d.y > -450) {
+        adjusted_y += 50;
+      }
       let transform = d3.zoomIdentity.scale(scale);
       // call the zoom handler to scale the century axis
       this.zoomed({ transform });
@@ -765,10 +772,10 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
       // zooming is bound to the svg;
       // scale and translate to the selected leaf or label
       // scale to max zoom level using element coordinates as focus point.
-      this.zoom.scaleTo(this.svg, scale, [d.x, d.y]);
+      this.zoom.scaleTo(this.svg, scale, [d.x, adjusted_y]);
 
       // transform to coordinates for the selected elment
-      this.zoom.translateTo(this.svg, d.x, d.y);
+      this.zoom.translateTo(this.svg, d.x, adjusted_y);
     }
   }
 
