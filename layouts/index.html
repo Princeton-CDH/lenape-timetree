@@ -19,15 +19,6 @@
     <div>
       {{- .Content -}}
     </div>
-
-    {{/* display legend listing each branch; names from site config */}}
-    <ol id="panel-legend">
-      {{- range .Site.Params.branches -}}
-        {{- $branchSlug := replace (replace .  "The" "") "+" "" | urlize -}}
-      <li class="{{ $branchSlug }}"><a href="#{{ $branchSlug }}">{{ . }}</a></li>
-      {{- end -}}
-    </div>
-
   </article>
 
   <div id="leaf-details">
@@ -40,6 +31,13 @@
   <data class="leaf-data" value='{{ partial "leaf_data.json" . }}'></data>
   <data class="tag-data" value='{{ partial "tags.json" . }}'></data>
   <data class="env-data" value="{{ dict "env" hugo.Environment "branches" .Site.Params.branches "visual_debug" .Site.Params.visual_debug | jsonify }}"/>
+  <noscript>
+    <div id="noscript">
+    This is an interactive visualization; please turn on Javascript to explore the Lunaapahkiing Princeton Timetree.
+      <img src="/img/timetree-static.svg"/>
+    </div>
+
+  </noscript>
 </div>
 
 

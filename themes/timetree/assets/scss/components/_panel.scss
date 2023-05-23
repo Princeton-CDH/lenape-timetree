@@ -251,6 +251,19 @@ body.home main > aside {
         }
       }
     }
+
+    // for readability on portrait tablet (which uses mobile layout),
+    // constrain max width and center blocks within the panel
+    > * {
+      max-width: 32em;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    // don't diplay view on tree link when actually viewing on the tree
+    .view-on-tree {
+      display: none;
+    }
   }
 
   // Scrollbar styling advice from: https://www.digitalocean.com/community/tutorials/css-scrollbars
@@ -355,6 +368,23 @@ aside article header aside {
   }
   &.resistance-resurgence::before {
     color: map-get($leaf-color, "d");
+  }
+}
+
+/* special handling for welcome in munsue at the top of the intro*/
+#intro [lang="umu"] strong {
+  font-style: italic;
+  font-weight: 900;
+  font-size: 1.2rem;
+  line-height: 1.8rem;
+  display: inline-block;
+  margin-bottom: 0.2rem;
+  margin-right: 0.2rem;
+
+  @include for-desktop-up {
+    font-size: 1.3rem;
+    line-height: 1.95rem;
+    margin-right: 0.4rem;
   }
 }
 

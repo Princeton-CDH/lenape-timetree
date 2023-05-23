@@ -155,6 +155,30 @@ class Panel {
       .addEventListener("click", this.close.bind(this));
 
     this.infoButton.addEventListener("click", this.showIntro.bind(this));
+
+    // bind a delegated click handler to handle scrolling on footnote links
+    const asideContainer = document.querySelector("aside");
+    asideContainer.addEventListener(
+      "click",
+      this.handleFootnoteLinkClick.bind(this)
+    );
+  }
+
+  handleFootnoteLinkClick(event) {
+    // control scrolling for footnote links, since on mobile
+    // in some browsers it scrolls the entire page rather than the article div
+    let element = event.target;
+    if (
+      element.tagName == "A" &&
+      (element.classList.contains("footnote-ref") ||
+        element.classList.contains("footnote-backref"))
+    ) {
+      event.preventDefault();
+      event.stopPropagation();
+      let ref = element.getAttribute("href").slice(1);
+      let el = document.getElementById(ref);
+      el.closest("article").scrollTop = el.offsetTop - 70;
+    }
   }
 }
 
