@@ -1,0 +1,82 @@
+body[class="404"] {
+  /* can't use .404 notation for numeric classname */
+
+  @include for-mobile {
+    main {
+      // on mobile, match content page margins except for bottom
+      padding: 0.6rem 0.8rem 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      // may need slight negative margin on bottom
+      // to avoid separation between tree and roots
+
+      div {
+        margin-bottom: 1.4rem;
+      }
+
+      figure {
+        margin: 0 0 -3px 0;
+
+        img {
+          vertical-align: bottom;
+          /* adjust the empty tree to match the roots */
+          width: 85%;
+          margin-right: 8%;
+        }
+      }
+    }
+
+    /* size the roots to match the tree?
+
+	or adjust the tree?
+	~ width: 120% and margin-left: -15% 
+	  unset max-inline-size 
+
+		footer svg#roots {
+			width: 82%;
+			margin-left: 13%;
+		}*/
+  }
+
+  // for desktop, match the basic layout of the timeree
+  @include for-desktop-up {
+    main {
+      // desktop is two columns (tree | panel)
+      display: grid;
+      column-gap: $column_gap; //  38px; // space between panel and timetree
+      // reserve 32% for the panel, but limit the size of the tree portion
+      grid-template-columns: calc(68% - 38px) auto;
+      grid-template-areas: "timetree panel";
+      column-gap: $column_gap; // space between panel and timetree
+      padding: 0 40px 0 0; // right margin outside the panel
+
+      // svg scales, so set a min height proportional to viewer width
+      // to ensure the tree does not overlap the header
+      min-height: 40vw;
+
+      > div {
+        grid-area: panel;
+        margin-top: 114px;
+        max-width: 20.5rem; // should match panel on homepage
+      }
+
+      > figure {
+        grid-area: timetree;
+        position: relative;
+        height: 100%;
+        margin-bottom: 0;
+
+        img {
+          // fix to the bottom no matter how the page scales
+          position: absolute;
+          bottom: 5px;
+          /* adjust the empty tree to match the roots */
+          left: 1%;
+          width: 90%;
+        }
+      }
+    }
+  }
+}
