@@ -288,6 +288,25 @@ class TimeTree extends BaseSVG {
     this.svg = svg;
     this.background = background;
 
+    // load graphic for plaque without strings
+    // position and make it look like a leaf for interaction
+    this.vizGroup
+      .append("image")
+      .attr("href", "/img/plaque-nostrings.svg#main")
+      .attr("aria-label", "dedication")
+      .attr("role", "button")
+      .attr("tabindex", 0)
+      .attr("id", "dedication")
+      .attr("data-id", "dedication")
+      .attr("data-url", "/dedication/")
+      .attr("transform", `translate(-70,220) scale(1.35)`)
+      .on("click", this.selectLeaf.bind(this));
+    // add strings separately, for decoration only
+    this.vizGroup
+      .append("use")
+      .attr("href", "/img/plaque-strings.svg#main")
+      .attr("transform", `translate(-70,220) scale(1.35)`);
+
     // enable zooming
     this.initZoom();
 
@@ -565,11 +584,19 @@ class TimeTree extends BaseSVG {
     this.svg.call(this.zoom.transform, d3.zoomIdentity);
   }
 
-  zoomed({ transform }) {
+  zoomed(event) {
     // handle zoom event
+
+    // if triggered by a real event (not a programmatic zoom),
+    // prevent default behavior
+    if (event.sourceEvent) {
+      event.sourceEvent.preventDefault(); // indicates this is a passive event listener
+    }
+
     // update century y-axis for the new scale
+    const transform = event.transform;
     this.gYAxis.call(this.yAxis.scale(transform.rescaleY(this.yScale)));
-    let axisLabelTransform = Math.min(2.75, transform.k);
+    const axisLabelTransform = Math.min(2.75, transform.k);
     // zoom axis labels and backgrounds, but don't zoom all the way
     this.gYAxis
       .selectAll("text")
@@ -582,7 +609,7 @@ class TimeTree extends BaseSVG {
 
     // set zoomed class on timetree container to control visibility of
     // labels and reset button (hidden/disabled by default on mobile)
-    let container = this.svg.node().parentElement;
+    const container = this.svg.node().parentElement;
     if (transform.k >= 1.2) {
       // enable once we get past 1.2 zoom level
       container.classList.add("zoomed");
@@ -600,7 +627,9 @@ class TimeTree extends BaseSVG {
     // TODO: on mobile, this should also scroll to the top of the page
     this.panel.closeIntro(); // close so info button will be active on mobile
     // zoom in on the data point for the selected leaf
-    this.zoomToDatum(d);
+    if (event.target.id != "dedication") {
+      this.zoomToDatum(d);
+    }
   }
 
   zoomToDatum(d, scale) {

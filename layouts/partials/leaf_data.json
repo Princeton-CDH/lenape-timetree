@@ -10,7 +10,8 @@
 		{{/*convert tags to slug form */}}
 		{{- $tags := slice -}} 		
 		{{- range .Params.tags -}}
-			{{- $tags = append $tags (slice (urlize .)) -}}
+  		    {{- $tagSlug := partial "getTagSlug.html" . -}}
+			{{- $tags = append $tags (slice ($tagSlug)) -}}
 		{{- end -}}
 		{{- $pageInfo = merge $pageInfo (dict "tags" $tags) -}}
 		{{/* set optional values  */}}
