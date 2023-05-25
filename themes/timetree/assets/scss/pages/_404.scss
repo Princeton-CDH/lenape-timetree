@@ -15,6 +15,17 @@ body[class="404"] {
       div {
         margin-bottom: 1.4rem;
       }
+
+      figure {
+        margin: 0 0 -3px 0;
+
+        img {
+          vertical-align: bottom;
+          /* adjust the empty tree to match the roots */
+          width: 85%;
+          margin-right: 8%;
+        }
+      }
     }
 
     /* size the roots to match the tree?
@@ -41,6 +52,10 @@ body[class="404"] {
       column-gap: $column_gap; // space between panel and timetree
       padding: 0 40px 0 0; // right margin outside the panel
 
+      // svg scales, so set a min height proportional to viewer width
+      // to ensure the tree does not overlap the header
+      min-height: 40vw;
+
       > div {
         grid-area: panel;
         margin-top: 114px;
@@ -56,9 +71,10 @@ body[class="404"] {
         img {
           // fix to the bottom no matter how the page scales
           position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 100%;
+          bottom: 5px;
+          /* adjust the empty tree to match the roots */
+          left: 1%;
+          width: 90%;
         }
       }
     }
