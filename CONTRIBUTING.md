@@ -42,6 +42,12 @@ Display title is optional, and can be used to set a shorter title for display
 in the timetree while using a longer, more detailed title in the leaf details.
 If not specified, title will be used for both and display_title may be omitted.
 
+### Unpublishing leaves
+
+If there is a leaf that needs to be pulled from the public site for some reason,
+but you don't want to delete the file entirely, you can mark it as a draft
+by adding `draft: true` to the metadata at the top of the file for that leaf.
+
 ### Adding images to leaves
 
 To include an image in the detailed description for a leaf:
@@ -77,10 +83,12 @@ are the same, only include the caption and source on the last image.
 #### Image sizes
 
 Portrait images:
+
 - Recommended min height: 1800px
 - Absolute min height: 864px
 
-Landscape images: 
+Landscape images:
+
 - Recommended min width: 1440px
 - Absolute min width: 700px
 
