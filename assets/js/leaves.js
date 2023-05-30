@@ -160,34 +160,28 @@ class Leaf {
       }
     } else if (tagActive) {
       //  when a tag is active, treat the tree like a modal
-      // and contain tabs within the tree
+      // and contain tabs within the tree + active tag close button
 
-      const timetree = body.querySelector("#timetree");
-      // if focus shift would take us out of the timetree,
-      // shift focus to active tag close button
-      if (!timetree.contains(event.relatedTarget)) {
-        this.activeTagClose.focus();
-      }
-
-      // when the active tag close button loses focus,
-      // focus either the first or the last highlighted leaf
-      // depending on direction of tab / next focus
+      const timetree = document.getElementById("timetree");
       if (event.target == this.activeTagClose) {
-        // if the tab would go into the intro panel, skip ahead
-        // to the first leaf with this tag
         const highlightedLeaves = timetree.querySelectorAll(
           "path.leaf.highlight"
         );
-        let nextLeaf;
+        const firstLeaf = highlightedLeaves[0];
+        const lastLeaf = highlightedLeaves[highlightedLeaves.length - 1];
         // if the next target is inside the container, then it was a
         // tab forward and we tabbed into the intro; skip to first highlighted leaf
         if (this.container.contains(event.relatedTarget)) {
-          nextLeaf = highlightedLeaves[0];
+          firstLeaf.focus();
         } else {
           // otherwise, shift+tab; focus on the last highlighted leaf
-          nextLeaf = highlightedLeaves[highlightedLeaves.length - 1];
+          lastLeaf.focus();
         }
-        nextLeaf.focus();
+      } else if (!timetree.contains(event.relatedTarget)) {
+        // if not tabbing from active tag close button and
+        // next tab would move out of timetree container,
+        // shift focus to active tag close button
+        this.activeTagClose.focus();
       }
     }
   }
