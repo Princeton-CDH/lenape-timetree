@@ -27,6 +27,13 @@ body.home main > aside {
 
   color: $nearwhite;
 
+  // status div for screen reader status should be hidden from sighted users
+  [role="status"][aria-live] {
+    opacity: 0;
+    height: 0;
+    width: 0;
+  }
+
   // hidden anchor element for focus management
   #panel {
     opacity: 0; // visually hidden; announce for screen reader only

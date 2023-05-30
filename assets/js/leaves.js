@@ -315,7 +315,18 @@ class Leaf {
       let activeTag = document.querySelector("#current-tag span");
       // display the tag name based on the slug;
       // as fallback, display the tag id if there is no name found
+      let previousActiveTag = activeTag.textContent;
       activeTag.textContent = this.tags[currentState.tag] || currentState.tag;
+      // when tag filter changes, announce for screen readers that
+      // the tree is filtered and how many leaves are highlighted
+      if (activeTag.textContent != previousActiveTag) {
+        let leafCount = document.querySelectorAll(
+          `path.${currentState.tag}`
+        ).length;
+        this.panel.announce(
+          `Filtering by tag ${activeTag.textContent}; ${leafCount} leaves highlighted`
+        );
+      }
 
       // enable tag close button
       let closeTag = document.querySelector("#current-tag button");
@@ -324,7 +335,14 @@ class Leaf {
       }
     } else {
       // otherwise, remove active tag
-      document.querySelector("body").classList.remove("tag-active");
+      const body = document.querySelector("body");
+      if (body.classList.contains("tag-active")) {
+        // announce when tag filter is removed
+        this.panel.announce("Tag filtering removed");
+      }
+
+      body.classList.remove("tag-active");
+
       // disable active tag close button
       let tagClose = document.querySelector("#current-tag button");
       if (tagClose) {

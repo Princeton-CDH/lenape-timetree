@@ -30,6 +30,8 @@ class Panel {
     this.container = this.el.parentElement;
     this.infoButton = document.querySelector("header .info");
     this.bindHandlers();
+    // aria live container for updates in status
+    this.status = this.container.querySelector("[role=status]");
   }
 
   open(showDetails = true) {
@@ -55,13 +57,17 @@ class Panel {
     document.body.dataset.panelvisible = true;
   }
 
+  get detailsVisible() {
+    return this.container.classList.contains("show-details");
+  }
+
   close(closeDetails = true) {
     // close the intro and enable the info button
     // by default, closes panel entireuly
 
     // determine if leaf details are currently displayed
     // use dataset.showing ?
-    let leafVisible = this.container.classList.contains("show-details");
+    let leafVisible = this.detailsVisible;
 
     // if leaf details are visible and close details is true,
     // deselect the leaf currently displayed, close that also,
@@ -98,6 +104,12 @@ class Panel {
   closeIntro() {
     // close the panel without closing leaf details
     this.close(false);
+  }
+
+  announce(content) {
+    // update the contents of the aria live region
+    // to make polite announcements for screen reader users
+    this.status.textContent = content;
   }
 
   loadURL(url, callback) {
