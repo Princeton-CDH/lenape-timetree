@@ -56,6 +56,11 @@ body > footer {
   }
 }
 
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid $focus-color;
+}
+
 body > header {
   height: $mobile_header_height;
   grid-area: header;

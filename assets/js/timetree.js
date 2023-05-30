@@ -18,6 +18,7 @@ import { Panel } from "./panel";
 import { Leaf, LeafPath, leafSize, randomNumBetween } from "./leaves";
 import { drawTreeSegment, drawTrunk, drawBranches } from "./branches";
 import { BaseSVG } from "./utils";
+import { TimeTreeKeysMixin } from "./keys";
 
 // combine d3 imports into a d3 object for convenience
 const d3 = {
@@ -64,17 +65,17 @@ const forceStrength = {
   center: 0.01, // how strongly drawn to the center of the svg
 
   // custom y force for century
-  centuryY: 7, // draw to Y coordinate for center of assigned century band
+  centuryY: 8, // draw to Y coordinate for center of assigned century band
 
   // custom x force for branch
-  branchX: 0.08, // draw to X coordinate based on branch
+  branchX: 0.09, // draw to X coordinate based on branch
 
   // strength of link force by type of link
   leafToBranch: 3.85, // between leaf and branch-century node
   branchToBranch: 2, // between branch century nodes
 };
 
-class TimeTree extends BaseSVG {
+class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
   constructor(data, tags, params) {
     super(); // call base svg constructor
 
@@ -94,13 +95,14 @@ class TimeTree extends BaseSVG {
     this.network = this.generateNetwork();
 
     this.panel = new Panel();
-    Leaf.bindHandlers();
+    // pass in panel reference, list of ids to ignore on hash change
+    // (i.e., slugs for branches), and tag list
+    this.leafmanager = new Leaf(this.panel, Object.values(branches), tags);
+
     this.drawTimeTree();
-    // make tag list available on leaf object
-    // (currently needed to update active tag button)
-    Leaf.tags = tags;
+
     // update selection to reflect active tag and/or leaf hash in url on page load
-    let status = Leaf.updateSelection();
+    let status = this.leafmanager.updateSelection();
 
     // special case: if a tag is selected without a leaf on page load,
     // hide the intro panel
@@ -134,6 +136,9 @@ class TimeTree extends BaseSVG {
       "tag-deselect",
       this.zoomToSelectedLeaf.bind(this)
     );
+
+    // bind key handling logic; code in timetree keys mixin
+    this.bindKeypressHandler();
   }
 
   checkLeafData() {
@@ -196,7 +201,9 @@ class TimeTree extends BaseSVG {
 
     // add leaves to nodes by branch, in sequence;
     // create branch+century nodes as we go
-    for (const branch in this.leavesByBranch) {
+    // make sure we follow canonical branch order,
+    // so logical dom order matches visual branch order
+    for (const branch in branches) {
       // *in* for keys
       // let currentBranchIndex; // = null;
       let currentBranchNodeCount = 0;
@@ -216,13 +223,24 @@ class TimeTree extends BaseSVG {
           let branchId = `${branch}-century${leaf.century}-${index}`;
           currentCentury = leaf.century;
           currentBranchNodeCount = 0;
+
+          let type = "branch";
+          let id = `${branch}-century${leaf.century}-${index}`;
+          let title = `${branch} ${leaf.century}century (${index})`;
+
+          // first node for each branch will be used to create a heading
+          if (branchIndex == undefined) {
+            type = "branch-start";
+            title = branch; // branch name
+            id = branches[branch]; // slug for this branch
+          }
           nodes.push({
-            id: `${branch}-century${leaf.century}-${index}`,
-            title: `${branch} ${leaf.century}century (${index})`,
-            type: "branch",
+            id: id,
+            title: title,
+            type: type,
             branch: branch,
             century: leaf.century,
-            sort_date: leaf.century * 100 + 50,
+            sort_date: leaf.century * 100, //  + 50,
           });
           // add to links
           branchIndex = nodes.length - 1;
@@ -465,18 +483,41 @@ class TimeTree extends BaseSVG {
       })
       // for accessibility purposes, leaves are buttons
       .attr("role", (d) => {
-        return d.type == "leaf" ? "button" : null;
+        if (d.type == "leaf") {
+          return "button";
+        } else if (d.type == "branch-start") {
+          return "heading";
+        }
+      })
+      .attr("aria-level", (d) => {
+        return d.type == "branch-start" ? 2 : null;
+      })
+      .attr("id", (d) => {
+        return d.type == "branch-start " ? d.id : null;
       })
       .attr("aria-label", (d) => {
-        return d.type == "leaf" ? d.label.text : null;
+        if (d.type == "leaf") {
+          return d.label.text;
+        } else if (d.type == "branch-start") {
+          return d.text;
+        }
       })
       // reference description by id; short descriptions generated in hugo template
       .attr("aria-describedby", (d) => {
         return d.type == "leaf" ? `desc-${d.id}` : null;
       })
-      // make leaves keyboard focusable
-      .attr("tabindex", (d) => (d.type == "leaf" ? 0 : null))
+      // make leaves and branch-start keyboard focusable
+      .attr("tabindex", (d) => {
+        if (d.type == "leaf") {
+          return 0;
+        } else if (d.type == "branch-start") {
+          return -1; // only focusable from link in legend
+        }
+      })
       .attr("stroke-linejoin", "bevel")
+      .attr("id", (d) => {
+        return d.type == "branch-start" ? d.id : null;
+      })
       .attr("data-id", (d) => d.id)
       .attr("data-url", (d) => d.url || d.id)
       .attr("data-sort-date", (d) => d.sort_date)
@@ -613,8 +654,10 @@ class TimeTree extends BaseSVG {
     if (transform.k >= 1.2) {
       // enable once we get past 1.2 zoom level
       container.classList.add("zoomed");
+      d3.select(".reset-zoom").attr("disabled", null);
     } else {
       container.classList.remove("zoomed");
+      d3.select(".reset-zoom").attr("disabled", true);
     }
   }
 
@@ -622,7 +665,7 @@ class TimeTree extends BaseSVG {
     if (event) {
       event.preventDefault();
       event.stopPropagation();
-      Leaf.setCurrentLeaf(event);
+      this.leafmanager.currentLeaf = event;
     }
     // TODO: on mobile, this should also scroll to the top of the page
     this.panel.closeIntro(); // close so info button will be active on mobile
@@ -661,7 +704,7 @@ class TimeTree extends BaseSVG {
     // zoom in selected leaf on page load or when a tag is closed
     if (this.isMobile()) {
       // - determine which leaf is currently selected
-      let state = Leaf.getCurrentState();
+      let state = this.leafmanager.currentState;
       // if a leaf is currently selected, find datum for the leaf id
       if (state.leaf) {
         let nodes = this.network.nodes.filter((d) => d.id == state.leaf);
@@ -678,7 +721,7 @@ class TimeTree extends BaseSVG {
   zoomToTagged() {
     // zoom out the amount needed to show all leaves with the current tag
     if (this.isMobile()) {
-      let state = Leaf.getCurrentState();
+      let state = this.leafmanager.currentState;
       // get data points for all leaves with this tag
       let nodes = this.network.nodes.filter(
         (d) => d.tags != undefined && d.tags.includes(state.tag)
