@@ -82,6 +82,9 @@ body.home main > aside {
     article {
       height: auto;
       overflow: scroll;
+
+      // don't scroll beyond
+      overscroll-behavior: contain;
     }
     > .close {
       height: auto;
