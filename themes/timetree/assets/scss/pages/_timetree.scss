@@ -200,8 +200,10 @@ body.home {
           stroke-width: 0;
         }
 
-        &:focus-visible {
+        &:focus-visible,
+        &.highlight:focus-visible {
           stroke: $focus-color;
+          stroke-width: 3px;
           outline: none; // disable browser default focus outline box
         }
 
@@ -232,6 +234,7 @@ body.home {
 
         &[aria-disabled="true"] {
           opacity: 0.4;
+          pointer-events: none;
         }
       }
 
@@ -266,6 +269,12 @@ body.home {
       }
       .branch-resistance-resurgence {
         @include leaf-styles("d");
+      }
+
+      // NOTE: do we need visible indicator for branch-start focus target?
+      .branch-start:focus,
+      .branch-start:focus-visible {
+        // outline: 5px solid $focus-color;
       }
 
       // hide nodes used for layout but not meant to be displayed
