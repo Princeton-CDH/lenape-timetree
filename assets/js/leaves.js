@@ -94,12 +94,23 @@ class Leaf {
     // bind focus-out handler for focus management within the panel;
     // for keyboard users, treat the panel like a modal
     this.container.addEventListener("focusout", (event) => {
-      // if any tab would tab out of the container, transfer focus to close button
+      // handle any tab that wolud move focus out of the container
       if (
         event.relatedTarget &&
         !this.container.contains(event.relatedTarget)
       ) {
-        this.container.querySelector("button.close").focus();
+        const closeButton = this.container.querySelector("button.close");
+
+        // if the user is tabbing out of the container and
+        // the close button is the element losing focus,
+        // then this is a shift+tab; shift focus to the last tag
+        if (event.target == closeButton) {
+          this.container.querySelector(".tags a:last-child").focus();
+        } else {
+          // otherwise, user has tabbed through the last tag;
+          // shift focus to the close button
+          closeButton.focus();
+        }
       }
     });
     // focus-management for the full page / timetree
