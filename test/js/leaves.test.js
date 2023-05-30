@@ -92,12 +92,14 @@ describe("Leaf", () => {
       '  <text class="food access">label</text> />' +
       "</svg></div>" +
       "<div id='current-tag'><span/></div><aside/>";
-    let leaf = new Leaf();
+    let leaf = new Leaf(new Panel());
     leaf.currentTag = "battles";
     // expect 3 paths and one label to be highlighted
     expect(document.getElementsByClassName(Leaf.highlightClass).length).toEqual(
       4
     );
+    // announces tag filtering for screen reader
+    expect(leaf.panel.announce).toHaveBeenCalledTimes(1);
   });
 
   describe("setCurrentLeaf", () => {
