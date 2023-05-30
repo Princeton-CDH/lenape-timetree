@@ -83,50 +83,17 @@ class Leaf {
     });
 
     // bind handler to current tag x button to deactivate tag
-    const activeTagClose = document.querySelector("#current-tag .close");
-    if (activeTagClose) {
-      activeTagClose.addEventListener("click", (event) => {
+    this.activeTagClose = document.querySelector("#current-tag .close");
+    if (this.activeTagClose) {
+      this.activeTagClose.addEventListener("click", (event) => {
         this.currentTag = null;
         this.container.dispatchEvent(TagDeselectEvent);
       });
     }
 
-    // bind focus-out handler for focus management within the panel;
-    // for keyboard users, treat the panel like a modal
-    this.container.addEventListener("focusout", (event) => {
-      // handle any tab that wolud move focus out of the container
-      if (
-        event.relatedTarget &&
-        !this.container.contains(event.relatedTarget)
-      ) {
-        const closeButton = this.container.querySelector("button.close");
-
-        // if the user is tabbing out of the container and
-        // the close button is the element losing focus,
-        // then this is a shift+tab; shift focus to the last tag
-        if (event.target == closeButton) {
-          this.container.querySelector(".tags a:last-child").focus();
-        } else {
-          // otherwise, user has tabbed through the last tag;
-          // shift focus to the close button
-          closeButton.focus();
-        }
-      }
-    });
-    // focus-management for the full page / timetree
+    // focus management for the full page / timetree and within the panel
     let body = document.querySelector("body");
-    body.addEventListener("focusout", (event) => {
-      //  when a tag is active, treat the tree like a modal
-      // and contain tabs within the tree
-      let main = body.querySelector("main");
-      if (body.classList.contains("tag-active")) {
-        // if tab moves us out of the main container (tree+panel),
-        // transfer focus to the tag close button
-        if (event.relatedTarget && !main.contains(event.relatedTarget)) {
-          activeTagClose.focus();
-        }
-      }
-    });
+    body.addEventListener("focusout", this.handleFocusOut.bind(this));
 
     // listen for hash change; update selected leaf on change
     window.addEventListener("hashchange", this.updateSelection.bind(this));
@@ -138,6 +105,90 @@ class Leaf {
         "panel-close",
         this.handleClosePanel.bind(this)
       );
+    }
+  }
+
+  handleFocusOut(event) {
+    if (!event.relatedTarget) {
+      // if event doesn't have a next target for focus,
+      // then we don't need to handle it
+      return true;
+    }
+    if (event.relatedTarget.id == "panel") {
+      // when code transfers focus to the panel, do nothing
+      return true;
+    }
+
+    const body = document.querySelector("body");
+
+    // boolean indicating whether a tag is active
+    const tagActive = body.classList.contains("tag-active");
+    // boolean indicating whether leaf details are visible
+    const leafVisible = this.panel.detailsVisible;
+
+    // when a leaf is visible and focus out event is inside panel,
+    // keep focus contained within the panel (act like a modal)
+    if (leafVisible && this.container.contains(event.target)) {
+      // handle any tab that would move focus out of the container
+      const closeButton = this.container.querySelector("button.close");
+      if (
+        event.relatedTarget &&
+        !this.container.contains(event.relatedTarget)
+      ) {
+        // if the user is tabbing out of the container and
+        // the close button is the element losing focus,
+        // then this is a shift+tab; shift focus to the last tag
+        if (event.target == closeButton) {
+          this.container.querySelector(".tags a:last-child").focus();
+        } else {
+          // otherwise, user has tabbed through the last tag;
+          // shift focus to the close button
+          closeButton.focus();
+        }
+      } else if (event.relatedTarget == this.activeTagClose) {
+        // when a tag is active, the tag close button is focusable
+        // and inside the panel; skip it
+
+        // if focus just left the close button,
+        // move focus to beginning of the panel
+        if (event.target == closeButton) {
+          this.container.querySelector("#panel").focus();
+        } else {
+          // otherwise, move focus to the close button
+          closeButton.focus();
+        }
+      }
+    } else if (tagActive) {
+      //  when a tag is active, treat the tree like a modal
+      // and contain tabs within the tree
+
+      const timetree = body.querySelector("#timetree");
+      // if focus shift would take us out of the timetree,
+      // shift focus to active tag close button
+      if (!timetree.contains(event.relatedTarget)) {
+        this.activeTagClose.focus();
+      }
+
+      // when the active tag close button loses focus,
+      // focus either the first or the last highlighted leaf
+      // depending on direction of tab / next focus
+      if (event.target == this.activeTagClose) {
+        // if the tab would go into the intro panel, skip ahead
+        // to the first leaf with this tag
+        const highlightedLeaves = timetree.querySelectorAll(
+          "path.leaf.highlight"
+        );
+        let nextLeaf;
+        // if the next target is inside the container, then it was a
+        // tab forward and we tabbed into the intro; skip to first highlighted leaf
+        if (this.container.contains(event.relatedTarget)) {
+          nextLeaf = highlightedLeaves[0];
+        } else {
+          // otherwise, shift+tab; focus on the last highlighted leaf
+          nextLeaf = highlightedLeaves[highlightedLeaves.length - 1];
+        }
+        nextLeaf.focus();
+      }
     }
   }
 
@@ -154,7 +205,7 @@ class Leaf {
 
   set currentLeaf(event) {
     // Are we deselecting a leaf?
-    // deselect if called with no argument or on panel-close evenp
+    // deselect if called with no argument or on panel-close event
     if (event == undefined || event == null || event.type == "panel-close") {
       // remove hash
       let urlNoHash = window.location.pathname + window.location.search;
@@ -261,10 +312,10 @@ class Leaf {
       // add indicator to container to dim the untagged portions of the tree
       document.querySelector("body").classList.add("tag-active");
 
-      let currentTag = document.querySelector("#current-tag span");
+      let activeTag = document.querySelector("#current-tag span");
       // display the tag name based on the slug;
       // as fallback, display the tag id if there is no name found
-      currentTag.textContent = this.tags[currentState.tag] || currentState.tag;
+      activeTag.textContent = this.tags[currentState.tag] || currentState.tag;
 
       // enable tag close button
       let closeTag = document.querySelector("#current-tag button");
