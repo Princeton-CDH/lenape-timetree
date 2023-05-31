@@ -417,6 +417,16 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
     //   .attr("cx", 0)
     //   .attr("cy", this.min_y + this.height);
 
+    // for debugging: mark the bounds of the svg
+    // this.svg
+    //   .append("rect")
+    //   .attr("x", this.min_x)
+    //   .attr("y", this.min_y)
+    //   .attr("width", this.width)
+    //   .attr("height", this.height)
+    //   .attr("stroke", "red")
+    //   .attr("fill", "none");
+
     let simulation = d3
       .forceSimulation(this.network.nodes)
       .force("charge", d3.forceManyBody().strength(forceStrength.charge))
@@ -464,7 +474,9 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
             }
             return 0;
           })
-      );
+      )
+      .force("bounds", this.leafBounds.bind(this));
+
     // run simulation for 300 ticks without animation
     simulation.tick(300);
 
@@ -588,6 +600,28 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
     simulation.on("tick", this.updatePositions.bind(this));
     simulation.tick();
     // simulation.stop();
+  }
+
+  leafBounds() {
+    // custom bounds force to make sure leaves stay within the svg bounds
+    // so that all leaves will always be visible
+    // adapted from https://stackoverflow.com/a/51315920/9706217
+
+    // apply a small margin to the edge of the svg and where leaves are allowed
+    const margin = 40; // ~ leaf width
+    const leaf_bounds = {
+      min_y: this.min_y + margin,
+      min_x: this.min_x + margin,
+      max_x: this.min_x + this.width - margin,
+    };
+
+    for (let node of this.network.nodes) {
+      // main concern is leaves going off the top of the svg
+      // limit y coordinate to our local min y
+      node.y = Math.max(leaf_bounds.min_y, node.y);
+      // also keep leaves from going off the sides in either direction
+      node.x = Math.max(leaf_bounds.min_x, Math.min(leaf_bounds.max_x, node.x));
+    }
   }
 
   maxZoom = 4; // maximum zoom level
