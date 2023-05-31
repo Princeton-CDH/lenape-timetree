@@ -7,6 +7,7 @@ tags:
 - Princeton lands
 - routes
 title: Greenland Tavern
+featured: true
 ---
 
 In 1683, the Henry Greenland Tavern is established along the Assunpink Trail, equidistant from the settlements of Philadelphia and New York. 1683 is the settlement date declared on the “Welcome to Princeton” signs today. Although the University declares that the “settlement” date is 1696, by then “Princeton” lands have been lived on for millennia by Lunaapeew.

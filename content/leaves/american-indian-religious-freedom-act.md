@@ -6,6 +6,7 @@ tags:
 - religion
 - alliances
 title: "\u201CAmerican Indian Religious Freedom Act\u201D"
+featured: true
 ---
 
 Enacted in 1978, the American Indian Religious Freedom Act protects Native Americans'  freedom to engage in traditional Indigenous religious and cultural practices, many of which the U.S. government had previously banned. The act also protects access and use of sites and sacred objects for such practices.

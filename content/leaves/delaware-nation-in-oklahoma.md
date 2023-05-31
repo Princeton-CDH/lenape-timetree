@@ -11,6 +11,7 @@ tags:
 - Unami
 - Munsee
 title: Delaware Nation in Oklahoma
+featured: true
 ---
 
 Group of both Unami and Munsee speakers migrate further west to a settlement near what is today Cape Girardeau, Missouri, at the invitation of the Spanish (Cape Girardeau Delawares later settle in Texas and eventually end up on a reservation with Caddo and Wichita communities in present-day western Oklahoma – recognized today as Delaware Nation).
