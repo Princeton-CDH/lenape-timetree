@@ -1,7 +1,7 @@
 body.home {
   svg {
     // on mobile at default zoom level, don't show labels
-    #labels {
+    #labels text {
       opacity: 0;
       transition: opacity 0.5s ease;
 
@@ -13,9 +13,22 @@ body.home {
   }
 
   // show labels when zoomed
-  .zoomed svg #labels {
+  .zoomed svg #labels text {
     opacity: 100%;
     pointer-events: auto;
+  }
+
+  // on mobile only, show labels for featured leaves when unzoomed
+  @include for-mobile {
+    // labels for featured leaves should be displayed when unzoomed
+    svg #labels text.featured {
+      opacity: 100%;
+    }
+
+    // increase font size for text when the tree is not zoomed
+    #timetree:not(.zoomed) text {
+      font-size: 20px;
+    }
   }
 
   #zoom-controls {
