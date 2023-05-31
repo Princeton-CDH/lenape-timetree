@@ -12,6 +12,7 @@ import {
 } from "d3-force";
 import { line, curveNatural } from "d3-shape";
 import { zoom, zoomIdentity, zoomTransform } from "d3-zoom";
+import { drag } from "d3-drag";
 
 import { LeafLabel } from "./labels";
 import { Panel } from "./panel";
@@ -38,6 +39,7 @@ const d3 = {
   zoomIdentity,
   zoomTransform,
   scaleLinear,
+  drag,
 };
 
 // branches are defined and should be displayed in this order
@@ -617,12 +619,36 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
     // bind zooming behavior to d3 svg selection
     this.svg.call(this.zoom);
 
-    // bind zoom reset behavior to reset button
-    d3.select(".reset-zoom").on("click", this.resetZoom.bind(this));
+    // bind drag behaviors for desktop
+    this.svg.call(
+      d3
+        .drag()
+        .on("start", this.dragstarted.bind(this))
+        .on("drag", this.dragged.bind(this))
+        .on("end", this.dragended.bind(this))
+    );
+
+    // bind zoom behaviors to zoom control buttons
+    this.zoomControls = {
+      reset: d3.select(".reset-zoom"),
+      in: d3.select(".zoom-in"),
+      out: d3.select(".zoom-out"),
+    };
+    this.zoomControls.reset.on("click", this.resetZoom.bind(this));
+    this.zoomControls.in.on("click", this.zoomIn.bind(this));
+    this.zoomControls.out.on("click", this.zoomOut.bind(this));
   }
 
   resetZoom() {
     this.svg.call(this.zoom.transform, d3.zoomIdentity);
+  }
+
+  zoomIn() {
+    this.zoom.scaleBy(this.svg, 1.2);
+  }
+
+  zoomOut() {
+    this.zoom.scaleBy(this.svg, 0.8);
   }
 
   zoomed(event) {
@@ -654,11 +680,33 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
     if (transform.k >= 1.2) {
       // enable once we get past 1.2 zoom level
       container.classList.add("zoomed");
-      d3.select(".reset-zoom").attr("disabled", null);
+      // reset and zoom out buttons are both enabled
+      this.zoomControls.reset.attr("disabled", null);
+      this.zoomControls.out.attr("disabled", null);
     } else {
       container.classList.remove("zoomed");
-      d3.select(".reset-zoom").attr("disabled", true);
+      // if not zoomed in, reset and zoom out are disabled
+      this.zoomControls.reset.attr("disabled", true);
+      this.zoomControls.out.attr("disabled", true);
     }
+    // disable zoom-in button when we are maximum zoom
+    this.zoomControls.in.attr(
+      "disabled",
+      transform.k == this.maxZoom ? true : null
+    );
+  }
+
+  dragstarted() {
+    this.svg.attr("cursor", "grabbing");
+  }
+
+  dragged(event) {
+    // apply zoom translation based on the delta from the drag event
+    this.zoom.translateBy(this.svg, event.dx, event.dy);
+  }
+
+  dragended() {
+    this.svg.attr("cursor", "grab");
   }
 
   selectLeaf(event, d) {
