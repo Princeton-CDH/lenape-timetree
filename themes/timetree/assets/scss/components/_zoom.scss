@@ -48,7 +48,9 @@ body.home {
         display: inline-block;
       }
 
-      &[disabled="true"] {
+      // visual indication that buttons are disabled
+      &[disabled="true"],
+      &[disabled] {
         pointer-events: none;
         i {
           opacity: 0.2;
