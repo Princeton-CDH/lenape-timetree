@@ -558,6 +558,11 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
         if (d.tags != undefined) {
           classes.push(...d.tags);
         }
+        // a few leaves are marked as featured to show labels
+        // on mobile when not zoomed
+        if (d.featured) {
+          classes.push("featured");
+        }
         return classes.join(" ");
       })
       // .text((d) => d.label.text)
