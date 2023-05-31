@@ -4,7 +4,6 @@ import { scaleLinear } from "d3-scale";
 import {
   forceSimulation,
   forceManyBody,
-  forceCenter,
   forceCollide,
   forceLink,
   forceX,
@@ -28,7 +27,6 @@ const d3 = {
   selectAll,
   forceSimulation,
   forceManyBody,
-  forceCenter,
   forceCollide,
   forceLink,
   forceX,
@@ -63,18 +61,16 @@ function getBranchStyle(branchName) {
 const forceStrength = {
   // standard d3 forces
   charge: -15, // simulate gravity (attraction) if the strength is positive, or electrostatic charge (repulsion) if the strength is negative
-  manybody: -35, // A positive value causes nodes to attract each other, similar to gravity, while a negative value causes nodes to repel each other, similar to electrostatic charge; d3 default is -30
-  center: 0.01, // how strongly drawn to the center of the svg
 
   // custom y force for century
-  centuryY: 8, // draw to Y coordinate for center of assigned century band
+  centuryY: 10, // draw to Y coordinate for center of assigned century band
 
   // custom x force for branch
-  branchX: 0.09, // draw to X coordinate based on branch
+  branchX: 0.4, // draw to X coordinate based on branch
 
   // strength of link force by type of link
-  leafToBranch: 3.85, // between leaf and branch-century node
-  branchToBranch: 2, // between branch century nodes
+  leafToBranch: 4, // between leaf and branch-century node
+  branchToBranch: 3, // between branch century nodes
 };
 
 class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
@@ -333,7 +329,7 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
     // create a y-axis for plotting the leaves by date
     // let yAxisHeight = this.height * 0.6; // leafContainerHeight * this.centuries.length;
     let yAxisHeight = 90 * 6;
-    let axisMin = this.min_y + 5;
+    let axisMin = this.min_y + 30;
 
     // now generating min/max years in hugo json data
     let leafYears = [this.leafStats.maxYear, this.leafStats.minYear];
@@ -396,7 +392,7 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
         branchMargin + min_x + i * branchWidth + branchWidth / 2;
     }
 
-    this.trunkTop = this.yScale(this.leafStats.minYear);
+    this.trunkTop = this.yScale(this.leafStats.minYear - 15);
     drawTrunk(
       background,
       [this.min_x, this.min_y, this.width, this.height],
@@ -419,18 +415,21 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
     //   .attr("cx", 0)
     //   .attr("cy", this.min_y + this.height);
 
+    // for debugging: mark the bounds of the svg
+    // this.svg
+    //   .append("rect")
+    //   .attr("x", this.min_x)
+    //   .attr("y", this.min_y)
+    //   .attr("width", this.width)
+    //   .attr("height", this.height)
+    //   .attr("stroke", "red")
+    //   .attr("fill", "none");
+
     let simulation = d3
       .forceSimulation(this.network.nodes)
       .force("charge", d3.forceManyBody().strength(forceStrength.charge))
-      // .force("manyBody", d3.forceManyBody().strength(forceStrength.manyBody))
-      .force(
-        "center",
-        d3.forceCenter(0, -this.height / 4).strength(forceStrength.center)
-      )
-      // .force("center", d3.forceCenter(0, this.min_y + this.height / 4).strength(forceStrength.center))
-      // .force("center", d3.forceCenter([this.width/2, this.height/2]).strength(forceStrength.center))
       // .alpha(0.1)
-      // .alphaDecay(0.2)
+      .alphaDecay(0.2)
       .force(
         "collide",
         d3.forceCollide().radius((d) => {
@@ -466,9 +465,12 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
             }
             return 0;
           })
-      );
-    // run simulation for 300 ticks without animation
-    simulation.tick(300);
+      )
+      .force("bounds", this.leafBounds.bind(this));
+
+    // run simulation for 30 ticks without animation to set positions
+    // (30 is enough with alpha decay of 0.2; need 300 with default alpha decay)
+    simulation.tick(30);
 
     // define once an empty path for nodes we don't want to display
     var emptyPath = d3.line().curve(d3.curveNatural)([[0, 0]]);
@@ -590,6 +592,28 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
     simulation.on("tick", this.updatePositions.bind(this));
     simulation.tick();
     // simulation.stop();
+  }
+
+  leafBounds() {
+    // custom bounds force to make sure leaves stay within the svg bounds
+    // so that all leaves will always be visible
+    // adapted from https://stackoverflow.com/a/51315920/9706217
+
+    // apply a small margin to the edge of the svg and where leaves are allowed
+    const margin = 40; // ~ leaf width
+    const leaf_bounds = {
+      min_y: this.min_y + margin,
+      min_x: this.min_x + margin,
+      max_x: this.min_x + this.width - margin,
+    };
+
+    for (let node of this.network.nodes) {
+      // main concern is leaves going off the top of the svg
+      // limit y coordinate to our local min y
+      node.y = Math.max(leaf_bounds.min_y, node.y);
+      // also keep leaves from going off the sides in either direction
+      node.x = Math.max(leaf_bounds.min_x, Math.min(leaf_bounds.max_x, node.x));
+    }
   }
 
   maxZoom = 4; // maximum zoom level
