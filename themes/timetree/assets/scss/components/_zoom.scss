@@ -12,9 +12,8 @@ body.home {
     }
   }
 
-  // show labels and reset button when zoomed
-  &.zoomed #labels,
-  &.zoomed .reset-zoom {
+  // show labels when zoomed
+  .zoomed svg #labels {
     opacity: 100%;
     pointer-events: auto;
   }
