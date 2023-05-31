@@ -8,4 +8,4 @@ tags:
 title: Cheswold, DE
 ---
 
-﻿Area known as “Cheswold” in Kent County, Delaware (92 miles from Princeton) becomes a village of coalescing Lunaape and Nanticoke families
+﻿Area known as “Cheswold” in Kent County, Delaware (92 miles from Princeton) becomes a village of coalescing Lunaape and Nanticoke families.
