@@ -1,11 +1,11 @@
 /* styles for images and figures */
 
 figure {
-  margin: 0.6rem 0 0.8rem;
+  margin: 1.2em 0 0.8rem;
   text-align: center;
 
   @include for-desktop-up {
-    margin: 0.6rem 0 1rem;
+    margin: 1.2rem 0 1rem;
   }
 }
 
@@ -60,4 +60,14 @@ img {
 
 .attribution {
   padding-left: 0.5em;
+}
+
+// figure on a content page
+.page {
+  @include for-desktop-up {
+    figure {
+      max-width: 64%;
+      margin: 0.8rem auto 1.4rem;
+    }
+  }
 }
