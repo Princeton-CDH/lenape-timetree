@@ -8,3 +8,4 @@ Dedicated to Karen Dolson Mosko, Lunaape Language Teacher, Munsee Delaware Natio
 >
 > <cite>Karen Mosko</cite>
 
+{{< figure src="images/mosko-and-students.jpg" alt="..." caption="Language keeper Karen Mosko with her students at the Munsee-Delaware Nation's Maawehleewak (traditional gathering), July 2, 2022." >}}
