@@ -12,7 +12,7 @@ tags:
 title: Delaware Treaty
 ---
 
-Following Civil War, Delaware suffering under pressure of increased white settlement and U.S.government,  sign final treaty, the 1866 Delaware Treaty; the Delaware Council “gives up” their reservation in Kansas and relocate to Indian Territory; just under 1,000 Delaware migrate to Cherokee land at an area equal to 160 acres a head.
+Following the Civil War, the Delaware suffer under pressure of increased white settlement in Kansas. They sign a final treaty, the 1866 Delaware Treaty, in which the Delaware Council “gives up” their reservation in Kansas and agrees to relocate to Indian Territory. Just under 1,000 Delawares migrate to Cherokee land at an area equal to 160 acres a head.
 
 {{< figure src="images/removals/delaware-treaty-a.jpg" alt="detail from an image of the treaty" caption="Walter S. Logan, reprinted by Richard C. Adams" attr="Library of Congress" attrlink="https://www.loc.gov/resource/gdcmassbookdig.allotmentoflands02usco/?sp=19&st=text">}}
 
