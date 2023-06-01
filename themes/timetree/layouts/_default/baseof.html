@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
     {{- partial "head.html" . -}}
+    {{- block "page_meta" . -}}{{- end -}}
+    </head>
     <body class="{{ .Kind }}"> {{/* home, taxonomy, etc */}}
         {{- partial "header.html" . -}}
         {{- partial "footer.html" . -}}  {{/* earlier in dom for access to nav */}}
