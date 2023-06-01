@@ -5,6 +5,16 @@
 ![Node version](https://img.shields.io/badge/node-18-blue)
 [![visual regression testing](https://percy.io/static/images/percy-badge.svg)](https://percy.io/2cf28a24/lenape-timetree)
 
+## License
+
+### Content
+
+Site content is licensed under the [Creative Commons Attribution-NonCommercial 4.0 International License (CC-BY-NC)](http://creativecommons.org/licenses/by-nc/4.0/).
+
+### Software
+
+The software for this project is licensed under the [Apache 2.0 License](LICENSE).
+
 ## Developer + contributor setup instructions
 
 For instructions on editing site content, refer to [CONTRIBUTING](CONTRIBUTING.md).
