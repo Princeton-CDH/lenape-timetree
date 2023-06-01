@@ -353,6 +353,7 @@ body.tag-active.home main > aside {
       font-weight: normal;
       text-decoration: none;
       cursor: default; // don't indicate to sighted users that this is a link
+      pointer-events: none; // only allow keyboard nav, not click
     }
   }
 }
