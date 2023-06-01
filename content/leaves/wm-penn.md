@@ -11,7 +11,7 @@ tags:
 title: William Penn
 ---
 
-In 1682, William Penn lands in “Delaware Bay” on a ship bearing smallpox pathogens. By then, the land has been designated William Penn’s by English King Charles II to resolve an enormous debt to Penn’s father. Penn already holds lands in West and East New Jersey. Approximately 1,750 British Quakers now live in West Jersey alone.
+In 1682, William Penn lands in the “Delaware Bay” on a ship bearing smallpox pathogens. By then, the land has been designated as William Penn’s by English King Charles II to resolve an enormous debt to Penn’s father. Penn already holds lands in West and East New Jersey. Approximately 1,750 British Quakers now live in West New Jersey alone.
 
 {{< figure src="images/lands-waters/william-penn-b.jpg" alt="A paper has green land near its top, right, and bottom and criss-crossing lines in its middle." >}}
 
