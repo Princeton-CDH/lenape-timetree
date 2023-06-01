@@ -6,7 +6,7 @@ Content Lead
 : Jeffrey Himpele
 
 Technical Lead
-: Rebecca Koeser 
+: Rebecca Sutton Koeser
 
 Design Lead
 : Gissoo Doroudian
