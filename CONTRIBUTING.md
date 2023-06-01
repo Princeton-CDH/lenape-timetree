@@ -42,6 +42,13 @@ Display title is optional, and can be used to set a shorter title for display
 in the timetree while using a longer, more detailed title in the leaf details.
 If not specified, title will be used for both and display_title may be omitted.
 
+### Featured leaves
+
+On mobile, only labels for featured leaves are displayed on the default view
+(when the tree is unzoomed). To mark a leaf as featured,
+add `featured: true` to the metadata for that leaf. This should be used
+sparingly!
+
 ### Unpublishing leaves
 
 If there is a leaf that needs to be pulled from the public site for some reason,

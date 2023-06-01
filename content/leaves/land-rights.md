@@ -8,6 +8,7 @@ tags:
 - redress
 - treaties
 title: Recovering New Jersey land rights
+featured: true
 ---
 
 1832: Descendants of Lunaapeew in Wisconsin successfully petition the State of New Jersey for compensation based on claims to lost fishing and hunting rights promised by the Treaty of Easton.

@@ -8,6 +8,7 @@ tags:
 - Iroquois
 - Ohio Country
 title: Midwest Resettlement
+featured: true
 ---
 
 A majority of Munsee and Unami speakers join villages along the Susquehanna, Allegheny, and Ohio rivers (known as Ohio Country) and are referred to collectively as the Delaware. Refugees are obliged to live as protectorates of the Six Nations/Iroquois. The Delawares experience pressure to centralize authority and elect a representative chief, which threatens their clan-based system of shared authority.
