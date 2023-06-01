@@ -9,4 +9,4 @@ tags:
 title: NJ Nanticoke
 ---
 
-Nanticoke live along the Delaware River and unite with the Lenape in New Jersey.
+Nanticoke live along the Delaware River and unite with the Lunaapeew in New Jersey.
