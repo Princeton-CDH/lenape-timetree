@@ -8,4 +8,4 @@ tags:
 title: Emigration
 ---
 
-First Lunaapeew move westward to hills of Eastern PA
+First Lunaapeew move westward to the hills of Eastern Pennslyvania
