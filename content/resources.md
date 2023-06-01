@@ -143,10 +143,5 @@ Zotigh, Dennis. [“A Brief Balance of Power – The 1778 Treaty with the Delawa
 
 [The American Indian Religious Freedom Act, August 11, 1978](https://www.govinfo.gov/content/pkg/COMPS-5293/pdf/COMPS-5293.pdf)
 
-## Other online resources
 
-* [https://findingaids.princeton.edu/catalog/C0140_c03353](https://findingaids.princeton.edu/catalog/C0140_c03353)
-* Maps: [1674 Tinton Falls Lenape Deed & Plots R. Geffken.docx](https://docs.google.com/document/d/1Zfupi_CkFPYnzwUVxfffWwXpN4xu2hsC/edit?usp=sharing&ouid=100693204366909656015&rtpof=true&sd=true)
-* Suzanne’s Transcription: [Tinton Falls deed transcription Aug 1674_SA.docx](https://docs.google.com/document/d/16bePo4rzBqX8bRdxsncMmeGeCmkmn6uT/edit?usp=sharing&ouid=100693204366909656015&rtpof=true&sd=true)
-* Claire Garland research link: [https://njs.libraries.rutgers.edu/index.php/njs/article/view/312](https://njs.libraries.rutgers.edu/index.php/njs/article/view/312) 
 
