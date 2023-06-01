@@ -8,7 +8,7 @@ tags:
 - wars
 - alliances
 - Ohio Country
-title: Post-War Exodus
+title: Post-Revolutionary War Exodus
 ---
 
 In the late 1700s, following the American Revolution, Lunaapeew were largely conceived as pro-British. Many migrated north and west to Canada and Spanish Territory in order to escape American retaliation. Others stayed within Ohio Country.
