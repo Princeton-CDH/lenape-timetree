@@ -6,7 +6,7 @@ sort_date: 1788
 tags:
 - Native students
 - racial killing
-title: Murdered
+title: Murdere
 ---
 
-Chief White Eyes shot and killed by a white man, allegedly in self-defense.
+Chief White Eyes shot is and killed by a white man, allegedly in self-defense.
