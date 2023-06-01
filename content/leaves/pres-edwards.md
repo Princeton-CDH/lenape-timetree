@@ -10,7 +10,7 @@ tags:
 title: President Edwards
 ---
 
-1758 Preacher and Native missionary Jonathan Edwards becomes President of College of New Jersey, dying from a fever two months after taking office following a smallpox inoculation.
+In 1758 preacher and missionary Jonathan Edwards becomes President of the College of New Jersey. He dies from a fever two months after taking office following a smallpox inoculation.
 
 {{< figure src="images/university/president-edwards.jpeg" alt="A man with large brown eyes, a small mouth, and grey hair smiles slightly.">}}
 
