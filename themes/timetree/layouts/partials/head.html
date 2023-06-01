@@ -1,4 +1,3 @@
-<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {{/* output page title before site title unless they are exactly the same */}}
@@ -27,4 +26,3 @@
     {{- $js := resources.Get "js/roots.js" | js.Build $buildOptions | fingerprint -}}
     <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
     {{ partial "partials/google_analytics.html" . }}
-</head>

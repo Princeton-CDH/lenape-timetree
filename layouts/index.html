@@ -1,3 +1,18 @@
+{{ define "page_meta" }}
+<!-- page meta -->
+<link rel="schema.DC" href="http://purl.org/DC/elements/1.0/"/>
+<link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" >
+<meta name="DC.identifier" content="{{ .Permalink | absURL }}" />
+<meta name="DC.title" content="{{ .Site.Title | htmlEscape }}"/>
+<meta name="DC.date" content="{{ .Site.Params.publication_date }}"/>
+<meta name="DC.description" content="{{ .Site.Params.description | plainify | htmlEscape }}" />
+<meta name="DC.publisher" content="Center for Digital Humanities, Princeton University"/>
+<meta name="DC.rights" content="{{ .Site.Params.rights }}"/>
+<meta name="DCTERMS.created" content="{{ .Site.Params.publication_date }}"/>
+{{/* http://purl.org/dc/dcmitype/InteractiveResource */}}
+<meta name="DC.type" content="Interactive Resource"/>
+{{ end }}
+
 {{- define "main" -}}
 
 {{/* minimize js if production; adapted from https://github.com/gohugoio/hugo/issues/9132 */}}
