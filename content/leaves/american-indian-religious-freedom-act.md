@@ -8,7 +8,7 @@ tags:
 title: "\u201CAmerican Indian Religious Freedom Act\u201D"
 ---
 
-Enacted in 1978, The American Indian Religious Freedom Act protects American Indians' freedom to engage in traditional Indigenous religious and cultural practices, many of which the U.S. government had previously banned. The Act also protects access and use of sites and sacred objects for such practices.
+Enacted in 1978, the American Indian Religious Freedom Act protects Native Americans  freedom to engage in traditional Indigenous religious and cultural practices, many of which the U.S. government had previously banned. The act also protects access and use of sites and sacred objects for such practices.
 
 
 {{< figure src="images/resistance-resurgence/american-indian-religious-freedom-act-a.jpg" alt="A dense, typed congressional document has sections by sentence." >}}
