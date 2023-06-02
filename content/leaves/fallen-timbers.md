@@ -13,4 +13,4 @@ Battle of Fallen Timbers (in present-day northwestern Ohio): Americans defeat in
 
 {{< figure src="images/removals/battle-fallen-timbers.jpeg" alt="Depiction of the Battle of Fallen Timbers" attr="Lossing & Barritt / Library of Congress" attrlink="https://www.loc.gov/item/94502645/">}}
 
-[Depiction of Battle of Fallen Timbers.](https://commons.wikimedia.org/wiki/File:Fallen_timbers.jpg#/media/File:Fallen_timbers.jpg)
+View a [depiction of the Battle of Fallen Timbers.](https://commons.wikimedia.org/wiki/File:Fallen_timbers.jpg#/media/File:Fallen_timbers.jpg)

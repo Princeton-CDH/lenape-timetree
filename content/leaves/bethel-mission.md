@@ -14,7 +14,7 @@ In 1746, Presbyterian minister David Brainerd founds Bethel Indian Town, or the 
 
 {{< figure src="images/lands-waters/bethel-indian-town.jpg" alt="page from a book titled the life" caption="Excerpt from David Brainerd's letter to his brother in Bethel reprinted in an 1820 book by F. Westley London." attr="Library of Congress" attrlink="https://www.loc.gov/resource/gdcmassbookdig.lifeofdavidbrain00styl_0/?sp=240&st=text">}}
 
-[Portrait of David Brainerd.](https://commons.wikimedia.org/wiki/File:DavidBrainerd.jpg#/media/File:DavidBrainerd.jpg)
+View a [portrait of David Brainerd](https://commons.wikimedia.org/wiki/File:DavidBrainerd.jpg#/media/File:DavidBrainerd.jpg).
 
 
 

@@ -12,4 +12,4 @@ title: Seneca Nation
 
 A group of predominantly Munsee settle with the Seneca along the Allegheny River. Today they constitute the assimilated members of the Seneca Nation of Indians located on Allegheny Indian Reservation in southwestern New York.
 
-[Map showing Seneca Nation.](https://commons.wikimedia.org/wiki/File:0080R_Allegany_Reservation_Locator_Map.svg#/media/File:0080R_Allegany_Reservation_Locator_Map.svg)
+View a [map showing Seneca Nation](https://commons.wikimedia.org/wiki/File:0080R_Allegany_Reservation_Locator_Map.svg#/media/File:0080R_Allegany_Reservation_Locator_Map.svg).

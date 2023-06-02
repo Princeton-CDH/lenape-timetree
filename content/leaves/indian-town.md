@@ -13,5 +13,4 @@ New Jersey officially recognizes the state’s Nanticoke Lenni-Lenape Tribal Nat
 
 {{< figure src="images/communities/indian-town-b.jpg" alt="Map of Bridgeton" caption="Map of Bridgeton from 1886 produced by the Sanborn Map Company." attr="Princeton University Library" attrlink="https://maps.princeton.edu/catalog/princeton-td96k5437">}}
 
-
 {{< figure src="images/communities/indian-town-c.jpg" alt="Street map of Bridgeton" caption="Different map of Bridgeton from 1886 produced by the Sanborn Map Company." attr="Princeton University Library" attrlink="https://maps.princeton.edu/catalog/princeton-td96k5437">}}

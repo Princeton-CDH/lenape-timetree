@@ -14,5 +14,4 @@ In 1758 preacher and missionary Jonathan Edwards becomes President of the Colleg
 
 {{< figure src="images/university/president-edwards.jpeg" alt="A man with large brown eyes, a small mouth, and grey hair smiles slightly.">}}
 
-
-[Depiction of President Edward's grave created by the H.C. Leighton Company between 1890 and 1960.](https://dpul.princeton.edu/catalog/8c97m100x)
+View a [postcard depicting President Edward's grave created by the H.C. Leighton Company between 1890 and 1960](https://dpul.princeton.edu/catalog/8c97m100x).
