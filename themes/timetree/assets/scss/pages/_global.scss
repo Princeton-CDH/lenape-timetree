@@ -269,9 +269,18 @@ dl {
 
 /* special case: hanging indent for references on resource page.
    Style via class on h2. */
-.references ~ p {
+.references ~ p,
+.citation p {
   padding-left: 1.5rem;
   text-indent: -1.5rem;
+}
+
+.citation {
+  margin: 1.2em 0 1rem 1.2rem;
+
+  @include for-desktop-up {
+    margin: 1.5rem 0 1.5rem 1.5rem;
+  }
 }
 
 /* turn off for paragraphs not immediately after an h2 with reference class */
@@ -282,4 +291,9 @@ h2:not(.references) ~ p {
 
 .tags {
   margin-top: 20px;
+}
+
+title {
+  display: inline;
+  font-style: italic;
 }
