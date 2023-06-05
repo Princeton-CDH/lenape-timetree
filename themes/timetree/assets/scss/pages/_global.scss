@@ -1,7 +1,8 @@
 @import "components/footer";
+@import "components/figures";
 
-$mobile_header_height: 98px;
-$desktop_header_height: 75px;
+$mobile_header_height: 160px;
+$desktop_header_height: 118px; // figma says 125 but that is too much space after tagline
 
 body {
   /* use grid layout to keep the footer on the bottom */
@@ -55,25 +56,42 @@ body > footer {
   }
 }
 
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid $focus-color;
+}
+
 body > header {
   height: $mobile_header_height;
   grid-area: header;
 
+  @include for-desktop-up {
+    height: $desktop_header_height;
+  }
+
   h1 {
     margin: 0;
     padding: 0;
+    line-height: 0; // don't add space for line height
   }
 
-  img {
-    margin: 15px 0 16px; /* header already has 20px horizontal padding */
-
+  .tagline {
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.3rem;
+    font-weight: 400;
+    margin-bottom: 1.1rem;
     @include for-desktop-up {
-      margin: 20px 0 15px; /* horizontal padding set on header */
+      margin-bottom: 1.1rem;
     }
   }
 
-  @include for-desktop-up {
-    height: $desktop_header_height;
+  img {
+    margin: 22px 0 8px;
+
+    @include for-desktop-up {
+      margin: 22px 0 8px; /* horizontal padding set on header */
+    }
   }
 
   /* info button for mobile */
@@ -117,18 +135,165 @@ a:visited {
   color: $body-fg-color;
   font-weight: normal;
   text-decoration: underline;
-  text-decoration-color: $highlight-color;
+  text-decoration-color: $trunk-color;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 4px;
   cursor: pointer;
+  @include for-desktop-up {
+    text-underline-offset: 6px;
+  }
 }
 
-article {
-  margin: 30px;
+// margins for content pages
+body.page {
+  main {
+    padding: 0.6rem 0.8rem 2rem;
 
-  h1 {
-    margin-bottom: 15px;
+    @include for-desktop-up {
+      padding: 0.8rem 0 2rem;
+
+      article {
+        max-width: 42.2rem;
+        margin: 0 auto;
+      }
+    }
   }
+}
+
+// visual design for content pages and tag index page
+body.page,
+body.taxonomy {
+  main {
+    background-image: url("/img/sycamore-mobile.png");
+    background-repeat: no-repeat;
+    background-position: top right;
+
+    @include for-desktop-up {
+      background-image: url("/img/sycamore-desktop.png");
+    }
+  }
+}
+
+p {
+  margin-bottom: 0.6rem;
+}
+
+// h2 immediately after a paragraph or list needs more space
+p + h2,
+ul + h2,
+ol + h2 {
+  margin-top: 0.4rem;
+}
+
+ul,
+ol {
+  list-style-type: disc;
+  margin-left: 1.2rem;
+  margin-bottom: 0.6rem;
+  margin-top: 0.2rem;
+
+  @include for-desktop-up {
+    margin-top: 0.4rem;
+  }
+
+  li::marker {
+    color: $trunk-color;
+    font-size: 1.5em;
+    line-height: 1.35rem;
+
+    @include for-desktop-up {
+      line-height: 1.5rem;
+    }
+  }
+}
+
+ol {
+  list-style-type: decimal;
+
+  li::marker {
+    color: $trunk-color;
+    font-size: 1em;
+  }
+}
+
+blockquote {
+  border-left: 3px solid $trunk-color;
+  padding-left: 1.2em;
+
+  cite {
+    display: block;
+    text-align: right;
+    padding-right: 2em;
+    &::before {
+      content: "— ";
+    }
+  }
+}
+
+em {
+  font-style: italic;
+}
+
+strong {
+  font-weight: bold;
+}
+
+sup {
+  vertical-align: super;
+  font-size: smaller;
+}
+
+dl {
+  margin-bottom: 1rem;
+
+  dt {
+    font-weight: 900;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    margin-bottom: 0.1rem;
+
+    @include for-desktop-up {
+      font-size: 1.1rem;
+      line-height: 1.65rem;
+    }
+  }
+
+  dd + dt {
+    margin-top: 0.6rem;
+  }
+}
+
+.footnotes {
+  margin: 2.5rem 0 3rem;
+}
+
+/* special case: hanging indent for references on resource page.
+   Style via class on h2. */
+.references ~ p,
+.citation p {
+  padding-left: 1.5rem;
+  text-indent: -1.5rem;
+}
+
+.citation {
+  margin: 1.2em 0 1rem 1.2rem;
+
+  @include for-desktop-up {
+    margin: 1.5rem 0 1.5rem 1.5rem;
+  }
+}
+
+/* turn off for paragraphs not immediately after an h2 with reference class */
+h2:not(.references) ~ p {
+  padding-left: 0;
+  text-indent: 0;
 }
 
 .tags {
   margin-top: 20px;
+}
+
+title {
+  display: inline;
+  font-style: italic;
 }

@@ -6,6 +6,7 @@ tags:
 - recognition
 - sovereignty
 title: Land governance
+draft: true
 ---
 
 Lunaape governance over lands and waters in Lunaapahkiing

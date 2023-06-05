@@ -1,0 +1,10 @@
+<div class="citation">
+{{/* author names configured as "lastname, first"; convert all after the first to firstname last format */}}
+    {{- $authors := first 1 .Site.Params.authors -}}
+    {{- range $auth := after 1 .Site.Params.authors -}}
+        {{- $parts := split $auth ", " -}}
+        {{- $name := delimit (slice (index $parts 1) (index $parts 0)) " " -}}
+        {{- $authors = $authors | append $name -}}
+    {{- end -}}
+    <p>{{ delimit $authors ", " " and "}}.&nbsp;<title>{{ .Site.Title }}</title>, version {{ .Site.Params.version }}. {{ .Site.Params.publisher }}, {{ .Site.Params.publication_date }}. {{ .Site.Params.citation_url | markdownify }}</p>
+</div>

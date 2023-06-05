@@ -1,12 +1,15 @@
-// logic to generate a path for drawing leaves
+// logic to generate a path for drawing leaves,
+// and for managing leaf details and tag behavior in the timetree
 
-import { line, curveNatural, curveBumpY } from "d3-shape";
+import { select, selectAll } from "d3-selection";
+import { line, curveNatural } from "d3-shape";
 
 // combine into d3 object for convenience
 const d3 = {
   line,
   curveNatural,
-  curveBumpY,
+  select,
+  selectAll,
 };
 
 // configuration for leaf sizes
@@ -46,35 +49,158 @@ class Leaf {
   static selectedClass = "select";
   static highlightClass = "highlight";
 
-  static bindHandlers() {
-    // bind a delegated click handler to override tag link behavior
-    const asideContainer = document.querySelector("aside");
-    asideContainer.addEventListener("click", (event) => {
+  constructor(panel, ignore_ids, tags) {
+    // store a reference to the panel object
+    this.panel = panel;
+    this.container = document.querySelector("aside");
+    this.bindHandlers();
+    // list of ids to ignore when loading leaf details
+    // (known non-leaf elements, including branch start targets)
+    this.ignore_ids = ignore_ids || [];
+    this.tags = tags || [];
+  }
+
+  static isTag(element) {
+    // check if an element is a tag
+    return (
+      element.tagName == "A" && element.parentElement.classList.contains("tags")
+    );
+  }
+
+  bindHandlers() {
+    // bind a delegated click handler to override tag link behavior;
+    // delegated so it applies to tags in leaf details loaded after bound
+    this.container.addEventListener("click", (event) => {
       let element = event.target;
       // if click target is a link in the tags section, select leaves for that tag
-      if (
-        element.tagName == "A" &&
-        element.parentElement.classList.contains("tags")
-      ) {
+      if (Leaf.isTag(element)) {
         event.preventDefault();
         event.stopPropagation();
-        Leaf.setCurrentTag(element.dataset.tag);
+        this.currentTag = element.dataset.tag;
         element.classList.add(Leaf.selectedClass);
-        asideContainer.dispatchEvent(TagSelectEvent);
+        this.container.dispatchEvent(TagSelectEvent);
       }
     });
 
     // bind handler to current tag x button to deactivate tag
-    const activeTagClose = document.querySelector("#current-tag .close");
-    activeTagClose.addEventListener("click", (event) => {
-      Leaf.setCurrentTag();
-      asideContainer.dispatchEvent(TagDeselectEvent);
-    });
+    this.activeTagClose = document.querySelector("#current-tag .close");
+    if (this.activeTagClose) {
+      this.activeTagClose.addEventListener("click", (event) => {
+        this.currentTag = null;
+        this.container.dispatchEvent(TagDeselectEvent);
+      });
+    }
+
+    // focus management for the full page / timetree and within the panel
+    let body = document.querySelector("body");
+    body.addEventListener("focusout", this.handleFocusOut.bind(this));
+
+    // listen for hash change; update selected leaf on change
+    window.addEventListener("hashchange", this.updateSelection.bind(this));
+
+    // deselect current leaf when the panel is closed
+    if (this.panel && this.panel.el) {
+      // should only be undefined in tests
+      this.panel.el.addEventListener(
+        "panel-close",
+        this.handleClosePanel.bind(this)
+      );
+    }
   }
 
-  static setCurrentLeaf(event) {
+  handleFocusOut(event) {
+    if (!event.relatedTarget) {
+      // if event doesn't have a next target for focus,
+      // then we don't need to handle it
+      return true;
+    }
+    if (event.relatedTarget.id == "panel") {
+      // when code transfers focus to the panel, do nothing
+      return true;
+    }
+
+    const body = document.querySelector("body");
+
+    // boolean indicating whether a tag is active
+    const tagActive = body.classList.contains("tag-active");
+    // boolean indicating whether leaf details are visible
+    const leafVisible = this.panel.detailsVisible;
+
+    // when a leaf is visible and focus out event is inside panel,
+    // keep focus contained within the panel (act like a modal)
+    if (leafVisible && this.container.contains(event.target)) {
+      // handle any tab that would move focus out of the container
+      const closeButton = this.container.querySelector("button.close");
+      if (
+        event.relatedTarget &&
+        !this.container.contains(event.relatedTarget)
+      ) {
+        // if the user is tabbing out of the container and
+        // the close button is the element losing focus,
+        // then this is a shift+tab; shift focus to the last tag
+        if (event.target == closeButton) {
+          this.container.querySelector(".tags a:last-child").focus();
+        } else {
+          // otherwise, user has tabbed through the last tag;
+          // shift focus to the close button
+          closeButton.focus();
+        }
+      } else if (event.relatedTarget == this.activeTagClose) {
+        // when a tag is active, the tag close button is focusable
+        // and inside the panel; skip it
+
+        // if focus just left the close button,
+        // move focus to beginning of the panel
+        if (event.target == closeButton) {
+          this.container.querySelector("#panel").focus();
+        } else {
+          // otherwise, move focus to the close button
+          closeButton.focus();
+        }
+      }
+    } else if (tagActive) {
+      //  when a tag is active, treat the tree like a modal
+      // and contain tabs within the tree + active tag close button
+
+      const timetree = document.getElementById("timetree");
+      if (event.target == this.activeTagClose) {
+        const highlightedLeaves = timetree.querySelectorAll(
+          "path.leaf.highlight"
+        );
+        const firstLeaf = highlightedLeaves[0];
+        const lastLeaf = highlightedLeaves[highlightedLeaves.length - 1];
+        // if the next target is inside the container, then it was a
+        // tab forward and we tabbed into the intro; skip to first highlighted leaf
+        if (this.container.contains(event.relatedTarget)) {
+          firstLeaf.focus();
+        } else {
+          // otherwise, shift+tab; focus on the last highlighted leaf
+          lastLeaf.focus();
+        }
+      } else if (!timetree.contains(event.relatedTarget)) {
+        // if not tabbing from active tag close button and
+        // next tab would move out of timetree container,
+        // shift focus to active tag close button
+        this.activeTagClose.focus();
+      }
+    }
+  }
+
+  handleClosePanel(event) {
+    // if a leaf is selected, transfer focus back to leaf or dedication before closing
+    if (this.currentLeaf != undefined) {
+      document
+        .querySelector(`[tabindex][data-id="${this.currentLeaf}"]`)
+        .focus();
+    }
+    // then clear current leaf
+    this.currentLeaf = event;
+  }
+
+  set currentLeaf(event) {
     // Are we deselecting a leaf?
-    if (event == undefined) {
+    // deselect if called with no argument or on panel-close event
+    if (event == undefined || event == null || event.type == "panel-close") {
       // remove hash
       let urlNoHash = window.location.pathname + window.location.search;
       history.replaceState(null, "", urlNoHash);
@@ -88,29 +214,28 @@ class Leaf {
       history.replaceState(null, "", `#${leafID}`);
     }
     // regardless, update selection
-    Leaf.updateSelection();
+    this.updateSelection();
   }
 
-  static setCurrentTag(tag) {
+  set currentTag(tag) {
     // parse the curent url
     let url = new URL(window.location.href);
     // add/remove active tag indicator to container
     // so css can be used to disable untagged leaves
-    let container = document.querySelector("body");
 
-    // if no tag passed in, remove tag param
-    if (tag == undefined) {
+    // if no tag passed in, remove active tag param
+    if (tag == undefined || tag == null) {
       url.searchParams.delete("tag");
-      container.classList.remove("tag-active");
+      this.container.classList.remove("tag-active");
     } else {
       // if tag passed in, set it in url params
       url.searchParams.set("tag", tag);
-      container.classList.add("tag-active");
+      this.container.classList.add("tag-active");
     }
     // update url in history
     history.replaceState(null, "", url.toString());
     // update selection
-    Leaf.updateSelection();
+    this.updateSelection();
   }
 
   static getLeafTarget(target) {
@@ -127,19 +252,12 @@ class Leaf {
   }
 
   static deselectCurrent() {
-    let selected = document.getElementsByClassName(Leaf.selectedClass);
-    // convert to array rather than iterating, since htmlcollection is live
-    // and changes as updated
-    Array.from(selected).forEach((item) => {
-      item.classList.remove(Leaf.selectedClass);
-    });
-    let highlighted = document.getElementsByClassName(Leaf.highlightClass);
-    Array.from(highlighted).forEach((item) => {
-      item.classList.remove(Leaf.highlightClass);
-    });
+    // deselect all selected and highlighted leaves and their labels
+    d3.selectAll(`.${Leaf.selectedClass}`).classed(Leaf.selectedClass, false);
+    d3.selectAll(`.${Leaf.highlightClass}`).classed(Leaf.highlightClass, false);
   }
 
-  static getCurrentState() {
+  get currentState() {
     // get selection information from URL
     let url = new URL(window.location.href);
     let tag = url.searchParams.get("tag");
@@ -157,45 +275,96 @@ class Leaf {
     return currentState;
   }
 
-  static updateSelection() {
+  get currentLeaf() {
+    return this.currentState.leaf;
+  }
+
+  get currentTag() {
+    return this.currentState.tag;
+  }
+
+  updateSelection() {
     // get selection information from URL
-    let currentState = Leaf.getCurrentState();
+    let currentState = this.currentState;
 
     // deselect any current
     Leaf.deselectCurrent();
 
-    // deselect any previously active tags
-    Array.from(document.querySelectorAll(".tags a")).forEach((el) => {
-      el.classList.remove(Leaf.selectedClass);
-    });
+    // undo selection for any previously active tags
+    d3.selectAll(".tags a").classed(Leaf.selectedClass, false);
+    // if a tag is active
     if (currentState.tag) {
-      let leaves = document.getElementsByClassName(currentState.tag);
-      for (let item of leaves) {
-        item.classList.add(Leaf.highlightClass);
-      }
-      // add indicator to container to disable untagged leaves
+      d3.selectAll(`.${currentState.tag}`).classed(Leaf.highlightClass, true);
+
+      // disable all leaves and dedication for both mouse and keyboard users
+      d3.selectAll(
+        `svg [tabindex]:not(.${currentState.tag}):not(.branch-start)`
+      )
+        .attr("tabindex", -1)
+        .attr("aria-disabled", true);
+
+      // add indicator to container to dim the untagged portions of the tree
       document.querySelector("body").classList.add("tag-active");
 
-      let currentTag = document.querySelector("#current-tag span");
+      let activeTag = document.querySelector("#current-tag span");
       // display the tag name based on the slug;
       // as fallback, display the tag id if there is no name found
-      currentTag.textContent = Leaf.tags[currentState.tag] || currentState.tag;
+      let previousActiveTag = activeTag.textContent;
+      activeTag.textContent = this.tags[currentState.tag] || currentState.tag;
+      // when tag filter changes, announce for screen readers that
+      // the tree is filtered and how many leaves are highlighted
+      if (activeTag.textContent != previousActiveTag) {
+        let leafCount = document.querySelectorAll(
+          `path.${currentState.tag}`
+        ).length;
+        this.panel.announce(
+          `Filtering by tag ${activeTag.textContent}; ${leafCount} leaves highlighted`
+        );
+      }
+
+      // enable tag close button
+      let closeTag = document.querySelector("#current-tag button");
+      if (closeTag) {
+        closeTag.removeAttribute("disabled");
+      }
     } else {
-      document.querySelector("body").classList.remove("tag-active");
+      // otherwise, remove active tag
+      const body = document.querySelector("body");
+      if (body.classList.contains("tag-active")) {
+        // announce when tag filter is removed
+        this.panel.announce("Tag filtering removed");
+      }
+
+      body.classList.remove("tag-active");
+
+      // disable active tag close button
+      let tagClose = document.querySelector("#current-tag button");
+      if (tagClose) {
+        // not included in all unit test fixtures
+        tagClose.setAttribute("disabled", "true");
+      }
+
+      // re-enable all active leaves and dedication;
+      // do NOT activate branch-start pseudo-headers
+      d3.selectAll("svg [tabindex][aria-disabled=true]:not(.branch-start)")
+        .attr("tabindex", 0)
+        .attr("aria-disabled", null);
     }
 
-    // if hash set, select leaf
+    // if hash set, select leaf; unless it is in the list of ignored ids
     // (load leaf first so if there is a current tag it can be set to active)
-    if (currentState.leaf) {
+    if (currentState.leaf && !this.ignore_ids.includes(currentState.leaf)) {
       let leafTarget = document.querySelector(
-        `path[data-id="${currentState.leaf}"]`
+        `path[data-id="${currentState.leaf}"], image[data-id="${currentState.leaf}"]`
       );
+      // if path is not found, look for an image (= dedication)
+
       // if hash id corresponds to a leaf, select it
       if (leafTarget != undefined) {
         // actually make selection
         Leaf.setLeafLabelClass(leafTarget.dataset.url, Leaf.selectedClass);
         // open panel
-        Leaf.openLeafDetails(leafTarget, currentState.tag);
+        this.openLeafDetails(leafTarget, currentState.tag);
 
         // fixme: shouldn't need to be set here
         document.body.dataset.panelvisible = true;
@@ -206,67 +375,18 @@ class Leaf {
     return currentState;
   }
 
-  static openLeafDetails(leafTarget, activeTag) {
-    // load leaf details and display in the panel
-    const panel = document.querySelector("#leaf-details");
-
-    // if details for this leaf have already been loaded, do nothing
-    if (
-      panel.dataset.showing &&
-      panel.dataset.showing == leafTarget.dataset.url
-    ) {
-      return;
-    }
-
-    let url = leafTarget.dataset.url;
-
-    // If you need to test leaf load failure, uncomment this
-    // if (Math.random() < 0.5) {
-    //   url = url + "xxx";
-    // }
-    // console.log("fetching:", url);
-
-    fetch(url)
-      .then((response) => {
-        if (!response.ok) {
-          return Promise.reject(response);
+  openLeafDetails(leafTarget, activeTag) {
+    this.panel.loadURL(leafTarget.dataset.url, (article) => {
+      // if an active tag is specifed, mark as selected
+      if (activeTag != undefined) {
+        let articleTag = article.querySelector(
+          `.tags a[data-tag=${activeTag}]`
+        );
+        if (articleTag) {
+          articleTag.classList.add(Leaf.selectedClass);
         }
-        return response;
-      })
-      .then((response) => response.text())
-      .then((html) => {
-        let parser = new DOMParser();
-        const doc = parser.parseFromString(html, "text/html");
-        // Get the article content and insert into panel
-        const article = doc.querySelector("article");
-
-        // if an active tag is specifed, mark as selected
-        if (activeTag != undefined) {
-          let articleTag = article.querySelector(
-            `.tags a[data-tag=${activeTag}]`
-          );
-          if (articleTag) {
-            articleTag.classList.add(Leaf.selectedClass);
-          }
-        }
-
-        panel.querySelector("article").replaceWith(article);
-        // store current leaf url in a data attribute so we can check for reload
-        panel.dataset.showing = leafTarget.dataset.url;
-      })
-      .catch((response) => {
-        // clone error article and pass in to article
-        let errorArticle = document.querySelector("#leaferror").cloneNode(true);
-        panel.querySelector("article").replaceWith(errorArticle);
-      });
-
-    // scroll to the top, in case previous leaf was scrolled
-    panel.scrollTop = 0;
-    // make sure panel is active
-
-    // @TODO: This should become unnecessary when zoom PR is merged
-    panel.parentElement.classList.add("show-details");
-    panel.parentElement.classList.remove("closed");
+      }
+    });
   }
 
   static highlightLeaf(event) {
@@ -280,26 +400,8 @@ class Leaf {
   }
 
   static setLeafLabelClass(leafURL, classname, add = true) {
-    let leafAndLabel = document.querySelectorAll(`[data-url="${leafURL}"]`);
-    for (let item of leafAndLabel) {
-      if (add) {
-        item.classList.add(classname);
-      } else {
-        item.classList.remove(classname);
-      }
-    }
-  }
-
-  static closeLeafDetails() {
-    const panel = document.querySelector("#leaf-details");
-
-    Leaf.setCurrentLeaf();
-    delete panel.dataset.showing;
-  }
-
-  static closeTag() {
-    // unset current tag and then call updateSelection
-    Leaf.setCurrentTag();
+    // set a class on leaf and corresponding label based on data url
+    d3.selectAll(`[data-url="${leafURL}"]`).classed(classname, add);
   }
 }
 

@@ -24,6 +24,9 @@ module.exports = {
         IDs are also available in GH Actions output. */
 
         "csp-xss": "warn",
+        // complains about passive event listeners for scroll; seems to be a d3 issue
+        // (should be fixed in newer versions?)
+        "uses-passive-event-listeners": "warn",
       },
     },
     upload: {

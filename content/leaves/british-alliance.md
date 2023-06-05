@@ -11,4 +11,5 @@ tags:
 title: Revolutionary Alliances
 ---
 
-Mid-late 1700s, the eve of American Revolutionary War, most Delaware groups are living along Ohio and Allegheny rivers; pro-British Delaware live in what is today NW Ohio, and pro-American Delaware near frontier city of Pittsburgh.
+Most New Jersey Lunaape and Lunaapeew reject the invitation from western Delawares to join them in the Ohio Valley. In 
+The mid-late 1700s, the eve of American Revolutionary War, most Delaware groups are living along Ohio and Allegheny rivers. Pro-British Delawares live in what is today northwestern Ohio, and pro-American Delawares near the frontier city of Pittsburgh, Pennsylvania. 

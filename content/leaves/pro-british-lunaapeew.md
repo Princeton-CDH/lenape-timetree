@@ -11,4 +11,4 @@ tags:
 title: Pro-British Lunaapeew
 ---
 
-Following the American Revolution, pro-British Lunaapeew migrate north and west to Canada and Spanish Territory in order to escape American retaliation; a few Northern Unami bands join Iroquois on Six Nations Reserve along Grand River
+Following the American Revolution, pro-British Lunaapeew migrate north and west to Canada and Spanish Territory in order to escape American retaliation; a few Northern Unami bands join the Iroquois on Six Nations Reserve along Grand River.

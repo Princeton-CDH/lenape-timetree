@@ -9,4 +9,4 @@ tags:
 title: Equality
 ---
 
-Penn hopes to make a profit from purchasing and selling lands and by collecting taxes. Yet his Quaker values oblige him to treat Lunaapeew equally. He demands of his fellow Quakers that “no man shall … in word or deed, affront or wrong any Indian.” Penn’s reputation as a benevolent settler lives on.
+Willim Penn hopes to make a profit from purchasing and selling lands and by collecting taxes. Yet his Quaker values oblige him to treat Lunaapeew equally. He demands of his fellow Quakers that “no man shall … in word or deed, affront or wrong any Indian.” Penn’s reputation as a benevolent settler lives on.

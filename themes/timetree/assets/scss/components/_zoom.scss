@@ -1,0 +1,81 @@
+body.home {
+  svg {
+    // on mobile at default zoom level, don't show labels
+    #labels text {
+      opacity: 0;
+      transition: opacity 0.5s ease;
+
+      // always show labels on desktop
+      @include for-desktop-up {
+        opacity: 100%;
+      }
+    }
+  }
+
+  // show labels when zoomed
+  .zoomed svg #labels text {
+    opacity: 100%;
+    pointer-events: auto;
+  }
+
+  // on mobile only, show labels for featured leaves when unzoomed
+  @include for-mobile {
+    // labels for featured leaves should be displayed when unzoomed
+    svg #labels text.featured {
+      opacity: 100%;
+    }
+
+    // increase font size for text when the tree is not zoomed
+    #timetree:not(.zoomed) text {
+      font-size: 20px;
+    }
+  }
+
+  #zoom-controls {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    // align vertically with the panel so it looks better when zoomed in
+    @include for-desktop-up {
+      top: 120px;
+    }
+
+    button {
+      background-color: $nav-bg-color;
+      width: 40px;
+      height: 40px;
+      padding: 8px;
+      text-align: center;
+      cursor: pointer;
+      padding: 8px;
+      transition: opacity 0.5s ease;
+
+      i {
+        width: 22px;
+        height: 22px;
+        display: inline-block;
+      }
+
+      // visual indication that buttons are disabled
+      &[disabled="true"],
+      &[disabled] {
+        pointer-events: none;
+        i {
+          opacity: 0.2;
+        }
+      }
+    }
+
+    @include for-mobile {
+      button.reset-zoom[disabled="true"] {
+        // hidden when disabled on mobile
+        opacity: 0;
+      }
+    }
+  }
+}

@@ -42,6 +42,19 @@ Display title is optional, and can be used to set a shorter title for display
 in the timetree while using a longer, more detailed title in the leaf details.
 If not specified, title will be used for both and display_title may be omitted.
 
+### Featured leaves
+
+On mobile, only labels for featured leaves are displayed on the default view
+(when the tree is unzoomed). To mark a leaf as featured,
+add `featured: true` to the metadata for that leaf. This should be used
+sparingly!
+
+### Unpublishing leaves
+
+If there is a leaf that needs to be pulled from the public site for some reason,
+but you don't want to delete the file entirely, you can mark it as a draft
+by adding `draft: true` to the metadata at the top of the file for that leaf.
+
 ### Adding images to leaves
 
 To include an image in the detailed description for a leaf:
@@ -60,7 +73,7 @@ Every image _must_ include alternate text, unless it is purely decorative.
 For more information about how to write alternate text for images,
 see the instructions in the [contributor guides for Startwords](https://startwords.cdh.princeton.edu/guides/style-guide/#images)
 
-Images _may_ include `caption` text. 
+Images _may_ include `caption` text.
 
 To document the source of the image, use `attr` for attribution text
 and `attrlink` for the source url, if available.
@@ -71,15 +84,30 @@ If no caption or attribution (source) do not include "=" see below.
 {{< figure src="images/branch/filename.jpg" alt="..." >}}
 ```
 
-### Image sizes
+If you are adding multiple images in sequence where the caption and source
+are the same, only include the caption and source on the last image.
 
-Portrait images
-Recommended min height 1800px
-Absolute min height 864px
+#### Image sizes
 
-Landscape images
-Recommended min width 1440px
-Absolute min width 700px
+Portrait images:
+
+- Recommended min height: 1800px
+- Absolute min height: 864px
+
+Landscape images:
+
+- Recommended min width: 1440px
+- Absolute min width: 700px
 
 NOTE: When cropping a portrait image your image may become too narrow with respect to the recommended min height (1800px), therefore try to stick to a portrait 16:9 ratio.
 
+### Adding audio clips
+
+Audio clips in web-safe formats (such as MP3) can be included in site content using an
+`audio` shortcode. The audio file should be uploaded to the `/static/audio`
+directory and then referenced by filename. Add a caption to display with the audio
+player; note that the caption will be displayed _before_ the player. Example:
+
+```
+{{<audio src="/audio/lunaapahkiing-pronunciation-mosko.mp3" caption="Listen to ... " >}}
+```

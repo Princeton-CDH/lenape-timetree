@@ -13,5 +13,12 @@
       {{- .Content -}}
 
       {{- partial "tags.html" . -}}
+
+      <div class="view-on-tree">
+        <a href="{{ relURL "" }}#{{ .File.TranslationBaseName }}">View this leaf in the context of the timetree.
+        <img src="/img/timetree-static.svg"/>
+      </a>
+      </div>
+
   </article>
 {{ end }}

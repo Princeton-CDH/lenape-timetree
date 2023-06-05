@@ -11,4 +11,4 @@ tags:
 title: Concession
 ---
 
-Following the deceitful “Walking Purchase,” Lunaapeew refuse to leave their lands. The Pennsylvania government recruits the Haudenosaunee (later called Iroquois) to persuade Lunaapeewto honor the “purchase” and leave the territory.
+Following the deceitful Walking Purchase, Lunaapeew refuse to leave their lands. The Pennsylvania government recruits the Haudenosaunee (later called Iroquois) to persuade Lunaapeewto honor the “purchase” and leave the territory.

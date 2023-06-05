@@ -8,7 +8,7 @@ tags:
 title: Sheldon Jackson
 ---
 
-Around 1858, Presbyterian Reverend Dr. Sheldon Jackson graduates from the Princeton Theological Seminary  (founded in 1812 by the College of NJ and the Presbyterian Church). For the next 15 years, he works as a missionary for the Oklahoma Choctaw and then the American West. In 1877, he begins mission work in Alaska (purchased by the U.S. from Russia in 1867) and Siberia creating schools and collecting cultural objects to ensure Indigenous cultural survival. In 1879, he establishes the Carlisle Indian Industrial School, an Indian boarding school in Pennsylvania, 160 miles from Princeton.
+Around 1858, Presbyterian Reverend Dr. Sheldon Jackson graduates from the Princeton Theological Seminary (founded in 1812 by the College of New Jersey and the Presbyterian Church). For the next fifteen years, he works as a missionary for the Choctaw in Indian Territory and then in the American West. In 1877, he begins mission work in Alaska (purchased by the U.S. from Russia in 1867) and Siberia. and collecting cultural objects to ensure Indigenous cultural survival. He collects Native cultural belongings with the hope of preserving Indigenous cultures that he mistakenly believes are going extinct. In reality, his actions are harmful to Native communities who are separated from their cultural beings and belongings. In 1879, he establishes the notorious Carlisle Indian Industrial School, an Indian boarding school in Pennsylvania, 160 miles from Princeton. 
 
 {{< figure src="images/university/sheldon-jackson-e.jpeg" alt="A collection of photos showing individuals or groups of people are ordered in rows and columns.">}}
 

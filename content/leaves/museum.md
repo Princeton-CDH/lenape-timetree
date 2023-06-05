@@ -8,4 +8,6 @@ tags:
 title: Museum
 ---
 
-The Woodruff Museum of Indian Artifacts is created in Bridgeton, NJ (86 miles from Princeton); NJ would recognizes Bridgeton as a Nanticoke Lunaape hometown in 1982
+The Woodruff Museum of Indian Artifacts is created in Bridgeton, New Jersey (86 miles from Princeton). New Jersey recognizes Bridgeton as a Nanticoke Lunaape hometown in 1982.
+
+Read more about the [Bridgeton Public Library Woodruff Museum of Indian Artifacts](https://bridgetonlibrary.org/museum-2/). 

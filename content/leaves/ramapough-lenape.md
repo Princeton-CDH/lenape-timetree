@@ -8,4 +8,4 @@ tags:
 title: Ramapough Lenape
 ---
 
-Wolf, Turtle, and Deer Clans living in three communities across the NJ/NY border. [see Munsee Farm, Ramapough Munsee Museum]
+Wolf, Turtle, and Deer Clans live in three communities across the New Jersey/New York border. [see Munsee Farm, Ramapough Munsee Museum]

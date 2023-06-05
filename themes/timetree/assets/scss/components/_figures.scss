@@ -1,0 +1,78 @@
+/* styles for images and figures */
+
+figure {
+  margin: 1.2em 0 0.8rem;
+  text-align: center;
+
+  @include for-desktop-up {
+    margin: 1.2rem 0 1rem;
+  }
+}
+
+figcaption {
+  font-size: 0.7rem;
+  line-height: 0.95rem;
+  text-align: left;
+
+  @include for-desktop-up {
+    font-size: 0.8rem;
+    line-height: 1.1rem;
+  }
+}
+
+// for audio, add margins so caption is a more aligned with audio player
+figure.audio {
+  audio {
+    margin: 8px 0;
+  }
+
+  figcaption {
+    margin: 0 1.5rem;
+  }
+}
+
+img {
+  margin: 0;
+
+  &.portrait {
+    min-width: 250px;
+    max-width: 100%;
+    max-height: 450px;
+
+    @include for-desktop-up {
+      padding: 0 8px;
+    }
+
+    @include for-tablet-only {
+      max-height: 900px;
+      max-width: 690px;
+    }
+  }
+
+  &.landscape {
+    max-width: 100%;
+
+    @include for-tablet-only {
+      padding: 0 8px;
+    }
+  }
+}
+
+.attribution {
+  padding-left: 0.5em;
+
+  a,
+  span {
+    font-style: italic;
+  }
+}
+
+// figure on a content page
+.page {
+  @include for-desktop-up {
+    figure {
+      max-width: 64%;
+      margin: 0.8rem auto 1.4rem;
+    }
+  }
+}

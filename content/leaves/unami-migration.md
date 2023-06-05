@@ -7,4 +7,4 @@ tags:
 title: Unami Migration
 ---
 
-South Jersey Lenape migrate to Pennsylvania with the Nanticokes [change name]
+Southern New Jersey Lënape migrate to Pennsylvania with the Nanticokes.

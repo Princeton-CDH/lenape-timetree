@@ -9,4 +9,4 @@ tags:
 title: Recognition of Ritual Authority
 ---
 
-NJ recognizes authority of traditional tribal spiritual leaders to solemnize matrimony
+New Jersey recognizes the authority of traditional tribal spiritual leaders to solemnize matrimony.

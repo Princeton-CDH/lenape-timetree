@@ -10,4 +10,4 @@ tags:
 title: Public Grievance
 ---
 
-NJ Lunaapeew present grievances to the colony’s governor in Crosswicks, resulting in treaty agreements including “An Act for Regulating Indian Affairs, and to Prevent the Settling of Deer Traps within the Colony of New Jersey.” The conflicts underlying this meeting would resurface at the Treaty of Easton.
+New Jersey Lunaapeew present grievances to the royal colony’s governor in Crosswicks, resulting in treaty agreements including “An Act for Regulating Indian Affairs, and to Prevent the Settling of Deer Traps within the Colony of New Jersey.” 
