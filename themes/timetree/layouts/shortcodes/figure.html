@@ -49,9 +49,10 @@
         {{- end -}}
         {{- if .Get "attr" -}}
         <span class="attribution">
-            {{- with .Get "attrlink" -}}<a href="{{ . }}">{{- end -}}
+            {{- if .Get "attrlink" -}}<a href="{{ . }}">
+            {{- else -}}Courtesy of&nbsp;<span>{{- end -}}
             {{- .Get "attr" | markdownify -}}
-            {{- if .Get "attrlink" }}</a>{{- end -}}
+            {{- if .Get "attrlink" }}</a>{{ else }}</span>{{- end -}}
         </span>
         {{- end }}
         </p>
