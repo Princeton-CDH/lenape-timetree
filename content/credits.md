@@ -64,6 +64,8 @@ This project is based on  work by Jiyoun Roh ’24 in a term paper for “Indige
 
 {{< figure src="images/roots/Constantino-sycamore-drawing.png" alt="realistic drawing of a tree in front of Princeton's Nassau Hall with roots and branches exposed and labeled with the themes from the project data" caption="2022 Campus sycamore tree illustration, by Lola Constantino ‘23." >}}
 
+{{< figure src="images/roots/Roh_ENG229_final_project_tree.png" alt="line drawing of a tree with numbers annotating roots, trunk, branches, and leaves." caption="2021 conceptualization using a tree to represent indigenous time." attr="Jiyoun Roh ‘24" >}}
+
 This project is a component of the [Native American and Indigenous Studies Initiative at Princeton](http://indigenous.princeton.edu/). It arises from an ongoing collaboration with Lunaapeew communities, in particular the Munsee Delaware Nation in Ontario, and we seek to continue these collaborations by using the site as a virtual meeting ground. The project site is designed to continue integrating Indigenous knowledges and histories.
 
 *Anushiik, Anushiik, Anushiik, Anushiik*
