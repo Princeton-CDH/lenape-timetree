@@ -5,6 +5,16 @@
 ![Node version](https://img.shields.io/badge/node-18-blue)
 [![visual regression testing](https://percy.io/static/images/percy-badge.svg)](https://percy.io/2cf28a24/lenape-timetree)
 
+## License
+
+### Content
+
+Site content is licensed under the [Creative Commons Attribution-NonCommercial 4.0 International License (CC-BY-NC)](http://creativecommons.org/licenses/by-nc/4.0/).
+
+### Software
+
+The software for this project is licensed under the [Apache 2.0 License](LICENSE).
+
 ## Developer + contributor setup instructions
 
 For instructions on editing site content, refer to [CONTRIBUTING](CONTRIBUTING.md).
@@ -82,24 +92,4 @@ Or configure git to always ignore the styling revision commit:
 
 ```{bash}
 git config blame.ignoreRevsFile .git-blame-ignore-revs
-```
-
-### Running python scripts
-
-This project includes a python script for initial importing content.
-To setup and run:
-
-- Recommended: create and activate a python 3.7 or higher virtualenv
-
-- Install required python dependencies:
-
-```sh
-pip install -r requirements.txt
-```
-
-- Run the script to parse input text files and generate Hugo content files.
-  Provide a list of all text files to be imported.
-
-```sh
-./scripts/parse_text.py Leaf\ Data\ -\ *.txt
 ```

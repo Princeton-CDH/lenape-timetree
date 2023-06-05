@@ -2,6 +2,7 @@
 @import "components/panel";
 @import "components/tags";
 @import "components/branches";
+@import "components/zoom";
 
 $desktop_panel_width: 410px; // container in the grid
 $column_gap: 38px;
@@ -24,6 +25,8 @@ body.home {
   }
 
   main {
+    // height: 150vw;
+
     height: $mobile_timetree_height;
 
     @include for-desktop-up {
@@ -71,46 +74,6 @@ body.home {
         }
 
         overflow: visible;
-      }
-
-      // on mobile at default zoom level, don't show labels
-      #labels {
-        opacity: 0;
-        transition: opacity 0.5s ease;
-
-        // always show labels on desktop
-        @include for-desktop-up {
-          opacity: 100%;
-        }
-      }
-
-      button.reset-zoom {
-        z-index: 10;
-        background-color: $nav-bg-color;
-        width: 40px;
-        height: 40px;
-        position: absolute;
-        right: 8px;
-        top: 8px;
-        padding: 8px;
-        text-align: center;
-        cursor: pointer;
-        // hidden by default
-        opacity: 0;
-        pointer-events: none;
-
-        & .ph-arrows-in {
-          width: 22px;
-          height: 22px;
-          display: inline-block;
-        }
-      }
-
-      // show labels and reset button when zoomed
-      &.zoomed #labels,
-      &.zoomed .reset-zoom {
-        opacity: 100%;
-        pointer-events: auto;
       }
 
       rect.century-container {
@@ -191,7 +154,6 @@ body.home {
           filter: drop-shadow(-3px -4px 8px $glow)
             drop-shadow(3px 7px 8px $glow) drop-shadow(-4px 2px 8px $glow)
             drop-shadow(4px 0px 8px $glow);
-
           outline: none; // disable browser default focus outline box
         }
 
@@ -199,12 +161,39 @@ body.home {
           stroke-width: 0;
         }
 
-        &:focus-visible {
+        &:focus-visible,
+        &.highlight:focus-visible {
           stroke: $focus-color;
+          stroke-width: 3px;
           outline: none; // disable browser default focus outline box
         }
 
         &.disabled {
+          opacity: 0.4;
+          pointer-events: none;
+        }
+      }
+
+      #dedication {
+        cursor: pointer;
+
+        &:hover,
+        &:focus {
+          filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
+          outline: none; // disable browser default focus outline box
+        }
+
+        &.select {
+          filter: drop-shadow(-3px -5px 8px #75645d)
+            drop-shadow(3px -5px 8px #75645d) drop-shadow(-6px 5px 8px #75645d)
+            drop-shadow(6px 5px 8px #75645d);
+        }
+
+        &:focus-visible {
+          outline: 3px solid $focus-color;
+        }
+
+        &[aria-disabled="true"] {
           opacity: 0.4;
           pointer-events: none;
         }
@@ -243,6 +232,12 @@ body.home {
         @include leaf-styles("d");
       }
 
+      // NOTE: do we need visible indicator for branch-start focus target?
+      .branch-start:focus,
+      .branch-start:focus-visible {
+        // outline: 5px solid $focus-color;
+      }
+
       // hide nodes used for layout but not meant to be displayed
       g.nodes path.leaf-label,
       g.nodes path.branch,
@@ -260,9 +255,10 @@ body.home {
     text.leaf-label {
       fill: $body-fg-color;
       // NOTE: previously had two shadows offset +/2px with 2px blur,
-      // but there's a Safari bug with multiple text shadows
+      // but there's a Safari bug with multiple text shadows on tspan
+      // see https://bugs.webkit.org/show_bug.cgi?id=111216
+      text-shadow: $nearblack 2px 2px 2px;
       // text-shadow: $nav-bg-color 2px 2px 2px, $nav-bg-color -2px -2px 2px;
-      text-shadow: $nav-bg-color 0px 0px 4px;
       // Hand cursor for leaf labels
       cursor: pointer;
     }
@@ -276,9 +272,10 @@ body.home {
       fill: lightgray;
     }
 
-    text:hover,
-    text.select,
-    text.hover {
+    // apply hover style to text only within the viz, not to century axis labels
+    #viz text,
+    #viz text.select,
+    #viz text.hover {
       font-weight: 900;
     }
   }
@@ -288,7 +285,9 @@ body.home {
 // (lower opacity, non-interactive)
 .tag-active {
   path.leaf:not(.select):not(.highlight),
-  text.leaf-label:not(.select):not(.highlight) {
+  text.leaf-label:not(.select):not(.highlight),
+  .trunk,
+  path.branch {
     opacity: 0.4;
     pointer-events: none;
   }
@@ -424,4 +423,36 @@ article.container article {
 .extras {
   // Hidden by default
   display: none;
+}
+
+body.home #noscript,
+.view-on-tree {
+  margin: 0.6rem 0.8rem 2rem;
+  font-size: 0.9rem;
+  line-height: 1.35rem;
+
+  @include for-desktop-up {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    margin: 120px auto; // top margin matches top of panel
+    max-width: 20.5rem;
+  }
+
+  img {
+    display: block;
+    margin: 0.8rem 0.7rem;
+    border: 4px solid $nav-bg-color;
+    @include for-desktop-up {
+      max-width: 13rem;
+      margin: 0.8rem 0;
+    }
+  }
+}
+
+.view-on-tree {
+  text-align: center;
+  margin-top: 1.6rem;
+  img {
+    margin: 0.8rem auto;
+  }
 }

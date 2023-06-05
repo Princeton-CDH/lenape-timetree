@@ -1,3 +1,18 @@
+{{ define "page_meta" }}
+<!-- page meta -->
+<link rel="schema.DC" href="http://purl.org/DC/elements/1.0/"/>
+<link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" >
+<meta name="DC.identifier" content="{{ .Permalink | absURL }}" />
+<meta name="DC.title" content="{{ .Site.Title | htmlEscape }}"/>
+<meta name="DC.date" content="{{ .Site.Params.publication_date }}"/>
+<meta name="DC.description" content="{{ .Site.Params.description | plainify | htmlEscape }}" />
+<meta name="DC.publisher" content="Center for Digital Humanities, Princeton University"/>
+<meta name="DC.rights" content="{{ .Site.Params.rights }}"/>
+<meta name="DCTERMS.created" content="{{ .Site.Params.publication_date }}"/>
+{{/* http://purl.org/dc/dcmitype/InteractiveResource */}}
+<meta name="DC.type" content="Interactive Resource"/>
+{{ end }}
+
 {{- define "main" -}}
 
 {{/* minimize js if production; adapted from https://github.com/gohugoio/hugo/issues/9132 */}}
@@ -10,26 +25,16 @@
   <button class="close" aria-label="close details"><i class="ph-x" aria-hidden="true"></i></button>
   <div class="tag" id="current-tag" aria-label="active tag">
    {{/* display currently active tag when there is one */}}
-    <button class="close" aria-label="close active tag"><i class="ph-x" aria-hidden="true"></i></button>
+    <button class="close" aria-label="close active tag" disabled="true"><i class="ph-x" aria-hidden="true"></i></button>
     <span></span> {{/* label for active tag */}}
   </div>
+  <div role="status" aria-live="polite">  </div>
+  <span tabindex="-1" id="panel">Information panel</span> {{/* anchor element for focus management */}}
   {{/* introduction content */}}
   <article id="intro">
-    <header>
-      <h1>{{ .Params.Title }}</h1>
-    </header>
     <div>
       {{- .Content -}}
     </div>
-
-    {{/* display legend listing each branch; names from site config */}}
-    <ol id="panel-legend">
-      {{- range .Site.Params.branches -}}
-        {{- $branchSlug := replace (replace .  "The" "") "+" "" | urlize -}}
-      <li class="{{ $branchSlug }}"><a href="#{{ $branchSlug }}">{{ . }}</a></li>
-      {{- end -}}
-    </div>
-
   </article>
 
   <div id="leaf-details">
@@ -38,15 +43,26 @@
 </aside>
 
 <div id="timetree">
-  <button class="reset-zoom" aria-label="reset zoom to default"><i class="ph-arrows-in ph-fill" aria-hidden="true"></i></button>
+  <div id="zoom-controls">
+  <button class="zoom-in" aria-label="zoom in"><i class="ph-bold ph-plus" aria-hidden="true"></i></button>
+  <button class="zoom-out" aria-label="zoom out" disabled="true"><i class="ph-bold ph-minus" aria-hidden="true"></i></button>
+  <button class="reset-zoom" aria-label="reset zoom to default" disabled="true"><i class="ph-arrows-in ph-fill" aria-hidden="true"></i></button>
+  </div>
   <data class="leaf-data" value='{{ partial "leaf_data.json" . }}'></data>
   <data class="tag-data" value='{{ partial "tags.json" . }}'></data>
   <data class="env-data" value="{{ dict "env" hugo.Environment "branches" .Site.Params.branches "visual_debug" .Site.Params.visual_debug | jsonify }}"/>
+  <noscript>
+    <div id="noscript">
+    This is an interactive visualization; please turn on Javascript to explore the Lunaapahkiing Princeton Timetree.
+      <img src="/img/timetree-static.svg"/>
+    </div>
+
+  </noscript>
 </div>
 
 
 <div class="extras">
-<article id="leaferror">
+<article id="loaderror">
   <div>Error loading the details.</div>
 </article>
 

@@ -27,6 +27,25 @@ body.home main > aside {
 
   color: $nearwhite;
 
+  // status div for screen reader status should be hidden from sighted users
+  [role="status"][aria-live] {
+    opacity: 0;
+    height: 0;
+    width: 0;
+  }
+
+  // hidden anchor element for focus management
+  #panel {
+    opacity: 0; // visually hidden; announce for screen reader only
+    position: absolute;
+    top: 0;
+    pointer-events: none; // don't block clicks on active tag button
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
   @include for-desktop-up {
     position: relative;
     grid-area: panel;
@@ -46,12 +65,14 @@ body.home main > aside {
   @include for-mobile {
     &.closed {
       height: 0;
+      visibility: hidden; /* hide from screen readers */
       overflow: hidden;
 
       #intro,
       article,
       > .close {
         height: 0;
+        visibility: hidden; /* hide from screen readers */
       }
     }
   }
@@ -61,9 +82,13 @@ body.home main > aside {
     article {
       height: auto;
       overflow: scroll;
+
+      // don't scroll beyond
+      overscroll-behavior: contain;
     }
     > .close {
       height: auto;
+      visibility: visible;
     }
   }
 
@@ -149,6 +174,7 @@ body.home main > aside {
   &.show-details #intro {
     height: 0;
     min-height: 0;
+    visibility: hidden;
     overflow: hidden;
     padding: 0;
     grid-area: hidden;
@@ -158,6 +184,7 @@ body.home main > aside {
   &.show-details article,
   #intro {
     height: 44vh;
+    visibility: visible;
 
     overflow: auto;
     grid-area: details;
@@ -234,6 +261,19 @@ body.home main > aside {
         }
       }
     }
+
+    // for readability on portrait tablet (which uses mobile layout),
+    // constrain max width and center blocks within the panel
+    > * {
+      max-width: 32em;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    // don't diplay view on tree link when actually viewing on the tree
+    .view-on-tree {
+      display: none;
+    }
   }
 
   // Scrollbar styling advice from: https://www.digitalocean.com/community/tutorials/css-scrollbars
@@ -258,9 +298,15 @@ body.home main > aside {
 // special case: tag is active but intro panel is closed
 body.tag-active.home main > aside {
   @include for-mobile {
-    // panel should be exactly the height of the tag on mobile
+    // closed panel should be exactly the height of the tag on mobile
     &.closed {
       height: $tag-height;
+      visibility: visible;
+
+      // ensure nested content remains hidden from screen readers
+      article {
+        visibility: hidden;
+      }
     }
   }
 }
@@ -274,6 +320,7 @@ body.tag-active.home main > aside {
   gap: 16px;
   height: 194px;
   margin-top: 20px;
+  margin-left: 0;
   width: 288px;
 
   @include for-desktop-up {
@@ -305,6 +352,8 @@ body.tag-active.home main > aside {
       padding-left: 8px;
       font-weight: normal;
       text-decoration: none;
+      cursor: default; // don't indicate to sighted users that this is a link
+      pointer-events: none; // only allow keyboard nav, not click
     }
   }
 }
@@ -330,6 +379,23 @@ aside article header aside {
   }
   &.resistance-resurgence::before {
     color: map-get($leaf-color, "d");
+  }
+}
+
+/* special handling for welcome in munsue at the top of the intro*/
+#intro [lang="umu"] strong {
+  font-style: italic;
+  font-weight: 900;
+  font-size: 1.2rem;
+  line-height: 1.8rem;
+  display: inline-block;
+  margin-bottom: 0.2rem;
+  margin-right: 0.2rem;
+
+  @include for-desktop-up {
+    font-size: 1.3rem;
+    line-height: 1.95rem;
+    margin-right: 0.4rem;
   }
 }
 

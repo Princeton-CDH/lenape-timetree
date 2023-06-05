@@ -1,0 +1,6 @@
+<figure class="audio{{ with .Get "class" }} {{ . }}{{ end }}">
+  {{ with .Get "caption" }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
+  <audio controls preload="{{ .Get "preload" | default "metadata" }}">
+    {{ with .Get "src" }}<source src="{{ . | relURL }}" type="audio/mpeg">{{ end }}
+  </audio>
+</figure>

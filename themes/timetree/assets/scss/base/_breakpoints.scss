@@ -1,6 +1,6 @@
 // breakpoints
 $breakpoint-xs: 320px; // ~ phone
-$breakpoint-s: 790px; // ~ tablet, portrait
+$breakpoint-s: 810px; // ~ tablet, portrait
 $breakpoint-m: 1024px; // ~ tablet landscape
 $breakpoint-l: 1280px; // ~ small desktop
 $breakpoint-xl: 1440px; // ~ target desktop size
@@ -17,9 +17,15 @@ $margin: 22px;
   }
 }
 
-// mobile threshold for this project is 768px and below
+// mobile threshold for this project is 790x and below
 @mixin for-mobile {
   @media (max-width: $breakpoint-s) {
+    @content;
+  }
+}
+
+@mixin for-tablet-only {
+  @media (min-width: $breakpoint-xs + 1px) and (max-width: $breakpoint-s) {
     @content;
   }
 }

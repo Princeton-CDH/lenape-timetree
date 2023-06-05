@@ -10,7 +10,8 @@
 		{{/*convert tags to slug form */}}
 		{{- $tags := slice -}} 		
 		{{- range .Params.tags -}}
-			{{- $tags = append $tags (slice (urlize .)) -}}
+  		    {{- $tagSlug := partial "getTagSlug.html" . -}}
+			{{- $tags = append $tags (slice ($tagSlug)) -}}
 		{{- end -}}
 		{{- $pageInfo = merge $pageInfo (dict "tags" $tags) -}}
 		{{/* set optional values  */}}
@@ -19,6 +20,9 @@
 		{{- end -}}
 		{{- with .Params.display_title -}}
 			{{- $pageInfo = merge $pageInfo (dict "display_title" . ) -}}
+		{{- end -}}
+		{{- with .Params.featured -}}
+			{{- $pageInfo = merge $pageInfo (dict "featured" . ) -}}
 		{{- end -}}
 		{{/* if sort date is numeric, calculate century */}}
 		{{- with .Params.sort_date -}} 		

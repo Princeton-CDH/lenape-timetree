@@ -8,6 +8,9 @@ import {
   cointoss,
   randomNumBetween,
 } from "leaves";
+import { Panel } from "panel";
+
+jest.mock("panel"); // Panel is now a mock constructor
 
 enableFetchMocks();
 
@@ -58,7 +61,7 @@ describe("Leaf", () => {
         "<div><svg>" +
         '  <path class="selected" />' +
         '  <text class="selected">label</label> />' +
-        "</svg></div>";
+        "</svg><</div><aside/>";
 
       Leaf.deselectCurrent();
       expect(
@@ -68,7 +71,8 @@ describe("Leaf", () => {
 
     test("updates window location", () => {
       window.location.replace("#lenape");
-      Leaf.setCurrentLeaf();
+      let leaf = new Leaf();
+      leaf.currentLeaf = null;
       expect(window.location.hash).toEqual(""); // does not include #
     });
   });
@@ -87,12 +91,15 @@ describe("Leaf", () => {
       '  <text class="access battles">label</text> />' +
       '  <text class="food access">label</text> />' +
       "</svg></div>" +
-      "<div id='current-tag'><span/></div>";
-    Leaf.setCurrentTag("battles");
+      "<div id='current-tag'><span/></div><aside/>";
+    let leaf = new Leaf(new Panel());
+    leaf.currentTag = "battles";
     // expect 3 paths and one label to be highlighted
     expect(document.getElementsByClassName(Leaf.highlightClass).length).toEqual(
       4
     );
+    // announces tag filtering for screen reader
+    expect(leaf.panel.announce).toHaveBeenCalledTimes(1);
   });
 
   describe("setCurrentLeaf", () => {
@@ -112,16 +119,18 @@ describe("Leaf", () => {
         '  <text class="food access">label</label> />' +
         '  <text class="food access" data-id="munsee" data-url="/leaves/munsee/"><tspan>munsee</tspan></text>' +
         "</svg></div>" +
-        "<div id='current-tag'><span/></div>" +
+        "<aside><div id='current-tag'><span/></div>" +
         '<div id="leaf-details">' +
         "  <article/>" +
-        "</div>";
+        "</div></aside>";
     });
 
     test("deselects other leaves, selects both leaf path and label", () => {
       let targetLeaf = document.querySelector("path[data-id=munsee]");
 
-      Leaf.setCurrentLeaf({ target: targetLeaf });
+      let panel = new Panel();
+      let leaf = new Leaf(panel);
+      leaf.currentLeaf = { target: targetLeaf };
       let selected = document.getElementsByClassName(Leaf.selectedClass);
 
       // expect path and text to be selected
@@ -130,7 +139,8 @@ describe("Leaf", () => {
 
     test("treats click on tspan as click on parent text element", () => {
       let targetTspan = document.querySelector("text[data-id=munsee] tspan");
-      Leaf.setCurrentLeaf({ target: targetTspan });
+      let leaf = new Leaf(new Panel());
+      leaf.currentLeaf = { target: targetTspan };
       // expect path and text to be selected
       expect(
         document.getElementsByClassName(Leaf.selectedClass).length
@@ -139,54 +149,54 @@ describe("Leaf", () => {
 
     test("updates window location", () => {
       let targetLeaf = document.querySelector("path[data-id=munsee]");
-      Leaf.setCurrentLeaf({ target: targetLeaf });
+      let leaf = new Leaf(new Panel());
+      leaf.currentLeaf = { target: targetLeaf };
       expect(window.location.hash).toEqual("#munsee");
     });
 
     test("fetches content for leaf details", () => {
       let targetLeaf = document.querySelector("path[data-id=munsee]");
-      Leaf.setCurrentLeaf({ target: targetLeaf });
-      expect(fetch).toHaveBeenCalledTimes(1);
-      expect(fetch).toHaveBeenCalledWith(targetLeaf.dataset.url);
+      let panel = new Panel();
+      let leaf = new Leaf(panel);
+      leaf.currentLeaf = { target: targetLeaf };
+      expect(panel.loadURL).toHaveBeenCalledTimes(1);
+      // second parameter is a callback; match anything
+      expect(panel.loadURL).toHaveBeenCalledWith(
+        targetLeaf.dataset.url,
+        expect.anything()
+      );
     });
 
     // not currently testing success logic (update content in panel)
-    // or error on fetch (currently not handled...)
-
-    test("sets leaf detail panel to active", () => {
-      let targetLeaf = document.querySelector("path[data-id=munsee]");
-      Leaf.setCurrentLeaf({ target: targetLeaf });
-      const panel = document.querySelector("#leaf-details");
-      expect(panel.parentElement.classList.contains("show-details")).toEqual(
-        true
-      );
-    });
+    // or error on fetch (handled in panel code)
   });
 
   describe("updateSelection", () => {
     const mockLeafSelect = jest.fn();
 
     beforeEach(() => {
-      jest.spyOn(Leaf, "setCurrentLeaf").mockImplementation(mockLeafSelect);
+      jest
+        .spyOn(Leaf.prototype, "currentLeaf", "set")
+        .mockImplementation(mockLeafSelect);
       document.body.innerHTML =
         "<div><svg>" +
         '  <path class="food disease" data-id="munsee" data-url="/leaves/munsee/" />' +
         '  <text class="food access" data-id="munsee" data-url="/leaves/munsee/"><tspan>munsee</tspan></text>' +
         "</svg></div>" +
-        '<div id="leaf-details">' +
+        '<aside><div id="leaf-details">' +
         "  <article/>" +
-        "</div>";
+        "</div></aside>";
     });
 
     test("does nothing if no hash is set", () => {
       window.location.replace("");
-      Leaf.updateSelection();
+      new Leaf().updateSelection();
       expect(mockLeafSelect.mock.calls).toHaveLength(0);
     });
 
     test("does nothing if no hash is set but id is invalid", () => {
       window.location.replace("#bogus");
-      Leaf.updateSelection();
+      new Leaf().updateSelection();
       // expect no elements to be highlighted
       expect(
         document.getElementsByClassName(Leaf.selectedClass).length
@@ -195,7 +205,7 @@ describe("Leaf", () => {
 
     test("selects leaf if hash is set to valid leaf id", () => {
       window.location.replace("#munsee");
-      Leaf.updateSelection();
+      new Leaf(new Panel()).updateSelection();
       let targetLeaf = document.querySelector("path[data-id=munsee]");
       // target leaf should have selected class
       expect(targetLeaf.classList).toContain(Leaf.selectedClass);

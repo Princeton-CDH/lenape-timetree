@@ -31,31 +31,36 @@ h6 {
 }
 
 h1 {
-  font-size: 22px;
-  line-height: 33px;
+  font-size: 1.2rem;
+  line-height: 1.8rem;
+  margin: 0.8rem 0;
+
   @include for-desktop-up {
-    font-size: 24px;
-    line-height: 40px;
+    font-size: 1.3rem;
+    line-height: 1.95rem;
+    margin: 1em 0;
   }
 }
 
 h2 {
-  font-size: 20px;
-  line-height: 30px;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  margin-bottom: 0.4rem;
+
   @include for-desktop-up {
-    font-size: 22px;
-    line-height: 33px;
+    font-size: 1.1rem;
+    line-height: 1.65rem;
   }
 }
 
 body {
   font-family: $body-font;
-  font-size: 18px;
-  line-height: 27px;
+  font-size: 0.9rem;
+  line-height: 1.35rem;
 
   @include for-desktop-up {
-    font-size: $base-font-size;
-    line-height: 30px;
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 }
 
