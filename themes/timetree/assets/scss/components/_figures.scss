@@ -60,6 +60,11 @@ img {
 
 .attribution {
   padding-left: 0.5em;
+
+  a,
+  span {
+    font-style: italic;
+  }
 }
 
 // figure on a content page
