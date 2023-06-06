@@ -265,6 +265,26 @@ dl {
 
 .footnotes {
   margin: 2.5rem 0 3rem;
+  /* use same font size as figure captions */
+  font-size: 0.7rem;
+  line-height: 0.95rem;
+
+  @include for-desktop-up {
+    font-size: 0.8rem;
+    line-height: 1.1rem;
+  }
+
+  li::marker {
+    font-weight: 700;
+  }
+
+  /* link from end of footnote back to reference */
+  .footnote-backref {
+    text-decoration: none;
+    color: $trunk-color;
+    font-weight: 900;
+    font-size: 125%;
+  }
 }
 
 /* special case: hanging indent for references on resource page.
