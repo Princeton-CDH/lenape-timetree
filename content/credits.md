@@ -46,7 +46,7 @@ Additional Contributions:
 : Ryan Heuser, Center for Digital Humanities, Princeton, NJ
 : John Jameson, OIT, Digital Accessibility, Princeton University, Princeton, NJ
 : Ben Johnston, The McGraw Center, Princeton University, Princeton, NJ
-: Sarah Malone, Effron Center for the Study of America, Princeton University
+: Sarah Malone, Department of English, Princeton University, Princeton, NJ
 : Jill Moraca, Web Development Services, Princeton University, Princeton, NJ
 : Melissa Moreton, Institute for Advanced Study, Princeton, NJ
 : Caitlin Rizzo, Institute for Advanced Study, Princeton, NJ
