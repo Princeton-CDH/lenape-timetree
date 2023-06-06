@@ -1,13 +1,14 @@
 ---
 branch: Resistance + Resurgence
-display_date: 1757
+display_date: 1756-1757
 display_title: Claim vs. NJ
-sort_date: 1757
+sort_date: 1756
 tags:
 - activism
 - treaties
 - colonial governments
+- alliances
 title: Public Grievance
 ---
 
-New Jersey Lunaapeew present grievances to the royal colony’s governor in Crosswicks, resulting in treaty agreements including “An Act for Regulating Indian Affairs, and to Prevent the Settling of Deer Traps within the Colony of New Jersey.” 
+Alarmed by rising hostilities between colonial and Native peoples across the Delaware River, in neighboring Pennslyvania, the governor of the New Jersey Colony holds meetings in Crosswicks (approximately than 18 miles south of Princeton) to hear grievances from Lunaapeew. As missionary John Brainerd writes, months later, "A bill is passed to remove the difficulties which had grown out of impositions upon the Indians when intoxicated, the destruction of deer by traps, and the occupation of lands by the whites which they had not sold." A number of Native land claims are settled and the land is secured for the mission town of Brotherton. The Crosswicks meeting leads to another in 1758 with the Governor, where Native diplomats request a date for the eventual conference at Easton, amid ongoing aggression in Eastern Pennslyvania and New York.
