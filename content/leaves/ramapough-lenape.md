@@ -1,11 +1,12 @@
 ---
 branch: Communities
-display_date: 1980
-sort_date: 1980
+display_date: 1644
+sort_date: 1644
 tags:
 - Munsee
 - Ramapough
-title: Ramapough Lenape
+- massacre
+title: Ramapough Lenaapeew
 ---
 
-Wolf, Turtle, and Deer Clans live in three communities across the New Jersey/New York border. [see Munsee Farm, Ramapough Munsee Museum]
+Munsee speaking live in clan communities on ancestral lands across the northeast New Jersey-New York border. Dutch from New Amsterday attack and kill around 700 people. [See the Ramapough Culture and Land Foundation website.](https://ramapough.org)
