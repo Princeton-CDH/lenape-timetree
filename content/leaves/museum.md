@@ -5,6 +5,7 @@ sort_date: 1976
 tags:
 - state governments
 - recognition
+- art and culture
 title: Museum
 ---
 
