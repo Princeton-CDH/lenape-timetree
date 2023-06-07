@@ -6,9 +6,10 @@ sort_date: 1795
 tags:
 - treaties
 - alliances
-- land purchases
+- emigration
 - US government
 - battles
+- Ohio Country
 title: Treaty of Greenville
 ---
 
