@@ -6,7 +6,7 @@ tags:
 - redress
 - deception
 - US government
-title: Lawsuit
+title: Walking Suit
 ---
 
 In 2006, Lunaapeew seek redress for the fraudulent Walking Purchase, but the US Tenth Circuit Court of Appeals rules that the claim, although substantive, is “nonjusticiable.”
