@@ -6,7 +6,7 @@ tags:
 - emigration
 - massacre
 - missions
-title: Gnadenhutten Massacre
+title: Massacre
 ---
 
 Munsee converts from Pennsylvania follow Moravian missionary David Zeisberger to eastern Ohio, where he founds several Native Moravian villages. The British arrest him during the Revolutionary War under suspicion of helping the Patriots. While under arrest at Fort Detroit, nearly one hundred of his Native American followers are murdered in what is memorialized as the Gnadenhutten Massacre. This leads to the Moravian Delaware migration
