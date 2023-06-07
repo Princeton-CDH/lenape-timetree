@@ -5,6 +5,7 @@ sort_date: 1798
 tags:
 - Oneida
 - activism
+- migration
 title: Brotherton Refusal
 ---
 
