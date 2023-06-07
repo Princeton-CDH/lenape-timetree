@@ -6,6 +6,7 @@ tags:
 - food soverignty
 - art and culture
 - Munsee
+- activism
 display title: Munsee Farm
 title: Munsee Three Sisters Farm
 ---
