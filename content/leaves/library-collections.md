@@ -6,7 +6,7 @@ sort_date: 2023
 tags:
 - library
 - cultural property
-- language revitalization
+- language
 title: Online Library Collection on Indigenous Cultures
 ---
 
