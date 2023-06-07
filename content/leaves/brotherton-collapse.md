@@ -6,6 +6,7 @@ tags:
 - Oneida
 - activism
 - migration
+- refusals
 display title: Brotherton Collapse
 title: Brotherton Refusal and Collapse
 ---
