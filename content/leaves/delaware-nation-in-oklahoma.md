@@ -4,13 +4,14 @@ display_date: 1789-
 sort_date: 1789
 tags:
 - Indian Territory
-- migration
+- emigration
 - reservations
 - renaming
 - Ohio Country
 - Unami
 - Munsee
 title: Delaware Nation in Oklahoma
+display title: Emigrations
 featured: true
 ---
 
