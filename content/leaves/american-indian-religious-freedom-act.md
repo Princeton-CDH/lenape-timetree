@@ -5,7 +5,9 @@ sort_date: 1978
 tags:
 - religion
 - alliances
+- US Government
 title: "\u201CAmerican Indian Religious Freedom Act\u201D"
+display title: Religious Freedom
 featured: true
 ---
 
