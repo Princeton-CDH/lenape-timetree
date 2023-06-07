@@ -9,7 +9,7 @@ tags:
 title: Native Faculty
 ---
 
-Princeton Anthropology Professor Alfonso Ortiz (Ohkay Owingeh Pueblo) publicly supports the American Indian Movement occupation of Wounded Knee. In 1970, Ortiz, chaired the First Convocation of American Indian Scholars, the first of its kind in Native American history. Ortiz became a faculty member in 1967 and also actively recruited undergraduates from the Southwest, many of whom lived on reservations. 
+Princeton Anthropology Professor Alfonso Ortiz (Ohkay Owingeh Pueblo) publicly supports the American Indian Movement occupation of Wounded Knee. In 1970, Ortiz, chaired the First Convocation of American Indian Scholars, the first of its kind in Native American history. Arriving from the University of Chicago, where he completed his doctorate, Ortiz became a faculty member in 1967. Working with library curator Alfred Bush, he actively recruits undergraduates from the Southwest, many of whom live on reservations. 
 
 
 {{< figure src="images/university/native-faculty.jpeg" alt="a newspaper clipping shows a man with glasses and describes his recent political advocacy" >}}
