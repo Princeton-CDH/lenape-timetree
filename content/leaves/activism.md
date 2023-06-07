@@ -6,6 +6,7 @@ sort_date: 1973
 tags:
 - activism
 - US Government
+- Indigenous studies
 title: Native Faculty
 ---
 
