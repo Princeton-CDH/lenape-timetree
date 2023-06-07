@@ -1,11 +1,12 @@
 ---
 branch: The University
 display_date: 1970-1997
-display_title: Pecos
+display_title: Trustee
 sort_date: 1970
 tags:
 - Native students
-title: Regis Pecos (Cochiti)
+- Princeton alumni
+title: Regis Pecos (Cochiti) is first Native American Trustee
 ---
 
 In 1970 Regis Pecos (Cochiti Pueblo) graduates from Princeton. He later becomes the first Native American to serve as a Princeton trustee in 1997.
