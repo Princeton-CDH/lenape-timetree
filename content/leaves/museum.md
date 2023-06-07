@@ -6,6 +6,7 @@ tags:
 - state governments
 - recognition
 - art and culture
+- Nanticoke
 title: Museum
 ---
 
