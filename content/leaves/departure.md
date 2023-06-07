@@ -7,6 +7,7 @@ tags:
 - Native students
 - Ohio Country
 - affinity
+- George Morgan White Eyes
 title: Funding Ends
 ---
 
