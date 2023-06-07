@@ -4,8 +4,11 @@ display_date: 1779
 display_title: Guardian
 sort_date: 1779
 tags:
-- campus buildings
+- campus
 - affinity
+- Colonel George Morgan
+- George Morgan White Eyes
+- Chief White Eyes
 title: George Morgan White Eyes Stays at Prospect
 ---
 
