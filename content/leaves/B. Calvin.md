@@ -9,8 +9,9 @@ tags:
 - religion
 - wars
 - Bartholemew Calvin
+- D. Brainerd
 - affinity
-title: Bartholemew Scott Calvin (Shawukukhkung)
+title: Bartholemew Calvin (Shawukukhkung)
 ---
 
 In 1774 Bartholomew Scott Calvin (Shawukukhkung or Wilted Grass) (Lunaape) matriculates at the College of New Jersey. His father is Steven Calvin, Native translator at the Treaty of Easton. Missionary David Brainerd from nearby Cranbury advocates for Steven's admission to College President John Witherspoon and Calvin is sponsored by the Scottish Society for the Propagation of Christian Knowledge. Funds are cut off in 1776 during the Revolutionary War, and Calvin has to drop out. However, he has a successful career as a teacher and Lunaape leader (see the 1832 challenge to Treaty of Easton). 
