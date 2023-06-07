@@ -10,6 +10,7 @@ tags:
 - wars
 - Bartholemew Calvin
 - D. Brainerd
+- university presidents
 - affinity
 title: Bartholemew Calvin (Shawukukhkung)
 ---
