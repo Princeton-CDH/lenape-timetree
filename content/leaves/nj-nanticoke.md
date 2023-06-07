@@ -3,8 +3,8 @@ branch: Communities
 display_date: 1800s
 sort_date: 1800
 tags:
-- Migration
 - Nanticoke
+- alliance
 - Lenapewihittuck/Delaware River
 title: NJ Nanticoke
 ---
