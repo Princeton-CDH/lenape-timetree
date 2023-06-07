@@ -1,11 +1,12 @@
 ---
 branch: The University
 display_date: 2023
-display_title: Archives
+display_title: Library
 sort_date: 2023
 tags:
 - library
 - cultural property
+- language revitalization
 title: Online Library Collection on Indigenous Cultures
 ---
 
