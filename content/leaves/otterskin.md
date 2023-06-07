@@ -6,6 +6,8 @@ sort_date: 1907
 tags:
 - missions
 - native artifacts
+- library
+- David Brainerd
 title: Brainerd's Otterskin Book
 ---
 
