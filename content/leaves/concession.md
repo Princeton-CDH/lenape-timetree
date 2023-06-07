@@ -8,6 +8,7 @@ tags:
 - alliances
 - Ohio Country
 - colonial governments
+- refusals
 title: Concession
 ---
 
