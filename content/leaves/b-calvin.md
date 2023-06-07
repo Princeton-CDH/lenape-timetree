@@ -7,6 +7,7 @@ tags:
 - Native students
 - redress
 - state governments
+- Bartholemew Calvin
 title: NJ Lawsuit
 ---
 
