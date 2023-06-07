@@ -5,10 +5,11 @@ display_title: Lunaapahkiing
 sort_date: 1500
 tags:
 - place names
+- campus
 title: Lunaapahkiing
 ---
 
-Lunaapahkiing means “lands of the Lenape” in the Munsee (Lunaape) language.
+Lunaapahkiing means “lands of the Lenape” in the Munsee (Lunaape) language. It is Lunaape ancestral homeland since time immemorial and includes the unceded grounds of Princeton University.
   
 {{< figure src="images/lands-waters/lenapehoking-b.jpeg" alt="printed cover of essay" attr="[Delaware-English spelling book by David Zeisberger written in 1776.]" attrlink="https://dpul.princeton.edu/catalog/dck930c731x">}}
  
