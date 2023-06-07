@@ -8,6 +8,7 @@ tags:
 - land claims
 - Muhheakantuck/Hudson River
 - Dutch settlers
+- renaming
 title: Verrazano and Hudson
 ---
 
