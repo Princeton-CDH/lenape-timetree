@@ -1,11 +1,13 @@
 ---
 branch: The University
 display_date: 1970
-display_title: US Indian Scholars
+display_title: Native Scholars
 sort_date: 1970
 tags:
-- Alliances
+- alliances
 - Indigenous Studies
+- activism
+- campus
 title: Native Convocation
 ---
 
