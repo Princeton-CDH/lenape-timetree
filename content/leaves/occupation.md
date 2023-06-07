@@ -4,10 +4,12 @@ display_date: 1778
 display_title: Occupation
 sort_date: 1778
 tags:
-- Colonial governments
+- colonial governments
 - activism
 - affinity
-- campus buildings
+- campus
+- Chief white eyes
+- murder
 title: Prospect Occupation
 ---
 
