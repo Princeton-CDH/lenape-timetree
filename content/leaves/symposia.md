@@ -1,7 +1,7 @@
 ---
 branch: The University
 display_date: 2021-
-display_title: Annual Symposia
+display_title: Symposia
 sort_date: 2021
 tags:
 - Indigenous Studies
