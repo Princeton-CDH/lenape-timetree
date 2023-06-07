@@ -3,6 +3,10 @@ branch: Resistance + Resurgence
 display_date: 2021
 display_title: Munsee Names
 sort_date: 2021
+tags:
+- language revitalization
+- Ontario
+- Mark Peters
 title: Munsee Names Project
 ---
 
