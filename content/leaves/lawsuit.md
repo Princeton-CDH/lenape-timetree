@@ -4,7 +4,6 @@ display_date: 2006
 sort_date: 2006
 tags:
 - redress
-- activism
 - deception
 - US government
 title: Lawsuit
