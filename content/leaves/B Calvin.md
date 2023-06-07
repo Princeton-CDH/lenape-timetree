@@ -16,4 +16,4 @@ In 1774 Bartholomew Scott Calvin (Shawukukhkung or Wilted Grass) (Lunaape) matri
 
 {{< figure src="images/university/scott-calvin-b.JPG" alt="document showing list of students">}}
 
-Read an [article describing Scott Calvin](https://drive.google.com/file/d/1bO3Ky5J7rm-c-ZazAR1vJElYD5vVdho5/view).
+Read Gregg Lange's '70 [essay describing Scott Calvin](https://drive.google.com/file/d/1bO3Ky5J7rm-c-ZazAR1vJElYD5vVdho5/view).
