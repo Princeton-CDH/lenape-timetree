@@ -9,6 +9,7 @@ tags:
 - dispossession
 - alumni
 - Sheldon Jackson
+- campus
 title: Art Museum
 ---
 
