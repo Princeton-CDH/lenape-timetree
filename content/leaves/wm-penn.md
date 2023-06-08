@@ -8,6 +8,7 @@ tags:
 - English settlers
 - disease
 - land claims
+- William Penn + brothers
 title: William Penn
 ---
 
