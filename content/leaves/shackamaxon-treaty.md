@@ -6,6 +6,7 @@ display_title: Shackamaxon
 tags:
 - English settlers
 - Philadelphia/Shackamaxon
+- William Penn & brothers
 - treaties
 - affinity
 title: Shackamaxon Treaty
