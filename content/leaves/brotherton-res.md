@@ -5,7 +5,7 @@ display_title: Brotherton Res.
 sort_date: 1758
 tags:
 - reservations
-- activism
+- refusals
 - treaties
 - missions
 - David Brainerd
