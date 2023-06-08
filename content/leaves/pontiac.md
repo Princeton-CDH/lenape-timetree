@@ -5,7 +5,7 @@ display_title: Pontiac
 sort_date: 1763
 tags:
 - Ohio Country
-- alliance
+- alliances
 - wars
 title: "Pontiac\u2019s War"
 ---
