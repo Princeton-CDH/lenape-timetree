@@ -8,7 +8,7 @@ tags:
 - treaties
 - colonial governments
 - alliances
-- D. Brainerd
+- David Brainerd
 title: Public Complaints against New Jersey
 ---
 
