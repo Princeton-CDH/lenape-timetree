@@ -4,6 +4,7 @@ display_date: 1730
 sort_date: 1730
 tags:
 - deception
+- William Penn & brothers
 - land claims
 - land purchases
 title: Walking Purchase
