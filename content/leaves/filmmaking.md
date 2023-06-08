@@ -1,7 +1,7 @@
 ---
 branch: The University
 display_date: 1976-
-display_title: Filmmaking
+display_title: Film
 sort_date: 1976
 tags:
 - art and culture
