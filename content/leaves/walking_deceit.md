@@ -6,6 +6,7 @@ tags:
 - deception
 - land claims
 - dispossession
+- William Penn & brothers 
 title: Walking Deceit
 ---
 
