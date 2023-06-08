@@ -9,7 +9,7 @@ tags:
 - smallpox
 - disease
 - missions
-title: President Edwards
+title: Pres. Edwards
 ---
 
 In 1758 preacher and missionary Jonathan Edwards becomes President of the College of New Jersey. He dies from a fever two months after taking office following a smallpox inoculation.
