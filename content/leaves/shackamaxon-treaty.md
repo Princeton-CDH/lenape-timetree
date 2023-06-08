@@ -2,12 +2,12 @@
 branch: Lands + Waters
 display_date: 1682
 sort_date: 1682
+display_title: Shackamaxon
 tags:
 - English settlers
 - Philadelphia/Shackamaxon
 - treaties
 - affinity
-- William Penn & brothers
 title: Shackamaxon Treaty
 ---
 
