@@ -7,7 +7,7 @@ tags:
 - activism
 - migration
 - refusals
-display title: Brotherton Collapse
+display_title: Brotherton Falls
 title: Brotherton Refusal and Collapse
 ---
 
