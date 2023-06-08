@@ -9,6 +9,8 @@ tags:
 - affinity
 - murder
 - George Morgan White Eyes
+- Colonel George Morgan
+- Chief White Eyes
 title: Funding Ends
 ---
 
