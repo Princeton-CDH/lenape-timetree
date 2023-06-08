@@ -7,6 +7,7 @@ tags:
 - Lenapewihittuck/Delaware River
 - English settlers
 - disease
+- Quakers
 - land claims
 - William Penn & brothers
 title: William Penn
