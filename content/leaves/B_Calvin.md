@@ -9,7 +9,7 @@ tags:
 - religion
 - wars
 - Bartholemew Calvin
-- D. Brainerd
+- David Brainerd
 - university presidents
 - affinity
 title: Bartholemew Calvin (Shawukukhkung)
