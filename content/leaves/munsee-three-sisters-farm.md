@@ -3,7 +3,7 @@ branch: Resistance + Resurgence
 display_date: 2019
 sort_date: 2019
 tags:
-- food soverignty
+- food sovereignty
 - art and culture
 - Munsee
 - activism
