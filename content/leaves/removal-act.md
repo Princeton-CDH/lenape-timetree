@@ -4,7 +4,7 @@ display_date: 1830-
 display_title: Removal Act
 sort_date: 1830
 tags:
-- Treaties
+- treaties
 - Indian Territory
 - dispossession
 title: Native Removal Act
