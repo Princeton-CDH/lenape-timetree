@@ -7,7 +7,7 @@ tags:
 - Philadelphia
 - treaties
 - affinity
-- land claims
+- William Penn
 title: Shackamaxon Treaty
 ---
 
