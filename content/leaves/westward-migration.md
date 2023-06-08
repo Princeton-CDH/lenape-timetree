@@ -4,7 +4,7 @@ display_date: 1737
 sort_date: 1737
 tags:
 - deception
-- dispossesion
+- dispossession
 - migration
 - Ohio Country
 title: Westward Migration
