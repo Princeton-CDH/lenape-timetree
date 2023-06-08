@@ -4,7 +4,7 @@ display_date: 1758
 sort_date: 1758
 tags:
 - treaties
-- alliance
+- alliances
 - deception
 - Stephen Calvin
 - Bartholemew Calvin
