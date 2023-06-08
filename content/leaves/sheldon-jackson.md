@@ -5,6 +5,7 @@ sort_date: 1842
 tags:
 - religion
 - missions
+- Sheldon Jackson
 title: Sheldon Jackson
 ---
 
