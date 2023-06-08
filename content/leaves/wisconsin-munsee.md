@@ -1,7 +1,7 @@
 ---
 branch: Communities
 display_date: 1840-
-display_title: Wisconsin migration
+display_title: Wisconsin
 sort_date: 1840
 tags:
 - migration
