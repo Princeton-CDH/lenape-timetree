@@ -1,7 +1,7 @@
 ---
 branch: Lands + Waters
 display_date: 1832
-display_title: Easton 
+display_title: Easton suit
 sort_date: 1832
 tags:
 - Native students
