@@ -11,7 +11,7 @@ tags:
 - Unami
 - Munsee
 title: Delaware Nation in Oklahoma
-display title: Emigrations
+display_title: Emigrations
 featured: true
 ---
 
