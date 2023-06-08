@@ -5,7 +5,7 @@ sort_date: 1682
 display_title: Shackamaxon
 tags:
 - English settlers
-- Philadelphia-Shackamaxon
+- Philadelphia/Shackamaxon
 - William Penn & brothers
 - treaties
 - affinity
