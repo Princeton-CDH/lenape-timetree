@@ -9,7 +9,7 @@ tags:
 - William Penn & brothers
 - treaties
 - affinity
-title: Shackamaxon Treaty
+title: Shackamaxon
 ---
 
 According to legend, William Penn enters into a treaty with Lunaapeew in 1682. The Treaty of Shackamaxon is signed under an elm tree in a sacred Lunaape area north of Philadelphia, and along the Lenapewihittuck/Delaware River. Penn signs agreements with Lunaapeew that bring lands deeded to him under his absolute title, while still recognizing and reserving certain lands for Lunaapeew where their villages are located.
