@@ -7,7 +7,6 @@ tags:
 - missions
 - cultural property
 - dispossession
-- alumni
 - Sheldon Jackson
 - campus
 title: Art Museum
