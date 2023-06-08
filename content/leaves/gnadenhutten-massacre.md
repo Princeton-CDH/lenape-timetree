@@ -4,7 +4,7 @@ display_date: 1782
 sort_date: 1782
 tags:
 - emigration
-- massacre
+- massacres
 - missions
 title: Massacre
 ---
