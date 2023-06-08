@@ -10,6 +10,8 @@ Armstrong, April C. [“George Morgan White Eyes, Racial Theory at Princeton and
 
 Armstrong, April C. [“Can Nathaniel FitzRandolph’s Descendants Attend Princeton University for Free?”](https://blogs.princeton.edu/mudd/2015/06/can-nathaniel-fitzrandolphs-descendants-attend-princeton-university-for-free/) _Mudd Manuscript Library Blog_. 
 
+Brainerd, Rev. Thomas. [The Life of John Brainerd, The Brother of David Brainerd and His Successor as Missionary to the Indians of New Jersey.](https://books.google.com/books?id=qZGIKvMFuxgC&pg) 1865
+
 Bush, Alfred L. “A Few Incidents from My Life Among the Indians on the Princeton Campus.” The Princeton University Library Chronicle, Vol. 78, No. 1. 2020.
 
 Bush, Alfred L. “Otterskins, Eagle Feathers, and Native American Alumni at Princeton.” The Princeton University Library Chronicle, Vol. 67, No. 2. 2006).
