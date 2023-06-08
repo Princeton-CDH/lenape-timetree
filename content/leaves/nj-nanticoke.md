@@ -4,7 +4,7 @@ display_date: 1800s
 sort_date: 1800
 tags:
 - Nanticoke
-- alliance
+- alliances
 - Lenapewihittuck/Delaware River
 title: NJ Nanticoke
 ---
