@@ -10,4 +10,4 @@ tags:
 title: The Dutch in Princeton
 ---
 
-In 1737, the Penn brothers sell Princeton-area land to Dutch farmers.
+In 1737, the Penn brothers sell Princeton area land to Dutch farmers.
