@@ -8,7 +8,7 @@ tags:
 - alliances
 - treaties
 - Chief White Eyes
-- Colonial George Morgan
+- Colonel George Morgan
 title: Colonel George Morgan
 ---
 
