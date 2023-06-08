@@ -1,7 +1,7 @@
 ---
 branch: The University
 display_date: 1785-1789
-display_title: Matriculation
+display_title: Chief's Son
 sort_date: 1785
 tags:
 - colonial governments
@@ -11,7 +11,6 @@ tags:
 - Colonel George Morgan
 - Chief White Eyes
 - George Morgan White Eyes
-display_title: Chief's Son
 title: George Morgan White Eyes Attends College
 ---
 
