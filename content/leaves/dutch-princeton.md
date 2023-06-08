@@ -6,6 +6,7 @@ sort_date: 1737
 tags:
 - Dutch settlers
 - land purchases
+- William Penn
 title: The Dutch in Princeton
 ---
 
