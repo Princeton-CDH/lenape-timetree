@@ -1,14 +1,15 @@
 ---
 branch: Lands + Waters
 display_date: 1746-1759
-display_title: Bethel Mission
+display_title: Bethel
 sort_date: 1746
 tags:
 - alliance
 - missions
 - religion
 - Bartholemew Calvin
-title: Bethel Indian Town
+- David Brainerd
+title: Bethel Mission
 ---
 
 In 1746, Presbyterian minister David Brainerd founds Bethel Indian Town, or the Bethel Mission Settlement, comprised of Lunaapeew who have converted to Christianity. Brainerd dies from tuberculosis a year later, but Bethel Mission does not disband until 1759. The Bethel site is about fifteen miles east of Princeton, in what is now Monroe Township. Brainerd is mentor to Stephen and advocated for Steven's son Bartholemew Calvin to matriculate at Princeton.
