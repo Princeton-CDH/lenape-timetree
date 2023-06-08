@@ -5,6 +5,7 @@ sort_date: 2021
 tags:
 - art and culture
 - Indigenous Studies
+- display_title: NAISIP
 title: NAISIP Founded
 ---
 
