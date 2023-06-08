@@ -7,7 +7,7 @@ tags:
 - Philadelphia
 - treaties
 - affinity
-- William Penn
+- William Penn + brothers
 title: Shackamaxon Treaty
 ---
 
