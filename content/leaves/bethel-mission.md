@@ -4,7 +4,7 @@ display_date: 1746-1759
 display_title: Bethel
 sort_date: 1746
 tags:
-- alliance
+- alliances
 - missions
 - religion
 - Bartholemew Calvin
