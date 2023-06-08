@@ -6,7 +6,7 @@ sort_date: 1776
 tags:
 - campus
 - alliances
-- treaties
+- colonial governments
 - Chief White Eyes
 - Colonel George Morgan
 title: Colonel George Morgan
