@@ -5,7 +5,8 @@ sort_date: 1842
 tags:
 - wars
 - Native students
-- affinity wars
+- affinity
+- wars
 title: William Potter Ross
 ---
 
