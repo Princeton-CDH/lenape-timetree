@@ -8,7 +8,7 @@ tags:
 - activism
 - treaties
 - missions
-- D. Brainerd
+- David Brainerd
 title: Brotherton Reservation
 ---
 
