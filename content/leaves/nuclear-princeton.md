@@ -4,7 +4,7 @@ display_date: 2021-
 sort_date: 2021
 tags:
 - US Government
-- Native Princeton students
+- Native students
 - disease
 - toxicity
 title: Nuclear Princeton
