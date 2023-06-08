@@ -2,6 +2,7 @@
 branch: Communities
 display_date: 1789-
 sort_date: 1789
+display_title: Emigrations
 tags:
 - Indian Territory
 - emigration
@@ -11,7 +12,6 @@ tags:
 - Unami
 - Munsee
 title: Delaware Nation in Oklahoma
-display_title: Emigrations
 featured: true
 ---
 
