@@ -6,7 +6,7 @@ sort_date: 1907
 tags:
 - missions
 - art and culture
-- cultural propert
+- cultural property
 - library
 - David Brainerd
 - university presidents 
