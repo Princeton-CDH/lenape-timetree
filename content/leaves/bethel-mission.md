@@ -8,6 +8,7 @@ tags:
 - missions
 - religion
 - Bartholemew Calvin
+- Steven Calvin
 - David Brainerd
 title: Bethel Mission
 ---
