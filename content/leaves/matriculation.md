@@ -1,6 +1,6 @@
 ---
 branch: The University
-display_date: 1785-1789
+display_date: 1785-1787
 display_title: Chief's Son
 sort_date: 1785
 tags:
