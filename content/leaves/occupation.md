@@ -5,9 +5,9 @@ display_title: Occupation
 sort_date: 1778
 tags:
 - colonial governments
-- activism
 - affinity
 - campus
+- alliances
 - Chief white eyes
 - murder
 title: Prospect Occupation
