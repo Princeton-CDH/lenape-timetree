@@ -6,10 +6,16 @@ tags:
 - treaties
 - alliances
 - deception
+- wars
+- land purchases
+- Ohio Country
 - Stephen Calvin
 - Bartholemew Calvin
-title: Easton Signing
+title: Easton Treaty
 ---
+
+
+During the Seven Years' War (1754 to 1763), Lunaapeew who have been forced into the Ohio Country (after the Walking Purchase) ally with the French. British colonial governors introduce the 1758 Treaty of Easton to Lunaapeew and other Native nations. The last of Lunaape land in New Jersey is “ceded” for $1,000 Spanish dollars.
 
 At the signing of the Easton Treaty, the Lunaape representative Teedyuscung makes it clear that the deceit of the Walking Purchase had led Lunaapeew to fight against the British. Native chiefs exact a promise from the British to recognize Indigenous fishing and hunting rights, and, in exchange, Native nations vouch not to ally with the French. The British do not keep their promise to protect usufructuary rights. 
 
