@@ -6,6 +6,8 @@ sort_date: 1758
 tags:
 - religion
 - university presidents
+- smallpox
+- disease
 - missions
 title: President Edwards
 ---
