@@ -6,10 +6,11 @@ sort_date: 1882
 tags:
 - missions
 - cultural property
+- art and culture
 - dispossession
 - Sheldon Jackson
 - campus
-title: Art Museum
+title: University Cultural Collections
 ---
 
 Presbyterian Reverend Dr. Sheldon Jackson, a graduate from the Princeton Theological Seminary, begins to donate Native American cultural belongings mostly from Alaska, the Pacific Northwest Coast, and the Southwest to the Princeton Theological Seminary. The collection is supplemented by additional Jackson donations in 1883 and 1885.
