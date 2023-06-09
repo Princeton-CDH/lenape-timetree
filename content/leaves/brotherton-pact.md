@@ -2,7 +2,7 @@
 branch: Resistance + Resurgence
 display_date: 1780
 sort_date: 1780
-display_title: Brotherton
+display_title: Brotherton Pact
 tags:
 - refusals
 - reservations
