@@ -8,6 +8,7 @@ tags:
 - alliances
 - land purchases
 - colonial governments
+- Easton Treaty
 - treaties
 - wars
 title: Treaty of Easton
