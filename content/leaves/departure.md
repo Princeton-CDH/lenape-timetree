@@ -6,8 +6,8 @@ sort_date: 1789
 tags:
 - Native students
 - Ohio Country
-- affinity
 - murder
+- US Government
 - George Morgan White Eyes
 - Colonel George Morgan
 - Chief White Eyes
