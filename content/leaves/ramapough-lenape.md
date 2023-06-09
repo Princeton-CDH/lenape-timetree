@@ -7,7 +7,7 @@ tags:
 - Ramapough
 - massacres
 - Dutch settlers
-display title: Ramapough
+display_title: Ramapough
 title: Ramapough Lenaapeew
 ---
 
