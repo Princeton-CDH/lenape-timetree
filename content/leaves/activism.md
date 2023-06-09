@@ -1,11 +1,12 @@
 ---
 branch: The University
-display_date: 1973
+display_date: 1970-1973
 display_title: Activism
-sort_date: 1973
+sort_date: 1970
 tags:
 - activism
 - US Government
+- library
 - Indigenous studies
 title: Native Faculty
 ---
