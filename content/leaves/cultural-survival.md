@@ -5,7 +5,7 @@ sort_date: 1858
 tags:
 - religion
 - missions
-- art and language
+- art and culture
 - cultural property
 - Sheldon Jackson
 title: Salvaging Culture
