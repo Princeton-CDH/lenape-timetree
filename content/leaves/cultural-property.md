@@ -1,6 +1,6 @@
 ---
 branch: The University
-display_date: 1879-1885
+display_date: 1879-1886
 display_title: Repossession
 sort_date: 1882
 tags:
