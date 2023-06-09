@@ -1,5 +1,5 @@
 ---
-branch: Lands + Waters
+branch: Removals
 display_date: 1866
 sort_date: 1866
 display_title: Delaware Treaty
