@@ -5,7 +5,7 @@ sort_date: 1624
 tags:
 - Dutch settlers
 - Mannahatta
-- colonial occupation
+- language
 title: Mannahatta
 ---
 
