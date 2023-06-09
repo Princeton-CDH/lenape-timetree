@@ -1,7 +1,8 @@
 ---
-branch: Communities
+branch: Lands + Waters
 display_date: 1866
 sort_date: 1866
+display_title: Delaware Treaty
 tags:
 - treaties
 - Native students
