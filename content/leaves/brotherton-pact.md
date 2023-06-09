@@ -6,6 +6,7 @@ display_title: Brotherton
 tags:
 - refusals
 - reservations
+- Brotherton
 title: The Brotherton Pact
 ---
 
