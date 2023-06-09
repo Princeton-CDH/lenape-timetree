@@ -8,6 +8,7 @@ tags:
 - Native students
 - Cherokee
 - alliances
+- disposession
 - Ohio Country
 - US Government
 title: 1866 Delaware Treaty
