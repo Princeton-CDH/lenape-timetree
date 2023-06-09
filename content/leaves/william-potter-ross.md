@@ -5,6 +5,7 @@ sort_date: 1842
 tags:
 - wars
 - Native students
+- Cherokee
 - affinity
 - wars
 title: William Potter Ross
@@ -17,4 +18,4 @@ William Potter Ross graduates from the College of New Jersey first in his class 
 {{< figure src="images/university/william-potter-ross.jpg" alt="An older man sits on a chair next to a shrub with his legs crossed.">}}
 
 
-[Alternate depiction: Painting of William Potter Ross from circa 1871 to 1875.](https://dpul.princeton.edu/catalog/4t64gn466)
+[Alternate depiction: Painting of William Potter Ross from circa 1871 - 1875.](https://dpul.princeton.edu/catalog/4t64gn466)
