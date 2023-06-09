@@ -8,6 +8,7 @@ tags:
 - deception
 - wars
 - land purchases
+- Easton Treaty
 - Ohio Country
 - Stephen Calvin
 - Bartholemew Calvin
