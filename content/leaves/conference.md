@@ -1,11 +1,13 @@
 ---
 branch: The University
 display_date: 2019
-display_title: Conferences
+display_title: Indigenous Studies
 sort_date: 2019
 tags:
 - alliances
 - Indigenous studies
+- campus
+- Princeton lands
 title: Indigenous/Settler Conference
 ---
 
