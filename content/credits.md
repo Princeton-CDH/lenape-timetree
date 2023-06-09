@@ -39,7 +39,7 @@ Lunaape Collaborators
 Project Advisor
 : [Natalia Ermolaev](https://cdh.princeton.edu/people/natasha-ermolaev/)
 
-Additional Contributions:
+Additional Contributions
 : Alfred L. Bush, Princeton University Library, Princeton, NJ
 : Lola Constantino, Princeton Class of 24, Princeton, NJ
 : Tessa Desmond, Princeton University, Princeton, NJ
@@ -60,8 +60,7 @@ Funders
 Sponsor
 : [Sarah Rivett](https://english.princeton.edu/people/sarah-rivett), Native American and Indigenous Studies Initiative at Princeton, Princeton University, Princeton, NJ
 
-Site History and Future
-This project is based on  work by Jiyoun Roh ’24 in a term paper for “Indigenous Literatures” (ENG 229) taught by Professor Sarah Rivett. In her paper, Roh used “the form of a tree as a representation of time” to show Princeton’s Indigenous history without following a strict chronological sequence and in “direct contrast to the linear structure of the university timeline” as it is displayed online as the [official history of Princeton University](http://princeton.edu/meet-princeton/history). Roh’s concept was so compelling that there was interest from multiple groups to develop it into a public visualization. In summer 2021, Rivett gathered a group of scholars in Indigenous history, web developers, with advisors from the VizE Lab (J. Himpele, Anthropology) and the Center for Digital Humanities (N. Ermolaev) for an initial nine-month period of experiments with visualization software, historical research by Isabel Lockhart \*22, and illustrations by Lola Constantino ‘23. In ‘22-’23, project development intensified in a year-long creative and technical collaboration between Anthropology’s VizE Lab and the Center for Digital Humanities, which supported the project with a Research Partnership grant.
+Site History and Future : This project is based on  work by Jiyoun Roh ’24 in a term paper for “Indigenous Literatures” (ENG 229) taught by Professor Sarah Rivett. In her paper, Roh used “the form of a tree as a representation of time” to show Princeton’s Indigenous history without following a strict chronological sequence and in “direct contrast to the linear structure of the university timeline” as it is displayed online as the [official history of Princeton University](http://princeton.edu/meet-princeton/history). Roh’s concept was so compelling that there was interest from multiple groups to develop it into a public visualization. In summer 2021, Rivett gathered a group of scholars in Indigenous history, web developers, with advisors from the VizE Lab (J. Himpele, Anthropology) and the Center for Digital Humanities (N. Ermolaev) for an initial nine-month period of experiments with visualization software, historical research by Isabel Lockhart \*22, and illustrations by Lola Constantino ‘23. In ‘22-’23, project development intensified in a year-long creative and technical collaboration between Anthropology’s VizE Lab and the Center for Digital Humanities, which supported the project with a Research Partnership grant.
 
 {{< figure src="images/roots/Constantino-sycamore-drawing.png" alt="realistic drawing of a tree in front of Princeton's Nassau Hall with roots and branches exposed and labeled with the themes from the project data" caption="2022 Campus sycamore tree illustration, by Lola Constantino ‘23." >}}
 
