@@ -3,7 +3,6 @@ branch: Lands + Waters
 display_date: 1600
 sort_date: 1600
 tags:
-- place names
 - Lenapewihittuck/Delaware River
 - renaming
 - English settlers
