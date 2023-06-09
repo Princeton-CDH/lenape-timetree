@@ -6,6 +6,7 @@ sort_date: 1795
 tags:
 - treaties
 - alliances
+- dispossession
 - emigration
 - US government
 - battles
@@ -13,7 +14,7 @@ tags:
 title: Treaty of Greenville
 ---
 
-Following the Battle of Fallen Timbers, the Delaware and others sign the Treaty of Greenville in which they “cede” Ohio lands. Ohio Delaware join the White River Delaware at the invitation of the Miami. The settlement of Lënape along the west fork of the White River, Indiana provides a buffer against white settlers moving into southern areas of Indiana.
+Following the Battle of Fallen Timbers, the Delaware and others sign the Treaty of Greenville in which they “cede” most of the remaining Ohio lands. Ohio Delaware join the White River Delaware at the invitation of the Miami. The settlement of Lënape along the west fork of the White River, Indiana provides a buffer against white settlers moving into southern areas of Indiana.
 
 
 {{< figure src="images/removals/treaty-of-greenville-e.jpg" alt="An old paper document has fine print." >}}
