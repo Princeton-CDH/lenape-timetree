@@ -10,6 +10,7 @@ tags:
 - reservations
 - Cherokee
 title: Delaware Treaty
+draft: true
 ---
 
 Following the Civil War, the Lënape suffer under pressure of increased white settlement in Kansas. They sign a final treaty, the 1866 Delaware Treaty, in which the Delaware Council “gives up” their reservation in Kansas and agrees to relocate to Indian Territory. Just under 1,000 Delawares migrate to Cherokee land at an area equal to 160 acres a head.
