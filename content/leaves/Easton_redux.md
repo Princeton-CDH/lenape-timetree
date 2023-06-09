@@ -5,6 +5,7 @@ display_title: Easton Redress
 sort_date: 1832
 tags:
 - Native students
+- Easton Treaty
 - redress
 - state governments
 - Bartholemew Calvin
