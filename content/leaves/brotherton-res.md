@@ -8,6 +8,7 @@ tags:
 - refusals
 - treaties
 - missions
+- Brotherton
 - David Brainerd
 title: Brotherton Reservation
 ---
