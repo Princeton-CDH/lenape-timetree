@@ -24,4 +24,4 @@ Among the Lunaape translators at the 1758 Treaty of Easton is a person titled, â
 
 {{< figure src="images/lands-waters/easton-signing-b.jpg" alt="document describes event at Easton" caption="Passage describing Teedyscung written by Frederick C. Johnson in 1904." attr="Library of Congress" attrlink="https://www.loc.gov/resource/gdcmassbookdig.countzinzendorfm00john/?sp=33&st=text&r=-0.311,0.048,1.493,1.193,0">}}
 
-View a [depiction of Teedyscung](https://en.wikipedia.org/wiki/File:Teedyuscung.jpg#/media/File:Teedyuscung.jpg).
+View a [depiction of Teedyscung.](https://en.wikipedia.org/wiki/File:Teedyuscung.jpg#/media/File:Teedyuscung.jpg)

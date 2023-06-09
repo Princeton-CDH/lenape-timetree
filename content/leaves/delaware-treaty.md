@@ -19,4 +19,4 @@ Following the Civil War, the Lënape suffer under pressure of increased white se
 
 {{< figure src="images/removals/delaware-treaty-b.jpeg" alt="Cursive writing is atop a blue lined paper." >}}
 
-Continue reading the [1866 Delaware Treaty](https://catalog.archives.gov/id/179009052?objectPage=2).
+Continue reading the [1866 Delaware Treaty.](https://catalog.archives.gov/id/179009052?objectPage=2)
