@@ -1,7 +1,7 @@
 ---
 branch: Resistance + Resurgence
 display_date: 1763-1766
-display_title: Pontiac
+display_title: Pontiac's War
 sort_date: 1763
 tags:
 - Ohio Country
