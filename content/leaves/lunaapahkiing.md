@@ -4,8 +4,9 @@ display_date: Ongoing
 display_title: Lunaapahkiing
 sort_date: 1500
 tags:
-- place names
+- Princeton lands
 - campus
+- language
 title: Lunaapahkiing
 ---
 
