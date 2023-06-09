@@ -7,6 +7,7 @@ tags:
 - Native students
 - Cherokee
 - affinity
+- slavery
 - wars
 title: William Potter Ross
 ---
