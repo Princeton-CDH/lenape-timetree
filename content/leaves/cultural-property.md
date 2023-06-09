@@ -1,7 +1,7 @@
 ---
 branch: The University
 display_date: 1879-1886
-display_title: Repossession
+display_title: Repossessions
 sort_date: 1882
 tags:
 - missions
