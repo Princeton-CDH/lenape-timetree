@@ -1,7 +1,7 @@
 ---
 branch: The University
 display_date: 1970-1997
-display_title: Pecos
+display_title: Trustee
 sort_date: 1970
 tags:
 - Native students
