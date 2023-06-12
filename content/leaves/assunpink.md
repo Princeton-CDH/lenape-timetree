@@ -4,7 +4,6 @@ display_date: Ongoing
 display_title: Assunpink
 sort_date: 1500
 tags:
-- place names
 - renaming
 - Princeton lands
 - routes
