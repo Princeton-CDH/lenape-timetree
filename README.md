@@ -3,7 +3,6 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Hugo](https://img.shields.io/badge/hugo-0.101-blue.svg)](https://gohugo.io)
 ![Node version](https://img.shields.io/badge/node-18-blue)
-[![visual regression testing](https://percy.io/static/images/percy-badge.svg)](https://percy.io/2cf28a24/lenape-timetree)
 
 ## License
 
