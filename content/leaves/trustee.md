@@ -5,7 +5,6 @@ display_title: Trustee
 sort_date: 1970
 tags:
 - Native students
-- Princeton alumni
 title: Regis Pecos (Cochiti) is first Native American Trustee
 ---
 
