@@ -144,6 +144,45 @@ a:visited {
   }
 }
 
+// indicators for external / non-web links
+article a,
+body.page main a {
+  &[href^="http"]::after, &[href^="https://"]::after
+  {
+    content: "";
+    display: inline-block;
+    width: 0.8rem;
+    height: 0.8rem;
+    // use svg as a mask and then set background color with css
+    background-color: $trunk-color;
+    vertical-align: text-top;
+    padding-left: 2px;
+    mask-size: contain;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    -webkit-mask-position: center;
+    @include phosphoricon("arrow-square-out-fill.svg");
+  }
+  // suppress for links to current site (probably only in citation)
+  &[href^="https://lenapetimetree.indigenous.princeton.edu/"]::after
+  {
+    display: none !important;
+  }
+
+  &[href$="pdf"]::after {
+    @include phosphoricon("file-pdf-fill.svg");
+  }
+  &[href$="pdf"]::after {
+    @include phosphoricon("file-pdf-fill.svg");
+  }
+  &[href$="svg"]::after,
+  &[href$="jpeg"]::after,
+  &[href$="png"]::after,
+  &[href$="jpeg"]::after {
+    @include phosphoricon("file-image-fill.svg");
+  }
+}
+
 // margins for content pages
 body.page {
   main {

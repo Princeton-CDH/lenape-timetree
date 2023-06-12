@@ -17,4 +17,4 @@ In 1682, William Penn lands in the “Delaware Bay” on a ship bearing smallpox
 
 {{< figure src="images/lands-waters/william-penn-b.jpg" alt="A paper has green land near its top, right, and bottom and criss-crossing lines in its middle." >}}
 
-[Depiction of William Penn.](https://commons.wikimedia.org/wiki/File:WilliamPenn.jpg#/media/File:WilliamPenn.jpg)
+View a [depiction of William Penn.](https://commons.wikimedia.org/wiki/File:WilliamPenn.jpg#/media/File:WilliamPenn.jpg)
