@@ -13,4 +13,4 @@ The Native American and Indigenous Studies Initiative at Princeton is awarded a 
 
 {{< figure src="images/university/naisip-founded-b.jpeg" alt="purple poster outlining a upcoming symposium at Princeton" caption="2022 NAISIP Munsee Language Symposium poster, created by Michael Quanci." attr="NAISIP" attrlink="https://indigenous.princeton.edu/events/munsee-language-history-symposium">}}
 
-View the [2021 NAISIP Munsee Language Symposium poster](https://www.ias.edu/sites/default/files/NAISIP%20poster%20final%20Nov%202021.pdf).
+View the [2021 NAISIP Munsee Language Symposium poster.](https://www.ias.edu/sites/default/files/NAISIP%20poster%20final%20Nov%202021.pdf)

@@ -15,4 +15,4 @@ By the 1730s, William Penn’s sons – Thomas and John – realize that Lunaape
 
 {{< figure src="images/lands-waters/walking-purchase-c.jpg" alt="writing on yellowed paper, describing the Walking Purchase" caption="Passage written in 1851 by Francis Parkman describing the Walking Purchase." attr="Library of Congress" attrlink="https://www.loc.gov/resource/gdcmassbookdig.historyofconspir00park_0/?sp=109&st=text">}}
 
-View a [map of the land appropriated by the 1737 Walking Purchase](https://commons.wikimedia.org/wiki/File:Walking_purchase_en.png#/media/File:Walking_purchase_en.png).
+View a [map of the land appropriated by the 1737 Walking Purchase.](https://commons.wikimedia.org/wiki/File:Walking_purchase_en.png#/media/File:Walking_purchase_en.png)

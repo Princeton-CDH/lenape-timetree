@@ -21,5 +21,5 @@ The Delaware purchase a 10-by-30 mile tract of land from the Cherokee Nation sit
 
 {{< figure src="images/removals/delaware-treaty-a.jpg" alt="detail from an image of the treaty" caption="Walter S. Logan, reprinted by Richard C. Adams" attr="Library of Congress" attrlink="https://www.loc.gov/resource/gdcmassbookdig.allotmentoflands02usco/?sp=19&st=text" >}}
 
-[See the 1866 Delaware Treaty.](https://catalog.archives.gov/id/179009052?objectPage=2)
+See the [1866 Delaware Treaty.](https://catalog.archives.gov/id/179009052?objectPage=2)
 
