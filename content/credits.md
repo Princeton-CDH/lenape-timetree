@@ -18,9 +18,9 @@ Lunaape and Princeton Communities Liaison
 : [Keely Smith](https://history.princeton.edu/people/keely-smith)
 
 Researchers
-: [Isabel Lockhart](https://indigenous.princeton.edu/people/isabel-lockhart) (history)
-: [Keely Smith](https://history.princeton.edu/people/keely-smith) (history)
-: [Moses Abrahamson](https://jrc.princeton.edu/people/abrahamson) (history)
+: [Isabel Lockhart](https://indigenous.princeton.edu/people/isabel-lockhart) (historical research)
+: [Keely Smith](https://history.princeton.edu/people/keely-smith) (historical research)
+: [Moses Abrahamson](https://jrc.princeton.edu/people/abrahamson) (historical research)
 : Julian Ibarra (photos and documents)
 : Natalia Eichman (maps)
 
