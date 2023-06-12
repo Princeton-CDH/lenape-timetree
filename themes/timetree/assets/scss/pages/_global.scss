@@ -151,8 +151,8 @@ body.page main a {
   {
     content: "";
     display: inline-block;
-    width: 0.8em;
-    height: 0.8em;
+    width: 0.8rem;
+    height: 0.8rem;
     // use svg as a mask and then set background color with css
     background-color: $trunk-color;
     vertical-align: text-top;
