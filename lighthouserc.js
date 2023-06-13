@@ -27,6 +27,13 @@ module.exports = {
         // complains about passive event listeners for scroll; seems to be a d3 issue
         // (should be fixed in newer versions?)
         "uses-passive-event-listeners": "warn",
+
+        // flags the leaves in the tree, which are too small when unzoomed
+        // on some devices
+        "tap-targets": "warn",
+
+        // lighthouse flags google analytics js as unused...
+        "unused-javascript": "warn",
       },
     },
     upload: {
