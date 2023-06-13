@@ -124,6 +124,15 @@ body.taxonomy {
     }
   }
 
+  p {
+    // span columns; limit width on desktop for readability.
+    column-span: all;
+
+    @include for-desktop-up {
+      max-width: 42.2rem;
+    }
+  }
+
   .tags {
     margin-top: 0;
 

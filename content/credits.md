@@ -17,15 +17,13 @@ Project Manager
 Lunaape and Princeton Communities Liaison
 : [Keely Smith](https://history.princeton.edu/people/keely-smith)
 
-Researchers
-: [Isabel Lockhart](https://indigenous.princeton.edu/people/isabel-lockhart) (history)
-: [Keely Smith](https://history.princeton.edu/people/keely-smith) (history)
-: [Moses Abrahamson](https://jrc.princeton.edu/people/abrahamson) (history)
+Content
+: [Isabel Lockhart](https://indigenous.princeton.edu/people/isabel-lockhart) (historical research)
+: [Keely Smith](https://history.princeton.edu/people/keely-smith) (historical research)
+: [Moses Abrahamson](https://jrc.princeton.edu/people/abrahamson) (historical research)
 : Julian Ibarra (photos and documents)
 : Natalia Eichman (maps)
-
-Content Assistant
-: [Ivan Melchor](https://anthropology.princeton.edu/people/ivan-melchor)
+: [Ivan Melchor](https://anthropology.princeton.edu/people/ivan-melchor) (content entry)
 
 Language Advisors
 : [Suzanne Conklin Akbari](https://suzanneakbari.com/), Institute for Advanced Study, Princeton, NJ
@@ -36,8 +34,9 @@ Lunaape Collaborators
 : Ian McCallum, Lunaape Language Teacher, Munsee Delaware Nation
 : Kristin Jacobs, Lunaape Language Teacher, Eelünaapéewi Lahkéewiit / Delaware Nation at Moraviantown
 
-Project Advisor
-: [Natalia Ermolaev](https://cdh.princeton.edu/people/natasha-ermolaev/)
+Project Advisors
+: [Natalia Ermolaev](https://cdh.princeton.edu/people/natasha-ermolaev/), Executive Director, Center for Digital Humanities at Princeton
+: [Meredith Martin](https://cdh.princeton.edu/people/meredith-martin/), Faculty Director, Center for Digital Humanities at Princeton
 
 Additional Contributions
 : Alfred L. Bush, Princeton University Library, Princeton, NJ
@@ -60,7 +59,9 @@ Funders
 Sponsor
 : [Sarah Rivett](https://english.princeton.edu/people/sarah-rivett), Native American and Indigenous Studies Initiative at Princeton, Princeton University, Princeton, NJ
 
-Site History and Future : This project is based on  work by Jiyoun Roh ’24 in a term paper for “Indigenous Literatures” (ENG 229) taught by Professor Sarah Rivett. In her paper, Roh used “the form of a tree as a representation of time” to show Princeton’s Indigenous history without following a strict chronological sequence and in “direct contrast to the linear structure of the university timeline” as it is displayed online as the [official history of Princeton University](http://princeton.edu/meet-princeton/history). Roh’s concept was so compelling that there was interest from multiple groups to develop it into a public visualization. In summer 2021, Rivett gathered a group of scholars in Indigenous history, web developers, with advisors from the VizE Lab (J. Himpele, Anthropology) and the Center for Digital Humanities (N. Ermolaev) for an initial nine-month period of experiments with visualization software, historical research by Isabel Lockhart \*22, and illustrations by Lola Constantino ‘23. In ‘22-’23, project development intensified in a year-long creative and technical collaboration between Anthropology’s VizE Lab and the Center for Digital Humanities, which supported the project with a Research Partnership grant.
+## Project History and Future
+
+This project is based on  work by Jiyoun Roh ’24 in a term paper for “Indigenous Literatures” (ENG 229) taught by Professor Sarah Rivett. In her paper, Roh used “the form of a tree as a representation of time” to show Princeton’s Indigenous history without following a strict chronological sequence and in “direct contrast to the linear structure of the university timeline” as it is displayed online as the [official history of Princeton University.](http://princeton.edu/meet-princeton/history) Roh’s concept was so compelling that there was interest from multiple groups to develop it into a public visualization. In summer 2021, Rivett gathered a group of scholars in Indigenous history, web developers, with advisors from the VizE Lab (J. Himpele, Anthropology) and the Center for Digital Humanities (N. Ermolaev) for an initial nine-month period of experiments with visualization software, historical research by Isabel Lockhart \*22, and illustrations by Lola Constantino ‘23. In ‘22-’23, project development intensified in a year-long creative and technical collaboration between Anthropology’s VizE Lab and the Center for Digital Humanities, which supported the project with a Research Partnership grant.
 
 {{< figure src="images/roots/Constantino-sycamore-drawing.png" alt="realistic drawing of a tree in front of Princeton's Nassau Hall with roots and branches exposed and labeled with the themes from the project data" caption="2022 Campus sycamore tree illustration, by Lola Constantino ‘23." >}}
 
@@ -74,7 +75,7 @@ Thank-you, thank-you, thank-you, thank-you
 
 * * *
 
- 
+
 ## How to Cite {#cite}
 
 When referencing any content from this project, please cite the project as a whole as follows:
