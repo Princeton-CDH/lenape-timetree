@@ -1,8 +1,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {{/* output page title before site title unless they are exactly the same */}}
-    <title>{{ block "title" . }}{{ with .Params.Title }}{{ if ( ne . $.Site.Title ) }}{{ . }} | {{ end }}{{ end }}{{ .Site.Title }}{{ end }}</title>
-    <meta name="description" content="{{ .Params.Description | default .Summary | default .Site.Params.description }}">
+    {{- $title := .Site.Title -}}
+    {{- if  ne .Params.Title .Site.Title -}}
+        {{- $title =  printf "%s | %s" .Params.Title .Site.Title -}}
+    {{- end -}}
+    <title>{{ $title }}</title>
+    {{- $description := .Params.Description | default .Summary | default .Site.Params.description -}}
+    <meta name="description" content="{{ $description | htmlEscape }}">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -10,6 +15,17 @@
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#61514b">
     <meta name="msapplication-TileColor" content="#61514b">
     <meta name="theme-color" content="#61514b">
+
+    {{/* twitter card metadata; same title logic as page title */}}
+    <meta name="twitter:title" content="{{ $title | htmlEscape }}"/>
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:description" content="{{ $description | htmlEscape }}" />
+    <meta name="twitter:image" content="{{ absURL "twitter-card.png" }}"/>
+    {{/* opengraph metadata */}}
+    <meta property="og:title" content="{{ $title | htmlEscape }}" />
+    <meta name="og:description" content="{{ $description | htmlEscape }}" />
+    <meta property="og:image" content="{{ absURL "opengraph-card.png" }}"/>
+
     <!-- resource preloading -->
     <link rel="preload" as="font" type="font/woff2" href="/fonts/overlock/Overlock-Regular.woff2" crossorigin />
     <link rel="preload" as="font" type="font/woff2" href="/fonts/overlock/Overlock-Black.woff2" crossorigin />
