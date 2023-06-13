@@ -106,13 +106,22 @@ body.taxonomy {
   margin: 0 18px 22px;
 
   @include for-desktop-up {
-    margin: 0 60px 38px;
+    margin: 0 auto 1.2rem;
     // display in two columns on desktop only
     columns: 2 auto; // second arg is width
     column-gap: 8px;
     // don't let the columns get too far apart;
-    // set max width based on expected size at xl breakpoint
-    max-width: calc(#{$breakpoint-xl} - 120px);
+    // max width is looser than for content pages
+    max-width: 54rem;
+  }
+
+  p {
+    // span columns; limit width on desktop for readability.
+    column-span: all;
+
+    @include for-desktop-up {
+      max-width: 42.2rem;
+    }
   }
 
   p {

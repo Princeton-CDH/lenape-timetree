@@ -7,7 +7,7 @@ tags:
 - renaming
 - Iroquois
 - Ohio Country
-title: Midwest Resettlement
+title: Ohio Migration
 featured: true
 ---
 

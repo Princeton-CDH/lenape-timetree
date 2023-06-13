@@ -5,6 +5,8 @@ sort_date: 1600
 tags:
 - Lenapewihittuck/Delaware River
 - Muhheakantuck/Hudson River
+- Unami
+- Munsee
 title: Minisink
 ---
 

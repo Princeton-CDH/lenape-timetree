@@ -8,7 +8,8 @@ tags:
 - Munsee
 - migration
 - wars
+- Ohio Country
 title: Ontario Munsee
 ---
 
-Pro-British Munsee bands living in  northwestern Ohio during the American Revolution migrate to Munceytown along Thames River (Ontario). Following the American Revolution in the late 1700s, many Lunaapeew are largely conceived as pro-British. They were known previously as the Munsee of the Thames.
+Following the American Revolution in the late 1700s, pro-British Munsee groups living in northwestern Ohio during the American Revolution migrate to Munceytown along Thames River (Ontario). They were known previously as the Munsee of the Thames.

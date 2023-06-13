@@ -8,7 +8,7 @@ tags:
 title: Independence
 ---
 
-Lunaapeew gain independent tribal status in 1996 (two nations are recognized by New Jersey and one by the state of Delaware. Many unrecognized Lunaape communities remain outside New Jersey.
+Lunaapeew gain independent tribal status in 1996. Two nations are recognized by New Jersey and one by the state of Delaware. Many unrecognized Lunaape communities remain outside New Jersey.
 
 
 {{< figure src="images/resistance-resurgence/independence.jpg" alt="A bold heading is followed by a summary and brief paragraph." >}}

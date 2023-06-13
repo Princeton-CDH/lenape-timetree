@@ -9,4 +9,4 @@ tags:
 title: Thomas Yong
 ---
 
-In 1634, Lunaapeew encounter the English captain, Thomas Yong, in the now-Princeton area.
+In 1634, Lunaapeew encounter the English captain, Thomas Yong, in the area now called Princeton.

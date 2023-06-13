@@ -7,6 +7,7 @@ tags:
 - state governments
 - recognition
 title: Recognition of Ritual Authority
+display_title: Legal Authority
 ---
-
+ 
 New Jersey recognizes the authority of traditional tribal spiritual leaders to solemnize matrimony.

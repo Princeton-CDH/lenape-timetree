@@ -2,9 +2,10 @@
 branch: Communities
 display_date: 1789-
 sort_date: 1789
+display_title: Emigrations
 tags:
 - Indian Territory
-- migration
+- emigration
 - reservations
 - renaming
 - Ohio Country

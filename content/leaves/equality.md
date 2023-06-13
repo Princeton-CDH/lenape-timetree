@@ -6,6 +6,8 @@ tags:
 - English settlers
 - Quakers
 - affinity
+- religion
+- William Penn & brothers
 title: Equality
 ---
 

@@ -9,4 +9,4 @@ title: Land governance
 draft: true
 ---
 
-Lunaape governance over lands and waters in Lunaapahkiing
+Lunaape governance over lands and waters in Lunaapahkiing.

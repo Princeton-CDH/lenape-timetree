@@ -5,6 +5,8 @@ display_title: Storytelling
 sort_date: 2022
 tags:
 - language revitalization
+- art and culture
+- alliances
 title: 'Munsee Delaware Story Evening: NEEKAAWA KIHTAACHIIMUWAK WULAAKWUNUWII (This
   Evening They Tell Stories)'
 ---

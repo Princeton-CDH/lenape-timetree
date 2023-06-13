@@ -10,6 +10,8 @@ Armstrong, April C. [“George Morgan White Eyes, Racial Theory at Princeton and
 
 Armstrong, April C. [“Can Nathaniel FitzRandolph’s Descendants Attend Princeton University for Free?”](https://blogs.princeton.edu/mudd/2015/06/can-nathaniel-fitzrandolphs-descendants-attend-princeton-university-for-free/) _Mudd Manuscript Library Blog_. 
 
+Brainerd, Rev. Thomas. [The Life of John Brainerd, The Brother of David Brainerd and His Successor as Missionary to the Indians of New Jersey.](https://books.google.com/books?id=qZGIKvMFuxgC&pg) 1865
+
 Bush, Alfred L. “A Few Incidents from My Life Among the Indians on the Princeton Campus.” The Princeton University Library Chronicle, Vol. 78, No. 1. 2020.
 
 Bush, Alfred L. “Otterskins, Eagle Feathers, and Native American Alumni at Princeton.” The Princeton University Library Chronicle, Vol. 67, No. 2. 2006).
@@ -28,7 +30,7 @@ Dyson, George. [“The Tavern and the Meeting House.”](https://www.ias.edu/ide
 
 Estes, Nick. _Our History is the Future_. 2019.
 
-Fluehr, Kathryn. [“Prospect Farm”](https://slavery.princeton.edu/stories/prospect-farm#4147) _Princeton & Slavery_. 
+Fluehr, Kathryn. [“Prospect Farm,”](https://slavery.princeton.edu/stories/prospect-farm#4147) _Princeton & Slavery_. 
 
 Glow, Beatrice. _[Mannahatta VR.](https://beatriceglow.org/mannahatta)_ 
 
@@ -66,9 +68,7 @@ Peters, Chief Mark. _[Manhattan to Muncey.](https://www.youtube.com/channel/UC1N
 
 Peters, Chief Mark. [“Munsee History 14,000 BP – 1763).”](https://www.publichistoryproject.org/2021/09/02/munsee-history-from-14000-bp-to-1763/)
 
-Peters, Chief Mark. [“The Treaty of Easton, Signed by the Munsee Chief, Egohohowen, on ](https://www.publichistoryproject.org/2021/09/02/the-treaty-of-easton-signed-by-the-munsee-chief-egohohowen-on-october-1758/)
-
-[October 1758.”](https://www.publichistoryproject.org/2021/09/02/the-treaty-of-easton-signed-by-the-munsee-chief-egohohowen-on-october-1758/) 
+Peters, Chief Mark. [“The Treaty of Easton, Signed by the Munsee Chief, Egohohowen, on October 1758.”](https://www.publichistoryproject.org/2021/09/02/the-treaty-of-easton-signed-by-the-munsee-chief-egohohowen-on-october-1758/)
 
 Pierce, Tina Marie. _The Nanticoke Lenni-Lenape Indians: Restoration of a Tribal Identity._
 

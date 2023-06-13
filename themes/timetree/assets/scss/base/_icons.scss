@@ -43,6 +43,18 @@ i[class^="ph-"] {
 .ph-minus.ph-bold {
   @include phosphoricon("minus-bold.svg");
 }
+.ph-file-pdf.ph-fill {
+  @include phosphoricon("file-pdf-fill.svg");
+}
+.ph-file-doc.ph-fill {
+  @include phosphoricon("file-doc-fill.svg");
+}
+.ph-file-image.ph-fill {
+  @include phosphoricon("file-image-fill.svg");
+}
+.ph-arrow-square-out.ph-fill {
+  @include phosphoricon("arrow-square-out-fill.svg");
+}
 
 // leaf icon for branches;
 // currently assumes applied to a pseudo-element

@@ -14,4 +14,4 @@ In 1683, the Henry Greenland Tavern is established along the Assunpink Trail, eq
 
 {{< figure src="images/lands-waters/princeton-settlement.jpg" alt="newspaper article about Henry Greenland" caption="1987 Town Topics article description of Henry Greenland." attr="Princeton University Library" attrlink="https://theprince.princeton.edu/princetonperiodicals/?a=d&d=TownTopics19871223-01.2.14&srpos=2&e=-------en-20--1--txt-txIN-greenland+tavern------">}}
 
-View a [map of early Stony Brook](https://princetonhistory.org/green-oval-tour/early-stony-brook.html).
+View a [map of early Stony Brook.](https://princetonhistory.org/green-oval-tour/early-stony-brook.html)

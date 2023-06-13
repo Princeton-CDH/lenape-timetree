@@ -1,13 +1,20 @@
 ---
-branch: Lands + Waters
-display_date: 1832
+branch: The University
+display_date: 1774
 display_title: B. Calvin
-sort_date: 1832
+sort_date: 1774
 tags:
 - Native students
-- redress
-- state governments
-title: NJ Lawsuit
+- treaties
+- religion
+- wars
+- Bartholemew Calvin
+- David Brainerd
+- university presidents
+- affinity
+title: Bartholemew Calvin (Shawukukhkung)
 ---
 
-In 1832, Lunaapeew in Wisconsin successfully petition the State of New Jersey for compensation based on claims to lost fishing and hunting rights promised by the Treaty of Easton. Bartholomew Calvin serves as attorney for Lunaapeew.
+In 1774 Bartholomew Scott Calvin (Shawukukhkung or Wilted Grass) (Lunaape) matriculates at the College of New Jersey. His father is Steven Calvin, Native translator at the Treaty of Easton. Missionary David Brainerd from nearby Cranbury advocates for Steven's admission to College President John Witherspoon and Calvin is sponsored by the Scottish Society for the Propagation of Christian Knowledge. Funds are cut off in 1776 during the Revolutionary War, and Calvin has to drop out. However, he has a successful career as a teacher and Lunaape leader (see the 1832 challenge to Treaty of Easton). 
+
+Read Gregg Lange's '70 [personal essay on Bartholemew Calvin.](https://paw.princeton.edu/article/rally-round-cannon-wilted-grass-lenni-lenape)

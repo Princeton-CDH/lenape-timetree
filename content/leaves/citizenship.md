@@ -4,7 +4,7 @@ display_date: 1924
 display_title: Citizenship
 sort_date: 1924
 tags:
-- citizenship
+- recognition
 - US government
 - alliances
 title: Native Citizenship

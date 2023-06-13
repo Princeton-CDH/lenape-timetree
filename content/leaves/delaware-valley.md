@@ -6,7 +6,11 @@ sort_date: 1682
 tags:
 - Lenapewihittuck/Delaware River
 - colonial governments
-title: Delaware Valley properties
+- dispossession
+- renaming
+- William Penn & brothers
+title: Delaware Valley Properties
 ---
 
-William Penn and others divide up Lunaape lands across the Delaware Valley into separate colonies and property holdings. For the Unami Lënapesee the Delaware River, or Lenapewihittuck, is the unifying center of their territory, but it becomes, for settlers, the dividing line between the New Jersey and Pennsylvania colonies.
+William Penn and others divide up Native ancestral lands across the Delaware Valley into their own separate colonies and property holdings. For the Unami Lënape
+the Delaware River, or Lenapewihittuck, is the unifying center of their territory. But it becomes, for settlers, the dividing line between the New Jersey and Pennsylvania colonies.

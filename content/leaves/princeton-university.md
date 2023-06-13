@@ -5,7 +5,8 @@ sort_date: 1896
 tags:
 - renaming
 - Princeton lands
-title: "\u201CPrinceton University\u201D"
+- campus
+title: Princeton University
 ---
 
 In 1896, the College of New Jersey is renamed Princeton University.
