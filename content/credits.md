@@ -3,19 +3,19 @@ title: Site Credits
 ---
 
 Content Lead
-: [Jeffrey Himpele](https://anthropology.princeton.edu/people/jeffrey-himpele)
+: [Jeffrey Himpele](https://anthropology.princeton.edu/people/jeffrey-himpele), Director, VizE Lab for Ethnographic Data Visualization; Lecturer, Anthropology
 
 Technical Lead
-: [Rebecca Sutton Koeser](https://cdh.princeton.edu/people/rebecca-sutton-koeser/)
+: [Rebecca Sutton Koeser](https://cdh.princeton.edu/people/rebecca-sutton-koeser/), Lead Research Software Engineer, Center for Digital Humanities at Princeton
 
 Design Lead
-: [Gissoo Doroudian](https://cdh.princeton.edu/people/gissoo-doroudian/)
+: [Gissoo Doroudian](https://cdh.princeton.edu/people/gissoo-doroudian/), User Experience Designer, Center for Digital Humanities at Princeton
 
 Project Manager
-: [Keely Smith](https://history.princeton.edu/people/keely-smith)
+: [Keely Smith](https://history.princeton.edu/people/keely-smith), PhD Candidate, Department of History, Princeton University
 
 Lunaape and Princeton Communities Liaison
-: [Keely Smith](https://history.princeton.edu/people/keely-smith)
+: [Keely Smith](https://history.princeton.edu/people/keely-smith), PhD Candidate, Department of History, Princeton University
 
 Content
 : [Isabel Lockhart](https://indigenous.princeton.edu/people/isabel-lockhart) (historical research)
@@ -24,6 +24,9 @@ Content
 : Julian Ibarra (photos and documents)
 : Natalia Eichman (maps)
 : [Ivan Melchor](https://anthropology.princeton.edu/people/ivan-melchor) (content entry)
+
+Additional Development
+: Ryan Heuser, Research Software Engineer, Center for Digital Humanities at Princeton
 
 Language Advisors
 : [Suzanne Conklin Akbari](https://suzanneakbari.com/), Institute for Advanced Study, Princeton, NJ
@@ -42,7 +45,6 @@ Additional Contributions
 : Alfred L. Bush, Princeton University Library, Princeton, NJ
 : Lola Constantino, Princeton Class of 24, Princeton, NJ
 : Tessa Desmond, Princeton University, Princeton, NJ
-: Ryan Heuser, Center for Digital Humanities, Princeton, NJ
 : John Jameson, OIT, Digital Accessibility, Princeton University, Princeton, NJ
 : Ben Johnston, The McGraw Center, Princeton University, Princeton, NJ
 : Sarah Malone, Department of English, Princeton University, Princeton, NJ
