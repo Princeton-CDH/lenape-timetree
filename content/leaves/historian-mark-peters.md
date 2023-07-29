@@ -1,7 +1,7 @@
 ---
 branch: Resistance + Resurgence
 display_date: 2022
-display_title: Chief Mark Peters
+display_title: Historian Mark Peters
 sort_date: 2022
 tags:
 - Mark Peters
