@@ -11,4 +11,4 @@ tags:
 title: Murder
 ---
 
-Chief White Eyes shot is and killed by a white man, allegedly in self-defense.
+Chief White Eyes is shot and killed by a white man, allegedly in self-defense.
