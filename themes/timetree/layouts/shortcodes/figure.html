@@ -47,12 +47,14 @@
         {{- with .Get "caption" -}}
         {{ . | markdownify }}
         {{- end -}}
-        {{- if .Get "attr" -}}
+        {{- $attr := .Get "attr" -}}
+        {{- $attrlink := .Get "attrlink" -}}
+        {{- if $attr -}}
         <span class="attribution">
-            {{- if .Get "attrlink" -}}<a href="{{ . }}">
+            {{- if $attrlink -}}<a href="{{ $attrlink }}">
             {{- else -}}Courtesy of&nbsp;<span>{{- end -}}
-            {{- .Get "attr" | markdownify -}}
-            {{- if .Get "attrlink" }}</a>{{ else }}</span>{{- end -}}
+            {{- $attr | markdownify -}}
+            {{- if $attrlink }}</a>{{ else }}</span>{{- end -}}
         </span>
         {{- end }}
         </p>
