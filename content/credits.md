@@ -2,14 +2,17 @@
 title: Site Credits
 ---
 
+
+Design Lead
+: [Gissoo Doroudian](https://cdh.princeton.edu/people/gissoo-doroudian/), User Experience Designer, Center for Digital Humanities at Princeton
+
 Content Lead
-: [Jeffrey Himpele](https://anthropology.princeton.edu/people/jeffrey-himpele), Director, VizE Lab for Ethnographic Data Visualization; Lecturer, Anthropology
+: [Jeffrey Himpele](https://anthropology.princeton.edu/people/jeffrey-himpele), Director, VizE Lab for Ethnographic Data Visualization; Lecturer, Anthropology, Princeton University
 
 Technical Lead
 : [Rebecca Sutton Koeser](https://cdh.princeton.edu/people/rebecca-sutton-koeser/), Lead Research Software Engineer, Center for Digital Humanities at Princeton
 
-Design Lead
-: [Gissoo Doroudian](https://cdh.princeton.edu/people/gissoo-doroudian/), User Experience Designer, Center for Digital Humanities at Princeton
+*Project co-directors are listed in alphabetical order.*
 
 Project Manager
 : [Keely Smith](https://history.princeton.edu/people/keely-smith), PhD Candidate, Department of History, Princeton University
@@ -26,7 +29,7 @@ Content
 : [Ivan Melchor](https://anthropology.princeton.edu/people/ivan-melchor) (content entry)
 
 Additional Development
-: Ryan Heuser, Research Software Engineer, Center for Digital Humanities at Princeton
+: [Ryan Heuser](https://cdh.princeton.edu/people/ryan-heuser/), Research Software Engineer, Center for Digital Humanities at Princeton
 
 Language Advisors
 : [Suzanne Conklin Akbari](https://suzanneakbari.com/), Institute for Advanced Study, Princeton, NJ
@@ -82,7 +85,7 @@ Thank-you, thank-you, thank-you, thank-you
 
 ## How to Cite {#cite}
 
-When referencing any content from this project, please cite the project as a whole as follows:
+This is a collaborative project that incorporates the work of many contributors; we request that you cite it with all four of the core team members, who are listed alphabetically. When referencing any content from this project, please cite the project as a whole as follows:
 
 {{< project_citation >}}
 
@@ -94,7 +97,7 @@ Site content is licensed under a [Creative Commons Attribution-NonCommercial 4.0
 
 All images are used with permission or available in the public domain.
 
-The [software for this site](https://github.com/Princeton-CDH/lenape-timetree) is made available under the Apache License 2.0.
+The [software for this project](https://github.com/Princeton-CDH/lenape-timetree) is made available under the Apache License 2.0.
 
 All other content is copyrighted by the Trustees of Princeton University.
 

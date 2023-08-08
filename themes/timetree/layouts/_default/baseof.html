@@ -2,7 +2,15 @@
 <html lang="en">
     <head>
     {{- partial "head.html" . -}}
-    {{- block "page_meta" . -}}{{- end -}}
+    {{/* metadata to include on every page */}}
+    <link rel="schema.DC" href="http://purl.org/DC/elements/1.0/"/>
+    <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" >
+    <meta name="DC.identifier" content="{{ .Permalink | absURL }}" />
+    <meta name="DC.title" content="{{ .Page.Title | htmlEscape }}"/>
+    <meta name="DC.publisher" content="Center for Digital Humanities, Princeton     University"/>
+    <meta name="DC.rights" content="{{ .Site.Params.rights }}"/>
+    {{- block "page_meta" . -}}
+    {{- end -}}
     </head>
     <body class="{{ .Kind }}"> {{/* home, taxonomy, etc */}}
         {{- partial "header.html" . -}}
