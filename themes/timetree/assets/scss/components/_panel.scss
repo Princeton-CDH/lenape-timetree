@@ -264,7 +264,7 @@ body.home main > aside {
 
     // for readability on portrait tablet (which uses mobile layout),
     // constrain max width and center blocks within the panel
-    > * {
+    > *:not(ul) {
       max-width: 32em;
       margin-left: auto;
       margin-right: auto;
