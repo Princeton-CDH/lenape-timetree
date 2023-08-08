@@ -8,4 +8,4 @@ tags:
 title: Chiefs
 ---
 
-British and Iroquois compel Lunaapeew to appoint a single chief for negotiations, violating the established Lunaape system of shared authority among multiple sachems, or chiefs
+British and Iroquois compel Lunaapeew to appoint a single chief for negotiations, violating the established Lunaape system of shared authority among multiple sachems, or chiefs.
