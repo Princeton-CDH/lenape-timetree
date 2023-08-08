@@ -100,6 +100,8 @@ Tuck, Eve and Yang, K. Wayne, “Decolonization is Not a Metaphor.” _Decoloniz
 
 Walling, Richard S. [“Locating a Lenape Landscape: Tatamy’s Swamp.”](https://www.westwindsorhistory.com/uploads/1/2/3/1/123111196/locating_a_lenape_landscape_-_tatamys_swamp.pdf) 
 
+Wellenreuther, Hermann. "The Succession of Head Chiefs and the Delaware Culture of Consent: The Delaware Nation, David Zeisberger, and Modern Ethnography", In A. G. Roeber, ed., _Ethnographies and Exchanges: Native Americans, Moravians, and Catholics in Early America_. University Park, Pa.: Pennsylvania State University Press.
+
 Zotigh, Dennis. [“A Brief Balance of Power – The 1778 Treaty with the Delaware Nation.”](https://www.smithsonianmag.com/blogs/national-museum-american-indian/2018/05/22/1778-delaware-treaty/) _Smithsonian Magazine_. 
 
 

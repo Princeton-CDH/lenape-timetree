@@ -13,7 +13,7 @@ tags:
 title: Prospect Occupation
 ---
 
-Following the murder of Chief White Eyes, a delegation of ten Ohio Delaware leaders and respective retinues assembles at Prospect Farm to assure the U.S. Government of continued loyalty and friendship. Read more about [Prospect Farm at Princeton & Slavery.](https://slavery.princeton.edu/stories/prospect-farm)
+Following the murder of Chief White Eyes, a delegation of ten Ohio Delaware leaders and their respective retinues assembles at Prospect Farm to assure the U.S. Government of continued loyalty and friendship. Read more about [Prospect Farm at Princeton & Slavery.](https://slavery.princeton.edu/stories/prospect-farm)
 
 {{< figure src="images/university/prospect-occupation.jpeg" alt="A large farmhouse is surrounded by a some trees, open space, and a few people in an illustration." >}}
 

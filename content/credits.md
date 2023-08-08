@@ -33,9 +33,11 @@ Language Advisors
 : Kristin Jacobs, Naahii Ridge Elementary, Eelünaapéewi Lahkéewiit / Delaware Nation at Moraviantown
 
 Lunaape Collaborators
-: Karen Mosko, Lunaape Language Teacher, Munsee Delaware Nation
-: Ian McCallum, Lunaape Language Teacher, Munsee Delaware Nation
+: Karen Mosko, Lunaape Language Teacher, Munsee-Delaware Nation
+: Ian McCallum, Lunaape Language Teacher, Munsee-Delaware Nation
 : Kristin Jacobs, Lunaape Language Teacher, Eelünaapéewi Lahkéewiit / Delaware Nation at Moraviantown
+: Chief Roger Thomas, Munsee-Delaware Nation
+: Jackie Thomas, Munsee-Delaware Nation
 
 Project Advisors
 : [Natalia Ermolaev](https://cdh.princeton.edu/people/natasha-ermolaev/), Executive Director, Center for Digital Humanities at Princeton
@@ -69,7 +71,7 @@ This project is based on  work by Jiyoun Roh ’24 in a term paper for “Indige
 
 {{< figure src="images/roots/Roh_ENG229_final_project_tree.png" alt="line drawing of a tree with numbers annotating roots, trunk, branches, and leaves." caption="2021 conceptualization using a tree to represent indigenous history." attr="Jiyoun Roh ‘24" >}}
 
-This project is a component of the [Native American and Indigenous Studies Initiative at Princeton](http://indigenous.princeton.edu/). It arises from an ongoing collaboration with Lunaapeew communities, in particular the Munsee Delaware Nation in Ontario, and we seek to continue these collaborations by using the site as a virtual meeting ground. The project site is designed to continue integrating Indigenous knowledges and histories.
+This project is a component of the [Native American and Indigenous Studies Initiative at Princeton](http://indigenous.princeton.edu/). It arises from an ongoing collaboration with Lunaape communities, in particular the Munsee-Delaware Nation in Ontario, as well as language keepers from several other communities. We seek to continue these collaborations by using the site as a virtual meeting ground. The project has also benefitted from the feedback of participants at the Munsee Language and History Symposia in 2021-2023. The site is intended to continue integrating Indigenous knowledges and histories.
 
 *Anushiik, Anushiik, Anushiik, Anushiik*
 
