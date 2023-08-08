@@ -13,4 +13,4 @@ Chief White Eyes (named Koquethagechton) is a principal chief among the Lunaapee
 
 {{< figure src="images/university/chief-white-eyes.jpg" alt="A formal typed document is broken into sections." caption="Treaty of Fort Pitt from 1778."}}
 
-Continue reading the [Treaty of Fort Pitt from 1778.](https://www.govinfo.gov/content/pkg/GOVPUB-Y4_IN2_11-1c227893bfbe1da6dd96b6883fd0205b/pdf/GOVPUB-Y4_IN2_11-1c227893bfbe1da6dd96b6883fd0205b.pdf)
+Read the [Treaty of Fort Pitt from 1778.](https://www.govinfo.gov/content/pkg/GOVPUB-Y4_IN2_11-1c227893bfbe1da6dd96b6883fd0205b/pdf/GOVPUB-Y4_IN2_11-1c227893bfbe1da6dd96b6883fd0205b.pdf)
