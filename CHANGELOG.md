@@ -1,5 +1,10 @@
 # Change log
 
+## 1.0.1
+
+- Minor content edits and revisions.
+- bugfix to figure shortcode handling for attribution links
+
 ## 1.0
 
 Soft launch, June 2023.
