@@ -1,7 +1,7 @@
 ---
 branch: The University
 display_date: 1970
-display_title: Native Scholars
+display_title: Native Convocation
 sort_date: 1970
 tags:
 - alliances
@@ -11,7 +11,7 @@ tags:
 title: Native Convocation
 ---
 
-During the surge of the American Indian Movement in the early 1970s, Princeton hosts the First Convocation of American Indian Scholars in March. Professor Alfonso Ortiz (Tewa) of Anthropology chairs the event.
+During the surge of the American Indian Movement in the early 1970s, Princeton hosts the First Convocation of American Indian Scholars in March. Professor Alfonso Ortiz (Tewa) of Anthropology chairs the event. Considered by some to be the starting point for Native American Studies, a resolution by Native scholars called for an academic discipline that included Indian ways of knowing left out of European-American education. 
 
 {{< figure src="images/university/native-convocation.jpg" alt="A newspaper clipping contains an older photo of a man with two long braids." caption="Princeton prepares to host the First Convocation of American Indian Scholars in March 1970." >}}
 
