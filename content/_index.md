@@ -14,7 +14,7 @@ Explore the timetree by selecting leaves and tags to illuminate relations of dec
 
 {{< panel-legend >}}
 
-[^1]: Thank you to Kristen Jacobs for this expression from her community of Eelunaapeewi Lahkeewiit (Delaware Nation at Moraviantown)
+[^1]: Thank you to Kristin Jacobs for this expression from her community of Eelunaapeewi Lahkeewiit (Delaware Nation at Moraviantown)
 
 
 
