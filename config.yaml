@@ -30,7 +30,7 @@ params:
     - Removals
     - Resistance + Resurgence
   visual_debug: false
-  version: "1.0.1"
+  version: "1.1.0-dev"
   version_link: https://github.com/Princeton-CDH/lenape-timetree
 
 # disable categories taxonomy included by default
