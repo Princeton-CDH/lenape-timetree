@@ -2,14 +2,17 @@
 title: Site Credits
 ---
 
+
+Design Lead
+: [Gissoo Doroudian](https://cdh.princeton.edu/people/gissoo-doroudian/), User Experience Designer, Center for Digital Humanities at Princeton
+
 Content Lead
-: [Jeffrey Himpele](https://anthropology.princeton.edu/people/jeffrey-himpele), Director, VizE Lab for Ethnographic Data Visualization; Lecturer, Anthropology
+: [Jeffrey Himpele](https://anthropology.princeton.edu/people/jeffrey-himpele), Director, VizE Lab for Ethnographic Data Visualization; Lecturer, Anthropology, Princeton University
 
 Technical Lead
 : [Rebecca Sutton Koeser](https://cdh.princeton.edu/people/rebecca-sutton-koeser/), Lead Research Software Engineer, Center for Digital Humanities at Princeton
 
-Design Lead
-: [Gissoo Doroudian](https://cdh.princeton.edu/people/gissoo-doroudian/), User Experience Designer, Center for Digital Humanities at Princeton
+*Project co-directors are listed in alphabetical order.*
 
 Project Manager
 : [Keely Smith](https://history.princeton.edu/people/keely-smith), PhD Candidate, Department of History, Princeton University
@@ -26,16 +29,18 @@ Content
 : [Ivan Melchor](https://anthropology.princeton.edu/people/ivan-melchor) (content entry)
 
 Additional Development
-: Ryan Heuser, Research Software Engineer, Center for Digital Humanities at Princeton
+: [Ryan Heuser](https://cdh.princeton.edu/people/ryan-heuser/), Research Software Engineer, Center for Digital Humanities at Princeton
 
 Language Advisors
 : [Suzanne Conklin Akbari](https://suzanneakbari.com/), Institute for Advanced Study, Princeton, NJ
 : Kristin Jacobs, Naahii Ridge Elementary, Eelünaapéewi Lahkéewiit / Delaware Nation at Moraviantown
 
 Lunaape Collaborators
-: Karen Mosko, Lunaape Language Teacher, Munsee Delaware Nation
-: Ian McCallum, Lunaape Language Teacher, Munsee Delaware Nation
+: Karen Mosko, Lunaape Language Teacher, Munsee-Delaware Nation
+: Ian McCallum, Lunaape Language Teacher, Munsee-Delaware Nation
 : Kristin Jacobs, Lunaape Language Teacher, Eelünaapéewi Lahkéewiit / Delaware Nation at Moraviantown
+: Chief Roger Thomas, Munsee-Delaware Nation
+: Jackie Thomas, Munsee-Delaware Nation
 
 Project Advisors
 : [Natalia Ermolaev](https://cdh.princeton.edu/people/natasha-ermolaev/), Executive Director, Center for Digital Humanities at Princeton
@@ -69,7 +74,7 @@ This project is based on  work by Jiyoun Roh ’24 in a term paper for “Indige
 
 {{< figure src="images/roots/Roh_ENG229_final_project_tree.png" alt="line drawing of a tree with numbers annotating roots, trunk, branches, and leaves." caption="2021 conceptualization using a tree to represent indigenous history." attr="Jiyoun Roh ‘24" >}}
 
-This project is a component of the [Native American and Indigenous Studies Initiative at Princeton](http://indigenous.princeton.edu/). It arises from an ongoing collaboration with Lunaapeew communities, in particular the Munsee Delaware Nation in Ontario, and we seek to continue these collaborations by using the site as a virtual meeting ground. The project site is designed to continue integrating Indigenous knowledges and histories.
+This project is a component of the [Native American and Indigenous Studies Initiative at Princeton](http://indigenous.princeton.edu/). It arises from an ongoing collaboration with Lunaape communities, in particular the Munsee-Delaware Nation in Ontario, as well as language keepers from several other communities. We seek to continue these collaborations by using the site as a virtual meeting ground. The project has also benefitted from the feedback of participants at the Munsee Language and History Symposia in 2021-2023. The site is intended to continue integrating Indigenous knowledges and histories.
 
 *Anushiik, Anushiik, Anushiik, Anushiik*
 
@@ -80,7 +85,7 @@ Thank-you, thank-you, thank-you, thank-you
 
 ## How to Cite {#cite}
 
-When referencing any content from this project, please cite the project as a whole as follows:
+This is a collaborative project that incorporates the work of many contributors; we request that you cite it with all four of the core team members, who are listed alphabetically. When referencing any content from this project, please cite the project as a whole as follows:
 
 {{< project_citation >}}
 
@@ -92,7 +97,7 @@ Site content is licensed under a [Creative Commons Attribution-NonCommercial 4.0
 
 All images are used with permission or available in the public domain.
 
-The [software for this site](https://github.com/Princeton-CDH/lenape-timetree) is made available under the Apache License 2.0.
+The [software for this project](https://github.com/Princeton-CDH/lenape-timetree) is made available under the Apache License 2.0.
 
 All other content is copyrighted by the Trustees of Princeton University.
 

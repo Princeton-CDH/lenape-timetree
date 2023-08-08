@@ -17,9 +17,9 @@ params:
   publication_date: 2023
   citation_url: https://lenapetimetree.indigenous.princeton.edu/
   authors:
+    - Doroudian, Gissoo
     - Himpele, Jeffrey
     - Koeser, Rebecca Sutton
-    - Doroudian, Gissoo
     - Smith, Keely
   publisher: Center for Digital Humanities at Princeton
   rights: http://creativecommons.org/licenses/by-nc/4.0/
@@ -30,7 +30,7 @@ params:
     - Removals
     - Resistance + Resurgence
   visual_debug: false
-  version: "1.0.0"
+  version: "1.0.1"
   version_link: https://github.com/Princeton-CDH/lenape-timetree
 
 # disable categories taxonomy included by default
