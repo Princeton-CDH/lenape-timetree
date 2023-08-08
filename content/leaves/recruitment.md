@@ -9,7 +9,7 @@ tags:
 title: Native Students
 ---
 
-Twenty-four Native students matriculate at and eventually graduate from Princeton. Professor Alfonso Ortiz (Tewa) from Anthropology along with library curator Alfred Bush and other colleagues work toward recruiting Native Americans so they also can benefit from a Princeton education. Soon after, Native students are awarded funding to support their travel home to participate in events that are key to their advancement into full adulthood. 
+Twenty-four Native students matriculate at and eventually graduate from Princeton. Professor Alfonso Ortiz (Tewa) from Anthropology along with library curator Alfred Bush and other colleagues work toward recruiting Native Americans "so they also can benefit from a Princeton education." Soon after, Native students are awarded funding to support their travel home to participate in events that are key to their advancement into full adulthood. 
 
 {{< figure src="images/university/native-students.jpeg" alt="A group of seven students wearing winter clothing stand smiling atop stair steps." caption="Seven native students at Princeton." attr="Princeton Alumni Weekly" attrlink="https://paw.princeton.edu/article/native-americans-princeton">}}
 
