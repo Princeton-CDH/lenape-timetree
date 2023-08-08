@@ -13,4 +13,4 @@ title: Indigenous Advocacy Coalition
 
 The student-organized Indigenous Advocacy Coalition forms within the PACE Center for Civic Engagement as a student group advocating for Native students and expanding Indigenous Studies at Princeton.
 
-Read about [Current Natives at Princeton members](https://indigenous.princeton.edu/community/natives-princeton) who work as a part of the Indigenous Advocacy Coalition.
+Read about [Natives at Princeton](https://natives.princeton.edu/) who are current and alumni student groups who are part of the Indigenous Advocacy Coalition.
