@@ -11,4 +11,4 @@ tags:
 title: Murder
 ---
 
-Chief White Eyes is shot and killed by an American militia officer, allegedly our of self-defense.
+Chief White Eyes is shot and killed by an American militia officer, allegedly out of self-defense.

@@ -71,7 +71,7 @@ This project is based on  work by Jiyoun Roh ’24 in a term paper for “Indige
 
 {{< figure src="images/roots/Roh_ENG229_final_project_tree.png" alt="line drawing of a tree with numbers annotating roots, trunk, branches, and leaves." caption="2021 conceptualization using a tree to represent indigenous history." attr="Jiyoun Roh ‘24" >}}
 
-This project is a component of the [Native American and Indigenous Studies Initiative at Princeton](http://indigenous.princeton.edu/). It arises from an ongoing collaboration with Lunaape communities, in particular the Munsee-Delaware Nation in Ontario, as well as language keepers from several other communities. W we seek to continue these collaborations by using the site as a virtual meeting ground. The project has also benefitted from the feedback of participants at the Munsee Language and History Symposia in 2021-2023. The site is intended to continue integrating Indigenous knowledges and histories. 
+This project is a component of the [Native American and Indigenous Studies Initiative at Princeton](http://indigenous.princeton.edu/). It arises from an ongoing collaboration with Lunaape communities, in particular the Munsee-Delaware Nation in Ontario, as well as language keepers from several other communities. We seek to continue these collaborations by using the site as a virtual meeting ground. The project has also benefitted from the feedback of participants at the Munsee Language and History Symposia in 2021-2023. The site is intended to continue integrating Indigenous knowledges and histories.
 
 *Anushiik, Anushiik, Anushiik, Anushiik*
 
