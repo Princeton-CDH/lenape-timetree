@@ -21,12 +21,12 @@ Lunaape and Princeton Communities Liaison
 : [Keely Smith](https://history.princeton.edu/people/keely-smith), PhD Candidate, Department of History, Princeton University
 
 Content
-: [Isabel Lockhart](https://indigenous.princeton.edu/people/isabel-lockhart) (historical research)
-: [Keely Smith](https://history.princeton.edu/people/keely-smith) (historical research)
 : [Moses Abrahamson](https://jrc.princeton.edu/people/abrahamson) (historical research)
-: Julian Ibarra (photos and documents)
 : Natalia Eichman (maps)
+: Julian Ibarra (photos and documents)
+: [Isabel Lockhart](https://indigenous.princeton.edu/people/isabel-lockhart) (historical research)
 : [Ivan Melchor](https://anthropology.princeton.edu/people/ivan-melchor) (content entry)
+: [Keely Smith](https://history.princeton.edu/people/keely-smith) (historical research)
 
 Additional Development
 : [Ryan Heuser](https://cdh.princeton.edu/people/ryan-heuser/), Research Software Engineer, Center for Digital Humanities at Princeton
@@ -68,7 +68,7 @@ Sponsor
 
 ## Project History and Future
 
-This project is based on  work by Jiyoun Roh ’24 in a term paper for “Indigenous Literatures” (ENG 229) taught by Professor Sarah Rivett. In her paper, Roh used “the form of a tree as a representation of time” to show Princeton’s Indigenous history without following a strict chronological sequence and in “direct contrast to the linear structure of the university timeline” as it is displayed online as the [official history of Princeton University.](http://princeton.edu/meet-princeton/history) Roh’s concept was so compelling that there was interest from multiple groups to develop it into a public visualization. In summer 2021, Rivett gathered a group of scholars in Indigenous history, web developers, with advisors from the VizE Lab (J. Himpele, Anthropology) and the Center for Digital Humanities (N. Ermolaev) for an initial nine-month period of experiments with visualization software, historical research by Isabel Lockhart \*22, and illustrations by Lola Constantino ‘23. In ‘22-’23, project development intensified in a year-long creative and technical collaboration between Jeffrey Himpele, of Anthropology’s VizE Lab, and Gisoo Doroudian and Rebecca Sutton Koeser of the Center for Digital Humanities, which supported the project with a Research Partnership grant.
+This project is based on  work by Jiyoun Roh ’24 in a term paper for “Indigenous Literatures” (ENG 229) taught by Professor Sarah Rivett. In her paper, Roh used “the form of a tree as a representation of time” to show Princeton’s Indigenous history without following a strict chronological sequence and in “direct contrast to the linear structure of the university timeline” as it is displayed online as the [official history of Princeton University.](http://princeton.edu/meet-princeton/history) Roh’s concept was so compelling that there was interest from multiple groups to develop it into a public visualization. In summer 2021, Rivett gathered a group of scholars in Indigenous history, web developers, with advisors from the VizE Lab (J. Himpele, Anthropology) and the Center for Digital Humanities (N. Ermolaev) for an initial nine-month period of experiments with visualization software, historical research by Isabel Lockhart \*22, and illustrations by Lola Constantino ‘23. In ‘22-’23, project development entered a new phase with a year-long creative collaboration between Jeffrey Himpele, of Anthropology’s VizE Lab, and Gisoo Doroudian and Rebecca Sutton Koeser of the Center for Digital Humanities, which supported the project with a Research Partnership grant.
 
 {{< figure src="images/roots/Constantino-sycamore-drawing.png" alt="realistic drawing of a tree in front of Princeton's Nassau Hall with roots and branches exposed and labeled with the themes from the project data" caption="2022 Campus sycamore tree illustration, by Lola Constantino ‘23." >}}
 
@@ -101,8 +101,13 @@ The [software for this project](https://github.com/Princeton-CDH/lenape-timetree
 
 All other content is copyrighted by the Trustees of Princeton University.
 
-## Technical
+## Technical 
 
-Lunaapahkiing Princeton Timetree is implemented as a custom [Hugo static site](https://gohugo.io/) with [d3.js](https://d3js.org/) for interactivity and the tree layout.
+Lunaapahkiing Princeton Timetree is implemented as a custom [Hugo static site](https://gohugo.io/) with [d3.js](https://d3js.org/) and JavaScript for interactivity and the tree layout.
 
-The [source code is available on GitHub](https://github.com/Princeton-CDH/lenape-timetree).
+The [source code is available on GitHub](https://github.com/Princeton-CDH/lenape-timetree). To cite the codebase:
+<div class="citation">
+	
+Koeser, Rebecca Sutton, Doroudian, Gissoo, & Heuser, Ryan. (2023). lenape-timetree (1.0). Zenodo. https://doi.org/10.5281/zenodo.8040363
+
+</div>
