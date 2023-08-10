@@ -1,0 +1,52 @@
+{
+  "language": "eng",
+  "license": "Apache-2.0",
+  "title": "lenape-timetree",
+  "related_identifiers": [
+    {
+      "scheme": "url",
+      "identifier": "https://lenapetimetree.indigenous.princeton.edu/",
+      "relation": "compiles"
+    },
+    {
+      "scheme": "doi",
+      "identifier": "10.5281/zenodo.8040362",
+      "relation": "isVersionOf"
+    }
+  ],
+  "upload_type": "software",
+  "creators": [
+    {
+      "orcid": "0000-0002-8762-8057",
+      "affiliation": "Center for Digital Humanities, Princeton University",
+      "name": "Koeser, Rebecca Sutton"
+    },
+    {
+      "orcid": "0000-0002-6702-6964",
+      "affiliation": "Center for Digital Humanities, Princeton University",
+      "name": "Doroudian, Gissoo"
+    },
+    {
+      "orcid": "0000-0002-4155-4961",
+      "affiliation": "Center for Digital Humanities, Princeton University",
+      "name": "Heuser, Ryan"
+    },
+    {
+      "affiliation": "Princeton University",
+      "name": "Himpele, Jeff"
+    }
+  ],
+  "access_right": "open",
+  "contributors": [
+    {
+      "affiliation": "Princeton University",
+      "type": "ProjectManager",
+      "name": "Smith, Keely"
+    },
+    {
+      "affiliation": "Princeton University",
+      "type": "HostingInstitution",
+      "name": "Center for Digital Humanities"
+    }
+  ]
+}
