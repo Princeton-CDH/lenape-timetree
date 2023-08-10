@@ -30,7 +30,23 @@
       "orcid": "0000-0002-4155-4961",
       "affiliation": "Center for Digital Humanities, Princeton University",
       "name": "Heuser, Ryan"
+    },
+    {
+      "affiliation": "Princeton University",
+      "name": "Himpele, Jeff"
     }
   ],
-  "access_right": "open"
+  "access_right": "open",
+  "contributors": [
+    {
+      "affiliation": "Princeton University",
+      "type": "ProjectManager",
+      "name": "Smith, Keely"
+    },
+    {
+      "affiliation": "Princeton University",
+      "type": "HostingInstitution",
+      "name": "Center for Digital Humanities"
+    }
+  ]
 }
