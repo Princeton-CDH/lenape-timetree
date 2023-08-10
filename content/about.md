@@ -6,7 +6,7 @@ This timetree visualizes the intertwined relations between the Native peoples of
 
 ## Interacting with the Timetree
 
-Rather than construct a singular narrative for our campus, we have used the open-ended and non-linear structure of a timetree. We want to enable readers to create their own interpretations of events and historical relationships based on their interactions with the timetree. You can view leaves along the multicolored branches to trace broad historical processes over time:  Lands + Waters, Communities, the University, Removals, and Resistance + Resurgence. By selecting specific leaves in any order, you can read about historical moments in the history of Lunaapahkiing Princeton. And by clicking on the tags within leaves according to your interests, you can illuminate related leaves across the timetree and visualize patterns across time and branch themes. 
+Rather than construct a singular narrative for our campus, we have used the open-ended and non-linear structure of a timetree. We want to enable readers to discover connections among these events and historical relationships based on their interactions with the timetree. You can view leaves along the multicolored branches to trace broad historical processes over time:  Lands + Waters, Communities, the University, Removals, and Resistance + Resurgence. By selecting specific leaves in any order, you can read about historical moments in the history of Lunaapahkiing Princeton. And by clicking on the tags within leaves according to your interests, you can illuminate related leaves across the timetree and visualize patterns across time and branch themes. 
 
 ## Visualizing Lunaapahkiing - Princeton History
 

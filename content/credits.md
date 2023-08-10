@@ -40,6 +40,7 @@ Lunaape Collaborators
 : Kristin Jacobs, Lunaape Language Teacher, Eelünaapéewi Lahkéewiit / Delaware Nation at Moraviantown
 : Ian McCallum, Lunaape Language Teacher, Munsee-Delaware Nation
 : Karen Mosko, Lunaape Language Teacher, Munsee-Delaware Nation
+: Mark Peters, Lunaape Historian, Munsee-Delaware Nation
 : Jackie Thomas, Munsee-Delaware Nation
 : Chief Roger Thomas, Munsee-Delaware Nation
 
@@ -63,18 +64,15 @@ Additional Contributions
 Funders
 : Center for Digital Humanities Research Partnership Grant awarded to Jeffrey Himpele
 
-Sponsor
-: [Sarah Rivett](https://english.princeton.edu/people/sarah-rivett), Native American and Indigenous Studies Initiative at Princeton, Princeton University, Princeton, NJ
-
 ## Project History and Future
 
 This project is based on  work by Jiyoun Roh ’24 in a term paper for “Indigenous Literatures” (ENG 229) taught by Professor Sarah Rivett. In her paper, Roh used “the form of a tree as a representation of time” to show Princeton’s Indigenous history without following a strict chronological sequence and in “direct contrast to the linear structure of the university timeline” as it is displayed online as the [official history of Princeton University.](http://princeton.edu/meet-princeton/history) Roh’s concept was so compelling that there was interest from multiple groups to develop it into a public visualization. In summer 2021, Rivett gathered a group of scholars in Indigenous history, web developers, with advisors from the VizE Lab (J. Himpele, Anthropology) and the Center for Digital Humanities (N. Ermolaev) for an initial nine-month period of experiments with visualization software, historical research by Isabel Lockhart \*22, and illustrations by Lola Constantino ‘23. In ‘22-’23, project development entered a new phase with a year-long creative collaboration between Jeffrey Himpele and the Center for Digital Humanities, which supported the project with a Research Partnership grant.
 
-{{< figure src="images/roots/Constantino-sycamore-drawing.png" alt="realistic drawing of a tree in front of Princeton's Nassau Hall with roots and branches exposed and labeled with the themes from the project data" caption="2022 Campus sycamore tree illustration, by Lola Constantino ‘23." >}}
-
 {{< figure src="images/roots/Roh_ENG229_final_project_tree.png" alt="line drawing of a tree with numbers annotating roots, trunk, branches, and leaves." caption="2021 conceptualization using a tree to represent indigenous history." attr="Jiyoun Roh ‘24" >}}
 
-This project is a component of the [Native American and Indigenous Studies Initiative at Princeton](http://indigenous.princeton.edu/). It arises from an ongoing collaboration with Lunaape communities, in particular the Munsee-Delaware Nation in Ontario, as well as language keepers from several other communities. We seek to continue these collaborations by using the site as a virtual meeting ground. The project has also benefited from the feedback of participants at the Munsee Language and History Symposia in 2021-2023. The site is intended to continue integrating Indigenous knowledges and histories.
+{{< figure src="images/roots/Constantino-sycamore-drawing.png" alt="realistic drawing of a tree in front of Princeton's Nassau Hall with roots and branches exposed and labeled with the themes from the project data" caption="2022 Campus sycamore tree illustration, by Lola Constantino ‘23." >}}
+
+This project is in community with the [Native American and Indigenous Studies Initiative at Princeton](http://indigenous.princeton.edu/). It involves ongoing collaboration with Lunaape communities, in particular the Munsee-Delaware Nation in Ontario, as well as language keepers from several other communities. We seek to continue these collaborations by using the site as a virtual meeting ground. The project has also benefited from the feedback of participants at the Munsee Language and History Symposia in 2021-2023. The site is intended to continue integrating Indigenous knowledges and histories.
 
 *Anushiik, Anushiik, Anushiik, Anushiik*
 
@@ -108,6 +106,6 @@ Lunaapahkiing Princeton Timetree is implemented as a [Hugo static site](https://
 The [source code is available on GitHub](https://github.com/Princeton-CDH/lenape-timetree). To cite the codebase:
 <div class="citation">
 	
-Koeser, Rebecca Sutton, Doroudian, Gissoo, & Heuser, Ryan. (2023). lenape-timetree (1.0). Zenodo. https://doi.org/10.5281/zenodo.8040363
+Koeser, Rebecca Sutton, Doroudian, Gissoo, Heuser, Ryan, & Himpele, Jeff. (2023). lenape-timetree (1.0). Zenodo. https://doi.org/10.5281/zenodo.8040363
 
 </div>
