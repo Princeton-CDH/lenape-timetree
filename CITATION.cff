@@ -1,0 +1,41 @@
+# YAML 1.2
+# Metadata for citation of this software according to the CFF format (https://citation-file-format.github.io/)
+cff-version: 1.0.3
+message: If you use this software, please cite it using these metadata.
+title: 'lenape-timetree'
+doi: 10.5281/zenodo.8040363
+authors:
+- given-names: Rebecca Sutton
+  family-names: Koeser
+  affiliation: Center for Digital Humanities, Princeton University
+  orcid: https://orcid.org/0000-0002-8762-8057
+- given-names: Gissoo
+  family-names: Doroudian
+  affiliation: Center for Digital Humanities, Princeton University
+  orcid: https://orcid.org/0000-0002-6702-6964
+- given-names: Ryan
+  family-names: Heuser
+  affiliation: Center for Digital Humanities, Princeton University
+  orcid: https://orcid.org/0000-0002-4155-4961
+- given-names: Jeff
+  family-names: Himpele
+  affiliation: Princeton University
+version: '1.0'
+date-released: 2023-06-14
+repository-code: https://github.com/Princeton-CDH/lenape-timetree
+license: Apache-2.0
+references:
+- type: website
+  title: Lunaapahkiing Princeton Timetree
+  year: 2022
+  authors:
+  - name: The Center for Digital Humanities at Princeton
+    website: https://cdh.princeton.edu
+  url: https://lenapetimetree.indigenous.princeton.edu/
+keywords:
+ - digital humanities
+ - data visualization
+ - indigenous peoples
+ - indigenous knowledge
+ - hugo static site
+ - d3.js 
