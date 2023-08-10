@@ -16,4 +16,4 @@ The goals of the project are multifaceted, drawing on the past and looking to th
 
 - transcribe the names of early community members as a way to begin to reclaim the earliest recorded histories of the community
 - create a foundational dataset of names to use in future research into historical documents and narratives
-- recover the names of historical Munsee peoples for use by name-givers in the present-day community”
+- recover the names of historical Munsee peoples for use by name-givers in the present-day community
