@@ -91,7 +91,7 @@ Depending on the citation format, you may need to include the date on which you 
 
 ## Rights and permissions
 
-Site content is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](http://creativecommons.org/licenses/by-nc/4.0/)
+All factual data included this project is [Public Domain](http://creativecommons.org/publicdomain/mark/1.0/). Site content is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
 
 All images are used with permission or available in the public domain.
 
@@ -106,6 +106,6 @@ Lunaapahkiing Princeton Timetree is implemented as a [Hugo static site](https://
 The [source code is available on GitHub](https://github.com/Princeton-CDH/lenape-timetree). To cite the codebase:
 <div class="citation">
 	
-Koeser, Rebecca Sutton, Doroudian, Gissoo, Heuser, Ryan, & Himpele, Jeff. (2023). lenape-timetree (1.0). Zenodo. https://doi.org/10.5281/zenodo.8040363
+Koeser, Rebecca Sutton, Gissoo Doroudian, and Ryan Heuser. (2023). lenape-timetree (1.0). Zenodo. https://doi.org/10.5281/zenodo.8040363
 
 </div>
