@@ -22,7 +22,7 @@ params:
     - Himpele, Jeffrey
     - Smith, Keely
   publisher: Center for Digital Humanities at Princeton
-  rights: http://creativecommons.org/licenses/by-nc/4.0/
+  rights: http://creativecommons.org/licenses/by/4.0/
   branches:
     - "Lands + Waters"
     - Communities
@@ -30,7 +30,7 @@ params:
     - Removals
     - Resistance + Resurgence
   visual_debug: false
-  version: "1.0.1"
+  version: "1.0.2"
   version_link: https://github.com/Princeton-CDH/lenape-timetree
 
 # disable categories taxonomy included by default

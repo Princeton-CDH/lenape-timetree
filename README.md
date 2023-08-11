@@ -11,7 +11,7 @@ This repository includes source code and text content for the CDH-sponsored [Lun
 
 ### Content
 
-Site content is licensed under the [Creative Commons Attribution-NonCommercial 4.0 International License (CC-BY-NC)](http://creativecommons.org/licenses/by-nc/4.0/).
+Site content is licensed under the [Creative Commons Attribution 4.0 International License (CC-BY)](http://creativecommons.org/licenses/by/4.0/).
 
 ### Software
 
