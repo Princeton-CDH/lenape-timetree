@@ -17,9 +17,6 @@ authors:
   family-names: Heuser
   affiliation: Center for Digital Humanities, Princeton University
   orcid: https://orcid.org/0000-0002-4155-4961
-- given-names: Jeff
-  family-names: Himpele
-  affiliation: Princeton University
 version: '1.0'
 date-released: 2023-06-14
 repository-code: https://github.com/Princeton-CDH/lenape-timetree
