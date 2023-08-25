@@ -1,5 +1,5 @@
 ---
-branch: Removals
+branch: Lands + Waters
 display_date: 1690
 sort_date: 1690
 tags:
