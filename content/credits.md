@@ -2,15 +2,11 @@
 title: Site Credits
 ---
 
-
-Data Visualization Lead
-: [Rebecca Sutton Koeser](https://cdh.princeton.edu/people/rebecca-sutton-koeser/), Lead Research Software Engineer, Center for Digital Humanities at Princeton
+Content Lead
+: [Jeffrey Himpele](https://anthropology.princeton.edu/people/jeffrey-himpele), Director, VizE Lab for Ethnographic Data Visualization; Lecturer, Anthropology, Princeton University
 
 Design Lead
 : [Gissoo Doroudian](https://cdh.princeton.edu/people/gissoo-doroudian/), User Experience Designer, Center for Digital Humanities at Princeton
-
-Content Lead
-: [Jeffrey Himpele](https://anthropology.princeton.edu/people/jeffrey-himpele), Director, VizE Lab for Ethnographic Data Visualization; Lecturer, Anthropology, Princeton University
 
 Technical Lead
 : [Rebecca Sutton Koeser](https://cdh.princeton.edu/people/rebecca-sutton-koeser/), Lead Research Software Engineer, Center for Digital Humanities at Princeton
