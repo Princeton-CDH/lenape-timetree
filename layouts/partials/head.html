@@ -2,8 +2,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {{/* output page title before site title unless they are exactly the same */}}
     {{- $title := .Site.Title -}}
-    {{- if  ne .Params.Title .Site.Title -}}
-        {{- $title =  printf "%s | %s" .Params.Title .Site.Title -}}
+    {{- $pageTitle := .Params.Title -}}
+    {{- if eq .Page.Kind "404" -}}
+        {{ $pageTitle = "Page Not Found" }}
+    {{- end -}}
+    {{- if  ne $pageTitle .Site.Title -}}
+        {{- $title =  printf "%s | %s" $pageTitle .Site.Title -}}
     {{- end -}}
     <title>{{ $title }}</title>
     {{- $description := .Params.Description | default .Summary | default .Site.Params.description -}}

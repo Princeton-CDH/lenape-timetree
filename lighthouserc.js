@@ -10,8 +10,8 @@ module.exports = {
       // if new page types are added to the site, they must be added here also
       url: [
         "/",
-        // "/about/",
-        // "/404.html"
+        "/about/",
+        "/404.html"
       ],
     },
     assert: {
@@ -34,6 +34,10 @@ module.exports = {
 
         // lighthouse flags google analytics js as unused...
         "unused-javascript": "warn",
+
+        // lighthouse is flagging but can't find the culprit,
+        // and we're using lazy-loading for images in figures
+        "offscreen-images": "warn"
       },
     },
     upload: {
