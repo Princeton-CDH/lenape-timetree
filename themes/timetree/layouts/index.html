@@ -1,0 +1,99 @@
+{{ define "page_meta" }}
+<!-- page meta -->
+{{- range  .Site.Params.authors -}}
+<meta name="DC.creator" content="{{ . | htmlEscape }}"/>
+{{- end -}}
+<meta name="DC.date" content="{{ .Site.Params.publication_date }}"/>
+<meta name="DC.description" content="{{ .Site.Params.description | plainify | htmlEscape }}" />
+<meta name="DCTERMS.created" content="{{ .Site.Params.publication_date }}"/>
+{{/* http://purl.org/dc/dcmitype/InteractiveResource */}}
+<meta name="DC.type" content="Interactive Resource"/>
+{{ end }}
+
+{{- define "main" -}}
+
+{{/* minimize js if production; adapted from https://github.com/gohugoio/hugo/issues/9132 */}}
+{{- $params := (dict "is_production" hugo.IsProduction ) -}}
+{{- $sourceMap := cond hugo.IsProduction "" "inline" -}}
+{{- $buildOptions := dict "sourceMap" $sourceMap "minify" hugo.IsProduction "target" "es2018" "params" $params -}}
+{{- $js := resources.Get "js/main.js" | js.Build $buildOptions | fingerprint -}}
+
+<aside>
+  <button class="close" aria-label="close details"><i class="ph-x" aria-hidden="true"></i></button>
+  <div class="tag" id="current-tag" aria-label="active tag">
+   {{/* display currently active tag when there is one */}}
+    <button class="close" aria-label="close active tag" disabled="true"><i class="ph-x" aria-hidden="true"></i></button>
+    <span></span> {{/* label for active tag */}}
+  </div>
+  <div role="status" aria-live="polite">  </div>
+  <span tabindex="-1" id="panel">Information panel</span> {{/* anchor element for focus management */}}
+  {{/* introduction content */}}
+  <article id="intro">
+    <div>
+      {{- .Content -}}
+    </div>
+  </article>
+
+  <div id="leaf-details">
+    <article/>
+  </div>
+</aside>
+
+<div id="timetree">
+  <div id="zoom-controls">
+  <button class="zoom-in" aria-label="zoom in"><i class="ph-bold ph-plus" aria-hidden="true"></i></button>
+  <button class="zoom-out" aria-label="zoom out" disabled="true"><i class="ph-bold ph-minus" aria-hidden="true"></i></button>
+  <button class="reset-zoom" aria-label="reset zoom to default" disabled="true"><i class="ph-arrows-in ph-fill" aria-hidden="true"></i></button>
+  </div>
+  <data class="leaf-data" value='{{ partial "leaf_data.json" . }}'></data>
+  <data class="tag-data" value='{{ partial "tags.json" . }}'></data>
+  <data class="env-data" value="{{ dict "env" hugo.Environment "branches" .Site.Params.branches "visual_debug" .Site.Params.visual_debug | jsonify }}"/>
+  <noscript>
+    <div id="noscript">
+    This is an interactive visualization; please turn on Javascript to explore the Lunaapahkiing Princeton Timetree.
+      <img src="/img/timetree-static.svg"/>
+    </div>
+
+  </noscript>
+</div>
+
+
+<div class="extras">
+<article id="loaderror">
+  <div>Error loading the details.</div>
+</article>
+
+<div id="a11y-descriptions">
+  {{/* provide short screenreader descriptions for leaves in the timetree, to parallel info provided visually by century axis and branch color/position */}}
+  {{ range where .Site.Pages "Section" "leaves" }}
+  <p id="desc-{{ .RelPermalink | path.Base  }}">{{ with .Params.display_date }}<time>{{ . }}</time>,{{ end }} {{ .Params.branch }}</p>
+  {{ end }}
+</div>
+
+</div>
+
+{{/* include visual debug controls if enabled in hugo site param */}}
+{{ if .Site.Params.visual_debug }}
+<div id="debug-controls">
+<h2>Visual debug</h2>
+
+<p>Control layer visibility (0 - 100%)</p>
+
+<div>
+  <label>Debug
+  <input type="range" id="debug-visible" name="debug-visible"
+         min="0" max="100" value="0">
+  </label>
+  <label>Leaves
+  <input type="range" id="leaf-visible" name="leaf-visible"
+         min="0" max="100" value="100">
+  </label>
+  <label>Labels
+  <input type="range" id="label-visible" name="label-visible"
+         min="0" max="100" value="100">
+  </label>
+</div>
+{{ end }}
+
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+{{ end }} {{/* end main */}}
