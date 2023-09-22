@@ -17,9 +17,17 @@ jobs:
     steps:
       - name: checkout repository
         uses: actions/checkout@v3
+        with:
+          path: timetree
+
+      - name: Checkout content repository
+        uses: actions/checkout@v4
+        with:
+          repository: Princeton-CDH/lenape-timetree-content
+          path: .
 
       - name: Get Hugo version
-        run: echo "HUGO_VERSION=$(cat .hugo_version)" >> $GITHUB_ENV
+        run: echo "HUGO_VERSION=$(cat timetree/.hugo_version)" >> $GITHUB_ENV
 
       - name: setup hugo
         uses: peaceiris/actions-hugo@v2
@@ -28,7 +36,7 @@ jobs:
           extended: true
 
       - name: Get node version from package.json
-        run: echo "NODE_VERSION=$(cat package.json | jq -r '.volta.node')" >> $GITHUB_ENV
+        run: echo "NODE_VERSION=$(cat timetree/package.json | jq -r '.volta.node')" >> $GITHUB_ENV
 
       - name: setup node.js
         uses: actions/setup-node@v3
@@ -39,9 +47,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.npm
-          key: npm-${{ hashFiles('package-lock.json') }}
+          key: npm-${{ hashFiles('timetree/package-lock.json') }}
           restore-keys: |
-            npm-${{ hashFiles('package-lock.json') }}
+            npm-${{ hashFiles('timetree/package-lock.json') }}
             npm-
 
       - name: install js dependencies
@@ -52,7 +60,10 @@ jobs:
           # For maximum backward compatibility with Hugo modules
           HUGO_ENVIRONMENT: production
           HUGO_ENV: production
-        run: hugo --minify
+        # use local checkout of timetree code as hugo module
+        run: |
+          go mod edit --replace github.com/Princeton-CDH/lenape-timetree=timetree
+          hugo --minify
 
       # this step makes the site's built html and css available for download
       # from github; see the run in github actions to access it as a zipfile.
@@ -64,7 +75,8 @@ jobs:
           name: public
           path: |
             public/
-            !public/issues/**/images/
+            !public/images/
+            !public/audio/
 
       # lighthouse is configured using the lighthouserc.js file in the project
       # root, see that file for more details. output from runs is uploaded to
@@ -72,6 +84,6 @@ jobs:
       - name: audit site using lighthouse ci
         uses: treosh/lighthouse-ci-action@v9
         with:
-          configPath: "./lighthouserc.js"
+          configPath: "./timetree/lighthouserc.js"
           uploadArtifacts: true
           temporaryPublicStorage: true
