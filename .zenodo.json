@@ -3,16 +3,21 @@
   "license": "Apache-2.0",
   "title": "lenape-timetree",
   "related_identifiers": [
-    {
-      "scheme": "url",
-      "identifier": "https://lenapetimetree.indigenous.princeton.edu/",
-      "relation": "compiles"
-    },
-    {
-      "scheme": "doi",
-      "identifier": "10.5281/zenodo.8040362",
-      "relation": "isVersionOf"
-    }
+     {
+        "scheme": "url",
+        "identifier": "https://lenapetimetree.indigenous.princeton.edu/",
+        "relation": "compiles"
+      },
+      {
+        "scheme": "url",
+        "identifier": "https://cdh.princeton.edu/projects/lenape-timetree/",
+        "relation": "isDescribedBy"
+      },
+      {
+        "scheme": "doi",
+        "identifier": "10.5281/zenodo.8040362",
+        "relation": "isVersionOf"
+      }
   ],
   "upload_type": "software",
   "creators": [
