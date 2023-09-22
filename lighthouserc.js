@@ -10,8 +10,8 @@ module.exports = {
       // if new page types are added to the site, they must be added here also
       url: [
         "/",
-        // "/about/",
-        // "/404.html"
+        "/about/",
+        "/404.html"
       ],
     },
     assert: {

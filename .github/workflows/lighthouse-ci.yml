@@ -53,9 +53,8 @@ jobs:
 
       - name: install js dependencies
         run: npm ci
-
-      - name: check timetree dir
-        run: ls timetree
+        # NOTE: this is installing npm deps from the *content* repo, not the theme
+        # (although they should be kept synchronized!)
 
       - name: build site
         env:
