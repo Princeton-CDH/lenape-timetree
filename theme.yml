@@ -4,7 +4,7 @@ licenselink: https://github.com/Princeton-CDH/lenape-timetree/blob/main/LICENSE
 description: A custom theme for Lenape Princeton Timetree project
 tags: ["dataviz", "d3", "digital-humanities"]
 features: []
-min_version: 0.41.0
+min_version: 0.117.0
 author:
   name: "Center for Digital Humanities @ Princeton"
   homepage: "https://cdh.princeton.edu"
