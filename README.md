@@ -5,15 +5,9 @@
 [![Hugo](https://img.shields.io/badge/hugo-0.117-blue.svg)](https://gohugo.io)
 ![Node version](https://img.shields.io/badge/node-18-blue)
 
-This repository includes source code and text content for the CDH-sponsored [Lunaapahkiing Princeton Timetree](https://cdh.princeton.edu/projects/lenape-timetree/) research project.
+This repository includes source code for the CDH-sponsored [Lunaapahkiing Princeton Timetree](https://cdh.princeton.edu/projects/lenape-timetree/) research project.  It consists of a custom Hugo theme and javascript.
 
 ## License
-
-### Content
-
-Site content is licensed under the [Creative Commons Attribution 4.0 International License (CC-BY)](http://creativecommons.org/licenses/by/4.0/).
-
-### Software
 
 The software for this project is licensed under the [Apache 2.0 License](LICENSE).
 
@@ -71,7 +65,7 @@ Open a web browser to the above address to see a local version of the site. When
 
 Anyone planning to do development on the site (i.e., contributing to javascript,
 scss, or templates), you need to install pre-commit hooks to automatically
-ensure tht code is consistently formatted. This step is not required
+ensure that code is consistently formatted. This step is not required
 for anyone who is working on site content and not modifying code or templates.
 
 Commit hooks are managed with [pre-commit](https://pre-commit.com/).
