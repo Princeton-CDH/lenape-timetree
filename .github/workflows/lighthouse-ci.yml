@@ -62,7 +62,7 @@ jobs:
           HUGO_ENV: production
         # use local checkout of timetree code as hugo module
         run: |
-          go mod edit --replace github.com/Princeton-CDH/lenape-timetree=timetree
+          go mod edit --replace github.com/Princeton-CDH/lenape-timetree=./timetree
           hugo --minify
 
       # this step makes the site's built html and css available for download
