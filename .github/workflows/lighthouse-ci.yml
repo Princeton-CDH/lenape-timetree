@@ -15,16 +15,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout repository
-        uses: actions/checkout@v3
-        with:
-          path: timetree
-
       - name: Checkout content repository
         uses: actions/checkout@v4
         with:
           repository: Princeton-CDH/lenape-timetree-content
-          path: .
+
+      - name: checkout repository
+        uses: actions/checkout@v3
+        with:
+          path: timetree
 
       - name: Get Hugo version
         run: echo "HUGO_VERSION=$(cat timetree/.hugo_version)" >> $GITHUB_ENV
@@ -54,6 +53,9 @@ jobs:
 
       - name: install js dependencies
         run: npm ci
+
+      - name: check timetree dir
+        run: ls timetree
 
       - name: build site
         env:
