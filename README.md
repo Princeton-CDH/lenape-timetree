@@ -91,3 +91,98 @@ Or configure git to always ignore the styling revision commit:
 ```{bash}
 git config blame.ignoreRevsFile .git-blame-ignore-revs
 ```
+
+## Developing and testing with timetree content
+
+To do development work on this theme with the corresponding content from this project, check out a copy of the timetree content repository [Princeton-CDH/lenape-timetree-content](https://github.com/Princeton-CDH/lenape-timetree-content). Modify (but do not change) your go modules configuration to run from your local copy of the theme as follows:
+
+```{bash}
+go mod edit -replace github.com/Princeton-CDH/lenape-timetree=../lenape-timetree
+```
+
+And then run `hugo` from the content repository to build the site.
+
+## Shortcodes
+
+The _timetree_ theme includes the following custom short codes.
+
+### audio
+
+A shortcode for including audio, which takes `src` and `caption` arguments, e.g.
+
+```
+{{<audio src="/audio/lunaapahkiing-pronunciation-mosko.mp3" caption="Listen to a pronunciation of *Lunaapahkiing* by Karen Mosko (Lunaape Language Teacher, Munsee-Delaware Nation)" >}}
+```
+
+[view source](layouts/shortcodes/audio.html)
+
+### figure
+
+This is a customized version of Hugo's default [figure shortcode](https://gohugo.io/content-management/shortcodes/#figure), adapted from [Startwords](https://github.com/Princeton-CDH/startwords) that rescales raster images using custom breakpoints and displays them with a caption.
+
+**It's highly recommended to use `figure` rather than simple images via Markdown, so that images can be automatically sized and properly styled. Non-`figure` images may not display in a consistent manner.**
+
+You can optionally provide an `attr` to add an attribution to the caption, and `attrlink` will make the attribution a link pointing to the given URL. If you need extra control over the height of the image, you can pass any valid CSS measurement to `max-height`, which will be applied via an inline style.
+
+For assistive technology, an `alt` is required to describe the image. Optionally, you can associate the image with another element containing a visually hidden long description using `desc-id`, which will be the value used for `aria-describedby`.
+
+Simple example:
+
+```
+{{< figure src="images/duck.jpg" alt="Rubber duck sitting in a bathtub." >}}
+```
+
+Example use for a photograph with attribution:
+
+```
+{{< figure src="images/duck.jpg" alt="Rubber duck sitting in a bathtub." caption="Gerald relaxing in the bath." attr="Photo by me." attrlink="http://example.com/" >}}
+```
+
+Example use for a chart or graph, with long description:
+
+```
+{{< figure src="images/chart.svg" alt="Bar chart showing sales growth for Q1 2020." caption="Sales are improving for our industry." desc-id="chart-desc" >}}
+{{< wrap class="sr-only" id="chart-desc">}}Four different economic sectors are represented. The sector showing the most sales growth is the rubber duck industry, with growth approaching 25%.{{</ wrap >}}
+```
+
+#### parameters
+
+- `src`, URL of the image in the figure.
+- `alt`, text used by assistive technology to describe the content of the figure.
+- `caption`, optional: descriptive text to be shown underneath the figure.
+- `attr`, optional: attribution text to be shown underneath the figure.
+- `attrlink`, optional: URL for making `attr` text a hyperlink.
+- `desc-id`, optional: html id of an element containing longer descriptive text.
+
+[view source](layouts/shortcodes/figure.html)
+
+### project citation
+
+A shortcode for generating a project citation based on publication information
+in the site and theme config files. Project citation can be generated with or without authors:
+
+```
+{{< project_citation noAuthors=true >}}
+
+{{< project_citation >}}
+```
+
+The citation uses the site title, and authors, version, publisher, publication date, and citation url from the site config. Authors should be listed in "Lastname, Firstname" format. For example:
+
+```yaml
+authors:
+  - Lastname, First
+  - Lastname, First
+  - Lastname, First
+publisher: Some group
+publication_date: 2023
+citation_url: https://project.example.edu/
+```
+
+[view source](layouts/shortcodes/project_citation.html)
+
+### panel legend
+
+This is a custom shortcode used to generate the branch legend in the opening panel of the timetree. Branches must be configured in site parameters.
+
+[view source](layouts/shortcodes/panel-legend.html)

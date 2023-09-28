@@ -1,4 +1,3 @@
 params:
-  version: "1.0.3"
+  version: "1.0.4"
   version_link: https://github.com/Princeton-CDH/lenape-timetree
-
