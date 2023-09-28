@@ -116,13 +116,14 @@ body > footer {
     }
   }
 
-  #partner-logos {
+  #publisher-logo {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
     padding: 0px;
-    gap: 20px;
+    margin: 0 auto 0;
+    gap: 0;
     margin: 0 auto 30px;
     width: 206px;
 
@@ -130,9 +131,21 @@ body > footer {
       // compensate for right margin on container
       margin: 0 -40px 18px;
       width: auto;
-      flex-direction: row;
       padding-right: 16px;
-      gap: 16px;
+      gap: 0;
+      align-items: end;
+    }
+
+    p {
+      font-size: 0.7rem;
+      line-height: 0.95rem;
+
+      @include for-desktop-up {
+        font-size: 0.8rem;
+        line-height: 1.1rem;
+        padding: 0;
+        margin: 0;
+      }
     }
 
     img {
@@ -140,27 +153,15 @@ body > footer {
 
       @include for-desktop-up {
         height: 50px;
+        padding-top: 5px;
       }
 
-      &[src*="naisip"] {
-        aspect-ratio: 102/25;
-        width: 204px;
-      }
-      &[src*="vizelab"] {
-        height: 60px;
-        aspect-ratio: 3/1;
-
-        @include for-desktop-up {
-          height: 50px;
-          width: 150px;
-        }
-      }
       &[src*="cdh"] {
         height: 75px;
         aspect-ratio: 4/3;
 
         @include for-desktop-up {
-          height: 55px;
+          height: 65px;
         }
       }
     }
