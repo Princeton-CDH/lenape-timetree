@@ -91,3 +91,13 @@ Or configure git to always ignore the styling revision commit:
 ```{bash}
 git config blame.ignoreRevsFile .git-blame-ignore-revs
 ```
+
+## Developing and testing with timetree content
+
+To do development work on this theme with the corresponding content from this project, check out a copy of the timetree content repository [Princeton-CDH/lenape-timetree-content](https://github.com/Princeton-CDH/lenape-timetree-content). Modify (but do not change) your go modules configuration to run from your local copy of the theme as follows:
+
+```{bash}
+go mod edit -replace github.com/Princeton-CDH/lenape-timetree=../lenape-timetree
+```
+
+And then run `hugo` from the content repository to build the site.
