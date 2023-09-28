@@ -1,5 +1,10 @@
 # Change log
 
+## 1.0.4
+
+- Add no author option to project citation shortcode
+- Include version and year with publisher logo in footer
+
 ## 1.0.1
 
 - Minor content edits and revisions.
