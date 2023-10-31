@@ -5,10 +5,6 @@ $breakpoint-m: 1024px; // ~ tablet landscape
 $breakpoint-l: 1280px; // ~ small desktop
 $breakpoint-xl: 1440px; // ~ target desktop size
 
-// layout TBD
-$gutter: 10px;
-$grid-gap: 10px;
-
 $margin: 22px;
 
 @mixin for-phone-only {
