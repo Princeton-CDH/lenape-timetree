@@ -1,17 +1,4 @@
-import { select, selectAll } from "d3-selection";
-import { axisLeft } from "d3-axis";
-import { scaleLinear } from "d3-scale";
-import {
-  forceSimulation,
-  forceManyBody,
-  forceCollide,
-  forceLink,
-  forceX,
-  forceY,
-} from "d3-force";
-import { line, curveNatural } from "d3-shape";
-import { zoom, zoomIdentity, zoomTransform } from "d3-zoom";
-import { drag } from "d3-drag";
+import * as d3 from "d3";
 
 import { LeafLabel } from "./labels";
 import { Panel } from "./panel";
@@ -19,26 +6,6 @@ import { Leaf, LeafPath, leafSize, randomNumBetween } from "./leaves";
 import { drawTreeSegment, drawTrunk, drawBranches } from "./branches";
 import { BaseSVG } from "./utils";
 import { TimeTreeKeysMixin } from "./keys";
-
-// combine d3 imports into a d3 object for convenience
-const d3 = {
-  axisLeft,
-  select,
-  selectAll,
-  forceSimulation,
-  forceManyBody,
-  forceCollide,
-  forceLink,
-  forceX,
-  forceY,
-  line,
-  curveNatural,
-  zoom,
-  zoomIdentity,
-  zoomTransform,
-  scaleLinear,
-  drag,
-};
 
 // branches are defined and should be displayed in this order
 const branches = {

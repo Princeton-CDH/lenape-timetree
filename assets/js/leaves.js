@@ -1,16 +1,7 @@
 // logic to generate a path for drawing leaves,
 // and for managing leaf details and tag behavior in the timetree
 
-import { select, selectAll } from "d3-selection";
-import { line, curveNatural } from "d3-shape";
-
-// combine into d3 object for convenience
-const d3 = {
-  line,
-  curveNatural,
-  select,
-  selectAll,
-};
+import * as d3 from "d3";
 
 // configuration for leaf sizes
 // sizes are scaled from 40px width design:

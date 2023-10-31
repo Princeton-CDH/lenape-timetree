@@ -1,16 +1,7 @@
-import { line, curveNatural, curveBumpY } from "d3-shape";
-import { select, selectAll } from "d3-selection";
+import * as d3 from "d3";
+
 import { randomNumBetween } from "./leaves";
 import { BaseSVG } from "./utils";
-
-// combine into d3 object for convenience
-const d3 = {
-  line,
-  curveNatural,
-  curveBumpY,
-  select,
-  selectAll,
-};
 
 function drawTreeSegment(points) {
   const curve = d3.line().curve(d3.curveBumpY);
