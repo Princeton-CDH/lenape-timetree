@@ -22,6 +22,7 @@ function getBranchStyle(branchName) {
   if (branchSlug != undefined) {
     return `branch-${branchSlug}`;
   }
+  return ""; // avoid returning none
 }
 
 // strength of the various forces used to lay out the leaves
@@ -162,7 +163,7 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
     const trunkNodeIndex = 0; // first node is the trunk
 
     // array of links between our nodes
-    let links = new Array();
+    let links = [];
 
     // add leaves to nodes by branch, in sequence;
     // create branch+century nodes as we go
@@ -185,7 +186,6 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
           currentBranchNodeCount > 5 ||
           currentCentury != leaf.century
         ) {
-          let branchId = `${branch}-century${leaf.century}-${index}`;
           currentCentury = leaf.century;
           currentBranchNodeCount = 0;
 

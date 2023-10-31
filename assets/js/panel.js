@@ -1,7 +1,5 @@
 import * as d3 from "d3";
 
-import { Leaf } from "./leaves";
-
 const PanelCloseEvent = new Event("panel-close");
 
 class Panel {
