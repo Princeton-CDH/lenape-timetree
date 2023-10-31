@@ -276,6 +276,7 @@ a[href*="license"] {
     &#collab {
       @include for-desktop-up {
         align-self: flex-start;
+        min-width: 8em; /* don't let it get small enough to wrap onto three lines */
       }
     }
   }
