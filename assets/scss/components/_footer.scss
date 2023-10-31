@@ -116,10 +116,10 @@ body > footer {
     }
   }
 
-  #publisher-logo {
+  #publisher {
     display: flex;
-    flex-direction: column;
     justify-content: flex-end;
+
     align-items: center;
     padding: 0px;
     margin: 0 auto 0;
@@ -129,7 +129,9 @@ body > footer {
 
     @include for-desktop-up {
       // compensate for right margin on container
-      margin: 0 -40px 18px;
+      // margin: 0 -40px 18px;
+      // compensate, but align with PU logo in next line
+      margin: 0 -28px 18px;
       width: auto;
       padding-right: 16px;
       gap: 0;
@@ -146,6 +148,20 @@ body > footer {
         padding: 0;
         margin: 0;
       }
+
+      &#built-by {
+        text-align: right;
+
+        @include for-desktop-up {
+          font-size: 0.7rem;
+          line-height: 1rem;
+
+          width: 5em; /* wrap so built by, v1.x.x., and year stack vertically */
+          height: 90px; /* match the image */
+          margin: 0;
+          padding: 5px 10px;
+        }
+      }
     }
 
     img {
@@ -161,11 +177,17 @@ body > footer {
         aspect-ratio: 4/3;
 
         @include for-desktop-up {
-          height: 65px;
+          height: 90px;
         }
       }
     }
   }
+}
+
+#version,
+#copyright,
+a[href*="license"] {
+  text-decoration: none;
 }
 
 #access-rights {
@@ -173,6 +195,7 @@ body > footer {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  overflow: hidden;
   padding: 8px 0 18px;
   gap: 8px;
   background-color: $nav-bg-color;
@@ -184,10 +207,58 @@ body > footer {
   @include for-desktop-up {
     font-size: 0.9rem; // 18px
     flex-direction: row;
+    gap: 20px;
     padding: 4px 28px;
 
     > * {
-      margin: 12px 20px 0 0;
+      // margin: 12px 20px 0 0;
+      margin: 12px 0 0 0;
+    }
+
+    /* put any flex space between logos and cc license */
+    a[rel="license"] {
+      flex-grow: 2;
+      text-align: right;
+      align-self: baseline;
+      padding-top: 5px;
+    }
+  }
+
+  img {
+    max-width: 100%;
+
+    @include for-desktop-up {
+      height: 50px;
+      min-width: 50px;
+    }
+
+    &[src*="naisip"] {
+      aspect-ratio: 102/25;
+    }
+    &[src*="vizelab"] {
+      aspect-ratio: 3/1;
+    }
+    &[src*="history"] {
+      // aspect-ratio: 109/138;
+    }
+    &[src*="english"] {
+      aspect-ratio: 1722/544;
+    }
+  }
+
+  p {
+    font-size: 0.7rem;
+    line-height: 0.95rem;
+
+    @include for-desktop-up {
+      font-size: 0.8rem;
+      line-height: 1.1rem;
+    }
+
+    &#collab {
+      @include for-desktop-up {
+        align-self: flex-start;
+      }
     }
   }
 
@@ -214,7 +285,7 @@ body > footer {
     @include for-desktop-up {
       margin-left: 1.4rem;
       i {
-        margin-right: 0.6rem;
+        margin-right: 0.3rem;
       }
     }
   }

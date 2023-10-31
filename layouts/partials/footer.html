@@ -9,10 +9,11 @@
         </a>
         {{- end }}
     </nav>
-    <section id="publisher-logo" aria-label="created by">
+<section id="publisher">
+        <p id="built-by">Built by:
+        <a id="version" href="{{ $.Site.Params.version_link }}" aria-label="version {{ $.Site.Params.version }}">v{{ $.Site.Params.version }}</a> 2023</p>
         <a href="https://cdh.princeton.edu">
             <img src="/img/logos/cdh.svg" alt="The Center for Digital Humanities @ Princeton"/>
         </a>
-        <p>v1.x.x, 2023</p>
     </section>
 </footer>
