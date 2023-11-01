@@ -1,24 +1,3 @@
 {{ define "main" }}
-  {{ $section := .Site.GetPage "section" .Section }}
-  <article>
-    <header>
-      {{/* set class based on slug for branch name; remove The, + from branch names */}}
-      <aside class="{{ replace (replace .Params.branch  "The" "") "+" "" | urlize }}"><span>{{ .Params.branch }}</span></aside>
-      <h1>{{- .Title -}}</h1>
-      {{ with .Params.display_date }}
-      <time>{{ . }}</time>
-      {{ end}}
-      </header>
-
-      {{- .Content -}}
-
-      {{- partial "tags.html" . -}}
-
-      <div class="view-on-tree">
-        <a href="{{ relURL "" }}#{{ .File.TranslationBaseName }}">View this leaf in the context of the timetree.
-        <img src="/img/timetree-static.svg"/>
-      </a>
-      </div>
-
-  </article>
+  {{ partial "leaf/article.html" (dict "context" . "standalone" 1)  }}
 {{ end }}

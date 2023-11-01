@@ -1,0 +1,29 @@
+{{/* partial to display leaf+dedication article content for json data OR single leaf page; must pass in context of page and optional standalone boolean flag */}}
+<article>
+  {{ $section := .Site.GetPage "section" .Section }}
+  {{ $standalone := default 0 .standalone }}
+  {{ with .context }}
+    <header>
+      {{/* set class based on slug for branch name; remove The, + from branch names */}}
+      {{ with $branch := .Params.branch }}
+      <aside class="{{ replace (replace $branch  "The" "") "+" "" | urlize }}"><span>{{ $branch }}</span></aside>
+      {{ end }}
+      <h1>{{ .Title | default "unnamed leaf" }}</h1>
+      {{ with .Params.display_date }}
+      <time>{{ . }}</time>
+      {{ end}}
+    </header>
+    {{- .Content -}}
+
+    {{- partial "tags.html" . -}}
+
+    {{ if $standalone }} {{/* for standalone view, include link to view this leaf on the tree */}}
+      <div class="view-on-tree">
+        <a href="{{ relURL "" }}#{{ .File.TranslationBaseName }}">View this leaf in the context of the timetree.
+        <img src="/img/timetree-static.svg"/>
+      </a>
+      </div>
+    {{ end }}
+  {{ end }}
+</article>
+
