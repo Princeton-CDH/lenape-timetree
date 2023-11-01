@@ -198,8 +198,6 @@ class Leaf {
       // remove hash
       let urlNoHash = window.location.pathname + window.location.search;
       history.replaceState(null, "", urlNoHash);
-      // set page title back to original title without the leaf name
-      document.title = this.pageTitle;
     } else {
       // get the actual leaf target from DOM
       let target = Leaf.getLeafTarget(event.target);
@@ -223,6 +221,9 @@ class Leaf {
     if (tag == undefined || tag == null) {
       url.searchParams.delete("tag");
       this.container.classList.remove("tag-active");
+
+      // set page title back to original title without the tag name
+      document.title = this.pageTitle;
     } else {
       // if tag passed in, set it in url params
       url.searchParams.set("tag", tag);
@@ -307,6 +308,9 @@ class Leaf {
       // as fallback, display the tag id if there is no name found
       let previousActiveTag = activeTag.textContent;
       activeTag.textContent = this.tags[currentState.tag] || currentState.tag;
+      // update document title to include tag name
+      document.title = `${activeTag.textContent}, ${this.pageTitle}`;
+
       // when tag filter changes, announce for screen readers that
       // the tree is filtered and how many leaves are highlighted
       if (activeTag.textContent != previousActiveTag) {
@@ -361,9 +365,6 @@ class Leaf {
         Leaf.setLeafLabelClass(leafTarget.dataset.url, Leaf.selectedClass);
         // open panel
         this.openLeafDetails(leafTarget, currentState.tag);
-
-        // update document title to include leaf name
-        document.title = `${leafTarget.dataset.title}, ${this.pageTitle}`;
       }
     }
 
