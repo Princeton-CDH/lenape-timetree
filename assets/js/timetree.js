@@ -282,7 +282,6 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
       .attr("tabindex", 0)
       .attr("id", "dedication")
       .attr("data-id", "dedication")
-      .attr("data-url", "/dedication/")
       .attr("data-html", this.data.dedication.html)
       .attr("transform", `translate(-70,220) scale(1.35)`)
       .on("click", this.selectLeaf.bind(this));
@@ -492,7 +491,6 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
         return d.type == "branch-start" ? d.id : null;
       })
       .attr("data-id", (d) => d.id)
-      .attr("data-url", (d) => d.url || d.id)
       .attr("data-html", (d) => d.html)
       .attr("data-sort-date", (d) => d.sort_date)
       .attr("data-century", (d) => d.century)
@@ -521,7 +519,6 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
       .attr("x", (d) => d.x - d.label.radius)
       .attr("y", (d) => d.y - d.label.height / 2)
       .attr("data-id", (d) => d.id) // leaf id for url state
-      .attr("data-url", (d) => d.url) // set url so we can click to select leaf
       .attr("text-anchor", "middle") // set coordinates to middle of text
       .attr("class", (d) => {
         let classes = ["leaf-label"];

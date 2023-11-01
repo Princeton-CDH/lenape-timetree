@@ -112,12 +112,12 @@ describe("Leaf", () => {
       document.body.innerHTML =
         "<div><svg>" +
         '  <path class="selected access battles" />' +
-        '  <path class="food disease" data-id="munsee" data-url="/leaves/munsee/" />' +
+        '  <path class="food disease" data-id="munsee" data-html=""/>' +
         '  <path class="selected disease battles" />' +
         '  <path class="battles" />' +
         '  <text class="access battles">label</label> />' +
         '  <text class="food access">label</label> />' +
-        '  <text class="food access" data-id="munsee" data-url="/leaves/munsee/"><tspan>munsee</tspan></text>' +
+        '  <text class="food access" data-id="munsee"><tspan>munsee</tspan></text>' +
         "</svg></div>" +
         "<aside><div id='current-tag'><span/></div>" +
         '<div id="leaf-details">' +
@@ -159,10 +159,10 @@ describe("Leaf", () => {
       let panel = new Panel();
       let leaf = new Leaf(panel);
       leaf.currentLeaf = { target: targetLeaf };
-      expect(panel.loadURL).toHaveBeenCalledTimes(1);
+      expect(panel.loadContent).toHaveBeenCalledTimes(1);
       // second parameter is a callback; match anything
-      expect(panel.loadURL).toHaveBeenCalledWith(
-        targetLeaf.dataset.url,
+      expect(panel.loadContent).toHaveBeenCalledWith(
+        targetLeaf.dataset.html,
         expect.anything()
       );
     });
@@ -180,8 +180,8 @@ describe("Leaf", () => {
         .mockImplementation(mockLeafSelect);
       document.body.innerHTML =
         "<div><svg>" +
-        '  <path class="food disease" data-id="munsee" data-url="/leaves/munsee/" />' +
-        '  <text class="food access" data-id="munsee" data-url="/leaves/munsee/"><tspan>munsee</tspan></text>' +
+        '  <path class="food disease" data-id="munsee" />' +
+        '  <text class="food access" data-id="munsee"><tspan>munsee</tspan></text>' +
         "</svg></div>" +
         '<aside><div id="leaf-details">' +
         "  <article/>" +
@@ -212,24 +212,24 @@ describe("Leaf", () => {
     });
   });
 
-  describe("targetLeafURL", () => {
-    test("gets data-url attribute from target element", () => {
+  describe("targetLeafId", () => {
+    test("gets data-id attribute from target element", () => {
       // Set up document body with selected leaves and labels
       document.body.innerHTML =
-        "<div><svg>" + '  <path data-url="/leaves/munsee/" />' + "</svg></div>";
+        "<div><svg>" + '  <path data-id="munsee" />' + "</svg></div>";
 
-      let url = Leaf.targetLeafURL(document.querySelector("path"));
-      expect(url).toEqual("/leaves/munsee/");
+      let id = Leaf.targetLeafId(document.querySelector("path"));
+      expect(id).toEqual("munsee");
     });
 
     test("handles nested tspan element within text ", () => {
       document.body.innerHTML =
         "<div><svg>" +
-        '  <text data-url="/leaves/munsee/" ><tspan>Munsee</tspan></text>' +
+        '  <text data-id="munsee"><tspan>Munsee</tspan></text>' +
         "</svg></div>";
 
-      let url = Leaf.targetLeafURL(document.querySelector("tspan"));
-      expect(url).toEqual("/leaves/munsee/");
+      let id = Leaf.targetLeafId(document.querySelector("tspan"));
+      expect(id).toEqual("munsee");
     });
   });
 
@@ -237,8 +237,8 @@ describe("Leaf", () => {
     test("sets hover class on corresponding path and text elements", () => {
       document.body.innerHTML =
         "<div><svg>" +
-        '  <path class="food disease" data-id="munsee" data-url="/leaves/munsee/" />' +
-        '  <text class="food access" data-id="munsee" data-url="/leaves/munsee/"><tspan>munsee</tspan></text>' +
+        '  <path class="food disease" data-id="munsee" />' +
+        '  <text class="food access" data-id="munsee"><tspan>munsee</tspan></text>' +
         "</svg>" +
         "</div>";
 
@@ -253,8 +253,8 @@ describe("Leaf", () => {
     test("removes hover class on corresponding path and text elements", () => {
       document.body.innerHTML =
         "<div><svg>" +
-        '  <path class="food disease hover" data-id="munsee" data-url="/leaves/munsee/" />' +
-        '  <text class="food access hover" data-id="munsee" data-url="/leaves/munsee/"><tspan>munsee</tspan></text>' +
+        '  <path class="food disease hover" data-id="munsee"/>' +
+        '  <text class="food access hover" data-id="munsee"><tspan>munsee</tspan></text>' +
         "</svg>" +
         "</div>";
 

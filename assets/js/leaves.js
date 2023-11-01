@@ -243,9 +243,9 @@ class Leaf {
     return target;
   }
 
-  static targetLeafURL(target) {
-    // both text and path have data-url set
-    return Leaf.getLeafTarget(target).dataset.url;
+  static targetLeafId(target) {
+    // both text and path have data-id set
+    return Leaf.getLeafTarget(target).dataset.id;
   }
 
   static deselectCurrent() {
@@ -362,7 +362,7 @@ class Leaf {
       // if hash id corresponds to a leaf, select it
       if (leafTarget != undefined) {
         // actually make selection
-        Leaf.setLeafLabelClass(leafTarget.dataset.url, Leaf.selectedClass);
+        Leaf.setLeafLabelClass(leafTarget.dataset.id, Leaf.selectedClass);
         // open panel
         this.openLeafDetails(leafTarget, currentState.tag);
       }
@@ -374,7 +374,6 @@ class Leaf {
 
   openLeafDetails(leafTarget, activeTag) {
     this.panel.loadContent(leafTarget.dataset.html, (article) => {
-      // this.panel.loadURL(leafTarget.dataset.url, (article) => {
       // if an active tag is specifed, mark as selected
       if (activeTag != undefined) {
         let articleTag = article.querySelector(
@@ -389,17 +388,17 @@ class Leaf {
 
   static highlightLeaf(event) {
     // visually highlight both leaf & label when corresponding one is hovered
-    Leaf.setLeafLabelClass(Leaf.targetLeafURL(event.target), "hover");
+    Leaf.setLeafLabelClass(Leaf.targetLeafId(event.target), "hover");
   }
 
   static unhighlightLeaf(event) {
     // turn off visual highlight for both when hover ends
-    Leaf.setLeafLabelClass(Leaf.targetLeafURL(event.target), "hover", false);
+    Leaf.setLeafLabelClass(Leaf.targetLeafId(event.target), "hover", false);
   }
 
-  static setLeafLabelClass(leafURL, classname, add = true) {
-    // set a class on leaf and corresponding label based on data url
-    d3.selectAll(`[data-url="${leafURL}"]`).classed(classname, add);
+  static setLeafLabelClass(leafId, classname, add = true) {
+    // set a class on leaf and corresponding label based on data id
+    d3.selectAll(`[data-id="${leafId}"]`).classed(classname, add);
   }
 }
 
