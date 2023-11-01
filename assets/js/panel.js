@@ -113,56 +113,6 @@ class Panel {
       callback(article);
     }
     this.el.querySelector("article").replaceWith(article);
-    // store loaded url in data attribute for reload check
-    // this.el.dataset.showing = url;
-
-    // scroll to the top, in case previous leaf was scrolled
-    this.el.scrollTop = 0;
-
-    // ensure the panel is open with details shown
-    this.open();
-  }
-
-  loadURL(url, callback) {
-    // load specified url; display article contents in the panel
-    // takes an optional callback; if defined, will be applied to
-    // the url contents before inserting
-
-    // if the requested url is already showing, do nothing
-    if (this.el.dataset.showing && this.el.dataset.showing == url) {
-      return;
-    }
-    // If you need to test load failure, uncomment this
-    // if (Math.random() < 0.5) {
-    //   url = url + "xxx";
-    // }
-    // console.log("fetching:", url);
-
-    fetch(url)
-      .then((response) => {
-        if (!response.ok) {
-          return Promise.reject(response);
-        }
-        return response;
-      })
-      .then((response) => response.text())
-      .then((html) => {
-        let parser = new DOMParser();
-        const doc = parser.parseFromString(html, "text/html");
-        // Get the article content and insert into panel
-        const article = doc.querySelector("article");
-        if (callback != undefined) {
-          callback(article);
-        }
-        this.el.querySelector("article").replaceWith(article);
-        // store loaded url in data attribute for reload check
-        this.el.dataset.showing = url;
-      })
-      .catch((response) => {
-        // if the request failed, display error article
-        let errorArticle = document.querySelector("#loaderror").cloneNode(true);
-        this.el.querySelector("article").replaceWith(errorArticle);
-      });
 
     // scroll to the top, in case previous leaf was scrolled
     this.el.scrollTop = 0;
