@@ -6,7 +6,7 @@
 [![Hugo](https://img.shields.io/badge/hugo-0.117-blue.svg)](https://gohugo.io)
 ![Node version](https://img.shields.io/badge/node-18-blue)
 
-This repository includes source code for the [CDH-sponsored Lunaapahkiing Princeton Timetree](https://cdh.princeton.edu/projects/lenape-timetree/) (LPT) research project. It consists of a custom Hugo theme, with HTML and JSON templates, JavaScript, SCSS, and other assets. It must be used with [Princeton-CDH/lenape-timetree-content](https://github.com/Princeton-CDH/lenape-timetree-content) to build the [Lunaapahkiing Princeton Timetree web application](https://lenapetimetree.indigenous.princeton.edu/).
+This repository includes source code for the [CDH-sponsored Lunaapahkiing Princeton Timetree](https://cdh.princeton.edu/projects/lenape-timetree/) (LPT) research project. It consists of a custom Hugo theme, with HTML and JSON templates, JavaScript, SCSS, and other assets. It is used with [Princeton-CDH/lenape-timetree-content](https://github.com/Princeton-CDH/lenape-timetree-content) to build the [Lunaapahkiing Princeton Timetree web application](https://lenapetimetree.indigenous.princeton.edu/).
 
 The timetree javascript code in v1.0.1 of this codebase was [reviewed](https://github.com/DHCodeReview/lenape-timetree/pull/2) by [Cole Crawford](https://github.com/ColeDCrawford) (Senior Software Engineer, Harvard Arts and Humanities Research Computing) and [Raff Viglianti](http://raffviglianti.com/) (Senior Research Software Developer, Maryland Institute for Technology in the Humanities) via [DHTech Community Code Review](https://dhcodereview.github.io/).
 
