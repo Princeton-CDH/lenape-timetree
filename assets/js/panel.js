@@ -104,6 +104,25 @@ class Panel {
     this.status.textContent = content;
   }
 
+  loadContent(html, callback) {
+    let parser = new DOMParser();
+    const doc = parser.parseFromString(html, "text/html");
+    // Get the article content and insert into panel
+    const article = doc.querySelector("article");
+    if (callback != undefined) {
+      callback(article);
+    }
+    this.el.querySelector("article").replaceWith(article);
+    // store loaded url in data attribute for reload check
+    // this.el.dataset.showing = url;
+
+    // scroll to the top, in case previous leaf was scrolled
+    this.el.scrollTop = 0;
+
+    // ensure the panel is open with details shown
+    this.open();
+  }
+
   loadURL(url, callback) {
     // load specified url; display article contents in the panel
     // takes an optional callback; if defined, will be applied to

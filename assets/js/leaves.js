@@ -373,7 +373,8 @@ class Leaf {
   }
 
   openLeafDetails(leafTarget, activeTag) {
-    this.panel.loadURL(leafTarget.dataset.url, (article) => {
+    this.panel.loadContent(leafTarget.dataset.html, (article) => {
+      // this.panel.loadURL(leafTarget.dataset.url, (article) => {
       // if an active tag is specifed, mark as selected
       if (activeTag != undefined) {
         let articleTag = article.querySelector(

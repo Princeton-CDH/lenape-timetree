@@ -491,6 +491,7 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
       })
       .attr("data-id", (d) => d.id)
       .attr("data-url", (d) => d.url || d.id)
+      .attr("data-html", (d) => d.html)
       .attr("data-sort-date", (d) => d.sort_date)
       .attr("data-century", (d) => d.century)
       .attr("class", (d) => {
