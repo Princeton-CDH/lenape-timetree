@@ -1,17 +1,4 @@
-import { select, selectAll } from "d3-selection";
-import { axisLeft } from "d3-axis";
-import { scaleLinear } from "d3-scale";
-import {
-  forceSimulation,
-  forceManyBody,
-  forceCollide,
-  forceLink,
-  forceX,
-  forceY,
-} from "d3-force";
-import { line, curveNatural } from "d3-shape";
-import { zoom, zoomIdentity, zoomTransform } from "d3-zoom";
-import { drag } from "d3-drag";
+import * as d3 from "d3";
 
 import { LeafLabel } from "./labels";
 import { Panel } from "./panel";
@@ -19,26 +6,6 @@ import { Leaf, LeafPath, leafSize, randomNumBetween } from "./leaves";
 import { drawTreeSegment, drawTrunk, drawBranches } from "./branches";
 import { BaseSVG } from "./utils";
 import { TimeTreeKeysMixin } from "./keys";
-
-// combine d3 imports into a d3 object for convenience
-const d3 = {
-  axisLeft,
-  select,
-  selectAll,
-  forceSimulation,
-  forceManyBody,
-  forceCollide,
-  forceLink,
-  forceX,
-  forceY,
-  line,
-  curveNatural,
-  zoom,
-  zoomIdentity,
-  zoomTransform,
-  scaleLinear,
-  drag,
-};
 
 // branches are defined and should be displayed in this order
 const branches = {
@@ -55,6 +22,7 @@ function getBranchStyle(branchName) {
   if (branchSlug != undefined) {
     return `branch-${branchSlug}`;
   }
+  return ""; // avoid returning none
 }
 
 // strength of the various forces used to lay out the leaves
@@ -195,7 +163,7 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
     const trunkNodeIndex = 0; // first node is the trunk
 
     // array of links between our nodes
-    let links = new Array();
+    let links = [];
 
     // add leaves to nodes by branch, in sequence;
     // create branch+century nodes as we go
@@ -218,7 +186,6 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
           currentBranchNodeCount > 5 ||
           currentCentury != leaf.century
         ) {
-          let branchId = `${branch}-century${leaf.century}-${index}`;
           currentCentury = leaf.century;
           currentBranchNodeCount = 0;
 

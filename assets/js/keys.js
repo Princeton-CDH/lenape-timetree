@@ -1,11 +1,6 @@
 /* mixin for keypress management */
 
-import { select, selectAll } from "d3-selection";
-// combine into d3 object for convenience
-const d3 = {
-  select,
-  selectAll,
-};
+import * as d3 from "d3";
 
 // mixin extends syntax from
 // https://blog.bitsrc.io/inheritance-abstract-classes-and-class-mixin-in-javascript-c636ac00f5a9

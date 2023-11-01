@@ -1,12 +1,4 @@
-import { select, selectAll } from "d3-selection";
-
-import { Leaf } from "./leaves";
-
-// combine into d3 object for convenience
-const d3 = {
-  select,
-  selectAll,
-};
+import * as d3 from "d3";
 
 const PanelCloseEvent = new Event("panel-close");
 

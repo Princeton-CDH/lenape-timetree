@@ -45,9 +45,9 @@
   <button class="zoom-out" aria-label="zoom out" disabled="true"><i class="ph-bold ph-minus" aria-hidden="true"></i></button>
   <button class="reset-zoom" aria-label="reset zoom to default" disabled="true"><i class="ph-arrows-in ph-fill" aria-hidden="true"></i></button>
   </div>
-  <data class="leaf-data" value='{{ partial "leaf_data.json" . }}'></data>
-  <data class="tag-data" value='{{ partial "tags.json" . }}'></data>
-  <data class="env-data" value="{{ dict "env" hugo.Environment "branches" .Site.Params.branches "visual_debug" .Site.Params.visual_debug | jsonify }}"/>
+  <script id="leaf-data" type="application/json">{{ partial "leaf_data.json" . | safeJS }}</script>
+  <script id="tag-data"  type="application/json">{{ partial "tags.json" . | safeJS }}</script>
+  <script id="env-data" type="application/json">{{ dict "env" hugo.Environment "branches" .Site.Params.branches "visual_debug" .Site.Params.visual_debug | jsonify | safeJS }}</script>
   <noscript>
     <div id="noscript">
     This is an interactive visualization; please turn on Javascript to explore the Lunaapahkiing Princeton Timetree.
