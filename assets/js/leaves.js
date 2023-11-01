@@ -49,6 +49,9 @@ class Leaf {
     // (known non-leaf elements, including branch start targets)
     this.ignore_ids = ignore_ids || [];
     this.tags = tags || [];
+
+    // store original page title to use when updating title for selected leaf
+    this.pageTitle = document.title;
   }
 
   static isTag(element) {
@@ -195,6 +198,8 @@ class Leaf {
       // remove hash
       let urlNoHash = window.location.pathname + window.location.search;
       history.replaceState(null, "", urlNoHash);
+      // set page title back to original title without the leaf name
+      document.title = this.pageTitle;
     } else {
       // get the actual leaf target from DOM
       let target = Leaf.getLeafTarget(event.target);
@@ -357,8 +362,8 @@ class Leaf {
         // open panel
         this.openLeafDetails(leafTarget, currentState.tag);
 
-        // fixme: shouldn't need to be set here
-        document.body.dataset.panelvisible = true;
+        // update document title to include leaf name
+        document.title = `${leafTarget.dataset.title}, ${this.pageTitle}`;
       }
     }
 

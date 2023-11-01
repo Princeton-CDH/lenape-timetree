@@ -281,6 +281,7 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
       .attr("tabindex", 0)
       .attr("id", "dedication")
       .attr("data-id", "dedication")
+      .attr("data-title", "Dedication")
       .attr("data-url", "/dedication/")
       .attr("transform", `translate(-70,220) scale(1.35)`)
       .on("click", this.selectLeaf.bind(this));
@@ -491,6 +492,7 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
       })
       .attr("data-id", (d) => d.id)
       .attr("data-url", (d) => d.url || d.id)
+      .attr("data-title", (d) => d.display_title || d.title)
       .attr("data-sort-date", (d) => d.sort_date)
       .attr("data-century", (d) => d.century)
       .attr("class", (d) => {
