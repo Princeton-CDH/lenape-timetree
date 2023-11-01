@@ -42,4 +42,8 @@
 	{{- $stats := merge $stats (dict "numLeaves" (len $years)) -}}
 	{{- $data.SetInMap "output" "stats" $stats -}}
 {{- end -}}
+{{/* include dedication html so we don't need to fetch it; leaf/article partial works well enough */}}
+{{ with .Site.GetPage "/dedication" }}
+	{{- $data.SetInMap "output"  "dedication" (dict "html" (partial "leaf/article.html" (dict "context" .))) -}}
+{{ end }}
 {{- $data.Get "output" | jsonify (dict "indent" "  ")  -}}
