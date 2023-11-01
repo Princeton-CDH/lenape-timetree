@@ -2,7 +2,13 @@
 
 ## 1.0.5
 
-- Revised footer with collaborator logos
+- Revised footer to include all collaborator logos
+- document DH community code review and add badge
+- minor code cleanup based on code review
+- refactor to include leaf html in json data instead of loading by fetch
+- bugfix/a11yfix: update document title when timetree is filtered by a tag
+- bugfix: disabled leaves should not be clickable when the tree is zoomed in
+- bugfix/a11yfix: labels for inactive/deselected leaves should be visually deselected/dimmed
 
 ## 1.0.4
 
