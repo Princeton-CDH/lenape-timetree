@@ -19,6 +19,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: Princeton-CDH/lenape-timetree-content
+          ref: timetree-v1.0.5
+          # checkout branch for now to avoid js collison
 
       - name: checkout repository
         uses: actions/checkout@v3
