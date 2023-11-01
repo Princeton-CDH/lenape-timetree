@@ -1,11 +1,26 @@
 <section id="access-rights">
-    <a href="https://accessibility.princeton.edu/help">Accessibility</a>
-
-    <span id="copyright">
-        <i class="ph-copyright ph-bold" aria-role="img" aria-hidden="true"></i>
-        <span class="sr-only">copyright</span>
-       {{ now.Format "2006" }} The Trustees of Princeton University
-    </span>
+    <p id="collab">In collaboration with:</p>
+    <a class="collaborator" href="https://indigenous.princeton.edu/">
+        <img
+            src="/img/logos/naisip.svg"
+            alt="Native American and Indigenous Studies Initiative at Princeton"
+        />
+    </a>
+    <a class="collaborator" href="https://vizelab.princeton.edu">
+        <img src="/img/logos/vizelab.svg" alt="VizE Lab, Anthropology" />
+    </a>
+    <a class="collaborator" href="https://history.princeton.edu">
+        <img
+            src="/img/logos/history_var.svg"
+            alt="Princeton Department of History"
+        />
+    </a>
+    <a class="collaborator" href="https://english.princeton.edu">
+        <img
+            src="/img/logos/english.svg"
+            alt="Princeton Department of English"
+        />
+    </a>
 
     <a rel="license" href="{{ $.Site.Params.rights }}" aria-label="">
         <span class="sr-only">licensed under</span>
@@ -17,7 +32,14 @@
         />
     </a>
 
-    <a id="version" href="{{ $.Site.Params.version_link }}" aria-label="version {{ $.Site.Params.version }}">v. {{ $.Site.Params.version }}</a>
+    <a href="https://accessibility.princeton.edu/help">Accessibility</a>
+
+    <p id="copyright">
+        <i class="ph-copyright ph-bold" aria-role="img" aria-hidden="true"></i
+        ><span class="sr-only">copyright</span>{{ now.Format "2006" }} The
+        Trustees of Princeton University
+    </p>
+
     <a href="https://princeton.edu/">
         <img src="/img/logos/pu.svg" alt="Princeton University" />
     </a>

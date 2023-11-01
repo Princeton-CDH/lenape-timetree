@@ -1,5 +1,9 @@
 # Change log
 
+## 1.0.5
+
+- Revised footer with collaborator logos
+
 ## 1.0.4
 
 - Add no author option to project citation shortcode
