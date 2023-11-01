@@ -291,12 +291,15 @@ body.home {
     opacity: 0.4;
     fill-opacity: 0.4;
     pointer-events: none;
+    cursor: pointer;
   }
 
   /* styles for labels have to be applied to tspan element directly */
   text.leaf-label:not(.select):not(.highlight) tspan {
     fill-opacity: 0.4;
     text-shadow: none;
+    pointer-events: none;
+    cursor: pointer;
   }
 }
 
