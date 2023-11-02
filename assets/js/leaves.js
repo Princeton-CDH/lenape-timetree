@@ -1,16 +1,7 @@
 // logic to generate a path for drawing leaves,
 // and for managing leaf details and tag behavior in the timetree
 
-import { select, selectAll } from "d3-selection";
-import { line, curveNatural } from "d3-shape";
-
-// combine into d3 object for convenience
-const d3 = {
-  line,
-  curveNatural,
-  select,
-  selectAll,
-};
+import * as d3 from "d3";
 
 // configuration for leaf sizes
 // sizes are scaled from 40px width design:
@@ -58,6 +49,9 @@ class Leaf {
     // (known non-leaf elements, including branch start targets)
     this.ignore_ids = ignore_ids || [];
     this.tags = tags || [];
+
+    // store original page title to use when updating title for selected leaf
+    this.pageTitle = document.title;
   }
 
   static isTag(element) {
@@ -227,6 +221,9 @@ class Leaf {
     if (tag == undefined || tag == null) {
       url.searchParams.delete("tag");
       this.container.classList.remove("tag-active");
+
+      // set page title back to original title without the tag name
+      document.title = this.pageTitle;
     } else {
       // if tag passed in, set it in url params
       url.searchParams.set("tag", tag);
@@ -246,9 +243,9 @@ class Leaf {
     return target;
   }
 
-  static targetLeafURL(target) {
-    // both text and path have data-url set
-    return Leaf.getLeafTarget(target).dataset.url;
+  static targetLeafId(target) {
+    // both text and path have data-id set
+    return Leaf.getLeafTarget(target).dataset.id;
   }
 
   static deselectCurrent() {
@@ -311,6 +308,9 @@ class Leaf {
       // as fallback, display the tag id if there is no name found
       let previousActiveTag = activeTag.textContent;
       activeTag.textContent = this.tags[currentState.tag] || currentState.tag;
+      // update document title to include tag name
+      document.title = `${activeTag.textContent}, ${this.pageTitle}`;
+
       // when tag filter changes, announce for screen readers that
       // the tree is filtered and how many leaves are highlighted
       if (activeTag.textContent != previousActiveTag) {
@@ -362,12 +362,9 @@ class Leaf {
       // if hash id corresponds to a leaf, select it
       if (leafTarget != undefined) {
         // actually make selection
-        Leaf.setLeafLabelClass(leafTarget.dataset.url, Leaf.selectedClass);
+        Leaf.setLeafLabelClass(leafTarget.dataset.id, Leaf.selectedClass);
         // open panel
         this.openLeafDetails(leafTarget, currentState.tag);
-
-        // fixme: shouldn't need to be set here
-        document.body.dataset.panelvisible = true;
       }
     }
 
@@ -376,7 +373,7 @@ class Leaf {
   }
 
   openLeafDetails(leafTarget, activeTag) {
-    this.panel.loadURL(leafTarget.dataset.url, (article) => {
+    this.panel.loadContent(leafTarget.dataset.html, (article) => {
       // if an active tag is specifed, mark as selected
       if (activeTag != undefined) {
         let articleTag = article.querySelector(
@@ -391,17 +388,17 @@ class Leaf {
 
   static highlightLeaf(event) {
     // visually highlight both leaf & label when corresponding one is hovered
-    Leaf.setLeafLabelClass(Leaf.targetLeafURL(event.target), "hover");
+    Leaf.setLeafLabelClass(Leaf.targetLeafId(event.target), "hover");
   }
 
   static unhighlightLeaf(event) {
     // turn off visual highlight for both when hover ends
-    Leaf.setLeafLabelClass(Leaf.targetLeafURL(event.target), "hover", false);
+    Leaf.setLeafLabelClass(Leaf.targetLeafId(event.target), "hover", false);
   }
 
-  static setLeafLabelClass(leafURL, classname, add = true) {
-    // set a class on leaf and corresponding label based on data url
-    d3.selectAll(`[data-url="${leafURL}"]`).classed(classname, add);
+  static setLeafLabelClass(leafId, classname, add = true) {
+    // set a class on leaf and corresponding label based on data id
+    d3.selectAll(`[data-id="${leafId}"]`).classed(classname, add);
   }
 }
 

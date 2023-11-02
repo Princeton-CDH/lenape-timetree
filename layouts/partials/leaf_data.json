@@ -6,7 +6,7 @@
 	{{/* file basename without extension = slug = id */}}
 	{{- $data.Set "sectionOutput" slice -}}
 	{{- range .Pages -}}
-		{{- $pageInfo := dict "url" .RelPermalink "id" .File.TranslationBaseName "display_date" .Params.display_date "sort_date" .Params.sort_date "text" .Plain -}}
+		{{- $pageInfo := dict "url" .RelPermalink "id" .File.TranslationBaseName "display_date" .Params.display_date "sort_date" .Params.sort_date "html" (partial "leaf/article.html" (dict "context" .)) -}}
 		{{/*convert tags to slug form */}}
 		{{- $tags := slice -}} 		
 		{{- range .Params.tags -}}
@@ -42,4 +42,8 @@
 	{{- $stats := merge $stats (dict "numLeaves" (len $years)) -}}
 	{{- $data.SetInMap "output" "stats" $stats -}}
 {{- end -}}
+{{/* include dedication html so we don't need to fetch it; leaf/article partial works well enough */}}
+{{ with .Site.GetPage "/dedication" }}
+	{{- $data.SetInMap "output"  "dedication" (dict "html" (partial "leaf/article.html" (dict "context" .))) -}}
+{{ end }}
 {{- $data.Get "output" | jsonify (dict "indent" "  ")  -}}

@@ -1,11 +1,14 @@
 # Lunaapahkiing Princeton Timetree
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8040363.svg)](https://doi.org/10.5281/zenodo.8040363)
+[![DH community code review: v1.0.1, 2023](https://img.shields.io/badge/DHCodeReview-v1.0.1,_2023-green)](https://github.com/DHCodeReview/lenape-timetree/pull/2)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Hugo](https://img.shields.io/badge/hugo-0.117-blue.svg)](https://gohugo.io)
 ![Node version](https://img.shields.io/badge/node-18-blue)
 
-This repository includes source code for the [CDH-sponsored Lunaapahkiing Princeton Timetree](https://cdh.princeton.edu/projects/lenape-timetree/) (LPT) research project. It consists of a custom Hugo theme, with HTML and JSON templates, JavaScript, SCSS, and other assets. It must be used with [Princeton-CDH/lenape-timetree-content](https://github.com/Princeton-CDH/lenape-timetree-content) to build the [Lunaapahkiing Princeton Timetree web application](https://lenapetimetree.indigenous.princeton.edu/).
+This repository includes source code for the [CDH-sponsored Lunaapahkiing Princeton Timetree](https://cdh.princeton.edu/projects/lenape-timetree/) (LPT) research project. It consists of a custom Hugo theme, with HTML and JSON templates, JavaScript, SCSS, and other assets. It is used with [Princeton-CDH/lenape-timetree-content](https://github.com/Princeton-CDH/lenape-timetree-content) to build the [Lunaapahkiing Princeton Timetree web application](https://lenapetimetree.indigenous.princeton.edu/).
+
+The timetree javascript code in v1.0.1 of this codebase was [reviewed](https://github.com/DHCodeReview/lenape-timetree/pull/2) by [Cole Crawford](https://github.com/ColeDCrawford) (Senior Software Engineer, Harvard Arts and Humanities Research Computing) and [Raff Viglianti](http://raffviglianti.com/) (Senior Research Software Developer, Maryland Institute for Technology in the Humanities) via [DHTech Community Code Review](https://dhcodereview.github.io/).
 
 Note: this project was originally developed in a single git repository; in September 2023 the repository was split out to separate content and code to simplify maintenance and ownership. An archive of the original git repository with the combined history up to that point is available at [Princeton-CDH/lenape-timetree-archive](https://github.com/Princeton-CDH/lenape-timetree-archive).
 
