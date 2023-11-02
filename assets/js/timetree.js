@@ -330,7 +330,6 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
       .attr("id", "century-axis")
       .attr("transform", `translate(${this.min_x + 15},0)`)
       .call(this.yAxis)
-      .call((g) => g.attr("text-anchor", "start")) // override left axis default of end
       .call((g) => g.select(".domain").remove())
       .call((g) =>
         g
@@ -519,7 +518,6 @@ class TimeTree extends TimeTreeKeysMixin(BaseSVG) {
       .attr("x", (d) => d.x - d.label.radius)
       .attr("y", (d) => d.y - d.label.height / 2)
       .attr("data-id", (d) => d.id) // leaf id for url state
-      .attr("text-anchor", "middle") // set coordinates to middle of text
       .attr("class", (d) => {
         let classes = ["leaf-label"];
         if (d.tags != undefined) {

@@ -94,10 +94,8 @@ body.home {
             // use desktop font size
             line-height: 30px;
             font-size: 16px;
-
-            // @include for-desktop-up {
-            // font-size: 16px;
-            // }
+            // override left axis default of anchoring at the end
+            text-anchor: start;
           }
 
           // svg elements don't have backgrounds,
@@ -261,6 +259,8 @@ body.home {
       // text-shadow: $nav-bg-color 2px 2px 2px, $nav-bg-color -2px -2px 2px;
       // Hand cursor for leaf labels
       cursor: pointer;
+      // set coordinates to middle of text, and center text
+      text-anchor: middle;
     }
 
     path.leaf {
