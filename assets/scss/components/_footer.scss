@@ -85,7 +85,6 @@ body > footer {
 
     a,
     a:link,
-    a:hover,
     a:visited {
       text-decoration: none;
 
@@ -95,7 +94,12 @@ body > footer {
 
       &[aria-current="page"] {
         font-weight: 900;
+        pointer-events: none;
       }
+    }
+    /* add a slight glow on hover to help indicate nav links are clickable */
+    a:hover {
+      text-shadow: $nearwhite 1px 0 10px;
     }
   }
 
